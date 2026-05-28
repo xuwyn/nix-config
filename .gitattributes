@@ -1,0 +1,2 @@
+wallpapers/** !text !filter !merge !diff
+previews/** !text !filter !merge !diff
