@@ -29,16 +29,20 @@
     };
 
     awww = {
-     url = "git+https://codeberg.org/LGFae/awww";
-     inputs.nixpkgs.follows = "nixpkgs";
+      url = "git+https://codeberg.org/LGFae/awww";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    sops-nix = { # encryption
+    zed.url = "github:zed-industries/zed";
+
+    sops-nix = {
+      # encryption
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nur = {  # for firefox addons
+    nur = {
+      # for firefox addons
       url = "github:nix-community/NUR";
       inputs.nixpkgs.follows = "nixpkgs";
     };
@@ -54,25 +58,39 @@
     alejandra,
     ...
   } @ inputs: let
-  mkNixosConfig = { system, host, profile, username }:
-    nixpkgs.lib.nixosSystem {
-      inherit system;
-      specialArgs = { inherit inputs username host profile; };
-      modules = [
-        ./modules/core/overlays.nix
-        ./profiles/${profile}
-        nix-flatpak.nixosModules.nix-flatpak
-      ];
-    };
+    overlays = import ./modules/core/overlays.nix {inherit inputs;};
 
-  mkHomeConfig = { system, host, profile, username }:
-    home-manager.lib.homeManagerConfiguration {
-      pkgs = nixpkgs.legacyPackages.${system};
-      extraSpecialArgs = { inherit inputs username host profile; };
-      modules = [
-        ./modules/home
-      ];
-    };
+    mkNixosConfig = {
+      system,
+      host,
+      profile,
+      username,
+    }:
+      nixpkgs.lib.nixosSystem {
+        inherit system;
+        specialArgs = {inherit inputs overlays username host profile;};
+        modules = [
+          ./profiles/${profile}
+          nix-flatpak.nixosModules.nix-flatpak
+        ];
+      };
+
+    mkHomeConfig = {
+      system,
+      host,
+      profile,
+      username,
+    }:
+      home-manager.lib.homeManagerConfiguration {
+        pkgs = import nixpkgs {
+          inherit system overlays;
+          config.allowUnfree = true;
+        };
+        extraSpecialArgs = {inherit inputs username host profile;};
+        modules = [
+          ./modules/home
+        ];
+      };
   in {
     nixosConfigurations = {
       mango = mkNixosConfig {

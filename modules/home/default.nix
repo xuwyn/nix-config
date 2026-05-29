@@ -29,7 +29,7 @@ in {
   home.stateVersion = "23.11";
   programs.home-manager.enable = true;
   home.packages = with pkgs; [
-    age
+    age # sops key
   ];
 
   imports =
@@ -59,6 +59,7 @@ in {
       #./editors/nvf.nix
       ./editors/nixvim.nix
       ./editors/nano.nix
+      ./editors/zed.nix
       ./rofi
       ./qt.nix
       ./scripts
@@ -72,7 +73,7 @@ in {
       ./wlogout
       ./xdg.nix
       ./yazi
-      #./zen-browser.nix
+      ./firefox.nix
       ./zoxide.nix
       ./zsh
     ]

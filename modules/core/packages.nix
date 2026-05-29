@@ -48,7 +48,6 @@ in {
     ]
     ++ noctaliaPkgs
     ++ [
-      zed-editor # gpu-focused vscode (also bonus for no microslop)
       alejandra # nix formatter
       amfora # Fancy Terminal Browser For Gemini Protocol
       appimage-run # Needed For AppImage Support
