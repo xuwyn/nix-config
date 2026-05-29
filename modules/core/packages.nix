@@ -12,7 +12,6 @@
     then
       with pkgs; [
         matugen # color palette generator needed for noctalia-shell
-        app2unit # launcher for noctalia-shell
         gpu-screen-recorder # needed for nnoctalia-shell
       ]
     else [];
@@ -35,7 +34,6 @@ in {
     gnupg.agent = {
       enable = true;
       enableSSHSupport = true;
-      pinentryPackage = pkgs.pinentry-curses;
     };
   };
 
@@ -48,6 +46,7 @@ in {
     ]
     ++ noctaliaPkgs
     ++ [
+      app2unit # 2nd hand app launcher
       alejandra # nix formatter
       amfora # Fancy Terminal Browser For Gemini Protocol
       appimage-run # Needed For AppImage Support

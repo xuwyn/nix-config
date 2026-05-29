@@ -20,6 +20,12 @@ in {
       # name = "Nordzy-cursors";
       size = 24;
     };
+    icons = {
+      enable = true;
+      package = pkgs.papirus-icon-theme;
+      dark = "Papirus-Dark";
+      light = "Papirus-Light";
+    };
     targets = {
       spicetify.enable = true;
       nixcord.enable = true;
@@ -40,6 +46,7 @@ in {
       hyprland.enable = false; # some conflicts in hyprland settings
       hyprlock.enable = false;
       ghostty.enable = false;
+      gtk.enable = true;
       qt = {
         enable = true;
         platform = "qtct";
