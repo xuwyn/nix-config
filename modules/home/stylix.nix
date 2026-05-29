@@ -1,8 +1,11 @@
-{ inputs, ...}: {
+{ inputs, host, ...}:
+let
+  inherit (import ../../hosts/${host}/variables.nix) stylixImage;
+in{
   imports = [ inputs.stylix.homeModules.stylix ];
   stylix = {
     enable = true;
-    image = ../../wallpapers/AnimeGirlNightSky.jpg;
+    image = stylixImage;
     targets = {
       # Avoid fetching GNOME Shell sources on non-GNOME systems (breaks on some remotes)
       gnome.enable = false;

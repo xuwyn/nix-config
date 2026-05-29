@@ -2,12 +2,11 @@
   description = "ZaneyOS";
 
   inputs = {
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     home-manager = {
       url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    nvf.url = "github:notashelf/nvf";
     stylix.url = "github:danth/stylix/master";
     nix-flatpak.url = "github:gmodena/nix-flatpak?ref=latest";
 
@@ -16,30 +15,35 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    nvf.url = "github:notashelf/nvf";
+
     # Checking nixvim to see if it's better
     nixvim = {
       url = "github:nix-community/nixvim";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Google Antigravity (IDE)
-    antigravity-nix = {
-      url = "github:jacopone/antigravity-nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    zen-browser = {
-      url = "github:0xc000022070/zen-browser-flake/beta";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     alejandra = {
       url = "github:kamadorueda/alejandra";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
     awww = {
      url = "git+https://codeberg.org/LGFae/awww";
      inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    sops-nix = { # encryption
+      url = "github:Mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    nur = {  # for firefox addons
+      url = "github:nix-community/NUR";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    nixcord.url = "github:FlameFlag/nixcord";
   };
 
   outputs = {

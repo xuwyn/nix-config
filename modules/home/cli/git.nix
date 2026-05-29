@@ -1,15 +1,24 @@
-{host, ...}: let
+{
+  config,
+  host,
+  ...
+}: let
   inherit (import ../../../hosts/${host}/variables.nix) gitUsername gitEmail;
 in {
   programs.git = {
     enable = true;
-    signing.format = null;
-
+    signing = {
+      key = "${config.home.homeDirectory}/.ssh/id_ed25519";
+      signByDefault = true;
+    };
     settings = {
       user = {
         name = "${gitUsername}";
         email = "${gitEmail}";
       };
+      gpg.format = "ssh";
+      commit.gpgsign = true;
+      tag.gpgsign = true;
 
       # FOSS-friendly settings
       push.default = "simple"; # Match modern push behavior

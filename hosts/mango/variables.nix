@@ -99,11 +99,11 @@
   #stylixImage = ../../wallpapers/mountainscapedark.jpg;
   #stylixImage = ../../wallpapers/AnimeGirlNightSky.jpg;
   #stylixImage = ../../wallpapers/Anime-Purple-eyes.png;
-  stylixImage = ../../wallpapers/Rainnight.jpg;
+  #stylixImage = ../../wallpapers/Rainnight.jpg;
   #stylixImage = ../../wallpapers/zaney-wallpaper.jpg;
   #stylixImage = ../../wallpapers/nix-wallpaper-stripes-logo.png;
   #stylixImage = ../../wallpapers/beautifulmountainscape.jpg;
-
+  stylixImage = ../../wallpapers/fgo/HokusaiWin7.jpg;
   # Set Waybar
   #  Available Options:
   #waybarChoice = ../../modules/home/waybar/waybar-curved.nix;

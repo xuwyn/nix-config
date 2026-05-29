@@ -1,4 +1,9 @@
-{host, username, ...}: let
+{
+  host,
+  username,
+  pkgs,
+  ...
+}: let
   vars = import ../../hosts/${host}/variables.nix;
   inherit
     (vars)
@@ -19,6 +24,14 @@
     then ./noctalia.nix
     else waybarChoice;
 in {
+  home.username = username;
+  home.homeDirectory = "/home/${username}";
+  home.stateVersion = "23.11";
+  programs.home-manager.enable = true;
+  home.packages = with pkgs; [
+    age
+  ];
+
   imports =
     [
       ./amfora.nix
@@ -30,6 +43,7 @@ in {
       ./cli/btop.nix
       ./cli/bottom.nix
       ./cli/cava.nix
+      ./cli/sops.nix
       ./emoji.nix
       ./eza.nix
       ./fastfetch
@@ -105,10 +119,4 @@ in {
       then [./terminals/alacritty.nix]
       else []
     );
-
-  home.username = username;
-  home.homeDirectory = "/home/${username}";
-  home.stateVersion = "23.11";
-
-  programs.home-manager.enable = true;
 }

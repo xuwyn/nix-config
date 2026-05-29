@@ -22,7 +22,7 @@ in {
       enable = true;
       defaultEditor = true;
     };
-    firefox.enable = true; # Firefox is not installed by default
+    firefox.enable = true;
     hyprland = {
       enable = true; # set this so desktop file is created
       withUWSM = false;
@@ -35,6 +35,7 @@ in {
     gnupg.agent = {
       enable = true;
       enableSSHSupport = true;
+      pinentryPackage = pkgs.pinentry-curses;
     };
   };
 
@@ -51,7 +52,7 @@ in {
       alejandra # nix formatter
       amfora # Fancy Terminal Browser For Gemini Protocol
       appimage-run # Needed For AppImage Support
-      brave # Brave Browser
+      # brave # Brave Browser
       brightnessctl # For Screen Brightness Control
       cliamp # terminal music player
       cliphist # Clipboard manager using rofi menu
