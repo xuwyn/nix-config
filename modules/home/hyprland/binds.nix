@@ -41,6 +41,13 @@
     else [];
 in {
   wayland.windowManager.hyprland.settings = {
+    binde = [
+      # ============= WINDOW RESIZING (+/-) ==================
+      "$modifier ALT, left, resizeactive, -10% 0"
+      "$modifier ALT, right, resizeactive, 10% 0"
+      "$modifier ALT, up, resizeactive, 0 -10%"
+      "$modifier ALT, down, resizeactive, 0 10%"
+    ];
     bindd =
       noctaliaBind
       ++ rofiBind
@@ -93,30 +100,30 @@ in {
         "$modifier SHIFT,up, Move Up, movewindow, u"
         "$modifier SHIFT,down, Move Down, movewindow, d"
         # ============= WINDOW MOVEMENT (VI STYLE) =============
-        "$modifier SHIFT,h, Move Left (VI), movewindow, l"
-        "$modifier SHIFT,l, Move Right (VI), movewindow, r"
-        "$modifier SHIFT,k, Move Up (VI), movewindow, u"
-        "$modifier SHIFT,j, Move Down (VI), movewindow, d"
+        # "$modifier SHIFT,h, Move Left (VI), movewindow, l"
+        # "$modifier SHIFT,l, Move Right (VI), movewindow, r"
+        # "$modifier SHIFT,k, Move Up (VI), movewindow, u"
+        # "$modifier SHIFT,j, Move Down (VI), movewindow, d"
         # ============= WINDOW SWAPPING (ARROW KEYS) =============
-        "$modifier ALT, left, Swap Left, swapwindow, l"
-        "$modifier ALT, right, Swap Right, swapwindow, r"
-        "$modifier ALT, up, Swap Up, swapwindow, u"
-        "$modifier ALT, down, Swap Down, swapwindow, d"
+        # "$modifier ALT, left, Swap Left, swapwindow, l"
+        # "$modifier ALT, right, Swap Right, swapwindow, r"
+        # "$modifier ALT, up, Swap Up, swapwindow, u"
+        # "$modifier ALT, down, Swap Down, swapwindow, d"
         # ============= WINDOW SWAPPING (VI KEYCODES) =============
-        "$modifier ALT, 43, Swap Left (VI), swapwindow, l"
-        "$modifier ALT, 46, Swap Right (VI), swapwindow, r"
-        "$modifier ALT, 45, Swap Up (VI), swapwindow, u"
-        "$modifier ALT, 44, Swap Down (VI), swapwindow, d"
+        # "$modifier ALT, 43, Swap Left (VI), swapwindow, l"
+        # "$modifier ALT, 46, Swap Right (VI), swapwindow, r"
+        # "$modifier ALT, 45, Swap Up (VI), swapwindow, u"
+        # "$modifier ALT, 44, Swap Down (VI), swapwindow, d"
         # ============= FOCUS MOVEMENT (ARROW KEYS) =============
         "$modifier,left, Focus Left, movefocus, l"
         "$modifier,right, Focus Right, movefocus, r"
         "$modifier,up, Focus Up, movefocus, u"
         "$modifier,down, Focus Down, movefocus, d"
         # ============= FOCUS MOVEMENT (VI STYLE) =============
-        "$modifier,h, Focus Left (VI), movefocus, l"
-        "$modifier,l, Focus Right (VI), movefocus, r"
-        "$modifier,k, Focus Up (VI), movefocus, u"
-        "$modifier,j, Focus Down (VI), movefocus, d"
+        # "$modifier,h, Focus Left (VI), movefocus, l"
+        # "$modifier,l, Focus Right (VI), movefocus, r"
+        # "$modifier,k, Focus Up (VI), movefocus, u"
+        # "$modifier,j, Focus Down (VI), movefocus, d"
         # ============= WORKSPACE SWITCHING (1-10) =============
         "$modifier,1, Workspace 1, workspace, 1"
         "$modifier,2, Workspace 2, workspace, 2"
