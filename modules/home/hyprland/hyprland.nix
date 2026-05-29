@@ -46,6 +46,7 @@ in {
   home.packages = with pkgs; [
     grim
     slurp
+    cliphist
     wl-clipboard
     swappy
     ydotool
@@ -98,6 +99,7 @@ in {
             disable_while_typing = true;
             scroll_factor = 0.8;
           };
+          natural_scroll = true;
         }
         // lib.optionalAttrs (hyprKbVariant != "") {kb_variant = hyprKbVariant;};
 
