@@ -10,6 +10,7 @@
 
   programs.nixvim = {
     enable = true;
+    nixpkgs.pkgs = pkgs; # follows flake
     viAlias = true;
     vimAlias = true;
 

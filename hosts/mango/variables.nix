@@ -103,7 +103,7 @@
   #stylixImage = ../../wallpapers/zaney-wallpaper.jpg;
   #stylixImage = ../../wallpapers/nix-wallpaper-stripes-logo.png;
   #stylixImage = ../../wallpapers/beautifulmountainscape.jpg;
-  stylixImage = ../../wallpapers/fgo/HokusaiWin7.jpg;
+  stylixImage = ../../wallpapers/HokusaiWin7.jpg;
   # Set Waybar
   #  Available Options:
   #waybarChoice = ../../modules/home/waybar/waybar-curved.nix;
