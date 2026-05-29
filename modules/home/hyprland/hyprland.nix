@@ -63,6 +63,7 @@ in {
     "Pictures/Wallpapers" = {
       source = ../../../wallpapers;
       recursive = true;
+      force = true;
     };
     ".face.icon".source = ./face.jpg;
     ".config/face.jpg".source = ./face.jpg;
