@@ -54,7 +54,7 @@ in {
       ++ rofiClipboardBind
       ++ [
         # ============= WORKSPACE OVERVIEW =============
-        "$modifier CTRL,D, Toggle Dock, exec, dock"
+        # "$modifier CTRL,D, Toggle Dock, exec, dock"
         "$modifier, TAB, QS Overview, exec, qs ipc -c overview call overview toggle"
         # ============= TERMINALS =============
         "$modifier,Return, Terminal, exec, ${terminal}"
@@ -62,16 +62,18 @@ in {
         "$modifier,K, Keybinds Search Tool, exec, qs-keybinds"
         "$modifier CTRL,C, Cheatsheets Viewer, exec, qs-cheatsheets"
         "$modifier SHIFT,K, Keybinds Search Tool, exec, qs-keybinds"
-        "$modifier SHIFT,D, Discord, exec, discord"
+        "$modifier CTRL,D, Discord, exec, discord"
+        "$modifier CTRL,S, Spotify, exec, spotify"
+        "$modifier CTRL,Z, Zed, exec, zeditor"
         "$modifier ALT,W, Web Search, exec, web-search"
         "$modifier SHIFT,W, QS Wallpaper Setter, exec, qs-wallpapers-apply"
-        "$modifier SHIFT,N, Notification Reset, exec, swaync-client -rs"
+        # "$modifier SHIFT,N, Notification Reset, exec, swaync-client -rs"
         "$modifier,W, Web Browser, exec, ${browser}"
         "$modifier,Y, File Manager, exec, kitty -e yazi"
         "$modifier,E, Emoji Picker, exec, emopicker9000"
         "$modifier,S, Screenshot, exec, screenshootin"
         # ============= SCREENSHOTS =============
-        "$modifier CTRL,S, Screenshot Output, exec, hyprshot -m output -o $HOME/Pictures/ScreenShots"
+        # "$modifier CTRL,S, Screenshot Output, exec, hyprshot -m output -o $HOME/Pictures/ScreenShots"
         "$modifier SHIFT,S, Screenshot Window, exec, hyprshot -m window -o $HOME/Pictures/ScreenShots"
         "$modifier ALT,S, Screenshot Region, exec, hyprshot -m region -o $HOME/Pictures/ScreenShots"
         "$modifier,O, OBS Studio, exec, obs"
