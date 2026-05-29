@@ -26,6 +26,8 @@
         tree-style-tab
       ];
 
+      extensions.force = true;
+
       settings = {
         # Enable theming by stylix
         "toolkit.legacyUserProfileCustomizations.stylesheets" = true;

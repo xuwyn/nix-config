@@ -28,9 +28,6 @@ in {
   home.homeDirectory = "/home/${username}";
   home.stateVersion = "23.11";
   programs.home-manager.enable = true;
-  home.packages = with pkgs; [
-    age # sops key
-  ];
 
   imports =
     [

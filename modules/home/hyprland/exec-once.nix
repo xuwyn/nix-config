@@ -1,4 +1,4 @@
-{host, ...}: let
+{host, config, ...}: let
   vars = import ../../../hosts/${host}/variables.nix;
   inherit
     (vars)
@@ -39,6 +39,7 @@ in {
         "systemctl --user start hyprpolkitagent"
         "qs -c overview" # Start quickshell-overview daemon
         "hyprland-change-layout init"
+        # "hyprctl setcursor ${config.home.pointerCursor.name} ${toString config.home.pointerCursor.size}"
       ]
       ++ noctaliaExec ++ waybarExec;
   };

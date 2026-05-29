@@ -1,9 +1,13 @@
 {
   config,
   inputs,
+  pkgs,
   ...
 }: {
   imports = [inputs.sops-nix.homeManagerModules.sops];
+  home.packages = with pkgs; [
+    age # sops key
+  ];
   sops = {
     # Path to keys
     age.keyFile = "${config.home.homeDirectory}/.config/sops/age/keys.txt";
