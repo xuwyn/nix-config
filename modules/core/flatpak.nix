@@ -1,9 +1,10 @@
-{pkgs, ...}: {
+{pkgs, inputs, ...}: {
   xdg.portal = {
     enable = true;
-    extraPortals = [pkgs.xdg-desktop-portal-hyprland];
-    configPackages = [pkgs.hyprland];
-  };
+    # extraPortals = [pkgs.xdg-desktop-portal-hyprland];
+    # configPackages = [pkgs.hyprland];
+    configPackages = [inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland];
+    extraPortals = [inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland];
   services = {
     flatpak = {
       enable = true;

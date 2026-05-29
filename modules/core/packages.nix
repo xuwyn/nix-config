@@ -13,6 +13,7 @@
       with pkgs; [
         matugen # color palette generator needed for noctalia-shell
         gpu-screen-recorder # needed for nnoctalia-shell
+        imagemagick # template processing & wallpaper resizing
       ]
     else [];
 in {
@@ -46,12 +47,13 @@ in {
     ]
     ++ noctaliaPkgs
     ++ [
+      ddcutil # Monitor Brightness Control
       app2unit # 2nd hand app launcher
       alejandra # nix formatter
       amfora # Fancy Terminal Browser For Gemini Protocol
       appimage-run # Needed For AppImage Support
       # brave # Brave Browser
-      brightnessctl # For Screen Brightness Control
+      brightnessctl # For Screen Brightness Control (laptop)
       cliamp # terminal music player
       cliphist # Clipboard manager using rofi menu
       cmatrix # Matrix Movie Effect In Terminal

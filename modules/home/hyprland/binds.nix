@@ -66,7 +66,7 @@ in {
         "$modifier CTRL,S, Spotify, exec, app2unit -- spotify"
         "$modifier CTRL,Z, Zed, exec, app2unit -- zeditor"
         "$modifier ALT,W, Web Search, exec, web-search"
-        "$modifier SHIFT,W, QS Wallpaper Setter, exec, qs-wallpapers-apply"
+        # "$modifier SHIFT,W, QS Wallpaper Setter, exec, qs-wallpapers-apply" # duplicate with noctalia
         # "$modifier SHIFT,N, Notification Reset, exec, swaync-client -rs"
         "$modifier,W, Web Browser, exec, app2unit -- ${browser}"
         "$modifier,Y, File Manager, exec, kitty -e yazi"

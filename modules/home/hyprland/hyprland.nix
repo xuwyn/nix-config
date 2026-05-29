@@ -3,6 +3,7 @@
   config,
   pkgs,
   lib,
+  inputs,
   ...
 }: let
   vars = import ../../../hosts/${host}/variables.nix;
@@ -63,16 +64,19 @@ in {
   home.file = {
     "Pictures/Wallpapers" = {
       source = ../../../wallpapers;
-      recursive = true;
+      # recursive = true;
       force = true;
     };
     ".face.icon".source = ./face.jpg;
     ".config/face.jpg".source = ./face.jpg;
   };
+  xdg.configFile."hypr/hyprland.conf".force = true;
   wayland.windowManager.hyprland = {
     enable = true;
     configType = "hyprlang";
-    package = pkgs.hyprland;
+    # package = pkgs.hyprland;
+    package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
+    portalPackage = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
     systemd = {
       enable = true;
       enableXdgAutostart = true;
@@ -225,6 +229,12 @@ in {
       # To enable blur on waybar uncomment the line below
       # Thanks to SchotjeChrisman
       #layerrule = blur,waybar
+      # Persistent workspaces
+      workspace = 1, persistent:true
+      workspace = 2, persistent:true
+      workspace = 3, persistent:true
+      workspace = 4, persistent:true
+      workspace = 5, persistent:true
     ";
   };
 }
