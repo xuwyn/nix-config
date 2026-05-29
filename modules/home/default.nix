@@ -34,6 +34,8 @@ in {
 
   imports =
     [
+      ./spicetify.nix
+      ./nixcord.nix
       ./amfora.nix
       ./bash.nix
       ./bashrc-personal.nix

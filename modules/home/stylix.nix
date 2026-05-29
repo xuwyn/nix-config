@@ -1,5 +1,4 @@
 {
-  config,
   inputs,
   host,
   username,
@@ -14,6 +13,8 @@ in {
     opacity.terminal = 0.8;
     polarity = "dark";
     targets = {
+      spicetify.enable = true;
+      nixcord.enable = true;
       zed.enable = false;
       kitty = {
         enable = true;

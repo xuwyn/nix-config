@@ -48,6 +48,8 @@
     };
 
     nixcord.url = "github:FlameFlag/nixcord";
+
+    spicetify-nix.url = "github:Gerg-L/spicetify-nix";
   };
 
   outputs = {
