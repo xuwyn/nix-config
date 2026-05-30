@@ -31,8 +31,8 @@
   # You can configure multiple monitors.
   # Inside the quotes, create a new line for each monitor.
   extraMonitorSettings = "
-   monitor = DP-5,1920x1080@164.96,0x0,1
-   monitor = Virtual-1,1920x1080@60,auto,1
+  monitor = DP-5,1920x1080@165,0x0,1
+  monitor = Virtual-1,1920x1080@60,auto,1
     ";
 
   # Bar/Shell Settings
@@ -75,9 +75,11 @@
   consoleKeyMap = "us";
 
   # For hybrid support (Intel/NVIDIA Prime or AMD/NVIDIA)
-  intelID = "PCI:1:0:0";
-  amdgpuID = "PCI:5:0:0";
-  nvidiaID = "PCI:0:2:0";
+  # intelID = "PCI:1:0:0";
+  # amdgpuID = "PCI:5:0:0";
+  # nvidiaID = "PCI:0:2:0";
+  nvidiaID = "PCI:1:0:0";
+  amdgpuID = "PCI:15:0:0";
 
   # Enable NFS
   enableNFS = true;

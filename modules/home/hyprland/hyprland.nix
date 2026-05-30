@@ -146,9 +146,10 @@ in {
         disable_splash_rendering = true;
         enable_swallow = false;
         # vfr = true; # Variable Frame Rate Not supported post v0.54.3
-        vrr = 2; # Variable Refresh Rate  Might need to set to 0 for NVIDIA/AQ_DRM_DEVICES
+        # vrr = 2; # Variable Refresh Rate  Might need to set to 0 for NVIDIA/AQ_DRM_DEVICES
         # Screen flashing to black momentarily or going black when app is fullscreen
         # Try setting vrr to 0
+        vrr = 0;
 
         #  Application not responding (ANR) settings
         enable_anr_dialog = true;

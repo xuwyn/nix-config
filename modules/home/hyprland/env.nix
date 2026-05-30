@@ -2,6 +2,11 @@
   wayland.windowManager.hyprland = {
     settings = {
       env = [
+        # an attempt at solving the nvidia/sddm problem
+        "GBM_BACKEND,nvidia-drm"
+        "__GLX_VENDOR_LIBRARY_NAME,nvidia"
+        "ELECTRON_OZONE_PLATFORM_HINT,auto"
+
         "NIXOS_OZONE_WL, 1"
         "NIXPKGS_ALLOW_UNFREE, 1"
         "XDG_CURRENT_DESKTOP, Hyprland"

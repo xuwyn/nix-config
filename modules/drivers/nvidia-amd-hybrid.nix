@@ -34,7 +34,7 @@ in {
       modesetting.enable = true;
       open = true; # RTX 50xx requires the open kernel module
       nvidiaSettings = true;
-      package = config.boot.kernelPackages.nvidiaPackages.production;
+      package = config.boot.kernelPackages.nvidiaPackages.stable;
 
       # Helpful on laptops to power down the dGPU when idle
       powerManagement.enable = true;

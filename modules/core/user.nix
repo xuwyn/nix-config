@@ -21,6 +21,7 @@ in {
       "scanner"
       "wheel" #sudo access
       "vboxusers" #Virtual Box
+      "i2c" #ddcutil (brightness) & openrgb
     ];
     shell = pkgs.zsh;
     ignoreShellProgramCheck = true;

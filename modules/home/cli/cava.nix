@@ -1,6 +1,7 @@
 {config, ...}: {
+  xdg.configFile."cava/config".force = true;
   programs.cava = {
-    enable = false;
+    enable = true;
     settings = {
       general = {
         bar_spacing = 1;
@@ -28,15 +29,15 @@
         #gradient_color_7 = "'#ee99a0'";
         #gradient_color_8 = "'#ed8796'";
         # Dracula
-        gradient = 1;
-        gradient_color_1 = "'#8BE9FD'";
-        gradient_color_2 = "'#9AEDFE'";
-        gradient_color_3 = "'#CAA9FA'";
-        gradient_color_4 = "'#BD93F9'";
-        gradient_color_5 = "'#FF92D0'";
-        gradient_color_6 = "'#FF79C6'";
-        gradient_color_7 = "'#FF6E67'";
-        gradient_color_8 = "'#FF5555'";
+        # gradient = 1;
+        # gradient_color_1 = "'#8BE9FD'";
+        # gradient_color_2 = "'#9AEDFE'";
+        # gradient_color_3 = "'#CAA9FA'";
+        # gradient_color_4 = "'#BD93F9'";
+        # gradient_color_5 = "'#FF92D0'";
+        # gradient_color_6 = "'#FF79C6'";
+        # gradient_color_7 = "'#FF6E67'";
+        # gradient_color_8 = "'#FF5555'";
       };
     };
   };
