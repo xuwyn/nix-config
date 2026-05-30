@@ -67,8 +67,8 @@ in {
       # recursive = true;
       force = true;
     };
-    ".face.icon".source = ./face.jpg;
-    ".config/face.jpg".source = ./face.jpg;
+    ".face".source = ./face.jpg;
+    # ".config/face.jpg".source = ./face.jpg; # which app uses this?
   };
   xdg.configFile."hypr/hyprland.conf".force = true;
   wayland.windowManager.hyprland = {
