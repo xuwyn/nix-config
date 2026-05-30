@@ -63,7 +63,7 @@ in {
         "$modifier CTRL,C, Cheatsheets Viewer, exec, qs-cheatsheets"
         "$modifier SHIFT,K, Keybinds Search Tool, exec, qs-keybinds"
         "$modifier CTRL,D, Discord, exec, app2unit -- discord"
-        "$modifier CTRL,S, Spotify, exec, app2unit -- spotify"
+        "$modifier CTRL,S, Spotify, exec, flatpak run com.spotify.Client"
         "$modifier CTRL,Z, Zed, exec, app2unit -- zeditor"
         "$modifier ALT,W, Web Search, exec, web-search"
         # "$modifier SHIFT,W, QS Wallpaper Setter, exec, qs-wallpapers-apply" # duplicate with noctalia

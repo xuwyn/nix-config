@@ -1,7 +1,6 @@
 {
   host,
   username,
-  pkgs,
   ...
 }: let
   vars = import ../../hosts/${host}/variables.nix;
@@ -31,6 +30,7 @@ in {
 
   imports =
     [
+      ./flatpak.nix
       ./spicetify.nix
       ./nixcord.nix
       ./amfora.nix

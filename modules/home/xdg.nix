@@ -36,12 +36,23 @@ in {
       #   "inode/directory" = ["thunar.desktop"];      # or org.gnome.Nautilus.desktop, org.kde.dolphin.desktop
       # };
     };
+    # duplicate in core/flatpak
     portal = {
       enable = true;
       # extraPortals = [pkgs.xdg-desktop-portal-hyprland];
       # configPackages = [pkgs.hyprland];
       configPackages = [inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland];
-      extraPortals = [inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland];
+      extraPortals = [
+        inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland
+        pkgs.xdg-desktop-portal-gtk
+      ];
+      config = {
+        common = {
+          # Use the GTK portal for file pickers, and hyprland for everything else
+          default = [ "hyprland" "gtk" ];
+          "org.freedesktop.impl.portal.FileDialog" = [ "gtk" ];
+        };
+      };
     };
   };
 }
