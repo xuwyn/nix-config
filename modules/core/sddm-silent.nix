@@ -1,11 +1,16 @@
 {
-  config,
-  pkgs,
   inputs,
   username,
   ...
 }: {
   imports = [inputs.silentSDDM.nixosModules.default];
+  # workaround sddm/nvidia race condition
+  systemd.services.sddm = {
+    # hard-coded delay
+    preStart = ''
+      sleep 3
+    '';
+  };
 
   services.displayManager.sddm = {
     enable = true;

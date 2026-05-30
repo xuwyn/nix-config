@@ -3,6 +3,7 @@
     settings = {
       env = [
         # an attempt at solving the nvidia/sddm problem
+        "LIBVA_DRIVER_NAME,nvidia"
         "GBM_BACKEND,nvidia-drm"
         "__GLX_VENDOR_LIBRARY_NAME,nvidia"
         "ELECTRON_OZONE_PLATFORM_HINT,auto"

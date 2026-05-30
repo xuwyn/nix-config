@@ -15,7 +15,10 @@
       "nvidia_drm.fbdev=1"
     ];
     kernelPackages = pkgs.linuxPackages_latest;
-    kernelModules = ["v4l2loopback"];
+    kernelModules = [
+      "v4l2loopback"
+      "i2c-dev"
+    ];
     extraModulePackages = [
       config.boot.kernelPackages.v4l2loopback
       config.boot.kernelPackages.nvidia_x11

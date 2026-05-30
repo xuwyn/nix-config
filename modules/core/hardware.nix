@@ -15,4 +15,5 @@
     i2c.enable = true;
   };
   local.hardware-clock.enable = false;
+  services.udev.packages = [pkgs.ddcutil];
 }
