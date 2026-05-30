@@ -4,10 +4,11 @@
   gitEmail = "173407133+suquynh@users.noreply.github.com";
 
   # Set Displau Manager
-  # `tui` for Text login
+  # `tui` for Text login (depends on stylixImage)
   # `sddm` for graphical GUI (default)
+  # `silent` for silentSDDM
   # SDDM background is set with stylixImage
-  displayManager = "tui";
+  displayManager = "silent";
 
   # Emable/disable bundled applications
   tmuxEnable = false;

@@ -21,6 +21,8 @@ in {
     (
       if vars.displayManager == "tui"
       then ./ly.nix
+      else if vars.displayManager == "silent"
+      then ./sddm-silent.nix
       else ./sddm.nix
     )
     ./security.nix
