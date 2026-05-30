@@ -1,6 +1,28 @@
-{ config, pkgs, username, ... }:
-
 {
+  inputs,
+  config,
+  pkgs,
+  username,
+  lib,
+  ...
+}: let
+  #   inherit (inputs.firefox-addons.lib.${pkgs.stdenv.hostPlatform.system}) buildFirefoxXpiAddon;
+  #   pywalfox = buildFirefoxXpiAddon rec {
+  #     pname = "pywalfox";
+  #     version = "2.1.0";
+  #     addonId = "pywalfox@frewacom.org";
+  #     url = "https://addons.mozilla.org/firefox/downloads/file/4651382/pywalfox-2.1.0.xpi";
+  #     sha256 = "sha256-GkqMhj46mFN2RnBxK04frKaH0w0FZlXxVmnHqxA8weU=";
+  #     meta = with lib; {
+  #       homepage = "https://github.com/Frewacom/pywalfox.com";
+  #       platforms = platforms.all;
+  #     };
+  #   };
+in {
+  # home.packages = with pkgs; [
+  #   pywalfox-native
+  # ];
+
   programs.firefox = {
     enable = true;
     # configPath = "${config.home.homeDirectory}/.mozilla/firefox"; #legacy
@@ -12,21 +34,26 @@
       DisableFirefoxStudies = true;
       DisablePocket = true;
       BlockAboutConfig = false;
-      # OfferToSaveLogins = false;
+      OfferToSaveLogins = false;
     };
+
+    # nativeMessagingHosts = [pkgs.pywalfox-native];
 
     profiles.${username} = {
       name = username;
       isDefault = true;
 
-      extensions.packages = with pkgs.nur.repos.rycee.firefox-addons; [
-        ublock-origin
-        old-reddit-redirect
-        reddit-enhancement-suite
-        tree-style-tab
-      ];
-
       extensions.force = true;
+      extensions.packages = with pkgs.nur.repos.rycee.firefox-addons;
+        [
+          ublock-origin
+          old-reddit-redirect
+          reddit-enhancement-suite
+          tree-style-tab
+        ]
+        ++ (with customAddons; [
+          # pywalfox
+        ]);
 
       settings = {
         # Enable theming by stylix

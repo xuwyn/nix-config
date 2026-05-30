@@ -27,8 +27,8 @@ in {
       light = "Papirus-Light";
     };
     targets = {
-      spicetify.enable = true;
-      nixcord.enable = true;
+      spicetify.enable = false;
+      nixcord.enable = false;
       zed.enable = false; # bug not fixed, hardcoded theme in zed.nix
       kitty = {
         enable = true;

@@ -49,6 +49,12 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    firefox-addons = {
+      # for custom addons not on NUR
+      url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     nixcord.url = "github:FlameFlag/nixcord";
 
     spicetify-nix.url = "github:Gerg-L/spicetify-nix";
