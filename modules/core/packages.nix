@@ -90,7 +90,7 @@ in {
       nwg-dock-hyprland # Dock for hyprland
       nwg-menu # App menu for waybar
       onefetch # provides zsaneyos build info on current system
-      pandoc # format MD to HTML for cheatsheet parser
+      # pandoc # format MD to HTML for cheatsheet parser
       pavucontrol # For Editing Audio Levels & Devices
       pciutils # Collection Of Tools For Inspecting PCI Devices
       picard # For Changing Music Metadata & Getting Cover Art

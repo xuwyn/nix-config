@@ -60,7 +60,7 @@ in {
         "$modifier,Return, Terminal, exec, ${terminal}"
         # ============= APPLICATION LAUNCHERS =============
         "$modifier,K, Keybinds Search Tool, exec, qs-keybinds"
-        "$modifier CTRL,C, Cheatsheets Viewer, exec, qs-cheatsheets"
+        # "$modifier CTRL,C, Cheatsheets Viewer, exec, qs-cheatsheets"
         "$modifier SHIFT,K, Keybinds Search Tool, exec, qs-keybinds"
         "$modifier CTRL,D, Discord, exec, app2unit -- discord"
         "$modifier CTRL,S, Spotify, exec, flatpak run com.spotify.Client"
