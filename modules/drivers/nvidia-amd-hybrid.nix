@@ -38,14 +38,16 @@ in {
 
       # Helpful on laptops to power down the dGPU when idle
       powerManagement.enable = true;
-      powerManagement.finegrained = true;
+      powerManagement.finegrained = false; # require offload
 
       # AMD primary, NVIDIA offload
       prime = {
-        offload = {
-          enable = true;
-          enableOffloadCmd = true;
-        };
+        # offload = {
+        #   enable = true;
+        #   enableOffloadCmd = true;
+        # };
+
+        sync.enable = true;
 
         # Wire from options
         amdgpuBusId = cfg.amdgpuBusId;
