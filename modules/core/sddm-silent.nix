@@ -2,31 +2,47 @@
   inputs,
   username,
   lib,
+  pkgs,
   ...
 }: {
   imports = [inputs.silentSDDM.nixosModules.default];
   # workaround sddm/nvidia race condition
-  systemd.services.display-manager = {
-    after = ["graphics.target"];
-    wants = ["graphics.target"];
+  # systemd.services.restart-dm-on-boot = {
+  #   description = "Delayed restart of display manager on boot";
+  #   wantedBy = ["multi-user.target"];
+  #   after = ["display-manager.service"];
+  #
+  #   serviceConfig = {
+  #     Type = "oneshot";
+  #     RemainAfterExit = true;
+  #     ExecStart = "${pkgs.bash}/bin/bash -c 'sleep 10 && systemctl restart display-manager'";
+  #   };
+  # };
 
-    # Allow up to 3 start attempts within 30 seconds
-    startLimitIntervalSec = 30;
-    startLimitBurst = 3;
-
-    serviceConfig = {
-      # Restart if the service crashes, exits with an error, or times out
-      Restart = lib.mkForce "on-failure";
-
-      # Wait 2 seconds before attempting the restart (gives Nvidia time to breathe)
-      RestartSec = lib.mkForce "2s";
-    };
-  };
+  # systemd.services.display-manager = {
+  #   # after = ["dev-dri-card1.device"];
+  #   # wants = ["dev-dri-card1.device"];
+  #
+  #   # Allow up to 3 start attempts within 30 seconds
+  #   startLimitIntervalSec = 30;
+  #   startLimitBurst = 3;
+  #
+  #   serviceConfig = {
+  #     # forced delay
+  #     ExecStartPre = "${pkgs.coreutils}/bin/sleep 5";
+  #     # timeout duration
+  #     TimeoutStartSec = "10s";
+  #     # Restart if the service crashes, exits with an error, or times out
+  #     Restart = "always";
+  #     # Wait 2 seconds before attempting the restart (gives Nvidia time to breathe)
+  #     RestartSec = lib.mkForce "2s";
+  #   };
+  # };
 
   services.displayManager = {
     sddm = {
       enable = true;
-      wayland.enable = true;
+      wayland.enable = lib.mkForce false;
     };
   };
 

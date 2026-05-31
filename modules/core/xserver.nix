@@ -36,7 +36,7 @@
   xkbVariant = variantFinal;
 in {
   services.xserver = {
-    enable = false;
+    enable = true;
     xkb = {
       layout = xkbLayout;
       variant = xkbVariant;
