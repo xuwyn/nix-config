@@ -4,26 +4,9 @@
   ...
 }: {
   boot = {
-    # an attempt at loading nvidia driver before sddm
-    initrd.kernelModules = [
-      "nvidia"
-      "nvidia_modeset"
-      "nvidia_uvm"
-      "nvidia_drm"
-    ];
-    kernelParams = [
-      "nvidia-drm.modeset=1"
-      "nvidia_drm.fbdev=1"
-    ];
     kernelPackages = pkgs.linuxPackages_latest;
-    kernelModules = [
-      "v4l2loopback"
-      "i2c-dev"
-    ];
-    extraModulePackages = [
-      config.boot.kernelPackages.v4l2loopback
-      config.boot.kernelPackages.nvidia_x11
-    ];
+    kernelModules = ["v4l2loopback"];
+    extraModulePackages = [config.boot.kernelPackages.v4l2loopback];
     kernel.sysctl = {"vm.max_map_count" = 2147483642;};
     loader.systemd-boot.enable = true;
     loader.efi.canTouchEfiVariables = true;
