@@ -1,20 +1,33 @@
 {
   inputs,
   username,
+  lib,
   ...
 }: {
   imports = [inputs.silentSDDM.nixosModules.default];
   # workaround sddm/nvidia race condition
-  systemd.services.sddm = {
-    # hard-coded delay
-    preStart = ''
-      sleep 3
-    '';
+  systemd.services.display-manager = {
+    after = ["graphics.target"];
+    wants = ["graphics.target"];
+
+    # Allow up to 3 start attempts within 30 seconds
+    startLimitIntervalSec = 30;
+    startLimitBurst = 3;
+
+    serviceConfig = {
+      # Restart if the service crashes, exits with an error, or times out
+      Restart = lib.mkForce "on-failure";
+
+      # Wait 2 seconds before attempting the restart (gives Nvidia time to breathe)
+      RestartSec = lib.mkForce "2s";
+    };
   };
 
-  services.displayManager.sddm = {
-    enable = true;
-    wayland.enable = true;
+  services.displayManager = {
+    sddm = {
+      enable = true;
+      wayland.enable = true;
+    };
   };
 
   programs.silentSDDM = {

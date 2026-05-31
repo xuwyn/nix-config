@@ -9,6 +9,7 @@
       "nvidia"
       "nvidia_uvm"
       "nvidia_drm"
+      "nvidia_modeset"
     ];
     kernelParams = [
       "nvidia-drm.modeset=1"
