@@ -6,12 +6,18 @@
   ...
 }: {
   imports = [inputs.silentSDDM.nixosModules.default];
+  environment.systemPackages = [pkgs.bibata-cursors];
 
-  services.displayManager = {
-    sddm = {
-      enable = true;
-      wayland.enable = lib.mkForce false;
-    };
+  services.displayManager.sddm = {
+    enable = true;
+    wayland.enable = lib.mkForce false;
+
+    setupScript = ''
+      ${pkgs.xrdb}/bin/xrdb -merge - <<EOF
+      Xcursor.theme: Bibata-Modern-Ice
+      Xcursor.size: 24
+      EOF
+    '';
   };
 
   programs.silentSDDM = {
