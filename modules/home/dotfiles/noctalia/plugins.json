@@ -7,8 +7,12 @@
         }
     ],
     "states": {
-        "keybind-cheatsheet": {
+        "kaomoji-provider": {
             "enabled": true
+        },
+        "keybind-cheatsheet": {
+            "enabled": true,
+            "sourceUrl": "https://github.com/noctalia-dev/noctalia-plugins"
         }
     },
     "version": 2

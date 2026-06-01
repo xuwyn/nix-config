@@ -24,6 +24,7 @@ in {
         bind = $modifier SHIFT, C, exec, noctalia-shell ipc call settings toggle #"Noctalia Settings"
         bind = $modifier SHIFT, W, exec, noctalia-shell ipc call wallpaper toggle #"Noctalia Wallpaper"
         bind = $modifier, E, exec, noctalia-shell ipc call launcher emoji #"Emoji Picker"
+        bind = $modifier SHIFT, E, exec, noctalia-shell ipc call plugin:kaomoji toggle #"Kaomoji Picker"
         bind = $modifier, K, exec, noctalia-shell ipc call plugin:keybind-cheatsheet toggle #"Keybind Cheatsheet"
         bind = $modifier SHIFT, R, exec, noctalia-shell kill; sleep 0.5; noctalia-shell; #"Restart Noctalia shell"
         bind = CTRL+ALT, Delete, exec, noctalia-shell ipc call sessionMenu toggle #"Noctalia Power Menu"
