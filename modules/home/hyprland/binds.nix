@@ -1,178 +1,134 @@
 {host, ...}: let
   vars = import ../../../hosts/${host}/variables.nix;
-  inherit
-    (vars)
-    barChoice
-    browser
-    terminal
-    ;
-  # Noctalia-specific bindings (only included when barChoice == "noctalia")
-  noctaliaBind =
-    if barChoice == "noctalia"
-    then [
-      "$modifier,D, Noctalia Launcher, exec, noctalia-shell ipc call launcher toggle"
-      "$modifier SHIFT,Return, Noctalia Launcher, exec, noctalia-shell ipc call launcher toggle"
-      "$modifier,M, Noctalia Notifications, exec,  noctalia-shell ipc call notifications toggleHistory"
-      "$modifier,V, Noctalia Clipboard, exec,  noctalia-shell ipc call launcher clipboard"
-      "$modifier ALT,P, Noctalia Settings, exec, noctalia-shell ipc call settings toggle"
-      "$modifier SHIFT,comma, Noctalia Settings, exec, noctalia-shell ipc call settings toggle"
-      "$modifier CTRL,L, Noctalia Lock Screen, exec,  noctalia-shell ipc call sessionMenu lockscreen lock"
-      "$modifier SHIFT,W, Noctalia Wallpaper, exec, noctalia-shell ipc call wallpaper toggle"
-      "$modifier,X, Noctalia Power Menu, exec,  noctalia-shell ipc call sessionMenu toggle"
-      "$modifier,C, Noctalia Control Center, exec,  noctalia-shell ipc call controlCenter toggle"
-      "$modifier CTRL,R, Noctalia Screen Recorder, exec,  noctalia-shell ipc call screenRecorder toggle"
-      "$modifier SHIFT,R, Restart Noctalia shell, exec,  restart.noctalia"
-    ]
-    else [];
-  # Rofi launcher bindings (only included when barChoice != "noctalia")
-  rofiBind =
-    if barChoice != "noctalia"
-    then [
-      "$modifier,D, Rofi Launcher, exec, rofi-launcher"
-      "$modifier SHIFT,Return, Rofi Launcher, exec, rofi-launcher"
-    ]
-    else [];
-  # Rofi clipboard binding (only included when barChoice != "noctalia")
-  rofiClipboardBind =
-    if barChoice != "noctalia"
-    then [
-      "$modifier,V, Clipboard History, exec, cliphist list | rofi -dmenu | cliphist decode | wl-copy"
-    ]
-    else [];
+  inherit (vars) barChoice browser terminal;
 in {
-  wayland.windowManager.hyprland.settings = {
-    binde = [
-      # ============= WINDOW RESIZING (+/-) ==================
-      "$modifier ALT, left, resizeactive, -10% 0"
-      "$modifier ALT, right, resizeactive, 10% 0"
-      "$modifier ALT, up, resizeactive, 0 -10%"
-      "$modifier ALT, down, resizeactive, 0 10%"
-    ];
-    bindd =
-      noctaliaBind
-      ++ rofiBind
-      ++ rofiClipboardBind
-      ++ [
-        # ============= WORKSPACE OVERVIEW =============
-        # "$modifier CTRL,D, Toggle Dock, exec, dock"
-        "$modifier, TAB, QS Overview, exec, qs ipc -c overview call overview toggle"
-        # ============= TERMINALS =============
-        "$modifier,Return, Terminal, exec, ${terminal}"
-        # ============= APPLICATION LAUNCHERS =============
-        "$modifier,K, Keybinds Search Tool, exec, qs-keybinds"
-        # "$modifier CTRL,C, Cheatsheets Viewer, exec, qs-cheatsheets"
-        "$modifier SHIFT,K, Keybinds Search Tool, exec, qs-keybinds"
-        "$modifier CTRL,D, Discord, exec, app2unit -- discord"
-        "$modifier CTRL,S, Spotify, exec, flatpak run com.spotify.Client"
-        "$modifier CTRL,Z, Zed, exec, app2unit -- zeditor"
-        "$modifier ALT,W, Web Search, exec, web-search"
-        # "$modifier SHIFT,W, QS Wallpaper Setter, exec, qs-wallpapers-apply" # duplicate with noctalia
-        # "$modifier SHIFT,N, Notification Reset, exec, swaync-client -rs"
-        "$modifier,W, Web Browser, exec, app2unit -- ${browser}"
-        "$modifier,Y, File Manager, exec, kitty -e yazi"
-        "$modifier,E, Emoji Picker, exec, emopicker9000"
-        "$modifier,S, Screenshot, exec, screenshootin"
-        # ============= SCREENSHOTS =============
-        # "$modifier CTRL,S, Screenshot Output, exec, hyprshot -m output -o $HOME/Pictures/ScreenShots"
-        "$modifier SHIFT,S, Screenshot Window, exec, hyprshot -m window -o $HOME/Pictures/ScreenShots"
-        "$modifier ALT,S, Screenshot Region, exec, hyprshot -m region -o $HOME/Pictures/ScreenShots"
-        "$modifier,O, OBS Studio, exec, obs"
-        "$modifier ALT,C, Color Picker, exec, hyprpicker -a"
-        "$modifier,G, GIMP, exec, gimp"
-        "$modifier SHIFT,T, Dropdown Terminal, exec, sh -lc 'DropTerminal'"
-        "$modifier,T, Thunar, exec, thunar"
-        "$modifier ALT,M, Audio Control, exec, pavucontrol"
-        # ============= WINDOW MANAGEMENT =============
-        "$modifier,Q, Kill Active Window, killactive,"
-        "$modifier,P, Pseudo Tile, pseudo,"
-        "$modifier SHIFT,I, Toggle Split, layoutmsg, togglesplit"
-        "$modifier,F, Maximize, fullscreen,"
-        "$modifier SHIFT,F, Toggle Floating, togglefloating,"
-        "$modifier ALT,F, Float All Windows, exec, hyprland-float-all"
-        # ============= LAYOUTS =============
-        "$modifier ALT,L, Toggle Layouts, exec, hyprland-change-layout toggle"
-        "$modifier ALT,1, Layout Dwindle, exec, hyprland-change-layout dwindle"
-        "$modifier ALT,2, Layout Master, exec, hyprland-change-layout master"
-        "$modifier ALT,3, Layout Scrolling, exec, hyprland-change-layout scrolling"
-        "$modifier ALT,4, Layout Monocle, exec, hyprland-change-layout monocle"
-        "$modifier SHIFT,C, Exit/Logout of Hyprland, exit,"
-        # ============= WINDOW MOVEMENT (ARROW KEYS) =============
-        "$modifier SHIFT,left, Move Left, movewindow, l"
-        "$modifier SHIFT,right, Move Right, movewindow, r"
-        "$modifier SHIFT,up, Move Up, movewindow, u"
-        "$modifier SHIFT,down, Move Down, movewindow, d"
-        # ============= WINDOW MOVEMENT (VI STYLE) =============
-        # "$modifier SHIFT,h, Move Left (VI), movewindow, l"
-        # "$modifier SHIFT,l, Move Right (VI), movewindow, r"
-        # "$modifier SHIFT,k, Move Up (VI), movewindow, u"
-        # "$modifier SHIFT,j, Move Down (VI), movewindow, d"
-        # ============= WINDOW SWAPPING (ARROW KEYS) =============
-        # "$modifier ALT, left, Swap Left, swapwindow, l"
-        # "$modifier ALT, right, Swap Right, swapwindow, r"
-        # "$modifier ALT, up, Swap Up, swapwindow, u"
-        # "$modifier ALT, down, Swap Down, swapwindow, d"
-        # ============= WINDOW SWAPPING (VI KEYCODES) =============
-        # "$modifier ALT, 43, Swap Left (VI), swapwindow, l"
-        # "$modifier ALT, 46, Swap Right (VI), swapwindow, r"
-        # "$modifier ALT, 45, Swap Up (VI), swapwindow, u"
-        # "$modifier ALT, 44, Swap Down (VI), swapwindow, d"
-        # ============= FOCUS MOVEMENT (ARROW KEYS) =============
-        "$modifier,left, Focus Left, movefocus, l"
-        "$modifier,right, Focus Right, movefocus, r"
-        "$modifier,up, Focus Up, movefocus, u"
-        "$modifier,down, Focus Down, movefocus, d"
-        # ============= FOCUS MOVEMENT (VI STYLE) =============
-        # "$modifier,h, Focus Left (VI), movefocus, l"
-        # "$modifier,l, Focus Right (VI), movefocus, r"
-        # "$modifier,k, Focus Up (VI), movefocus, u"
-        # "$modifier,j, Focus Down (VI), movefocus, d"
-        # ============= WORKSPACE SWITCHING (1-10) =============
-        "$modifier,1, Workspace 1, workspace, 1"
-        "$modifier,2, Workspace 2, workspace, 2"
-        "$modifier,3, Workspace 3, workspace, 3"
-        "$modifier,4, Workspace 4, workspace, 4"
-        "$modifier,5, Workspace 5, workspace, 5"
-        "$modifier,6, Workspace 6, workspace, 6"
-        "$modifier,7, Workspace 7, workspace, 7"
-        "$modifier,8, Workspace 8, workspace, 8"
-        "$modifier,9, Workspace 9, workspace, 9"
-        "$modifier,0, Workspace 10, workspace, 10"
-        # ============= MOVE WINDOW TO WORKSPACE (1-10) =============
-        "$modifier SHIFT,SPACE, Move to Special, movetoworkspace, special"
-        "$modifier,SPACE, Toggle Special, togglespecialworkspace"
-        "$modifier SHIFT,1, Move to Workspace 1, movetoworkspace, 1"
-        "$modifier SHIFT,2, Move to Workspace 2, movetoworkspace, 2"
-        "$modifier SHIFT,3, Move to Workspace 3, movetoworkspace, 3"
-        "$modifier SHIFT,4, Move to Workspace 4, movetoworkspace, 4"
-        "$modifier SHIFT,5, Move to Workspace 5, movetoworkspace, 5"
-        "$modifier SHIFT,6, Move to Workspace 6, movetoworkspace, 6"
-        "$modifier SHIFT,7, Move to Workspace 7, movetoworkspace, 7"
-        "$modifier SHIFT,8, Move to Workspace 8, movetoworkspace, 8"
-        "$modifier SHIFT,9, Move to Workspace 9, movetoworkspace, 9"
-        "$modifier SHIFT,0, Move to Workspace 10, movetoworkspace, 10"
-        # ============= WORKSPACE NAVIGATION =============
-        "$modifier CONTROL,right, Next Workspace, workspace, e+1"
-        "$modifier CONTROL,left, Previous Workspace, workspace, e-1"
-        "$modifier,mouse_down, Next Workspace Mouse, workspace, e+1"
-        "$modifier,mouse_up, Previous Workspace Mouse, workspace, e-1"
-        # ============= WINDOW CYCLING =============
-        "ALT,Tab, Cycle Next Window, cyclenext"
-        "ALT,Tab, Bring Active To Top, bringactivetotop"
-        # ============= MEDIA & HARDWARE CONTROLS =============
-        ",XF86AudioRaiseVolume, Volume Up, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+"
-        ",XF86AudioLowerVolume, Volume Down, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
-        " ,XF86AudioMute, Mute Toggle, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
-        ",XF86AudioPlay, Play Pause, exec, playerctl play-pause"
-        ",XF86AudioPause, Play Pause, exec, playerctl play-pause"
-        ",XF86AudioNext, Next Track, exec, playerctl next"
-        ",XF86AudioPrev, Previous Track, exec, playerctl previous"
-        ",XF86MonBrightnessDown, Brightness Down, exec, brightnessctl set 5%-"
-        ",XF86MonBrightnessUp, Brightness Up, exec, brightnessctl set +5%"
-      ];
+  wayland.windowManager.hyprland.extraConfig = ''
+    # 1. WINDOW RESIZING (+/-)
+    binde = $modifier ALT, left, resizeactive, -10% 0 #"Resize Window to the Left"
+    binde = $modifier ALT, right, resizeactive, 10% 0 #"Resize Window to the right"
+    binde = $modifier ALT, up, resizeactive, 0 -10% #"Resize Window Upward"
+    binde = $modifier ALT, down, resizeactive, 0 10% #"Resize Window Downward"
 
-    bindm = [
-      "$modifier, mouse:272, movewindow"
-      "$modifier, mouse:273, resizewindow"
-    ];
-  };
+    # 2. MOUSE
+    bindm = $modifier, mouse:272, movewindow #"Move Window"
+    bindm = $modifier, mouse:273, resizewindow #"Resize Window"
+
+    ${
+      if barChoice == "noctalia"
+      then ''
+        # 3. NOCTALIA
+        bind = $modifier, D, exec, noctalia-shell ipc call launcher toggle #"Noctalia Launcher"
+        bind = $modifier, N, exec, noctalia-shell ipc call notifications toggleHistory #"Noctalia Notifications"
+        bind = $modifier, V, exec, noctalia-shell ipc call launcher clipboard #"Noctalia Clipboard"
+        bind = $modifier, C, exec, noctalia-shell ipc call controlCenter toggle #"Noctalia Control Center"
+        bind = $modifier SHIFT, C, exec, noctalia-shell ipc call settings toggle #"Noctalia Settings"
+        bind = $modifier SHIFT, W, exec, noctalia-shell ipc call wallpaper toggle #"Noctalia Wallpaper"
+        bind = $modifier, E, exec, noctalia-shell ipc call launcher emoji #"Emoji Picker"
+        bind = $modifier, K, exec, noctalia-shell ipc call plugin:keybind-cheatsheet toggle #"Keybind Cheatsheet"
+        bind = $modifier SHIFT, R, exec, noctalia-shell kill; sleep 0.5; noctalia-shell; #"Restart Noctalia shell"
+        bind = CTRL+ALT, Delete, exec, noctalia-shell ipc call sessionMenu toggle #"Noctalia Power Menu"
+        bind = $modifier, Delete, exit #"Hyprland Logout/Exit"
+        bind = $modifier, L, exec, noctalia-shell ipc call lockScreen lock #"Noctalia Lock Screen"
+      ''
+      else ''
+        # 3. ROFI
+        bind = $modifier, D, exec, rofi-launcher #"Rofi Launcher"
+        bind = $modifier SHIFT, Return, exec, rofi-launcher #"Rofi Launcher"
+        bind = $modifier, V, exec, cliphist list | rofi -dmenu | cliphist decode | wl-copy #"Clipboard History"
+      ''
+    }
+
+    # 4. APPLICATIONS
+    bind = $modifier, TAB, exec, qs ipc -c overview call overview toggle #"QS Overview"
+    bind = $modifier, Return, exec, ${terminal} #"Terminal"
+    bind = $modifier SHIFT, K, exec, qs-keybinds #"Keybinds Search Tool"
+    bind = $modifier CTRL, D, exec, app2unit -- discord #"Discord"
+    bind = $modifier CTRL, S, exec, flatpak run com.spotify.Client #"Spotify"
+    bind = $modifier CTRL, Z, exec, app2unit -- zeditor #"Zed"
+    bind = $modifier ALT, W, exec, web-search #"Web Search"
+    bind = $modifier, W, exec, app2unit -- ${browser} #"Web Browser"
+    bind = $modifier, Y, exec, kitty -e yazi #"File Manager"
+    bind = $modifier SHIFT, S, exec, hyprshot -m window -o $HOME/Pictures/ScreenShots #"Screenshot Window"
+    bind = $modifier ALT, S, exec, hyprshot -m region -o $HOME/Pictures/ScreenShots #"Screenshot Region"
+    bind = $modifier, O, exec, obs #"OBS Studio"
+    bind = $modifier ALT, C, exec, hyprpicker -a #"Color Picker"
+    bind = $modifier, G, exec, gimp #"GIMP"
+    bind = $modifier SHIFT, T, exec, sh -lc 'DropTerminal' #"Dropdown Terminal"
+    bind = $modifier, T, exec, thunar #"Thunar"
+    bind = $modifier ALT, M, exec, pavucontrol #"Audio Control"
+
+    # 5. WINDOW MANAGEMENT
+    bind = $modifier, Q, killactive, #"Kill Active Window"
+    bind = $modifier, P, pseudo, #"Pseudo Tile"
+    bind = $modifier SHIFT, I, layoutmsg, togglesplit #"Toggle Split"
+    bind = $modifier, F, fullscreen, #"Maximize"
+    bind = $modifier SHIFT, F, togglefloating, #"Toggle Floating"
+    bind = $modifier ALT, F, exec, hyprland-float-all #"Float All Windows"
+
+    # 6. LAYOUTS
+    bind = $modifier ALT, L, exec, hyprland-change-layout toggle #"Toggle Layouts"
+    bind = $modifier ALT, 1, exec, hyprland-change-layout dwindle #"Layout Dwindle"
+    bind = $modifier ALT, 2, exec, hyprland-change-layout master #"Layout Master"
+    bind = $modifier ALT, 3, exec, hyprland-change-layout scrolling #"Layout Scrolling"
+    bind = $modifier ALT, 4, exec, hyprland-change-layout monocle #"Layout Monocle"
+
+    # 7. WINDOW MOVEMENT
+    bind = $modifier SHIFT, left, movewindow, l #"Move Left"
+    bind = $modifier SHIFT, right, movewindow, r #"Move Right"
+    bind = $modifier SHIFT, up, movewindow, u #"Move Up"
+    bind = $modifier SHIFT, down, movewindow, d #"Move Down"
+
+    # 8. FOCUS MOVEMENT
+    bind = $modifier, left, movefocus, l #"Focus Left"
+    bind = $modifier, right, movefocus, r #"Focus Right"
+    bind = $modifier, up, movefocus, u #"Focus Up"
+    bind = $modifier, down, movefocus, d #"Focus Down"
+
+    # 9. WORKSPACE SWITCHING
+    bind = $modifier, 1, workspace, 1 #"Workspace 1"
+    bind = $modifier, 2, workspace, 2 #"Workspace 2"
+    bind = $modifier, 3, workspace, 3 #"Workspace 3"
+    bind = $modifier, 4, workspace, 4 #"Workspace 4"
+    bind = $modifier, 5, workspace, 5 #"Workspace 5"
+    bind = $modifier, 6, workspace, 6 #"Workspace 6"
+    bind = $modifier, 7, workspace, 7 #"Workspace 7"
+    bind = $modifier, 8, workspace, 8 #"Workspace 8"
+    bind = $modifier, 9, workspace, 9 #"Workspace 9"
+    bind = $modifier, 0, workspace, 10 #"Workspace 10"
+
+    # 10. MOVE WINDOW TO WORKSPACE
+    bind = $modifier SHIFT, SPACE, movetoworkspace, special #"Move to Special"
+    bind = $modifier, SPACE, togglespecialworkspace #"Toggle Special"
+    bind = $modifier SHIFT, 1, movetoworkspace, 1 #"Move to Workspace 1"
+    bind = $modifier SHIFT, 2, movetoworkspace, 2 #"Move to Workspace 2"
+    bind = $modifier SHIFT, 3, movetoworkspace, 3 #"Move to Workspace 3"
+    bind = $modifier SHIFT, 4, movetoworkspace, 4 #"Move to Workspace 4"
+    bind = $modifier SHIFT, 5, movetoworkspace, 5 #"Move to Workspace 5"
+    bind = $modifier SHIFT, 6, movetoworkspace, 6 #"Move to Workspace 6"
+    bind = $modifier SHIFT, 7, movetoworkspace, 7 #"Move to Workspace 7"
+    bind = $modifier SHIFT, 8, movetoworkspace, 8 #"Move to Workspace 8"
+    bind = $modifier SHIFT, 9, movetoworkspace, 9 #"Move to Workspace 9"
+    bind = $modifier SHIFT, 0, movetoworkspace, 10 #"Move to Workspace 10"
+
+    # 11. WORKSPACE NAVIGATION
+    bind = $modifier CONTROL, right, workspace, e+1 #"Next Workspace"
+    bind = $modifier CONTROL, left, workspace, e-1 #"Previous Workspace"
+    bind = $modifier, mouse_down, workspace, e+1 #"Next Workspace Mouse"
+    bind = $modifier, mouse_up, workspace, e-1 #"Previous Workspace Mouse"
+
+    # 12. WINDOW CYCLING
+    bind = ALT, Tab, cyclenext #"Cycle Next Window"
+    # bind = ALT, Tab, bringactivetotop #"Bring Active To Top"
+
+    # 13. MEDIA & HARDWARE CONTROLS
+    bind = , XF86AudioRaiseVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+ #"Volume Up"
+    bind = , XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%- #"Volume Down"
+    bind = , XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle #"Mute Toggle"
+    bind = , XF86AudioPlay, exec, playerctl play-pause #"Play Pause"
+    bind = , XF86AudioPause, exec, playerctl play-pause #"Play Pause"
+    bind = , XF86AudioNext, exec, playerctl next #"Next Track"
+    bind = , XF86AudioPrev, exec, playerctl previous #"Previous Track"
+    bind = , XF86MonBrightnessDown, exec, brightnessctl set 5%- #"Brightness Down"
+    bind = , XF86MonBrightnessUp, exec, brightnessctl set +5% #"Brightness Up"
+  '';
 }
