@@ -17,20 +17,20 @@ in {
       if barChoice == "noctalia"
       then ''
         # 3. NOCTALIA
-        bind = $modifier, D, exec, noctalia-shell ipc call launcher toggle #"Noctalia Launcher"
-        bind = $modifier, N, exec, noctalia-shell ipc call notifications toggleHistory #"Noctalia Notifications"
-        bind = $modifier, V, exec, noctalia-shell ipc call launcher clipboard #"Noctalia Clipboard"
-        bind = $modifier, C, exec, noctalia-shell ipc call controlCenter toggle #"Noctalia Control Center"
-        bind = $modifier SHIFT, C, exec, noctalia-shell ipc call settings toggle #"Noctalia Settings"
-        bind = $modifier SHIFT, W, exec, noctalia-shell ipc call wallpaper toggle #"Noctalia Wallpaper"
-        bind = $modifier, E, exec, noctalia-shell ipc call launcher emoji #"Emoji Picker"
-        bind = $modifier SHIFT, E, exec, noctalia-shell ipc call plugin:kaomoji toggle #"Kaomoji Picker"
-        bind = $modifier, K, exec, noctalia-shell ipc call plugin:keybind-cheatsheet toggle #"Keybind Cheatsheet"
-        bind = $modifier, R, exec, noctalia-shell kill; sleep 0.5; noctalia-shell; #"Restart Noctalia shell"
-        bind = $modifier SHIFT, R, exec, noctalia-shell ipc call plugin:screen-recorder toggle #"Toggle Screen Recorder"
-        bind = CTRL+ALT, Delete, exec, noctalia-shell ipc call sessionMenu toggle #"Noctalia Power Menu"
+        bind = $modifier, D, exec, noctalia msg panel-toggle launcher #"Noctalia Launcher"
+        bind = $modifier, V, exec, noctalia msg panel-toggle clipboard #"Noctalia Clipboard"
+        bind = $modifier, C, exec, noctalia msg panel-toggle control-center #"Noctalia Control Center"
+        bind = $modifier SHIFT, C, exec, noctalia msg settings-toggle #"Noctalia Settings"
+        bind = $modifier SHIFT, W, exec, noctalia msg panel-toggle wallpaper #"Noctalia Wallpaper"
+        bind = $modifier, N, exec, noctalia msg panel-toggle control-center "notifications" #"Notifications"
+        bind = $modifier, E, exec, noctalia msg panel-toggle launcher "/emo" #"Emoji Picker"
+        # bind = $modifier SHIFT, E, exec, noctalia msg panel-toggle plugin:kaomoji #"Kaomoji Picker"
+        # bind = $modifier, K, exec, noctalia msg panel-toggle plugin:keybind-cheatsheet #"Keybind Cheatsheet"
+        bind = $modifier, R, exec, killall -q noctalia; sleep 0.5; noctalia; #"Restart Noctalia shell"
+        # bind = $modifier SHIFT, R, exec, noctalia msg panel-toggle plugin:screen-recorder #"Toggle Screen Recorder"
+        bind = CTRL+ALT, Delete, exec, noctalia msg panel-toggle session #"Noctalia Power Menu"
         bind = $modifier, Delete, exit #"Hyprland Logout/Exit"
-        bind = $modifier, L, exec, noctalia-shell ipc call lockScreen lock #"Noctalia Lock Screen"
+        bind = $modifier, L, exec, noctalia msg session lock #"Noctalia Lock Screen"
       ''
       else ''
         # 3. ROFI
@@ -129,7 +129,7 @@ in {
     bind = , XF86AudioPause, exec, playerctl play-pause #"Play Pause"
     bind = , XF86AudioNext, exec, playerctl next #"Next Track"
     bind = , XF86AudioPrev, exec, playerctl previous #"Previous Track"
-    bind = , XF86MonBrightnessDown, exec, noctalia-shell ipc call brightness decrease #"Brightness Down"
-    bind = , XF86MonBrightnessUp, exec, noctalia-shell ipc call brightness increase #"Brightness Up"
+    bind = , XF86MonBrightnessDown, exec, noctalia msg brightness-down #"Brightness Down"
+    bind = , XF86MonBrightnessUp, exec, noctalia msg brightness-up #"Brightness Up"
   '';
 }

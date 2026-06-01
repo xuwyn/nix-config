@@ -14,7 +14,7 @@
 in {
   home.file = {
     ".config/spicetify/config-xpui.ini".source = mkOutOfStoreSymlink "${configDir}/spicetify/config-xpui.ini";
-    ".config/noctalia".source = mkOutOfStoreSymlink "${configDir}/noctalia";
+    # ".config/noctalia".source = mkOutOfStoreSymlink "${configDir}/noctalia";
   };
 
   home.activation = {
