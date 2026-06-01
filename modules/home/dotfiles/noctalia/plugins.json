@@ -18,6 +18,9 @@
         "screen-recorder": {
             "enabled": true,
             "sourceUrl": "https://github.com/noctalia-dev/noctalia-plugins"
+        },
+        "slowbongo": {
+            "enabled": true
         }
     },
     "version": 2

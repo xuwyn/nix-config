@@ -122,12 +122,12 @@
                     "showCpuCores": false,
                     "showCpuFreq": false,
                     "showCpuTemp": true,
-                    "showCpuUsage": true,
+                    "showCpuUsage": false,
                     "showDiskAvailable": false,
                     "showDiskUsage": true,
                     "showDiskUsageAsPercent": true,
                     "showGpuTemp": false,
-                    "showLoadAverage": true,
+                    "showLoadAverage": false,
                     "showMemoryAsPercent": true,
                     "showMemoryUsage": true,
                     "showNetworkStats": false,
@@ -135,6 +135,9 @@
                     "textColor": "none",
                     "useMonospaceFont": true,
                     "usePadding": false
+                },
+                {
+                    "id": "plugin:slowbongo"
                 }
             ],
             "left": [
