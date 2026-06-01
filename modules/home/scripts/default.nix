@@ -9,8 +9,6 @@
   home.packages = [
     (import ./emopicker9000.nix {inherit pkgs;})
     (import ./hm-find.nix {inherit pkgs;})
-    (import ./keybinds.nix {inherit pkgs;})
-    (import ./qs-keybinds.nix {inherit pkgs;})
     (import ./note.nix {inherit pkgs;})
     (import ./note-from-clipboard.nix {inherit pkgs;})
     # (import ./nvidia-offload.nix {inherit pkgs;})

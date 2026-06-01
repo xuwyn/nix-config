@@ -3,7 +3,7 @@
   inherit (vars) barChoice browser terminal;
 in {
   wayland.windowManager.hyprland.extraConfig = ''
-    # 1. WINDOW RESIZING (+/-)
+    # 1. WINDOW RESIZING
     binde = $modifier ALT, left, resizeactive, -10% 0 #"Resize Window to the Left"
     binde = $modifier ALT, right, resizeactive, 10% 0 #"Resize Window to the right"
     binde = $modifier ALT, up, resizeactive, 0 -10% #"Resize Window Upward"
@@ -41,20 +41,19 @@ in {
     # 4. APPLICATIONS
     bind = $modifier, TAB, exec, qs ipc -c overview call overview toggle #"QS Overview"
     bind = $modifier, Return, exec, ${terminal} #"Terminal"
-    bind = $modifier SHIFT, K, exec, qs-keybinds #"Keybinds Search Tool"
     bind = $modifier CTRL, D, exec, app2unit -- discord #"Discord"
     bind = $modifier CTRL, S, exec, flatpak run com.spotify.Client #"Spotify"
     bind = $modifier CTRL, Z, exec, app2unit -- zeditor #"Zed"
-    bind = $modifier ALT, W, exec, web-search #"Web Search"
     bind = $modifier, W, exec, app2unit -- ${browser} #"Web Browser"
-    bind = $modifier, Y, exec, kitty -e yazi #"File Manager"
-    bind = $modifier SHIFT, S, exec, hyprshot -m window -o $HOME/Pictures/ScreenShots #"Screenshot Window"
-    bind = $modifier ALT, S, exec, hyprshot -m region -o $HOME/Pictures/ScreenShots #"Screenshot Region"
+    bind = $modifier ALT, W, exec, web-search #"Web Search"
+    bind = $modifier SHIFT, S, exec, hyprshot -m region -o $HOME/Pictures/ScreenShots #"Screenshot Region"
+    bind = $modifier ALT, S, exec, hyprshot -m window -o $HOME/Pictures/ScreenShots #"Screenshot Window"
     bind = $modifier, O, exec, obs #"OBS Studio"
     bind = $modifier ALT, C, exec, hyprpicker -a #"Color Picker"
     bind = $modifier, G, exec, gimp #"GIMP"
     bind = $modifier SHIFT, T, exec, sh -lc 'DropTerminal' #"Dropdown Terminal"
     bind = $modifier, T, exec, thunar #"Thunar"
+    bind = $modifier, Y, exec, kitty -e yazi #"Yazi"
     bind = $modifier ALT, M, exec, pavucontrol #"Audio Control"
 
     # 5. WINDOW MANAGEMENT
@@ -128,7 +127,7 @@ in {
     bind = , XF86AudioPause, exec, playerctl play-pause #"Play Pause"
     bind = , XF86AudioNext, exec, playerctl next #"Next Track"
     bind = , XF86AudioPrev, exec, playerctl previous #"Previous Track"
-    bind = , XF86MonBrightnessDown, exec, brightnessctl set 5%- #"Brightness Down"
-    bind = , XF86MonBrightnessUp, exec, brightnessctl set +5% #"Brightness Up"
+    bind = , XF86MonBrightnessDown, exec, noctalia-shell ipc call brightness decrease #"Brightness Down"
+    bind = , XF86MonBrightnessUp, exec, noctalia-shell ipc call brightness increase #"Brightness Up"
   '';
 }
