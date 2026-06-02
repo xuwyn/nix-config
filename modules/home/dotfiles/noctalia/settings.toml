@@ -1,0 +1,102 @@
+[bar.default]
+background_opacity = 0.84999999999999998
+capsule = true
+capsule_border = "primary"
+capsule_foreground = "primary"
+center = [ "tray", "clock", "workspaces", "bongocat", "notifications" ]
+end = [ "temp", "cpu", "ram", "sysmon", "volume", "brightness", "bluetooth", "network" ]
+margin_edge = 0
+margin_ends = 0
+radius = 0
+start = [ "audio_visualizer", "media" ]
+thickness = 30
+
+[brightness]
+enable_ddcutil = true
+
+[desktop_widgets]
+schema_version = 1
+widget_order = []
+
+    [desktop_widgets.grid]
+    cell_size = 16
+    major_interval = 4
+    visible = true
+
+    [desktop_widgets.widget]
+
+[dock]
+auto_hide = true
+background_opacity = 0.75
+enabled = true
+icon_size = 35
+inactive_opacity = 0.59999998658895493
+show_dots = true
+
+[shell]
+avatar_path = "/home/wyn/Pictures/avatars/jeannedArc-riyo-zoom.jpg"
+date_format = "%A, %Y %b %d"
+launch_apps_as_systemd_services = true
+settings_show_advanced = true
+telemetry_enabled = false
+
+    [shell.panel]
+    open_near_click_control_center = true
+    transparency_mode = "soft"
+
+[theme]
+custom_palette = "m3-content"
+source = "wallpaper"
+
+    [theme.templates]
+    builtin_ids = [ "cava" ]
+    community_ids = [ "spicetify", "discord" ]
+
+[wallpaper]
+directory = "/home/wyn/Pictures/Wallpapers"
+
+    [wallpaper.default]
+    path = "/home/wyn/Pictures/Wallpapers/interlude_Arknights_3.png"
+
+    [wallpaper.last]
+    path = "/home/wyn/Pictures/Wallpapers/interlude_Arknights_3.png"
+
+    [wallpaper.monitors.DP-5]
+    path = "/home/wyn/Pictures/Wallpapers/interlude_Arknights_3.png"
+
+[weather]
+address = "Fredericton, CA"
+
+[widget.audio_visualizer]
+bands = 20
+width = 200.0
+
+[widget.bongocat]
+audio_spectrum = true
+input_device = ""
+script = "scripts/bongocat.lua"
+tappy_mode = true
+type = "scripted"
+
+[widget.media]
+hide_when_no_media = true
+max_length = 150
+title_scroll = "always"
+
+[widget.network]
+show_label = false
+
+[widget.screen_recorder]
+script = "scripts/screen_recorder.lua"
+type = "scripted"
+video_source = "DP-5"
+
+[widget.sysmon]
+stat = "disk_pct"
+
+[widget.tray]
+drawer = true
+hidden = [ "network", "blueman" ]
+
+[widget.workspaces]
+anchor = true
