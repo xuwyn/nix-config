@@ -1,5 +1,5 @@
 [bar.default]
-background_opacity = 0.84999999999999998
+background_opacity = 0.75
 capsule = true
 capsule_border = "primary"
 capsule_foreground = "primary"
@@ -13,6 +13,27 @@ thickness = 30
 
 [brightness]
 enable_ddcutil = true
+
+[control_center]
+sidebar = "full"
+
+    [[control_center.shortcuts]]
+    type = "wifi"
+
+    [[control_center.shortcuts]]
+    type = "bluetooth"
+
+    [[control_center.shortcuts]]
+    type = "caffeine"
+
+    [[control_center.shortcuts]]
+    type = "nightlight"
+
+    [[control_center.shortcuts]]
+    type = "notification"
+
+    [[control_center.shortcuts]]
+    type = "keyboard_layout"
 
 [desktop_widgets]
 schema_version = 1
@@ -32,6 +53,10 @@ enabled = true
 icon_size = 35
 inactive_opacity = 0.59999998658895493
 show_dots = true
+show_instance_count = false
+
+[hooks]
+logging_out = "hyprctl dispatch exit"
 
 [shell]
 avatar_path = "/home/wyn/Pictures/avatars/jeannedArc-riyo-zoom.jpg"
@@ -41,12 +66,16 @@ settings_show_advanced = true
 telemetry_enabled = false
 
     [shell.panel]
+    control_center_placement = "floating"
     open_near_click_control_center = true
-    transparency_mode = "soft"
+    session_placement = "floating"
+    transparency_mode = "glass"
+    wallpaper_placement = "floating"
 
 [theme]
 custom_palette = "m3-content"
 source = "wallpaper"
+wallpaper_scheme = "m3-fruit-salad"
 
     [theme.templates]
     builtin_ids = [ "cava" ]
@@ -56,13 +85,13 @@ source = "wallpaper"
 directory = "/home/wyn/Pictures/Wallpapers"
 
     [wallpaper.default]
-    path = "/home/wyn/Pictures/Wallpapers/interlude_Arknights_3.png"
+    path = "/home/wyn/Pictures/Wallpapers/Frankenstein.jpg"
 
     [wallpaper.last]
-    path = "/home/wyn/Pictures/Wallpapers/interlude_Arknights_3.png"
+    path = "/home/wyn/Pictures/Wallpapers/Frankenstein.jpg"
 
     [wallpaper.monitors.DP-5]
-    path = "/home/wyn/Pictures/Wallpapers/interlude_Arknights_3.png"
+    path = "/home/wyn/Pictures/Wallpapers/Frankenstein.jpg"
 
 [weather]
 address = "Fredericton, CA"

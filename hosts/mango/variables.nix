@@ -97,17 +97,9 @@
   # The others much be commented out.
 
   # Set Stylix Image
-  # This will set your color palette
   # Default background
-  # Add new images to ~/zaneyos/wallpapers
-  #stylixImage = ../../wallpapers/mountainscapedark.jpg;
-  #stylixImage = ../../wallpapers/AnimeGirlNightSky.jpg;
-  #stylixImage = ../../wallpapers/Anime-Purple-eyes.png;
-  #stylixImage = ../../wallpapers/Rainnight.jpg;
-  #stylixImage = ../../wallpapers/zaney-wallpaper.jpg;
-  #stylixImage = ../../wallpapers/nix-wallpaper-stripes-logo.png;
-  #stylixImage = ../../wallpapers/beautifulmountainscape.jpg;
   stylixImage = ../../wallpapers/interlude_Arknights_3.png;
+
   # Set Waybar
   #  Available Options:
   #waybarChoice = ../../modules/home/waybar/waybar-curved.nix;

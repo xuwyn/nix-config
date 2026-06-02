@@ -9,7 +9,6 @@ in {
   imports =
     [
       ./boot.nix
-      ./xdg.nix
       ./flatpak.nix
       ./fonts.nix
       ./hardware.nix

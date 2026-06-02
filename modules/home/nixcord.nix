@@ -10,6 +10,7 @@
     discord.equicord.enable = true; # Equicord (has more plugins)
 
     config = {
+      enabledThemes = ["noctalia-material.theme.css" "noctalia.theme.css"];
       plugins = {
         alwaysAnimate.enable = true;
         betterGifAltText.enable = true;
