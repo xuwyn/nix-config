@@ -1,9 +1,14 @@
-{host, config, ...}: let
+{
+  host,
+  config,
+  ...
+}: let
   vars = import ../../../hosts/${host}/variables.nix;
   inherit
     (vars)
     barChoice
     stylixImage
+    openrgbEnable
     ;
   # Noctalia-specific startup commands
   noctaliaExec =
@@ -41,6 +46,12 @@ in {
         "hyprland-change-layout init"
         # "hyprctl setcursor ${config.home.pointerCursor.name} ${toString config.home.pointerCursor.size}"
       ]
-      ++ noctaliaExec ++ waybarExec;
+      ++ noctaliaExec
+      ++ waybarExec
+      ++ (
+        if openrgbEnable
+        then ["app2unit -- openrgb --startminimized --profile random-marquee"]
+        else []
+      );
   };
 }

@@ -21,6 +21,8 @@
   helixEnable = false;
   #To install: Enable here, zcli rebuild, then run zcli doom install
   doomEmacsEnable = false;
+  #OpenRGB
+  openrgbEnable = true;
 
   # Python development tools are included by default
 
@@ -31,8 +33,9 @@
   # You can configure multiple monitors.
   # Inside the quotes, create a new line for each monitor.
   extraMonitorSettings = "
-  monitor = DP-2,1920x1080@165,0x0,1
-  monitor = Virtual-1,1920x1080@60,auto,1
+    monitor = DP-5,1920x1080@165,0x0,1
+    monitor = DP-2,1920x1080@165,0x0,1
+    monitor = Virtual-1,1920x1080@60,auto,1
     ";
 
   # Bar/Shell Settings
@@ -76,8 +79,6 @@
 
   # For hybrid support (Intel/NVIDIA Prime or AMD/NVIDIA)
   # intelID = "PCI:1:0:0";
-  # amdgpuID = "PCI:5:0:0";
-  # nvidiaID = "PCI:0:2:0";
   nvidiaID = "PCI:1:0:0";
   amdgpuID = "PCI:15:0:0";
 

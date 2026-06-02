@@ -68,13 +68,11 @@ in {
       force = true;
     };
     ".face".source = ./face.jpg;
-    # ".config/face.jpg".source = ./face.jpg; # which app uses this?
   };
   xdg.configFile."hypr/hyprland.conf".force = true;
   wayland.windowManager.hyprland = {
     enable = true;
     configType = "hyprlang";
-    # package = pkgs.hyprland;
     package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
     portalPackage = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
     systemd = {

@@ -1,16 +1,11 @@
-{
-  pkgs,
-  inputs,
-  ...
-}: {
-  imports = [inputs.nix-flatpak.nixosModules.nix-flatpak];
+{pkgs, ...}: {
   environment.systemPackages = with pkgs; [
-    #  Add local pacakaged here
+    #  Add local packaged here
+    openrgb-with-all-plugins
   ];
   # Add host specific flatpaks here
   services = {
     flatpak = {
-      enable = true;
       packages = [
       ];
     };

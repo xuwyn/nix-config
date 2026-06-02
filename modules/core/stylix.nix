@@ -1,10 +1,12 @@
 {
   pkgs,
   host,
+  inputs,
   ...
 }: let
   inherit (import ../../hosts/${host}/variables.nix) stylixImage;
 in {
+  imports = [inputs.stylix.nixosModules.stylix];
   # Styling Options
   stylix = {
     enable = true;
