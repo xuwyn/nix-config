@@ -47,13 +47,10 @@ in {
       };
     };
     targets = {
+      btop.enable = false;
       spicetify.enable = false;
       nixcord.enable = false;
       zed.enable = false; # bug not fixed, hardcoded theme in zed.nix
-      kitty = {
-        enable = true;
-        opacity.enable = true;
-      };
       firefox = {
         enable = true;
         profileNames = [username];

@@ -6,6 +6,7 @@
       cudaSupport = true;
     };
     settings = {
+      color_theme = "noctalia";
       vim_keys = true;
       rounded_corners = true;
       proc_tree = true;

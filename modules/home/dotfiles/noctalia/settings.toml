@@ -69,7 +69,7 @@ telemetry_enabled = false
     control_center_placement = "floating"
     open_near_click_control_center = true
     session_placement = "floating"
-    transparency_mode = "glass"
+    transparency_mode = "soft"
     wallpaper_placement = "floating"
 
 [theme]
@@ -78,7 +78,7 @@ source = "wallpaper"
 wallpaper_scheme = "m3-fruit-salad"
 
     [theme.templates]
-    builtin_ids = [ "cava" ]
+    builtin_ids = [ "btop", "cava", "kitty" ]
     community_ids = [ "spicetify", "discord" ]
 
 [wallpaper]
