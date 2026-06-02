@@ -26,6 +26,26 @@ in {
       dark = "Papirus-Dark";
       light = "Papirus-Light";
     };
+    fonts = {
+      monospace = {
+        package = pkgs.nerd-fonts.jetbrains-mono;
+        name = "JetBrains Mono";
+      };
+      sansSerif = {
+        package = pkgs.montserrat;
+        name = "Montserrat";
+      };
+      serif = {
+        package = pkgs.montserrat;
+        name = "Montserrat";
+      };
+      sizes = {
+        applications = 12;
+        terminal = 15;
+        desktop = 11;
+        popups = 12;
+      };
+    };
     targets = {
       spicetify.enable = false;
       nixcord.enable = false;

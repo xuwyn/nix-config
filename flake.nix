@@ -89,7 +89,6 @@
         specialArgs = {inherit inputs overlays username host profile;};
         modules = [
           ./profiles/${profile}
-          nix-flatpak.nixosModules.nix-flatpak
         ];
       };
 
