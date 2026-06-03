@@ -8,6 +8,8 @@ end = [ "temp", "cpu", "ram", "sysmon", "volume", "brightness", "bluetooth", "ne
 margin_edge = 0
 margin_ends = 0
 radius = 0
+radius_bottom_left = 45
+radius_bottom_right = 45
 start = [ "audio_visualizer", "media" ]
 thickness = 30
 
@@ -28,13 +30,7 @@ sidebar_section = "none"
     type = "caffeine"
 
     [[control_center.shortcuts]]
-    type = "notification"
-
-    [[control_center.shortcuts]]
     type = "keyboard_layout"
-
-    [[control_center.shortcuts]]
-    type = "audio"
 
 [desktop_widgets]
 schema_version = 1
@@ -73,6 +69,9 @@ telemetry_enabled = false
     session_placement = "floating"
     transparency_mode = "soft"
     wallpaper_placement = "floating"
+
+    [shell.screenshot]
+    directory = "/home/wyn/Pictures/Screenshots"
 
     [[shell.session.actions]]
     action = "lock"
