@@ -1,17 +1,17 @@
 [bar.default]
-background_opacity = 0.75
+background_opacity = 0.69999999999999996
 capsule = true
 capsule_border = "primary"
 capsule_foreground = "primary"
 center = [ "tray", "clock", "workspaces", "bongocat", "notifications" ]
 end = [ "temp", "cpu", "ram", "sysmon", "volume", "brightness", "bluetooth", "network" ]
 margin_edge = 0
-margin_ends = 0
+margin_ends = 15
 radius = 0
 radius_bottom_left = 45
 radius_bottom_right = 45
+shadow = false
 start = [ "audio_visualizer", "media" ]
-thickness = 30
 
 [brightness]
 enable_ddcutil = true
@@ -45,10 +45,13 @@ widget_order = []
 
 [dock]
 auto_hide = true
-background_opacity = 0.75
+background_opacity = 0.65000000000000002
 enabled = true
 icon_size = 35
 inactive_opacity = 0.59999998658895493
+item_spacing = 8
+padding = 6
+shadow = false
 show_dots = true
 show_instance_count = false
 
@@ -56,19 +59,28 @@ show_instance_count = false
 logging_out = "hyprctl dispatch exit"
 started = "pkill openrgb; sleep 1; openrgb --startminimized --profile purple;"
 
+[keybinds]
+cancel = [ "Delete", "Escape" ]
+
 [shell]
 avatar_path = "/home/wyn/Pictures/avatars/jeannedArc-riyo-zoom.jpg"
 date_format = "%A, %Y %b %d"
+font_family = "Maple Mono NF"
 launch_apps_as_systemd_services = true
 settings_show_advanced = true
 telemetry_enabled = false
+ui_scale = 1.1000000000000001
 
     [shell.panel]
-    control_center_placement = "floating"
+    clipboard_placement = "attached"
+    launcher_placement = "attached"
     open_near_click_control_center = true
-    session_placement = "floating"
-    transparency_mode = "soft"
-    wallpaper_placement = "floating"
+    session_placement = "centered"
+    transparency_mode = "glass"
+
+    [shell.screen_corners]
+    enabled = true
+    size = 40
 
     [shell.screenshot]
     directory = "/home/wyn/Pictures/Screenshots"
@@ -114,6 +126,13 @@ telemetry_enabled = false
     shortcut = "6"
     variant = "destructive"
 
+    [shell.shadow]
+    alpha = 0.0
+
+[system.monitor]
+cpu_poll_seconds = 1
+network_poll_seconds = 1
+
 [theme]
 custom_palette = "m3-content"
 source = "wallpaper"
@@ -134,6 +153,10 @@ directory = "/home/wyn/Pictures/Wallpapers"
 
     [wallpaper.monitors.DP-5]
     path = "/home/wyn/Pictures/Wallpapers/interlude_109.png"
+
+    [[wallpaper.favorite]]
+    path = "/home/wyn/Pictures/Wallpapers/HokusaiWin7.jpg"
+    theme_mode = "auto"
 
 [weather]
 address = "Fredericton, CA"

@@ -127,9 +127,9 @@ in {
 
       general = {
         layout = "dwindle";
-        gaps_in = 6;
-        gaps_out = 8;
-        border_size = 2;
+        gaps_in = 5;
+        gaps_out = 10;
+        border_size = 3;
         resize_on_border = true;
         "col.active_border" = "rgb(${config.lib.stylix.colors.base08}) rgb(${config.lib.stylix.colors.base0C}) 45deg";
         "col.inactive_border" = "rgb(${config.lib.stylix.colors.base01})";
@@ -167,18 +167,20 @@ in {
 
       decoration = {
         rounding = 10;
+        rounding_power = 2;
         blur = {
           enabled = true;
-          size = 5;
-          passes = 3;
-          ignore_opacity = false;
-          new_optimizations = true;
+          size = 3;
+          passes = 2;
+          vibrancy = 0.1696;
+          # ignore_opacity = false;
+          # new_optimizations = true;
         };
         shadow = {
           enabled = true;
           range = 4;
           render_power = 3;
-          color = "rgba(1a1a1aee)";
+          color = "rgba(ee1a1a1a)";
         };
       };
 
@@ -225,9 +227,17 @@ in {
       monitor=,preferred,auto,auto
       monitor=Virtual-1,1920x1080@60,auto,1
       ${extraMonitorSettings}
+      
       # To enable blur on waybar uncomment the line below
       # Thanks to SchotjeChrisman
-      #layerrule = blur,waybar
+      # layerrule = blur,waybar
+      layerrule {
+        name = noctalia
+        match:namespace = ^noctalia-(bar-.+|notification|dock|panel|osd)$
+        ignore_alpha = 0.5
+        blur = true
+        blur_popups = true
+      }
       # Persistent workspaces
       workspace = 1, persistent:true
       workspace = 2, persistent:true
