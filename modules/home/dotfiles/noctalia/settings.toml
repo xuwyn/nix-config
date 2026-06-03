@@ -127,13 +127,13 @@ wallpaper_scheme = "m3-fruit-salad"
 directory = "/home/wyn/Pictures/Wallpapers"
 
     [wallpaper.default]
-    path = "/home/wyn/Pictures/Wallpapers/Frankenstein.jpg"
+    path = "/home/wyn/Pictures/Wallpapers/interlude_109.png"
 
     [wallpaper.last]
-    path = "/home/wyn/Pictures/Wallpapers/Frankenstein.jpg"
+    path = "/home/wyn/Pictures/Wallpapers/interlude_109.png"
 
     [wallpaper.monitors.DP-5]
-    path = "/home/wyn/Pictures/Wallpapers/Frankenstein.jpg"
+    path = "/home/wyn/Pictures/Wallpapers/interlude_109.png"
 
 [weather]
 address = "Fredericton, CA"

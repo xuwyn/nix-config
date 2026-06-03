@@ -98,7 +98,7 @@
 
   # Set Stylix Image
   # Default background
-  stylixImage = ../../wallpapers/Frankenstein.jpg;
+  stylixImage = ../../wallpapers/interlude_109.png;
 
   # Set Waybar
   #  Available Options:

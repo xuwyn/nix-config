@@ -47,6 +47,10 @@ in {
       };
     };
     targets = {
+      starship = {
+        enable = true;
+        colors.enable = true;
+      };
       btop.enable = false;
       spicetify.enable = false;
       nixcord.enable = false;

@@ -30,6 +30,7 @@ in {
 
   imports =
     [
+      ./starship.nix
       ./dotfiles.nix
       ./flatpak.nix
       ./spicetify.nix
