@@ -1,7 +1,7 @@
 {pkgs, ...}: {
   environment.systemPackages = with pkgs; [
     #  Add local packaged here
-    openrgb-with-all-plugins
+    openrgb
   ];
   # Add host specific flatpaks here
   services = {

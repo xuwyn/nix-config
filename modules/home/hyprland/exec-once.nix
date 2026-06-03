@@ -47,11 +47,6 @@ in {
         # "hyprctl setcursor ${config.home.pointerCursor.name} ${toString config.home.pointerCursor.size}"
       ]
       ++ noctaliaExec
-      ++ waybarExec
-      ++ (
-        if openrgbEnable
-        then ["app2unit -- openrgb --startminimized --profile random-marquee"]
-        else []
-      );
+      ++ waybarExec;
   };
 }

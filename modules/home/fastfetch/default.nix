@@ -26,14 +26,20 @@
         "break"
         {
           type = "os";
-          key = "OS";
+          key = "OS   ";
           keyColor = "31";
         }
+        # {
+        #   type = "command";
+        #   key = " ├  ZaneyOS ";
+        #   keyColor = "31";
+        #   text = "echo v$" + "{ZANEYOS_VERSION}";
+        # }
         {
           type = "command";
-          key = " ├  ZaneyOS ";
+          key = " ├ 󰏒 ";
           keyColor = "31";
-          text = "echo v$" + "{ZANEYOS_VERSION}";
+          text = "noctalia --version";
         }
         {
           type = "kernel";
@@ -84,7 +90,7 @@
         "break"
         {
           type = "host";
-          format = "{5} {1} Type {2}";
+          format = "{5} {2}";
           key = "PC   ";
           keyColor = "33";
         }
@@ -96,7 +102,7 @@
         }
         {
           type = "gpu";
-          format = "{1} {2} @ {12} GHz";
+          format = "{vendor} {name}";
           key = " ├ 󰢮 ";
           keyColor = "33";
         }
@@ -112,19 +118,20 @@
         }
         {
           type = "monitor";
-          key = " ├  ";
+          format = "{width}x{height} ({inch} in) @ {refresh-rate} Hz";
+          key = " └  ";
           keyColor = "33";
         }
-        {
-          type = "player";
-          key = " ├ 󰥠 ";
-          keyColor = "33";
-        }
-        {
-          type = "media";
-          key = " └ 󰝚 ";
-          keyColor = "33";
-        }
+        # {
+        #   type = "player";
+        #   key = " ├ 󰥠 ";
+        #   keyColor = "33";
+        # }
+        # {
+        #   type = "media";
+        #   key = " └ 󰝚 ";
+        #   keyColor = "33";
+        # }
         "break"
         {
           type = "uptime";

@@ -57,6 +57,7 @@ show_instance_count = false
 
 [hooks]
 logging_out = "hyprctl dispatch exit"
+started = "pkill openrgb; sleep 1; openrgb --startminimized --profile purple;"
 
 [shell]
 avatar_path = "/home/wyn/Pictures/avatars/jeannedArc-riyo-zoom.jpg"
@@ -71,6 +72,47 @@ telemetry_enabled = false
     session_placement = "floating"
     transparency_mode = "soft"
     wallpaper_placement = "floating"
+
+    [[shell.session.actions]]
+    action = "lock"
+    enabled = true
+    shortcut = "1"
+    variant = "default"
+
+    [[shell.session.actions]]
+    action = "logout"
+    enabled = true
+    shortcut = "2"
+    variant = "default"
+
+    [[shell.session.actions]]
+    action = "lock_and_suspend"
+    enabled = true
+    glyph = "player-pause"
+    label = "Suspend"
+    shortcut = "3"
+    variant = "default"
+
+    [[shell.session.actions]]
+    action = "command"
+    command = "systemctl reboot --firmware-setup"
+    enabled = true
+    glyph = "cpu"
+    label = "BIOS Reboot"
+    shortcut = "4"
+    variant = "default"
+
+    [[shell.session.actions]]
+    action = "reboot"
+    enabled = true
+    shortcut = "5"
+    variant = "default"
+
+    [[shell.session.actions]]
+    action = "shutdown"
+    enabled = true
+    shortcut = "6"
+    variant = "destructive"
 
 [theme]
 custom_palette = "m3-content"
