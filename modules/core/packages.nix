@@ -47,6 +47,7 @@ in {
     ]
     ++ noctaliaPkgs
     ++ [
+      wl-clipboard # Add this here for firefox
       ddcutil # Monitor Brightness Control
       app2unit # 2nd hand app launcher
       alejandra # nix formatter
