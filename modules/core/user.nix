@@ -22,7 +22,9 @@ in {
       "wheel" #sudo access
       "vboxusers" #Virtual Box
       "i2c" #ddcutil (brightness) & openrgb
-      "input"
+      "input" #evrest bongocat kb
+      "video"
+      "render"
     ];
     shell = pkgs.zsh;
     ignoreShellProgramCheck = true;

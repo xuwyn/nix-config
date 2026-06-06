@@ -90,6 +90,24 @@ started = "pkill openrgb; sleep 1; openrgb --startminimized --profile purple;"
 [keybinds]
 cancel = [ "Delete", "Escape" ]
 
+[lockscreen_widgets]
+enabled = false
+schema_version = 1
+widget_order = [ "lockscreen-login-box@DP-5" ]
+
+    [lockscreen_widgets.grid]
+    cell_size = 16
+    major_interval = 4
+    visible = true
+
+    [lockscreen_widgets.widget."lockscreen-login-box@DP-5"]
+    cx = 960.0
+    cy = 957.0
+    output = "DP-5"
+    rotation = 0.0
+    scale = 1.0
+    type = "login_box"
+
 [shell]
 avatar_path = "/home/wyn/Pictures/avatars/jeannedArc-riyo-zoom.jpg"
 date_format = "%A, %Y %b %d"
@@ -193,7 +211,7 @@ centered = false
 anchor = true
 audio_spectrum = true
 hot_reload = true
-input_device = "/dev/input/event16"
+input_device = "/dev/input/event1"
 scale = 1.3
 script = "scripts/bongocat.lua"
 tappy_mode = true
