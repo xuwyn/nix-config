@@ -90,6 +90,9 @@ started = "pkill openrgb; sleep 1; openrgb --startminimized --profile purple;"
 [keybinds]
 cancel = [ "Delete", "Escape" ]
 
+[location]
+address = "Fredericton, CA"
+
 [lockscreen_widgets]
 enabled = false
 schema_version = 1
