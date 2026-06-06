@@ -1,4 +1,4 @@
-{ host, ... }:let
+{host, ...}: let
   inherit (import ../../../hosts/${host}/variables.nix) stylixImage;
 in {
   home.file.".config/rofi/config-long.rasi".text = ''

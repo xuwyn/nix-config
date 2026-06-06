@@ -3,7 +3,7 @@
   config,
   host,
   ...
-}:let
+}: let
   inherit (import ../../../hosts/${host}/variables.nix) stylixImage;
 in {
   programs = {

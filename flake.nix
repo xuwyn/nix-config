@@ -22,34 +22,35 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    alejandra = { # nix formatter
+    # nix formatter
+    alejandra = {
       url = "github:kamadorueda/alejandra";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    hyprland.url = "github:hyprwm/Hyprland";
+    flake-utils.url = "github:numtide/flake-utils";
 
-    # awww = {
-    #   url = "git+https://codeberg.org/LGFae/awww";
-    #   inputs.nixpkgs.follows = "nixpkgs";
-    # };
+    hyprland.url = "github:hyprwm/Hyprland";
 
     zed = {
       url = "github:zed-industries/zed";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    sops-nix = { # encryption
+    # encryption
+    sops-nix = {
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nur = { # for firefox addons
+    # for firefox addons
+    nur = {
       url = "github:nix-community/NUR";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    firefox-addons = { # for custom addons not on NUR
+    # for custom addons not on NUR
+    firefox-addons = {
       url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
       inputs.nixpkgs.follows = "nixpkgs";
     };
@@ -70,6 +71,7 @@
     nixvim,
     nix-flatpak,
     alejandra,
+    flake-utils,
     ...
   } @ inputs: let
     overlays = import ./modules/core/overlays.nix {inherit inputs;};
@@ -104,25 +106,27 @@
           ./modules/home
         ];
       };
-  in {
-    nixosConfigurations = {
-      mango = mkNixosConfig {
-        system = "x86_64-linux";
-        host = "mango";
-        profile = "amd-nvidia-hybrid";
-        username = "wyn";
+  in
+    {
+      nixosConfigurations = {
+        mango = mkNixosConfig {
+          system = "x86_64-linux";
+          host = "mango";
+          profile = "amd-nvidia-hybrid";
+          username = "wyn";
+        };
       };
-    };
 
-    homeConfigurations = {
-      "wyn@mango" = mkHomeConfig {
-        system = "x86_64-linux";
-        host = "mango";
-        profile = "amd-nvidia-hybrid";
-        username = "wyn";
+      homeConfigurations = {
+        "wyn@mango" = mkHomeConfig {
+          system = "x86_64-linux";
+          host = "mango";
+          profile = "amd-nvidia-hybrid";
+          username = "wyn";
+        };
       };
-    };
-
-    formatter.x86_64-linux = inputs.alejandra.packages.x86_64-linux.default;
-  };
+    }
+    // (flake-utils.lib.eachDefaultSystem (system: {
+      formatter = alejandra.packages.${system}.default;
+    }));
 }
