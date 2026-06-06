@@ -22,37 +22,34 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    alejandra = {
+    alejandra = { # nix formatter
       url = "github:kamadorueda/alejandra";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     hyprland.url = "github:hyprwm/Hyprland";
 
-    awww = {
-      url = "git+https://codeberg.org/LGFae/awww";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    # awww = {
+    #   url = "git+https://codeberg.org/LGFae/awww";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    # };
 
     zed = {
       url = "github:zed-industries/zed";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    sops-nix = {
-      # encryption
+    sops-nix = { # encryption
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nur = {
-      # for firefox addons
+    nur = { # for firefox addons
       url = "github:nix-community/NUR";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    firefox-addons = {
-      # for custom addons not on NUR
+    firefox-addons = { # for custom addons not on NUR
       url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
       inputs.nixpkgs.follows = "nixpkgs";
     };

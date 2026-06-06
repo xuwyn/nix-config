@@ -49,7 +49,7 @@ in {
     slurp
     cliphist
     wl-clipboard
-    swappy
+    # swappy
     ydotool
     hyprpolkitagent
     hyprshot

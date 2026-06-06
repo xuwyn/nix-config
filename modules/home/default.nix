@@ -15,7 +15,6 @@
     vscodeEnable
     helixEnable
     doomEmacsEnable
-    antigravityEnable
     ;
   # Select bar module based on barChoice
   barModule =
@@ -35,10 +34,10 @@ in {
       ./flatpak.nix
       ./spicetify.nix
       ./nixcord.nix
-      ./amfora.nix
+      # ./amfora.nix
       ./bash.nix
-      ./bashrc-personal.nix
-      ./overview.nix
+      # ./bashrc-personal.nix
+      # ./overview.nix
       ./python.nix
       ./cli/bat.nix
       ./cli/btop.nix
@@ -64,14 +63,14 @@ in {
       ./rofi
       ./qt.nix
       ./scripts
-      ./scripts/gemini-cli.nix
+      # ./scripts/gemini-cli.nix
       ./stylix.nix
-      ./swappy.nix
+      # ./swappy.nix
       ./swaync.nix
       ./tealdeer.nix
       ./virtmanager.nix
       barModule
-      ./wlogout
+      # ./wlogout
       ./xdg.nix
       ./yazi
       ./firefox.nix
@@ -89,19 +88,6 @@ in {
       else []
     )
     ++ (
-      if antigravityEnable
-      then [./editors/antigravity.nix]
-      else []
-    )
-    ++ (
-      if doomEmacsEnable
-      then [
-        ./editors/doom-emacs-install.nix
-        ./editors/doom-emacs.nix
-      ]
-      else []
-    )
-    ++ (
       if weztermEnable
       then [./terminals/wezterm.nix]
       else []
@@ -114,11 +100,6 @@ in {
     ++ (
       if tmuxEnable
       then [./terminals/tmux.nix]
-      else []
-    )
-    ++ (
-      if alacrittyEnable
-      then [./terminals/alacritty.nix]
       else []
     );
 }

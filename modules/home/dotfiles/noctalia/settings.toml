@@ -96,7 +96,7 @@ address = "Fredericton, CA"
 [lockscreen_widgets]
 enabled = false
 schema_version = 1
-widget_order = [ "lockscreen-login-box@DP-5" ]
+widget_order = [ "lockscreen-login-box@WAYLAND-1", "lockscreen-login-box@DP-5" ]
 
     [lockscreen_widgets.grid]
     cell_size = 16
@@ -107,6 +107,14 @@ widget_order = [ "lockscreen-login-box@DP-5" ]
     cx = 960.0
     cy = 957.0
     output = "DP-5"
+    rotation = 0.0
+    scale = 1.0
+    type = "login_box"
+
+    [lockscreen_widgets.widget."lockscreen-login-box@WAYLAND-1"]
+    cx = 235.0
+    cy = 128.0
+    output = "WAYLAND-1"
     rotation = 0.0
     scale = 1.0
     type = "login_box"

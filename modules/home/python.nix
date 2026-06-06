@@ -21,14 +21,14 @@
   };
 
   # Create a wrapper script for Weather.py to ensure it uses Python with required packages
-  home.file.".local/bin/weather" = {
-    text = ''
-      #!/bin/sh
-      # Use python3 with the correct package path
-      exec ${pkgs.python3.withPackages (p: [p.requests])}/bin/python3 $HOME/.config/waybar/scripts/Weather.py "$@"
-    '';
-    executable = true;
-  };
+  # home.file.".local/bin/weather" = {
+  #   text = ''
+  #     #!/bin/sh
+  #     # Use python3 with the correct package path
+  #     exec ${pkgs.python3.withPackages (p: [p.requests])}/bin/python3 $HOME/.config/waybar/scripts/Weather.py "$@"
+  #   '';
+  #   executable = true;
+  # };
 
   # Set Python path in environment
   home.sessionPath = ["${pkgs.python3}/bin"];

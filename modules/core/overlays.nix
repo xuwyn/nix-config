@@ -1,7 +1,4 @@
 { inputs, ... }: [
-  # Provide pkgs.google-antigravity via antigravity-nix overlay
-  # inputs.antigravity-nix.overlays.default
-
   # Firefox addons
   inputs.nur.overlays.default
 
