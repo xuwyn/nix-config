@@ -12,8 +12,9 @@
     then
       with pkgs; [
         matugen # color palette generator needed for noctalia-shell
-        gpu-screen-recorder # needed for nnoctalia-shell
+        # gpu-screen-recorder # nixos has this option
         imagemagick # template processing & wallpaper resizing
+        evtest # read kb input for bongo cat
       ]
     else [];
 in {
@@ -70,7 +71,6 @@ in {
       icu # dep for gearlever
       gimp # Great Photo Editor
       gnumake # Needed for emacs
-      gpu-screen-recorder # needed for nnoctalia-shell
       power-profiles-daemon # needed for noctalia-shell power cycle
       mesa-demos # needed for inxi diag util
       tuigreet # The Login Manager (Sometimes Referred To As Display Manager)
@@ -102,6 +102,7 @@ in {
       sqlite # needed for emaacs
       socat # Needed For Screenshots
       unrar # Tool For Handling .rar Files
+      zip # Tool for compressing .zip files
       unzip # Tool For Handling .zip Files
       usbutils # Good Tools For USB Devices
       upower # noctalia shell battery

@@ -24,10 +24,16 @@ in {
         bind = $modifier SHIFT, W, exec, noctalia msg panel-toggle wallpaper #"Noctalia Wallpaper"
         bind = $modifier, N, exec, noctalia msg panel-toggle control-center "notifications" #"Notifications"
         bind = $modifier, E, exec, noctalia msg panel-toggle launcher "/emo" #"Emoji Picker"
+        bind = $modifier CTRL, S, exec, noctalia msg screenshot-fullscreen #"Screenshot Fullscreen"
+        bind = $modifier SHIFT, S, exec, noctalia msg screenshot-region #"Screenshot Region"
+        # bind = $modifier CTRL, S, exec, hyprshot -m output -o "$HOME/Pictures/Screenshots" #"Screenshot Entire Screen"
+        # bind = $modifier SHIFT, S, exec, hyprshot -m region -o "$HOME/Pictures/Screenshots" #"Screenshot Region"
+        bind = $modifier ALT, S, exec, hyprshot -m window -o "$HOME/Pictures/Screenshots" #"Screenshot Window"
         # bind = $modifier SHIFT, E, exec, noctalia msg panel-toggle plugin:kaomoji #"Kaomoji Picker"
         # bind = $modifier, K, exec, noctalia msg panel-toggle plugin:keybind-cheatsheet #"Keybind Cheatsheet"
-        bind = $modifier, R, exec, killall -q noctalia; sleep 1; noctalia; #"Restart Noctalia shell"
-        # bind = $modifier SHIFT, R, exec, noctalia msg panel-toggle plugin:screen-recorder #"Toggle Screen Recorder"
+        bind = $modifier, R, exec, noctalia msg scripted-widget screen_recorder focused toggle #"Toggle Screen Recorder"
+        bind = $modifier SHIFT, R, exec, killall -q noctalia; sleep 1; noctalia; #"Restart Noctalia shell"
+        bind = $modifier ALT, R, exec, hyprctl reload #"Reload Hyprland"
         bind = CTRL+ALT, Delete, exec, noctalia msg panel-toggle session #"Noctalia Power Menu"
         bind = $modifier, Delete, exit #"Hyprland Logout/Exit"
         bind = $modifier, L, exec, noctalia msg session lock #"Noctalia Lock Screen"
@@ -48,10 +54,6 @@ in {
     bind = $modifier, Z, exec, app2unit -- zeditor #"Zed"
     bind = $modifier, W, exec, app2unit -- ${browser} #"Web Browser"
     bind = $modifier ALT, W, exec, web-search #"Web Search"
-    bind = $modifier CTRL, S, exec, noctalia msg screenshot-fullscreen #"Screenshot Fullscreen"
-    # bind = $modifier CTRL, S, exec, hyprshot -m output -o "$HOME/Pictures/Screenshots" #"Screenshot Entire Screen"
-    bind = $modifier SHIFT, S, exec, hyprshot -m region -o "$HOME/Pictures/Screenshots" #"Screenshot Region"
-    bind = $modifier ALT, S, exec, hyprshot -m window -o "$HOME/Pictures/Screenshots" #"Screenshot Window"
     bind = $modifier, O, exec, obs #"OBS Studio"
     bind = $modifier ALT, C, exec, hyprpicker -a #"Color Picker"
     bind = $modifier, G, exec, gimp #"GIMP"
@@ -100,8 +102,11 @@ in {
     bind = $modifier, 0, workspace, 10 #"Workspace 10"
 
     # 10. MOVE WINDOW TO WORKSPACE
-    bind = $modifier SHIFT, SPACE, movetoworkspace, special #"Move to Special"
-    bind = $modifier, SPACE, togglespecialworkspace #"Toggle Special"
+    binde = $modifier CTRL SHIFT, left, movetoworkspace, -1 #"Move to Left Workspace"
+    binde = $modifier CTRL SHIFT, right, movetoworkspace, +1 #"Move to Right Workspace"
+    bind = $modifier, SPACE, togglespecialworkspace #"Toggle Special Workspace"
+    bind = $modifier CTRL SHIFT, up, movetoworkspace, special:special #"Move to Special"
+    bind = $modifier CTRL SHIFT, down, movetoworkspace, e+0 #"Move out of Special"
     bind = $modifier SHIFT, 1, movetoworkspace, 1 #"Move to Workspace 1"
     bind = $modifier SHIFT, 2, movetoworkspace, 2 #"Move to Workspace 2"
     bind = $modifier SHIFT, 3, movetoworkspace, 3 #"Move to Workspace 3"
@@ -121,7 +126,7 @@ in {
 
     # 12. WINDOW CYCLING
     bind = ALT, Tab, cyclenext #"Cycle Next Window"
-    # bind = ALT, Tab, bringactivetotop #"Bring Active To Top"
+    bind = ALT, Tab, bringactivetotop #"Bring Active To Top"
 
     # 13. MEDIA & HARDWARE CONTROLS
     bind = , XF86AudioRaiseVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+ #"Volume Up"

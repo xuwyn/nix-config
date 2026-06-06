@@ -131,8 +131,8 @@ in {
         gaps_out = 10;
         border_size = 3;
         resize_on_border = true;
-        "col.active_border" = "rgb(${config.lib.stylix.colors.base08}) rgb(${config.lib.stylix.colors.base0C}) 45deg";
-        "col.inactive_border" = "rgb(${config.lib.stylix.colors.base01})";
+        # "col.active_border" = "rgb(${config.lib.stylix.colors.base08}) rgb(${config.lib.stylix.colors.base0C}) 45deg";
+        # "col.inactive_border" = "rgb(${config.lib.stylix.colors.base01})";
       };
 
       misc = {
@@ -173,8 +173,8 @@ in {
           size = 3;
           passes = 2;
           vibrancy = 0.1696;
-          # ignore_opacity = false;
-          # new_optimizations = true;
+          ignore_opacity = false;
+          new_optimizations = true;
         };
         shadow = {
           enabled = true;
@@ -224,26 +224,32 @@ in {
     };
 
     extraConfig = "
-      monitor=,preferred,auto,auto
-      monitor=Virtual-1,1920x1080@60,auto,1
-      ${extraMonitorSettings}
-      
-      # To enable blur on waybar uncomment the line below
-      # Thanks to SchotjeChrisman
-      # layerrule = blur,waybar
-      layerrule {
-        name = noctalia
-        match:namespace = ^noctalia-(bar-.+|notification|dock|panel|osd)$
-        ignore_alpha = 0.5
-        blur = true
-        blur_popups = true
-      }
-      # Persistent workspaces
-      workspace = 1, persistent:true
-      workspace = 2, persistent:true
-      workspace = 3, persistent:true
-      workspace = 4, persistent:true
-      workspace = 5, persistent:true
+monitor=,preferred,auto,auto
+monitor=Virtual-1,1920x1080@60,auto,1
+${extraMonitorSettings}
+
+# To enable blur on waybar uncomment the line below
+# Thanks to SchotjeChrisman
+# layerrule = blur,waybar
+
+# Noctalia blur
+layerrule {
+  name = noctalia
+  match:namespace = ^noctalia-(bar-.+|notification|dock|panel|osd)$
+  ignore_alpha = 0.5
+  blur = true
+  blur_popups = true
+}
+
+# Persistent workspaces
+workspace = 1, persistent:true
+workspace = 2, persistent:true
+workspace = 3, persistent:true
+workspace = 4, persistent:true
+workspace = 5, persistent:true
+
+# Reading noctalia.conf from the same directory
+${builtins.readFile ../dotfiles/hypr/noctalia.conf}
     ";
   };
 }

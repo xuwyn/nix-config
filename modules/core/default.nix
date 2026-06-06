@@ -11,6 +11,7 @@ in {
       ./boot.nix
       ./flatpak.nix
       ./fonts.nix
+      ./gpu-screen-recorder.nix
       ./hardware.nix
       ./network.nix
       ./nfs.nix

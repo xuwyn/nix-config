@@ -22,6 +22,7 @@ in {
       "wheel" #sudo access
       "vboxusers" #Virtual Box
       "i2c" #ddcutil (brightness) & openrgb
+      "input"
     ];
     shell = pkgs.zsh;
     ignoreShellProgramCheck = true;

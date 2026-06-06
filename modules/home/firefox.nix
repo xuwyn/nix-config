@@ -65,7 +65,7 @@ in {
         "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
 
         # Clean up Firefox Home Content (New Tab Page)
-        "browser.newtabpage.activity-stream.logowordmark.alwaysVisible" = false;
+        "browser.newtabpage.activity-stream.nova.enabled" = false;
         "browser.newtabpage.activity-stream.feeds.weatherfeed" = false;
         "browser.newtabpage.activity-stream.feeds.section.topstories" = false;
         "browser.newtabpage.activity-stream.feeds.topsites" = false;
