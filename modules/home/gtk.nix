@@ -1,7 +1,11 @@
-{config, pkgs, ...}: {
+{
+  pkgs,
+  lib,
+  ...
+}: {
   gtk = {
     enable = true;
-    gtk4.theme = null;
+    gtk4.theme = lib.mkForce null;
     gtk3.extraConfig = {
       gtk-application-prefer-dark-theme = 1;
     };

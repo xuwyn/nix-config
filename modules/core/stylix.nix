@@ -11,6 +11,9 @@ in {
   stylix = {
     enable = true;
     image = stylixImage;
+    targets = {
+      kmscon.enable = false; # tty
+    };
     # base16Scheme = {
     #   base00 = "282936";
     #   base01 = "3a3c4e";
