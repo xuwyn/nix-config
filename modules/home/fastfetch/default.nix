@@ -12,13 +12,13 @@
       };
 
       logo = {
-        source = ./riyo11.png;
+        source = ./frieren.png;
         type = "kitty-direct";
         height = 18;
-        width = 20;
+        width = 25;
         padding = {
-          top = 2;
-          left = 2;
+          top = 3;
+          left = 0;
         };
       };
 
@@ -51,6 +51,7 @@
         {
           type = "packages";
           key = " ├ 󰏖 ";
+          format = "{nix-all} (nix-all), {flatpak-all} (flatpak-all)";
           keyColor = "red";
           outputColor = "red";
         }
