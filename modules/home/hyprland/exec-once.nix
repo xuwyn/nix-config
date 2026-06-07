@@ -1,14 +1,9 @@
-{
-  host,
-  config,
-  ...
-}: let
+{host, ...}: let
   vars = import ../../../hosts/${host}/variables.nix;
   inherit
     (vars)
     barChoice
     stylixImage
-    openrgbEnable
     ;
   # Noctalia-specific startup commands
   noctaliaExec =

@@ -1,12 +1,13 @@
 {
   host,
   username,
+  pkgs,
   ...
 }: let
   vars = import ../../hosts/${host}/variables.nix;
   inherit
     (vars)
-    alacrittyEnable
+    hyprlandEnable
     barChoice
     ghosttyEnable
     tmuxEnable
@@ -14,69 +15,69 @@
     weztermEnable
     vscodeEnable
     helixEnable
-    doomEmacsEnable
     ;
   # Select bar module based on barChoice
-  barModule =
+  barModule = (
     if barChoice == "noctalia"
     then ./noctalia.nix
-    else waybarChoice;
+    else waybarChoice
+  );
 in {
-  home.username = username;
-  home.homeDirectory = "/home/${username}";
-  home.stateVersion = "23.11";
+  home = {
+    username = username;
+    homeDirectory =
+      if pkgs.stdenv.isDarwin
+      then "/Users/${username}"
+      else "/home/${username}";
+    stateVersion = "23.11";
+  };
   programs.home-manager.enable = true;
 
   imports =
     [
-      ./starship.nix
-      ./dotfiles.nix
-      ./flatpak.nix
-      ./spicetify.nix
-      ./nixcord.nix
-      # ./amfora.nix
+      ./packages.nix
+      ./cli
       ./bash.nix
-      # ./bashrc-personal.nix
-      # ./overview.nix
+      ./zsh.nix
       ./python.nix
-      ./cli/bat.nix
-      ./cli/btop.nix
-      ./cli/bottom.nix
-      ./cli/cava.nix
-      ./cli/sops.nix
-      ./emoji.nix
       ./eza.nix
+      ./starship.nix
       ./fastfetch
-      ./cli/fzf.nix
-      ./cli/gh.nix
-      ./cli/git.nix
-      ./gtk.nix
-      ./cli/htop.nix
-      ./hyprland
-      ./terminals/kitty.nix
-      ./cli/lazygit.nix
-      ./obs-studio.nix
+      ./zoxide.nix
+      ./tealdeer.nix
+      ./terminals/kitty.nix # add this to homebrew if port to mac
+      ./yazi
       #./editors/nvf.nix
       ./editors/nixvim.nix
       ./editors/nano.nix
       ./editors/zed.nix
-      ./rofi
-      ./qt.nix
-      ./scripts
-      # ./scripts/gemini-cli.nix
-      ./stylix.nix
-      # ./swappy.nix
-      ./swaync.nix
-      ./tealdeer.nix
-      ./virtmanager.nix
-      barModule
-      # ./wlogout
-      ./xdg.nix
-      ./yazi
-      ./firefox.nix
-      ./zoxide.nix
-      ./zsh
+      ./packages.nix
     ]
+    ++ (
+      if hyprlandEnable
+      then [
+        # Apps
+        ./flatpak.nix
+        ./spicetify.nix
+        ./nixcord.nix
+        ./firefox.nix
+        ./obs-studio.nix
+        # WM
+        barModule
+        ./dotfiles.nix
+        ./hyprland
+        ./gtk.nix
+        ./qt.nix
+        ./xdg.nix
+        ./swaync
+        ./rofi
+        ./emoji.nix
+        ./scripts
+        ./stylix.nix
+        ./virtmanager.nix
+      ]
+      else []
+    )
     ++ (
       if helixEnable
       then [./editors/evil-helix.nix]
