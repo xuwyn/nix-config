@@ -845,6 +845,26 @@
         "type": "github"
       }
     },
+    "nix-ld": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1779713362,
+        "narHash": "sha256-qnBIfEw5zcoCbsglaTrV1ZxsxiCxruvbpqtNzsLVIko=",
+        "owner": "Mic92",
+        "repo": "nix-ld",
+        "rev": "18239ad66dce163d66dddd40c11e75b32b97cf4c",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Mic92",
+        "repo": "nix-ld",
+        "type": "github"
+      }
+    },
     "nixcord": {
       "inputs": {
         "flake-compat": "flake-compat_2",
@@ -1148,6 +1168,7 @@
         "home-manager": "home-manager",
         "hyprland": "hyprland",
         "nix-flatpak": "nix-flatpak",
+        "nix-ld": "nix-ld",
         "nixcord": "nixcord",
         "nixpkgs": "nixpkgs_3",
         "nixvim": "nixvim",
@@ -1158,6 +1179,7 @@
         "sops-nix": "sops-nix",
         "spicetify-nix": "spicetify-nix",
         "stylix": "stylix",
+        "umbrella-fetch": "umbrella-fetch",
         "zed": "zed"
       }
     },
@@ -1442,6 +1464,22 @@
       "original": {
         "owner": "tinted-theming",
         "repo": "base16-zed",
+        "type": "github"
+      }
+    },
+    "umbrella-fetch": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1780864269,
+        "narHash": "sha256-VIBP2PevkooJ9QQ/t6STVXbQwPl5j0hoQBmOwNPUAwg=",
+        "owner": "ezequielgk",
+        "repo": "Umbrella-Fetch",
+        "rev": "b54ea6a19f035f88f98fb0e8e806854664da3256",
+        "type": "github"
+      },
+      "original": {
+        "owner": "ezequielgk",
+        "repo": "Umbrella-Fetch",
         "type": "github"
       }
     },

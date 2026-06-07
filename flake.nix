@@ -43,6 +43,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    nix-ld = {
+      url = "github:Mic92/nix-ld";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # for firefox addons
     nur = {
       url = "github:nix-community/NUR";
@@ -62,6 +67,11 @@
     silentSDDM = {
       url = "github:uiriansan/SilentSDDM";
       inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    umbrella-fetch = {
+      url = "github:ezequielgk/Umbrella-Fetch";
+      flake = false;
     };
   };
 

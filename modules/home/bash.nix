@@ -1,6 +1,6 @@
 {profile, ...}: {
   programs.bash = {
-    enable = false;
+    enable = true;
     enableCompletion = true;
     initExtra = ''
       fastfetch

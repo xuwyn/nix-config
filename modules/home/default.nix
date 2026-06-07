@@ -30,6 +30,7 @@ in {
       then "/Users/${username}"
       else "/home/${username}";
     stateVersion = "23.11";
+    sessionPath = ["$HOME/.local/bin"];
   };
   programs.home-manager.enable = true;
 
@@ -52,6 +53,7 @@ in {
       ./editors/nano.nix
       ./editors/zed.nix
       ./packages.nix
+      ./custom-pkgs.nix
     ]
     ++ (
       if hyprlandEnable

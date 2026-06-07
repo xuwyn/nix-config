@@ -87,25 +87,63 @@ show_instance_count = false
 logging_out = "hyprctl dispatch exit"
 started = "pkill openrgb; sleep 1; openrgb --startminimized --profile purple;"
 
+[idle]
+behavior_order = [ "lock", "screen-off", "lock-and-suspend" ]
+
+    [idle.behavior.lock]
+    action = "lock"
+    enabled = true
+    timeout = 600
+
+    [idle.behavior.lock-and-suspend]
+    action = "lock_and_suspend"
+    enabled = false
+    timeout = 900
+
+    [idle.behavior.screen-off]
+    action = "screen_off"
+    enabled = false
+    timeout = 660
+
 [keybinds]
 cancel = [ "Delete", "Escape" ]
 
 [location]
 address = "Fredericton, CA"
 
+[lockscreen]
+blurred_desktop = true
+
 [lockscreen_widgets]
-enabled = false
+enabled = true
 schema_version = 1
-widget_order = [ "lockscreen-login-box@WAYLAND-1", "lockscreen-login-box@DP-5" ]
+widget_order = [
+    "lockscreen-login-box@DP-2",
+    "lockscreen-login-box@WAYLAND-1",
+    "lockscreen-login-box@DP-5",
+    "lockscreen-widget-0000000000000001",
+    "lockscreen-widget-0000000000000004",
+    "lockscreen-widget-0000000000000005",
+    "lockscreen-widget-0000000000000007",
+    "lockscreen-widget-0000000000000009"
+]
 
     [lockscreen_widgets.grid]
     cell_size = 16
     major_interval = 4
     visible = true
 
-    [lockscreen_widgets.widget."lockscreen-login-box@DP-5"]
+    [lockscreen_widgets.widget."lockscreen-login-box@DP-2"]
     cx = 960.0
     cy = 957.0
+    output = "DP-2"
+    rotation = 0.0
+    scale = 1.0
+    type = "login_box"
+
+    [lockscreen_widgets.widget."lockscreen-login-box@DP-5"]
+    cx = 960.0
+    cy = 1013.0
     output = "DP-5"
     rotation = 0.0
     scale = 1.0
@@ -118,6 +156,71 @@ widget_order = [ "lockscreen-login-box@WAYLAND-1", "lockscreen-login-box@DP-5" ]
     rotation = 0.0
     scale = 1.0
     type = "login_box"
+
+    [lockscreen_widgets.widget.lockscreen-widget-0000000000000001]
+    cx = 960.0
+    cy = 292.5
+    output = "DP-5"
+    rotation = 0.0
+    scale = 2.1432433128356934
+    type = "clock"
+
+        [lockscreen_widgets.widget.lockscreen-widget-0000000000000001.settings]
+        background = false
+        shadow = true
+
+    [lockscreen_widgets.widget.lockscreen-widget-0000000000000004]
+    cx = 960.0
+    cy = 416.89999389648438
+    output = "DP-5"
+    rotation = 0.0
+    scale = 0.93181818723678589
+    type = "weather"
+
+        [lockscreen_widgets.widget.lockscreen-widget-0000000000000004.settings]
+        background = false
+
+    [lockscreen_widgets.widget.lockscreen-widget-0000000000000005]
+    cx = 964.9149169921875
+    cy = 180.5
+    output = "DP-5"
+    rotation = 0.0
+    scale = 0.59472769498825073
+    type = "clock"
+
+        [lockscreen_widgets.widget.lockscreen-widget-0000000000000005.settings]
+        background = false
+        format = "{:%Y %b %d}"
+        shadow = true
+
+    [lockscreen_widgets.widget.lockscreen-widget-0000000000000007]
+    cx = 960.0
+    cy = 556.0
+    output = "DP-5"
+    rotation = 0.0
+    scale = 1.874591588973999
+    type = "audio_visualizer"
+
+        [lockscreen_widgets.widget.lockscreen-widget-0000000000000007.settings]
+        aspect_ratio = 2.5
+        background = false
+        bands = 32
+        centered = true
+        show_when_idle = false
+
+    [lockscreen_widgets.widget.lockscreen-widget-0000000000000009]
+    cx = 960.0
+    cy = 791.205322265625
+    output = "DP-5"
+    rotation = 0.0
+    scale = 1.5120406150817871
+    type = "media_player"
+
+        [lockscreen_widgets.widget.lockscreen-widget-0000000000000009.settings]
+        background = false
+        background_opacity = 0.68000000000000005
+        hide_when_no_media = true
+        layout = "horizontal"
 
 [shell]
 avatar_path = "/home/wyn/Pictures/avatars/jeannedArc-riyo-zoom.jpg"
@@ -222,7 +325,6 @@ centered = false
 anchor = true
 audio_spectrum = true
 hot_reload = true
-input_device = "/dev/input/event1"
 scale = 1.3
 script = "scripts/bongocat.lua"
 tappy_mode = true
