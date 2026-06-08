@@ -13,7 +13,7 @@
     age.keyFile = "${config.home.homeDirectory}/.config/sops/age/keys.txt";
 
     # Encrypted file
-    defaultSopsFile = ../sops/secrets.yaml;
+    defaultSopsFile = ./secrets.yaml;
     defaultSopsFormat = "yaml";
 
     # What to decrypt and where to put them

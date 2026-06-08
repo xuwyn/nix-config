@@ -9,6 +9,5 @@
     ./git.nix
     ./htop.nix
     ./lazygit.nix
-    ./sops.nix
   ];
 }

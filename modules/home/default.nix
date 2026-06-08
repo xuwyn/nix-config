@@ -36,7 +36,6 @@ in {
 
   imports =
     [
-      ./packages.nix
       ./cli
       ./bash.nix
       ./zsh.nix
@@ -48,6 +47,7 @@ in {
       ./tealdeer.nix
       ./terminals/kitty.nix # add this to homebrew if port to mac
       ./yazi
+      ./sops
       #./editors/nvf.nix
       ./editors/nixvim.nix
       ./editors/nano.nix
