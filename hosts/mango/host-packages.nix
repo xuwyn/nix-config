@@ -1,16 +1,9 @@
 {pkgs, ...}: {
   environment.systemPackages = with pkgs; [
-    #  Add local packaged here
-    openrgb
+    #  Add host-specific system packages
   ];
-  # Add host specific flatpaks here
-  services = {
-    flatpak = {
-      packages = [
-      ];
-    };
-  };
 
+  # Power settings
   services.auto-cpufreq.enable = false;
   services.auto-cpufreq.settings = {
     battery = {

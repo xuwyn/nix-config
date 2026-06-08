@@ -42,14 +42,22 @@
   # Set Default Browser
   browser = "firefox";
 
-  # Enable NFS
-  enableNFS = true;
+  # Networking
+  nfsEnable = true;
+  syncthingEnable = false;
+  dockerEnable = false;
 
-  # Enable Printing Support
+  # System Utilities
+  systemThemeEnable = true;
   printEnable = true;
+  gsrEnable = true;
+  xserverEnable = true;
+  devToolsEnable = true;
 
   # Extra Software
   openrgbEnable = true;
+  flatpakEnable = true;
+  steamEnable = true;
 
   # Host-level default applications (picked up by Home Manager xdg.mimeApps)
   # Uncomment and adjust the .desktop IDs to set per-host defaults.
@@ -66,7 +74,7 @@
   #   "text/plain"      = ["nvim.desktop"];        # or code.desktop
   # };
 
-  # Desktop/WM Settings (Hyprland)
+  # Desktop/WM Settings
   hyprlandEnable = true;
   extraMonitorSettings = "
 monitor = DP-5,1920x1080@165,0x0,1
@@ -75,6 +83,7 @@ monitor = DP-2,1920x1080@165,0x0,1
 
   # Bar/Shell Settings
   barChoice = "noctalia";
+  quickshellEnable = false;
 
   # Set Stylix Image (App themes based on background)
   stylixImage = ../../wallpapers/interlude_109.png;

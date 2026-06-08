@@ -84,7 +84,7 @@
     flake-utils,
     ...
   } @ inputs: let
-    overlays = import ./modules/core/overlays.nix {inherit inputs;};
+    overlays = import ./modules/overlays {inherit inputs;};
 
     mkNixosConfig = {
       system,

@@ -1,44 +1,103 @@
 {host, ...}: let
   # Import the host-specific variables.nix
   vars = import ../../hosts/${host}/variables.nix;
+  displayManager = vars.displayManager or "tui";
+  printEnable = vars.printEnable or false;
+  gsrEnable = vars.gsrEnable or false;
+  dockerEnable = vars.dockerEnable or false;
+  syncthingEnable = vars.syncthingEnable or false;
+  nfsEnable = vars.nfsEnable or false;
+  quickshellEnable = vars.quickshellEnable or false;
+  thunarEnable = vars.thunarEnable or false;
+  openrgbEnable = vars.openrgbEnable or false;
+  steamEnable = vars.steamEnable or false;
+  systemThemeEnable = vars.systemThemeEnable or false;
+  flatpakEnable = vars.flatpakEnable or false;
+  xserverEnable = vars.xserverEnable or false;
+  devToolsEnable = vars.devToolsEnable or false;
 in {
   imports =
     [
       ./boot.nix
-      ./flatpak.nix
-      ./fonts.nix
-      ./gpu-screen-recorder.nix
       ./hardware.nix
       ./network.nix
-      ./nfs.nix
-      ./nh.nix
-      ./quickshell.nix
       ./packages.nix
-      ./printing.nix
-      # Conditionally import the display manager module
-      (
-        if vars.displayManager == "tui"
-        then ./ly.nix
-        else if vars.displayManager == "silent"
-        then ./sddm-silent.nix
-        else ./sddm.nix
-      )
       ./security.nix
       ./services.nix
-      ./steam.nix
-      ./nix-ld.nix
-      ./stylix.nix
-      ./syncthing.nix
       ./system.nix
-      ./thunar.nix
       ./user.nix
-      ./virtualisation.nix
-      ./xserver.nix
-      ./cachix.nix
+      ./nh.nix
     ]
     ++ (
-      if vars.openrgbEnable
+      if displayManager == "tui"
+      then [./ly.nix]
+      else if displayManager == "silent"
+      then [./sddm-silent.nix]
+      else [./sddm.nix]
+    )
+    ++ (
+      if devToolsEnable
+      then [./nix-ld.nix ./cachix.nix]
+      else []
+    )
+    ++ (
+      if xserverEnable
+      then [./xserver.nix]
+      else []
+    )
+    ++ (
+      if flatpakEnable
+      then [./flatpak.nix]
+      else []
+    )
+    ++ (
+      if systemThemeEnable
+      then [./fonts.nix ./stylix.nix]
+      else []
+    )
+    ++ (
+      if printEnable
+      then [./printing.nix]
+      else []
+    )
+    ++ (
+      if gsrEnable
+      then [./gpu-screen-recorder.nix]
+      else []
+    )
+    ++ (
+      if dockerEnable
+      then [./virtualisation.nix]
+      else []
+    )
+    ++ (
+      if syncthingEnable
+      then [./syncthing.nix]
+      else []
+    )
+    ++ (
+      if nfsEnable
+      then [./nfs.nix]
+      else []
+    )
+    ++ (
+      if quickshellEnable
+      then [./quickshell.nix]
+      else []
+    )
+    ++ (
+      if thunarEnable
+      then [./thunar.nix]
+      else []
+    )
+    ++ (
+      if openrgbEnable
       then [./openrgb.nix]
+      else []
+    )
+    ++ (
+      if steamEnable
+      then [./steam.nix]
       else []
     );
 }

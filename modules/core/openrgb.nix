@@ -1,7 +1,6 @@
 {
   config,
   pkgs,
-  inputs,
   lib,
   ...
 }: let
@@ -13,6 +12,8 @@ in {
     ["i2c-dev"]
     ++ lib.optionals isAmd ["i2c-piix4"]
     ++ lib.optionals isIntel ["i2c-i801"];
+
+  environment.systemPackages = [pkgs.openrgb];
 
   services.hardware.openrgb = {
     enable = true;
