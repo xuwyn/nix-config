@@ -6,14 +6,15 @@ in {
     ../../modules/drivers
     ../../modules/core
   ];
-  # Enable GPU Drivers
-  drivers.amdgpu.enable = false;
+
+  # Enable NVIDIA GPU driver
   drivers.nvidia.enable = true;
-  drivers.nvidia-prime = {
+
+  # Enable NVIDIA/Intel hybrid driver
+  drivers.nvidia-intel-hybrid = {
     enable = true;
+    mode = "sync";
     intelBusID = "${intelID}";
     nvidiaBusID = "${nvidiaID}";
   };
-  drivers.intel.enable = false;
-  vm.guest-services.enable = false;
 }

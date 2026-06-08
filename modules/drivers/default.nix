@@ -1,11 +1,11 @@
 {...}: {
   imports = [
-    ./amd-drivers.nix
-    ./intel-drivers.nix
     ./local-hardware-clock.nix
-    ./nvidia-drivers.nix
-    ./nvidia-prime-drivers.nix
+    ./amdgpu.nix
+    ./intelgpu.nix
+    ./nvidia.nix
     ./nvidia-amd-hybrid.nix
+    ./nvidia-intel-hybrid.nix
     ./vm-guest-services.nix
   ];
 }

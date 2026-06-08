@@ -7,6 +7,9 @@ in {
     ../../modules/core
   ];
 
+  # Enable NVIDIA GPU driver
+  drivers.nvidia.enable = true;
+
   # Enable AMD+NVIDIA hybrid drivers (Prime offload with AMD as primary)
   drivers.nvidia-amd-hybrid = {
     enable = true;
@@ -14,12 +17,4 @@ in {
     amdgpuBusId = "${amdgpuID}";
     nvidiaBusId = "${nvidiaID}";
   };
-
-  # Ensure other driver toggles are off for this profile
-  drivers.amdgpu.enable = false;
-  drivers.nvidia.enable = false;
-  drivers.nvidia-prime.enable = false;
-  drivers.intel.enable = false;
-
-  vm.guest-services.enable = false;
 }
