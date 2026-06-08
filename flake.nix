@@ -103,7 +103,6 @@
     mkHomeConfig = {
       system,
       host,
-      profile,
       username,
     }:
       home-manager.lib.homeManagerConfiguration {
@@ -111,7 +110,7 @@
           inherit system overlays;
           config.allowUnfree = true;
         };
-        extraSpecialArgs = {inherit inputs username host profile;};
+        extraSpecialArgs = {inherit inputs username host;};
         modules = [
           ./modules/home
         ];
@@ -122,7 +121,7 @@
         mango = mkNixosConfig {
           system = "x86_64-linux";
           host = "mango";
-          profile = "amd-nvidia-hybrid";
+          profile = "amd-nvidia-sync";
           username = "wyn";
         };
       };
@@ -131,7 +130,6 @@
         "wyn@mango" = mkHomeConfig {
           system = "x86_64-linux";
           host = "mango";
-          profile = "amd-nvidia-hybrid";
           username = "wyn";
         };
       };

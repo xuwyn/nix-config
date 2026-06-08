@@ -8,7 +8,12 @@ with lib; let
   cfg = config.drivers.nvidia-amd-hybrid;
 in {
   options.drivers.nvidia-amd-hybrid = {
-    enable = mkEnableOption "Enable AMD iGPU + NVIDIA dGPU (Prime offload)";
+    enable = mkEnableOption "Enable AMD iGPU + NVIDIA dGPU";
+    mode = mkOption {
+      type = types.enum ["sync" "offload"];
+      default = "sync";
+      description = "Choose between Nvidia Sync (always on) or Prime Offload mode";
+    };
     # AMD iGPU Bus ID (e.g., PCI:5:0:0). Expose as option for future host wiring.
     amdgpuBusId = mkOption {
       type = types.str;
@@ -24,8 +29,7 @@ in {
   };
 
   config = mkIf cfg.enable {
-    # Enforce kernel 6.12 when this hybrid config is selected
-    # Not sure this is still neeeded but leaving just in case
+    # Choose specific kernel
     # boot.kernelPackages = lib.mkForce pkgs.linuxPackages_6_12;
 
     services.xserver.videoDrivers = ["nvidia"];
@@ -37,17 +41,19 @@ in {
       package = config.boot.kernelPackages.nvidiaPackages.stable;
 
       # Helpful on laptops to power down the dGPU when idle
+      # Enable in sync mode to fix Nvidia not waking after sleep
       powerManagement.enable = true;
-      powerManagement.finegrained = false; # require offload
+      powerManagement.finegrained = cfg.mode == "offload";
 
-      # AMD primary, NVIDIA offload
       prime = {
-        # offload = {
-        #   enable = true;
-        #   enableOffloadCmd = true;
-        # };
+        # Nvidia primary, AMD as backup
+        sync.enable = cfg.mode == "sync";
 
-        sync.enable = true;
+        # AMD primary, NVIDIA offload
+        offload = {
+          enable = cfg.mode == "offload";
+          enableOffloadCmd = cfg.mode == "offload";
+        };
 
         # Wire from options
         amdgpuBusId = cfg.amdgpuBusId;
