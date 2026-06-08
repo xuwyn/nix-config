@@ -4,7 +4,7 @@
   displayManager = vars.displayManager or "tui";
   printEnable = vars.printEnable or false;
   gsrEnable = vars.gsrEnable or false;
-  dockerEnable = vars.dockerEnable or false;
+  virtEnable = vars.virtEnable or false;
   syncthingEnable = vars.syncthingEnable or false;
   nfsEnable = vars.nfsEnable or false;
   quickshellEnable = vars.quickshellEnable or false;
@@ -66,7 +66,7 @@ in {
       else []
     )
     ++ (
-      if dockerEnable
+      if virtEnable
       then [./virtualisation.nix]
       else []
     )

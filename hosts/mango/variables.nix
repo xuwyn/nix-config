@@ -3,6 +3,9 @@
   gitUsername = "wyn";
   gitEmail = "173407133+suquynh@users.noreply.github.com";
 
+  # host-specific user groups (core/user.nix)
+  extraUserGroups = [];
+
   # Keyboard
   keyboardLayout = "us";
   keyboardVariant = "";
@@ -20,7 +23,7 @@
   displayManager = "silent";
 
   # Terminal Options
-  # default = [kitty]
+  # default = kitty
   tmuxEnable = false;
   alacrittyEnable = false;
   weztermEnable = false;
@@ -28,6 +31,11 @@
 
   # Set Default System Terminal
   terminal = "kitty";
+
+  # Set default shell
+  # default = bash
+  # options = ["zsh" "bash"]
+  shell = "zsh";
 
   # Editor Options
   # default = [vi nano]
@@ -45,7 +53,7 @@
   # Networking
   nfsEnable = true;
   syncthingEnable = false;
-  dockerEnable = false;
+  virtEnable = false;
 
   # System Utilities
   systemThemeEnable = true;

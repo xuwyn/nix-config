@@ -5,7 +5,7 @@
   ...
 }: let
   vars = import ../../hosts/${host}/variables.nix;
-  inherit (vars) hyprlandEnable;
+  hyprlandEnable = vars.hyprlandEnable or false;
 
   # Build and install packages not on nixpkgs
   umbrella-fetch = pkgs.rustPlatform.buildRustPackage {

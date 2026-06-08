@@ -5,22 +5,20 @@
   ...
 }: let
   vars = import ../../hosts/${host}/variables.nix;
-  inherit
-    (vars)
-    hyprlandEnable
-    barChoice
-    ghosttyEnable
-    tmuxEnable
-    weztermEnable
-    vscodeEnable
-    helixEnable
-    zedEnable
-    yaziEnable
-    ;
+  hyprlandEnable = vars.hyprlandEnable or false;
+  barChoice = vars.barChoice or "noctalia";
+  ghosttyEnable = vars.ghosttyEnable or false;
+  tmuxEnable = vars.tmuxEnable or false;
+  weztermEnable = vars.weztermEnable or false;
+  vscodeEnable = vars.vscodeEnable or false;
+  helixEnable = vars.helixEnable or false;
+  zedEnable = vars.zedEnable or false;
+  yaziEnable = vars.yaziEnable or false;
+
   barModule = (
     if barChoice == "noctalia"
-    then ./noctalia.nix
-    else ./caelestia.nix
+    then [./noctalia.nix]
+    else []
   );
 in {
   home = {
@@ -48,18 +46,19 @@ in {
     ]
     ++ (
       if hyprlandEnable
-      then [
-        barModule
-        ./apps
-        ./dotfiles
-        ./hyprland
-        ./theme
-        ./swaync
-        ./rofi
-        ./scripts
-        ./virtmanager.nix
-        ./xdg.nix
-      ]
+      then
+        [
+          ./apps
+          ./dotfiles
+          ./hyprland
+          ./theme
+          ./swaync
+          ./rofi
+          ./scripts
+          ./virtmanager.nix
+          ./xdg.nix
+        ]
+        ++ barModule
       else []
     )
     ++ (
