@@ -11,16 +11,16 @@
     barChoice
     ghosttyEnable
     tmuxEnable
-    waybarChoice
     weztermEnable
     vscodeEnable
     helixEnable
+    zedEnable
+    yaziEnable
     ;
-  # Select bar module based on barChoice
   barModule = (
     if barChoice == "noctalia"
     then ./noctalia.nix
-    else waybarChoice
+    else ./caelestia.nix
   );
 in {
   home = {
@@ -39,13 +39,10 @@ in {
       ./cli
       ./python.nix
       ./terminals/kitty.nix
-      ./yazi
       ./sops
       #./editors/nvf.nix
-      #./python.nix
       ./editors/nixvim.nix
       ./editors/nano.nix
-      ./editors/zed.nix
       ./packages.nix
       ./custom-pkgs.nix
     ]
@@ -63,6 +60,16 @@ in {
         ./virtmanager.nix
         ./xdg.nix
       ]
+      else []
+    )
+    ++ (
+      if yaziEnable
+      then [./yazi]
+      else []
+    )
+    ++ (
+      if zedEnable
+      then [./editors/zed.nix]
       else []
     )
     ++ (

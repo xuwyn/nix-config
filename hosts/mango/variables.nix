@@ -3,37 +3,53 @@
   gitUsername = "wyn";
   gitEmail = "173407133+suquynh@users.noreply.github.com";
 
-  # Set Displau Manager
-  # `tui` for Text login (depends on stylixImage)
-  # `sddm` for graphical GUI (default)
+  # Keyboard
+  keyboardLayout = "us";
+  keyboardVariant = "";
+  consoleKeyMap = "us";
+
+  # Set GPU addresses `lspci | grep -E "VGA|3D"`
+  # intelID = "PCI:1:0:0";
+  nvidiaID = "PCI:1:0:0";
+  amdgpuID = "PCI:15:0:0";
+
+  # Set Display Manager
+  # `tui` for Text login (default)
+  # `sddm` for ZaneyOS SDDM
   # `silent` for silentSDDM
-  # SDDM background is set with stylixImage
   displayManager = "silent";
 
-  # Emable/disable bundled applications
+  # Terminal Options
+  # default = [kitty]
   tmuxEnable = false;
   alacrittyEnable = false;
   weztermEnable = false;
   ghosttyEnable = false;
+
+  # Set Default System Terminal
+  terminal = "kitty";
+
+  # Editor Options
+  # default = [vi nano]
   vscodeEnable = false;
-  # Note: This is evil-helix with VIM keybindings by default
   helixEnable = false;
-  #OpenRGB
-  openrgbEnable = true;
+  zedEnable = true;
 
-  # Hyprland Settings
-  hyprlandEnable = true; # relevant in modules/home/default.nix
-  extraMonitorSettings = "
-monitor = DP-5,1920x1080@165,0x0,1
-monitor = DP-2,1920x1080@165,0x0,1
-  ";
+  # File Manager Options
+  thunarEnable = true;
+  yaziEnable = true;
 
-  # Bar/Shell Settings
-  # Choose between noctalia or waybar
-  barChoice = "noctalia";
-
-  # Program Options
+  # Set Default Browser
   browser = "firefox";
+
+  # Enable NFS
+  enableNFS = true;
+
+  # Enable Printing Support
+  printEnable = true;
+
+  # Extra Software
+  openrgbEnable = true;
 
   # Host-level default applications (picked up by Home Manager xdg.mimeApps)
   # Uncomment and adjust the .desktop IDs to set per-host defaults.
@@ -50,30 +66,15 @@ monitor = DP-2,1920x1080@165,0x0,1
   #   "text/plain"      = ["nvim.desktop"];        # or code.desktop
   # };
 
-  # Available Options:
-  # Kitty, ghostty, wezterm, aalacrity
-  # Note: kitty, wezterm, alacritty have to be enabled in `variables.nix`
-  # Setting it here does not enable it. Kitty is installed by default
-  terminal = "kitty"; # Set Default System Terminal
+  # Desktop/WM Settings (Hyprland)
+  hyprlandEnable = true;
+  extraMonitorSettings = "
+monitor = DP-5,1920x1080@165,0x0,1
+monitor = DP-2,1920x1080@165,0x0,1
+  ";
 
-  keyboardLayout = "us";
-  keyboardVariant = "";
-  consoleKeyMap = "us";
-
-  # For hybrid support (Intel/NVIDIA Prime or AMD/NVIDIA)
-  # intelID = "PCI:1:0:0";
-  nvidiaID = "PCI:1:0:0";
-  amdgpuID = "PCI:15:0:0";
-
-  # Enable NFS
-  enableNFS = true;
-
-  # Enable Printing Support
-  printEnable = true;
-
-  # Enable Thunar GUI File Manager
-  # Yazi is alternate File Manager
-  thunarEnable = true;
+  # Bar/Shell Settings
+  barChoice = "noctalia";
 
   # Set Stylix Image (App themes based on background)
   stylixImage = ../../wallpapers/interlude_109.png;
