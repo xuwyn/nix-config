@@ -5,7 +5,7 @@
   pkgs,
   ...
 }: let
-  inherit (import ../../hosts/${host}/variables.nix) stylixImage;
+  inherit (import ../../../hosts/${host}/variables.nix) stylixImage;
 in {
   imports = [inputs.stylix.homeModules.stylix];
   stylix = {

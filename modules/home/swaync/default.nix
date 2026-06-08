@@ -1,6 +1,6 @@
 {config, ...}: {
   home.file."${config.xdg.configHome}/swaync/images/catppuccin-macchiato.png".source =
-    ./images/catppuccin-macchiato.png;
+    ./nixos.png;
   services.swaync = {
     enable = true;
     settings = {

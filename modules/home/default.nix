@@ -37,45 +37,31 @@ in {
   imports =
     [
       ./cli
-      ./bash.nix
-      ./zsh.nix
       ./python.nix
-      ./eza.nix
-      ./starship.nix
-      ./fastfetch
-      ./zoxide.nix
-      ./tealdeer.nix
-      ./terminals/kitty.nix # add this to homebrew if port to mac
+      ./terminals/kitty.nix
       ./yazi
       ./sops
       #./editors/nvf.nix
+      #./python.nix
       ./editors/nixvim.nix
       ./editors/nano.nix
       ./editors/zed.nix
       ./packages.nix
+      ./custom-pkgs.nix
     ]
     ++ (
       if hyprlandEnable
       then [
-        # Apps
-        ./custom-pkgs.nix
-        ./flatpak.nix
-        ./spicetify.nix
-        ./nixcord.nix
-        ./firefox.nix
-        ./obs-studio.nix
-        # WM
         barModule
-        ./dotfiles.nix
+        ./apps
+        ./dotfiles
         ./hyprland
-        ./gtk.nix
-        ./qt.nix
-        ./xdg.nix
+        ./theme
         ./swaync
         ./rofi
         ./scripts
-        ./stylix.nix
         ./virtmanager.nix
+        ./xdg.nix
       ]
       else []
     )
