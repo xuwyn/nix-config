@@ -1,18 +1,17 @@
 [bar.default]
-background_opacity = 0.69999999999999996
+background_opacity = 0.65000000000000002
 capsule = true
 capsule_border = "primary"
 capsule_foreground = "primary"
-center = [ "clock", "audio_visualizer", "bongocat", "audio_visualizer", "group:g3" ]
+center = [ "group:g3" ]
 end = [ "screen_recorder", "group:g1", "group:g2" ]
 margin_edge = 0
-margin_ends = 15
+margin_ends = 12
+padding = 6
 panel_overlap = 0
-radius = 0
-radius_bottom_left = 45
-radius_bottom_right = 45
+scale = 1.1000000000000001
 shadow = false
-start = [ "workspaces", "media" ]
+start = [ "workspaces", "media", "audio_visualizer" ]
 
     [[bar.default.capsule_group]]
     border = "primary"
@@ -37,7 +36,7 @@ start = [ "workspaces", "media" ]
     fill = "surface_variant"
     foreground = "primary"
     id = "g3"
-    members = [ "tray", "notifications" ]
+    members = [ "tray", "notifications", "clock", "bongocat" ]
     opacity = 1.0
     padding = 6.0
 
@@ -45,7 +44,6 @@ start = [ "workspaces", "media" ]
 enable_ddcutil = true
 
 [control_center]
-sidebar = "full"
 sidebar_section = "none"
 
     [[control_center.shortcuts]]
@@ -223,7 +221,7 @@ widget_order = [
         layout = "horizontal"
 
 [shell]
-avatar_path = "/home/wyn/Pictures/avatars/jeannedArc-riyo-zoom.jpg"
+avatar_path = "/home/wyn/nixos/modules/home/hyprland/face.jpg"
 date_format = "%A, %Y %b %d"
 font_family = "Maple Mono NF"
 launch_apps_as_systemd_services = true
@@ -232,12 +230,12 @@ telemetry_enabled = false
 ui_scale = 1.1000000000000001
 
     [shell.panel]
-    clipboard_placement = "attached"
-    launcher_placement = "attached"
+    control_center_placement = "floating"
     open_near_click_control_center = true
     session_placement = "centered"
     shadow = false
     transparency_mode = "glass"
+    wallpaper_placement = "floating"
 
     [shell.screen_corners]
     enabled = true
@@ -320,11 +318,10 @@ address = "Fredericton, CA"
 
 [widget.audio_visualizer]
 centered = false
+width = 100.0
 
 [widget.bongocat]
-anchor = true
 audio_spectrum = true
-hot_reload = true
 scale = 1.3
 script = "scripts/bongocat.lua"
 tappy_mode = true

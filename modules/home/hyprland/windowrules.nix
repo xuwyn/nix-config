@@ -16,6 +16,8 @@ _: {
         name = Thunar
         match:class = ^([Tt]hunar|org.gnome.Nautilus|[Pp]cmanfm-qt)$
         tag = +file-manager
+        opacity = 0.85 0.75
+        no_blur = off
       }
 
       windowrule {

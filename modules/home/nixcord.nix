@@ -1,4 +1,8 @@
-{inputs, ...}: {
+{
+  inputs,
+  pkgs,
+  ...
+}: {
   imports = [inputs.nixcord.homeModules.nixcord];
 
   # Nixcord options: https://flameflag.github.io/nixcord/
@@ -8,6 +12,10 @@
     # Choose your client (enable only one of these two)
     discord.vencord.enable = false; # Standard Vencord
     discord.equicord.enable = true; # Equicord (has more plugins)
+
+    # vesktop.enable = true;
+    # dorian.enable = true;
+    # legcord.enable = true;
 
     config = {
       enabledThemes = ["noctalia-material.theme.css" "noctalia.theme.css"];
@@ -41,6 +49,7 @@
           ignoreWatching = true;
         };
         youtubeAdblock.enable = true;
+        openInApp.enable = true;
       };
     };
   };
