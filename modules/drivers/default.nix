@@ -1,6 +1,5 @@
 {...}: {
   imports = [
-    ./local-hardware-clock.nix
     ./amdgpu.nix
     ./intelgpu.nix
     ./nvidia.nix

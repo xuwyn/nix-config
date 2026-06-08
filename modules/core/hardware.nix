@@ -14,6 +14,8 @@
     bluetooth.powerOnBoot = true;
     i2c.enable = true;
   };
-  local.hardware-clock.enable = false;
+  # set hardware clock to local time (not needed)
+  time.hardwareClockInLocalTime = false;
+  # monitor brightness
   services.udev.packages = [pkgs.ddcutil];
 }
