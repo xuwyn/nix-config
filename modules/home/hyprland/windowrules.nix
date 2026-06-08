@@ -45,12 +45,6 @@ _: {
       }
 
       windowrule {
-        name = Thorium-browser
-        match:class = ^([Tt]horium-browser|[Cc]achy-browser)$
-        tag = +browser
-      }
-
-      windowrule {
         name = vscodium
         match:class = ^(codium|codium-url-handler|VSCodium)$
         tag = +projects
@@ -159,12 +153,6 @@ _: {
       }
 
       windowrule {
-        name = nwg-look
-        match:class = ^(nwg-look|qt5ct|qt6ct|[Yy]ad)$
-        tag = +settings
-      }
-
-      windowrule {
         name = xdg-desktop-portal-gtk
         match:class = (xdg-desktop-portal-gtk)
         tag = +settings
@@ -173,12 +161,6 @@ _: {
       windowrule {
         name = blueman
         match:class = (.blueman-manager-wrapped)
-        tag = +settings
-      }
-
-      windowrule {
-        name = nwg-displays
-        match:class = (nwg-displays)
         tag = +settings
       }
 
@@ -231,13 +213,6 @@ _: {
         float = on
         opacity = 0.8 = 0.7
         size = 70% = 70%
-        no_blur = off
-      }
-
-      windowrule {
-        name = WayPaper
-        match:class = ^([Ww]aypaper)$
-        float = on
         no_blur = off
       }
 
@@ -341,97 +316,6 @@ _: {
         name = windowrule-80
         match:tag = games*
         fullscreen = on
-      }
-
-      windowrule {
-        name = qs-keybinds
-        match:title = ^(Hyprland Keybinds|Emacs Leader Keybinds|Kitty Configuration|WezTerm Configuration|Ghostty Configuration|Yazi Configuration)$
-        float = on
-        center = on
-        size = 55% = 66%
-      }
-
-      windowrule {
-        name = qs-cheatsheets
-        match:title = ^(Cheatsheets Viewer)$
-        float = on
-        center = on
-        size = 65% = 60%
-      }
-
-      windowrule {
-        name = qs-extended-viewers
-        match:title = ^(Hyprland Keybinds|Niri Keybinds|BSPWM Keybinds|i3 Keybinds|Sway Keybinds|DWM Keybinds|Emacs Leader Keybinds|Kitty Configuration|WezTerm Configuration|Ghostty Configuration|Yazi Configuration|Cheatsheets Viewer|Documentation Viewer)$
-        float = on
-        center = on
-        size = 55% = 66%
-      }
-
-      windowrule {
-        name = QS-Wallpapers
-        match:class = ^(org\.qt-project\.qml)$
-        match:title = ^(Wallpapers)$
-        border_size = 0
-        float = on
-        no_blur = on
-        no_shadow = on
-        rounding = 12
-      }
-
-      windowrule {
-        name = QA-Video-Wallpapers
-        match:class = ^(org\.qt-project\.qml)$
-        match:title = ^(Video Wallpapers)$
-        border_size = 0
-        center = on
-        float = on
-        no_blur = on
-        no_shadow = on
-        rounding = 12
-      }
-
-      windowrule {
-        name = QS-wlogout
-        match:class = ^(org\.qt-project\.qml)$
-        match:title = ^(qs-wlogout)$
-        border_size = 0
-        center = on
-        float = on
-        opacity = 1.0 = 1.0
-        rounding = 20
-      }
-
-      windowrule {
-        name = QA-Panels
-        match:class = ^(org\.qt-project\.qml)$
-        match:title = ^(Panels)$
-        center = on
-        float = on
-        no_blur = on
-        no_shadow = on
-        rounding = 12
-      }
-
-      windowrule {
-        name = QS-Cheatsheets
-        match:class = ^(org\.qt-project\.qml)$
-        match:title = ^(Cheatsheets Viewer)$
-        border_size = 0
-        center = on
-        float = on
-        no_shadow = on
-        rounding = 12
-      }
-
-      windowrule {
-        name = QS-Documentation-Viewer
-        match:class = ^(org\.qt-project\.qml)$
-        match:title = ^(Documentation Viewer)$
-        border_size = 0
-        center = on
-        float = on
-        no_shadow = on
-        rounding = 12
       }
     '';
   };

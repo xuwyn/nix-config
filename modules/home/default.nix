@@ -53,12 +53,12 @@ in {
       ./editors/nano.nix
       ./editors/zed.nix
       ./packages.nix
-      ./custom-pkgs.nix
     ]
     ++ (
       if hyprlandEnable
       then [
         # Apps
+        ./custom-pkgs.nix
         ./flatpak.nix
         ./spicetify.nix
         ./nixcord.nix
@@ -73,7 +73,6 @@ in {
         ./xdg.nix
         ./swaync
         ./rofi
-        ./emoji.nix
         ./scripts
         ./stylix.nix
         ./virtmanager.nix

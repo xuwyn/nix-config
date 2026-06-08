@@ -1,6 +1,5 @@
 {pkgs, ...}: {
   home.packages = [
-    (import ./emopicker9000.nix {inherit pkgs;})
     (import ./DropTerminal.nix {inherit pkgs;})
     (import ./web-search.nix {inherit pkgs;})
     (import ./hyprland-float-all.nix {inherit pkgs;})

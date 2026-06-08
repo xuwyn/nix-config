@@ -47,7 +47,6 @@ in {
     }
 
     # 4. APPLICATIONS
-    bind = $modifier, TAB, exec, qs ipc -c overview call overview toggle #"QS Overview"
     bind = $modifier, Return, exec, ${terminal} #"Terminal"
     bind = $modifier, D, exec, app2unit -- discord #"Discord"
     bind = $modifier, S, exec, flatpak run com.spotify.Client #"Spotify"
