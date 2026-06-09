@@ -2,6 +2,7 @@
   inputs,
   host,
   username,
+  pkgs,
   ...
 }: let
   vars = import ../../../hosts/${host}/variables.nix;
@@ -12,43 +13,40 @@ in {
   stylix = {
     enable = true;
     image = stylixImage;
-    opacity.terminal = 0.8;
+    opacity.terminal = 0.9;
     polarity = "dark";
-    /*
-    cursor = {
-      package = pkgs.bibata-cursors;
-      name = "Bibata-Modern-Ice";
-      # package = pkgs.nordzy-cursor-theme;
-      # name = "Nordzy-cursors";
-      size = 24;
-    };
-    icons = {
-      enable = true;
-      package = pkgs.papirus-icon-theme;
-      dark = "Papirus-Dark";
-      light = "Papirus-Light";
-    };
-    fonts = {
-      monospace = {
-        package = pkgs.nerd-fonts.jetbrains-mono;
-        name = "JetBrains Mono";
-      };
-      sansSerif = {
-        package = pkgs.montserrat;
-        name = "Montserrat";
-      };
-      serif = {
-        package = pkgs.montserrat;
-        name = "Montserrat";
-      };
-      sizes = {
-        applications = 12;
-        terminal = 15;
-        desktop = 11;
-        popups = 12;
-      };
-    };
-    */
+    icons =
+      if hyprlandEnable
+      then {
+        enable = true;
+        package = pkgs.papirus-icon-theme;
+        dark = "Papirus-Dark";
+        light = "Papirus-Light";
+      }
+      else {};
+    fonts =
+      if hyprlandEnable
+      then {
+        monospace = {
+          package = pkgs.nerd-fonts.jetbrains-mono;
+          name = "JetBrains Mono";
+        };
+        sansSerif = {
+          package = pkgs.montserrat;
+          name = "Montserrat";
+        };
+        serif = {
+          package = pkgs.montserrat;
+          name = "Montserrat";
+        };
+        sizes = {
+          applications = 12;
+          terminal = 15;
+          desktop = 11;
+          popups = 12;
+        };
+      }
+      else {};
     targets = {
       starship = {
         enable = true;
