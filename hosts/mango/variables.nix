@@ -1,117 +1,96 @@
 {
-  # Git Configuration ( For Pulling Software Repos )
-  gitUsername = "wyn";
-  gitEmail = "173407133+suquynh@users.noreply.github.com";
-
-  # host-specific user groups (core/user.nix)
+  ### SYSTEM HARDWARE & IDENTITY
+  # Host-specific user groups (core/user.nix)
   extraUserGroups = [];
 
-  # Keyboard
-  keyboardLayout = "us";
-  keyboardVariant = "";
-  consoleKeyMap = "us";
-
-  # Set GPU addresses `lspci | grep -E "VGA|3D"`
+  # Hardware IDs (Set via `lspci | grep -E "VGA|3D"`)
   # intelID = "PCI:1:0:0";
   nvidiaID = "PCI:1:0:0";
   amdgpuID = "PCI:15:0:0";
 
-  # Set Display Manager
-  # `tui` for Text login (default)
-  # `sddm` for ZaneyOS SDDM
-  # `silent` for silentSDDM
-  displayManager = "silent";
+  # Network Host ID (Required for ZFS setups)
+  hostId = "5ab03f50";
 
-  # Terminal Options
-  # default = kitty
-  tmuxEnable = false;
-  alacrittyEnable = false;
-  weztermEnable = false;
-  ghosttyEnable = false;
+  # Keyboard & Console Locale
+  keyboardLayout = "us";
+  keyboardVariant = "";
+  consoleKeyMap = "us";
 
-  # Set Default System Terminal
-  terminal = "kitty";
+  ### SYSTEM FEATURES & SERVICES
+  # Core System Daemons & Utilities
+  xserverEnable = true;
+  printEnable = true;
+  gsrEnable = true; # gpu-screen-recorder
+  devToolsEnable = true; # cachix, nix-ld
+  openrgbEnable = true;
 
-  # Set default shell
-  # default = bash
-  # options = ["zsh" "bash"]
-  shell = "zsh";
-
-  # Editor Options
-  # default = [vi nano]
-  vscodeEnable = false;
-  helixEnable = false;
-  zedEnable = true;
-
-  # File Manager Options
-  thunarEnable = true;
-  yaziEnable = true;
-
-  # Set Default Browser
-  browser = "firefox";
-
-  # Networking
+  # Network Shares & Syncing
   nfsEnable = true;
   syncthingEnable = false;
   virtEnable = false;
 
-  # System Utilities
-  systemThemeEnable = true;
-  printEnable = true;
-  gsrEnable = true;
-  xserverEnable = true;
-  devToolsEnable = true;
-
-  # Extra Software
-  openrgbEnable = true;
+  # Additional Applications
   flatpakEnable = true;
   steamEnable = true;
+  thunarEnable = true;
 
-  # Host-level default applications (picked up by Home Manager xdg.mimeApps)
-  # Uncomment and adjust the .desktop IDs to set per-host defaults.
-  # mimeDefaultApps = {
-  #   # PDFs
-  #   "application/pdf" = ["okular.desktop"];
-  #   "application/x-pdf" = ["okular.desktop"];
-  #   # Web browser
-  #   "x-scheme-handler/http"  = ["google-chrome.desktop"];  # or brave-browser.desktop, firefox.desktop
-  #   "x-scheme-handler/https" = ["google-chrome.desktop"];
-  #   "text/html"              = ["google-chrome.desktop"];
-  #   # Files
-  #   "inode/directory" = ["thunar.desktop"];      # file manager
-  #   "text/plain"      = ["nvim.desktop"];        # or code.desktop
-  # };
+  ### DESKTOP ENVIRONMENT & GRAPHICS
+  # Login Screen ("tui" for text login, "sddm", or "silent")
+  displayManager = "silent";
 
-  # Desktop/WM Settings
+  # Window Manager
   hyprlandEnable = true;
   extraMonitorSettings = "
 monitor = DP-5,1920x1080@165,0x0,1
 monitor = DP-2,1920x1080@165,0x0,1
   ";
 
-  # Bar/Shell Settings
+  # Shell Panels & Bars
   barChoice = "noctalia";
   quickshellEnable = false;
 
-  # Set Stylix Image (App themes based on background)
+  # System Theming (Stylix)
+  systemThemeEnable = true;
   stylixImage = ../../wallpapers/interlude_109.png;
 
-  # Set Animation style
-  # Available options are:
-  #animChoice = ../../modules/home/hyprland/animations/animations-def.nix;
-  #animChoice = ../../modules/home/hyprland/animations/animations-end4.nix;
-  #animChoice = ../../modules/home/hyprland/animations/animations-end4-slide.nix;
-  #animChoice = ../../modules/home/hyprland/animations/animations-end-slide.nix;
-  #animChoice = ../../modules/home/hyprland/animations/animations-dynamic.nix;
-  #animChoice = ../../modules/home/hyprland/animations/animations-moving.nix;
-  #animChoice = ../../modules/home/hyprland/animations/animations-hyde-optimized.nix;
-  #animChoice = ../../modules/home/hyprland/animations/animations-mahaveer-me-1.nix;
-  #animChoice = ../../modules/home/hyprland/animations/animations-mahaveer-me-2.nix;
+  # Active Hyprland Animation Style
   animChoice = ../../modules/home/hyprland/animations/animations-ml4w-classic.nix;
-  #animChoice = ../../modules/home/hyprland/animations/animations-ml4w-fast.nix;
-  #animChoice = ../../modules/home/hyprland/animations/animations-ml4w-high.nix;
 
-  # Set network hostId if required (needed for zfs)
-  # Otherwise leave as-is
-  hostId = "5ab03f50";
+  ### USER ENVIRONMENT & APPLICATIONS
+  # Git Identity
+  gitUsername = "wyn";
+  gitEmail = "173407133+suquynh@users.noreply.github.com";
+
+  # Shell Settings (core/user.nix)
+  # (Options: "zsh", "bash")
+  shell = "zsh";
+
+  # Default Applications
+  terminal = "kitty";
+  browser = "firefox";
+
+  # Alternative Terminal Toggles
+  tmuxEnable = false;
+  alacrittyEnable = false;
+  weztermEnable = false;
+  ghosttyEnable = false;
+
+  # Development Text Editors
+  vscodeEnable = false;
+  helixEnable = false;
+  zedEnable = true;
+
+  # File Managers
+  yaziEnable = true;
+
+  # Host-Level App Defaults (Home Manager xdg.mimeApps)
+  # mimeDefaultApps = {
+  #   "application/pdf" = ["okular.desktop"];
+  #   "application/x-pdf" = ["okular.desktop"];
+  #   "x-scheme-handler/http"  = ["google-chrome.desktop"]; # or firefox.desktop
+  #   "x-scheme-handler/https" = ["google-chrome.desktop"];
+  #   "text/html"              = ["google-chrome.desktop"];
+  #   "inode/directory" = ["thunar.desktop"];
+  #   "text/plain"      = ["nvim.desktop"];
+  # };
 }
