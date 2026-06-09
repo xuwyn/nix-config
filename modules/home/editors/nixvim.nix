@@ -1,10 +1,13 @@
 {
   inputs,
   config,
-  lib,
   pkgs,
+  host,
   ...
-}: {
+}: let
+  vars = import ../../../hosts/${host}/variables.nix;
+  hyprlandEnable = vars.hyprlandEnable or false;
+in {
   # Bring in Nixvim's Home Manager module so programs.nixvim options exist
   imports = [inputs.nixvim.homeModules.nixvim];
 
@@ -185,7 +188,7 @@
           clangd.enable = true;
           zls.enable = false;
           marksman.enable = false;
-          hyprls.enable = true;
+          hyprls.enable = hyprlandEnable;
           # hyprls is optional; keep tools available via extraPackages
         };
         keymaps = {
@@ -326,33 +329,39 @@
     ];
 
     # Runtime tools and language servers
-    extraPackages = with pkgs; [
-      ripgrep
-      fd
-      bat
-      # Wayland clipboard provider used by Neovim for system clipboard access
-      wl-clipboard
-      lazygit
-      nil
-      hyprls
-      typescript-language-server
-      typescript
-      vscode-langservers-extracted
-      pyright
-      lua-language-server
-      zls
-      marksman
-      multimarkdown
-      clang-tools
-      prettierd
-      stylua
-      shfmt
-      nixpkgs-fmt
-      figlet
-      toilet
-      bash-language-server
-      tailwindcss-language-server
-    ];
+    extraPackages = with pkgs;
+      [
+        ripgrep
+        fd
+        bat
+        lazygit
+        nil
+        typescript-language-server
+        typescript
+        vscode-langservers-extracted
+        pyright
+        lua-language-server
+        zls
+        marksman
+        multimarkdown
+        clang-tools
+        prettierd
+        stylua
+        shfmt
+        nixpkgs-fmt
+        figlet
+        toilet
+        bash-language-server
+        tailwindcss-language-server
+      ]
+      ++ (
+        if hyprlandEnable
+        then [
+          wl-clipboard
+          hyprls
+        ]
+        else []
+      );
 
     # Diagnostic UI and notify background tweaks
     extraConfigLua = ''

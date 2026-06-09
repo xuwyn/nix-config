@@ -2,10 +2,11 @@
   inputs,
   host,
   username,
-  pkgs,
   ...
 }: let
-  inherit (import ../../../hosts/${host}/variables.nix) stylixImage;
+  vars = import ../../../hosts/${host}/variables.nix;
+  inherit (vars) stylixImage;
+  hyprlandEnable = vars.hyprlandEnable or false;
 in {
   imports = [inputs.stylix.homeModules.stylix];
   stylix = {
@@ -13,6 +14,7 @@ in {
     image = stylixImage;
     opacity.terminal = 0.8;
     polarity = "dark";
+    /*
     cursor = {
       package = pkgs.bibata-cursors;
       name = "Bibata-Modern-Ice";
@@ -46,6 +48,7 @@ in {
         popups = 12;
       };
     };
+    */
     targets = {
       starship = {
         enable = true;
@@ -67,9 +70,10 @@ in {
       hyprland.enable = false; # some conflicts in hyprland settings
       hyprlock.enable = false;
       ghostty.enable = false;
-      gtk.enable = true;
+
+      gtk.enable = hyprlandEnable;
       qt = {
-        enable = true;
+        enable = hyprlandEnable;
         platform = "qtct";
       };
     };

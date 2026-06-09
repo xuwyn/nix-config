@@ -1,12 +1,24 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  host,
+  ...
+}: let
+  vars = import ../../../hosts/${host}/variables.nix;
+  barChoice = vars.barChoice or "";
+in {
   programs.btop = {
     enable = true;
-    package = pkgs.btop.override {
-      rocmSupport = true;
-      cudaSupport = true;
-    };
+    package =
+      if !pkgs.stdenv.hostPlatform.isDarwin
+      then
+        pkgs.btop.override {
+          rocmSupport = true;
+          cudaSupport = true;
+        }
+      else pkgs.btop;
+
     settings = {
-      color_theme = "noctalia";
+      color_theme = barChoice;
       vim_keys = true;
       rounded_corners = true;
       proc_tree = true;

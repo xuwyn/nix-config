@@ -1,4 +1,7 @@
 {
+  ### THEME
+  stylixImage = ../../wallpapers/interlude_109.png;
+
   ### USER ENVIRONMENT & APPLICATIONS
   # Git Identity
   gitUsername = "wyn";

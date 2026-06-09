@@ -73,6 +73,7 @@
       url = "github:ezequielgk/Umbrella-Fetch";
       flake = false;
     };
+    mac-app-util.url = "github:hraban/mac-app-util";
   };
 
   outputs = {
@@ -82,6 +83,7 @@
     nix-flatpak,
     alejandra,
     flake-utils,
+    mac-app-util,
     ...
   } @ inputs: let
     overlays = import ./modules/overlays {inherit inputs;};
@@ -104,6 +106,7 @@
       system,
       host,
       username,
+      extraModules ? [],
     }:
       home-manager.lib.homeManagerConfiguration {
         pkgs = import nixpkgs {
@@ -111,9 +114,11 @@
           config.allowUnfree = true;
         };
         extraSpecialArgs = {inherit inputs username host;};
-        modules = [
-          ./modules/home
-        ];
+        modules =
+          [
+            ./modules/home
+          ]
+          ++ extraModules;
       };
   in
     {
@@ -139,6 +144,7 @@
           system = "aarch64-darwin";
           host = "apricot";
           username = "wyn";
+          extraModules = [mac-app-util.homeManagerModules.default];
         };
       };
     }

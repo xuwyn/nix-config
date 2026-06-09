@@ -24,7 +24,7 @@ in {
   home = {
     username = username;
     homeDirectory =
-      if pkgs.stdenv.isDarwin
+      if pkgs.stdenv.hostPlatform.isDarwin
       then "/Users/${username}"
       else "/home/${username}";
     stateVersion = "23.11";
@@ -43,6 +43,7 @@ in {
       ./editors/nano.nix
       ./packages.nix
       ./custom-pkgs.nix
+      ./theme/stylix.nix
     ]
     ++ (
       if hyprlandEnable
@@ -51,7 +52,8 @@ in {
           ./apps
           ./dotfiles
           ./hyprland
-          ./theme
+          ./theme/qt.nix
+          ./theme/gtk.nix
           ./swaync
           ./rofi
           ./scripts
