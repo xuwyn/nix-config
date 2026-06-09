@@ -299,7 +299,7 @@ wallpaper_scheme = "m3-fruit-salad"
 
     [theme.templates]
     builtin_ids = [ "btop", "cava", "hyprland", "kitty" ]
-    community_ids = [ "spicetify", "discord" ]
+    community_ids = [ "discord" ]
 
 [wallpaper]
 directory = "/home/wyn/Pictures/Wallpapers"

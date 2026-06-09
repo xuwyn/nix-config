@@ -19,7 +19,7 @@
         #"de.schmidhuberj.tubefeeder"     #watch YT videos
 
         # Add other Flatpak IDs here, e.g., "org.mozilla.firefox"
-        "com.spotify.Client" # Spotify via flatpak to use spicetify-cli
+        # "com.spotify.Client" # Spotify via flatpak to use spicetify-cli
       ];
 
       # Optional: Automatically update Flatpaks when you run nixos-rebuild swit ch

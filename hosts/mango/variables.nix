@@ -47,6 +47,7 @@ monitor = DP-2,1920x1080@165,0x0,1
 
   # Shell Panels & Bars
   barChoice = "noctalia";
+  barThemeEnable = true; # only for some apps
   quickshellEnable = false;
 
   # System Theming (Stylix)

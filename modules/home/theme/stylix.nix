@@ -8,6 +8,7 @@
   vars = import ../../../hosts/${host}/variables.nix;
   inherit (vars) stylixImage;
   hyprlandEnable = vars.hyprlandEnable or false;
+  barThemeEnable = vars.barThemeEnable or false;
 in {
   imports = [inputs.stylix.homeModules.stylix];
   stylix = {
@@ -15,6 +16,16 @@ in {
     image = stylixImage;
     opacity.terminal = 0.9;
     polarity = "dark";
+    cursor =
+      if hyprlandEnable
+      then {
+        package = pkgs.bibata-cursors;
+        name = "Bibata-Modern-Ice";
+        # package = pkgs.nordzy-cursor-theme;
+        # name = "Nordzy-cursors";
+        size = 24;
+      }
+      else {};
     icons =
       if hyprlandEnable
       then {
@@ -48,13 +59,27 @@ in {
       }
       else {};
     targets = {
+      btop.enable = !barThemeEnable;
+      cava.enable = !barThemeEnable;
+      kitty = {
+        enable = true;
+        colors.enable = !barThemeEnable;
+        opacity.enable = true;
+      };
+      nixvim = {
+        enable = true;
+        colors.enable = true;
+        opacity.enable = true;
+        transparentBackground = {
+          main = true;
+        };
+      };
       starship = {
         enable = true;
         colors.enable = true;
       };
-      btop.enable = false;
-      spicetify.enable = false;
       nixcord.enable = false;
+      spicetify.enable = true;
       zed.enable = false; # bug not fixed, hardcoded theme in zed.nix
       firefox = {
         enable = true;

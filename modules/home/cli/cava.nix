@@ -5,6 +5,7 @@
 }: let
   vars = import ../../../hosts/${host}/variables.nix;
   barChoice = vars.barChoice or "";
+  barThemeEnable = vars.barThemeEnable or false;
 in {
   xdg.configFile."cava/config".force = true;
   programs.cava = {
@@ -56,7 +57,12 @@ in {
           # gradient_color_7 = "'#FF6E67'";
           # gradient_color_8 = "'#FF5555'";
         }
-        else {theme = barChoice;};
+        else {
+          theme =
+            if barThemeEnable
+            then barChoice
+            else "";
+        };
     };
   };
 }

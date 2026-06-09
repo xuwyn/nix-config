@@ -49,7 +49,7 @@ in {
     # 4. APPLICATIONS
     bind = $modifier, Return, exec, ${terminal} #"Terminal"
     bind = $modifier, D, exec, app2unit -- discord #"Discord"
-    bind = $modifier, S, exec, flatpak run com.spotify.Client #"Spotify"
+    bind = $modifier, S, exec, app2unit -- spotify #"Spotify"
     bind = $modifier, Z, exec, app2unit -- zeditor #"Zed"
     bind = $modifier, W, exec, app2unit -- ${browser} #"Web Browser"
     bind = $modifier ALT, W, exec, web-search #"Web Search"
