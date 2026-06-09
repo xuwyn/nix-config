@@ -133,6 +133,14 @@
           username = "wyn";
         };
       };
+
+      homeConfigurations = {
+        "wyn@apricot" = mkHomeConfig {
+          system = "aarch64-darwin";
+          host = "apricot";
+          username = "wyn";
+        };
+      };
     }
     // (flake-utils.lib.eachDefaultSystem (system: {
       formatter = alejandra.packages.${system}.default;
