@@ -3,7 +3,6 @@ pkgs.writeShellScriptBin "hyprland-change-layout" ''
   #!/usr/bin/env bash
   set -euo pipefail
 
-  notif="''${XDG_CONFIG_HOME:-$HOME/.config}/swaync/images/catppuccin-macchiato.png"
   layouts=(dwindle master scrolling monocle)
 
   get_layout() {
@@ -36,23 +35,23 @@ pkgs.writeShellScriptBin "hyprland-change-layout" ''
       ${pkgs.hyprland}/bin/hyprctl keyword bind SUPER,J,cyclenext
       ${pkgs.hyprland}/bin/hyprctl keyword bind SUPER,K,cyclenext,prev
       ${pkgs.hyprland}/bin/hyprctl keyword bind SUPER,O,layoutmsg,togglesplit
-      ${pkgs.libnotify}/bin/notify-send -e -u low -i "$notif" " Dwindle Layout"
+      ${pkgs.libnotify}/bin/notify-send -e -u low  " Dwindle Layout"
       ;;
     "master")
       ${pkgs.hyprland}/bin/hyprctl keyword bind SUPER,J,layoutmsg,cyclenext
       ${pkgs.hyprland}/bin/hyprctl keyword bind SUPER,K,layoutmsg,cycleprev
-      ${pkgs.libnotify}/bin/notify-send -e -u low -i "$notif" " Master Layout"
+      ${pkgs.libnotify}/bin/notify-send -e -u low  " Master Layout"
       ;;
     "scrolling")
       ${pkgs.hyprland}/bin/hyprctl keyword bind SUPER,J,cyclenext
       ${pkgs.hyprland}/bin/hyprctl keyword bind SUPER,K,cyclenext,prev
-      ${pkgs.libnotify}/bin/notify-send -e -u low -i "$notif" " Scrolling Layout"
+      ${pkgs.libnotify}/bin/notify-send -e -u low  " Scrolling Layout"
       ;;
     "monocle")
       ${pkgs.hyprland}/bin/hyprctl keyword bind SUPER,J,layoutmsg,cyclenext
       ${pkgs.hyprland}/bin/hyprctl keyword bind SUPER,K,layoutmsg,cycleprev
       ${pkgs.hyprland}/bin/hyprctl keyword bind SUPER_SHIFT,M,layoutmsg,swapnext
-      ${pkgs.libnotify}/bin/notify-send -e -u low -i "$notif" " Monocle Layout"
+      ${pkgs.libnotify}/bin/notify-send -e -u low  " Monocle Layout"
       ;;
     *)
       echo "Unknown layout: $target" >&2

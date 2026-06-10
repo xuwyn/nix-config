@@ -55,7 +55,6 @@ in {
           ./hyprland
           ./theme/qt.nix
           ./theme/gtk.nix
-          ./swaync
           ./rofi
           ./scripts
           ./xdg.nix

@@ -13,7 +13,7 @@ in {
 
   programs.nixvim = {
     enable = true;
-    nixpkgs.source = inputs.nixpkgs;
+    nixpkgs.useGlobalPackages = true;
     viAlias = true;
     vimAlias = true;
 
@@ -42,14 +42,38 @@ in {
       clipboard = "unnamedplus";
     };
 
-    # Theme: Catppuccin (mocha)
     colorschemes.catppuccin = {
       enable = true;
       settings = {
-        flavour = "mocha";
-        transparent_background = false;
+        flavour = "mocha"; # "latte", "mocha", "frappe", "macchiato", "auto"
+        transparent_background = true;
         integrations = {
           lualine = true;
+          bufferline = true;
+        };
+        # get stylix base16 colors
+        color_overrides.all = {
+          base = "#${config.lib.stylix.colors.base00}"; # Default Background
+          mantle = "#${config.lib.stylix.colors.base01}"; # Darker Background
+          crust = "#${config.lib.stylix.colors.base01}"; # Darkest Background
+
+          surface0 = "#${config.lib.stylix.colors.base02}"; # Selection Background
+          surface1 = "#${config.lib.stylix.colors.base03}"; # Comments / Muted text
+          surface2 = "#${config.lib.stylix.colors.base04}"; # Dark Foreground
+
+          text = "#${config.lib.stylix.colors.base05}"; # Default Foreground
+          subtext1 = "#${config.lib.stylix.colors.base06}"; # Light Foreground
+          subtext0 = "#${config.lib.stylix.colors.base07}"; # Lightest Foreground
+
+          # Color Accents
+          red = "#${config.lib.stylix.colors.base08}";
+          peach = "#${config.lib.stylix.colors.base09}";
+          yellow = "#${config.lib.stylix.colors.base0A}";
+          green = "#${config.lib.stylix.colors.base0B}";
+          teal = "#${config.lib.stylix.colors.base0C}";
+          blue = "#${config.lib.stylix.colors.base0D}";
+          mauve = "#${config.lib.stylix.colors.base0E}";
+          rosewater = "#${config.lib.stylix.colors.base0F}";
         };
       };
     };
@@ -69,34 +93,6 @@ in {
           options = {
             show_tab_indicators = false;
             show_close_icon = false;
-            # separator_style = "slant";
-            indicator.style = "underline";
-          };
-          highlights = {
-            buffer_selected = {bg = "none";};
-            numbers_selected = {bg = "none";};
-            separator_selected = {
-              bg = "none";
-              fg = "none";
-            };
-            indicator_selected = {
-              bg = "none";
-              fg = "none";
-            }; # Clears the left line highlight
-            modified_selected = {bg = "none";};
-            close_button_selected = {bg = "none";};
-            buffer_visible = {bg = "none";};
-            numbers_visible = {bg = "none";};
-            separator_visible = {
-              bg = "none";
-              fg = "none";
-            };
-            indicator_visible = {
-              bg = "none";
-              fg = "none";
-            };
-            modified_visible = {bg = "none";};
-            close_button_visible = {bg = "none";};
           };
         };
       };

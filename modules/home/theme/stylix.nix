@@ -31,16 +31,6 @@ in {
           colors.enable = !barThemeEnable;
           opacity.enable = true;
         };
-        nixvim = {
-          enable = true;
-          colors.enable = true;
-          opacity.enable = true;
-          transparentBackground = {
-            main = true;
-            signColumn = false;
-            numberLine = false;
-          };
-        };
         starship = {
           enable = !barThemeEnable;
           colors.enable = !barThemeEnable;
@@ -48,6 +38,7 @@ in {
         nixcord.enable = false;
         spicetify.enable = true;
         zed.enable = false; # bug not fixed, hardcoded theme in zed.nix
+        nixvim.enable = false; # use nvim plugin (looks dogshit)
         firefox = {
           enable = true;
           profileNames = [username];

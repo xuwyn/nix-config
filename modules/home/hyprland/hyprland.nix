@@ -248,7 +248,7 @@ in {
       # Noctalia blur
       layerrule {
         name = noctalia
-        match:namespace = ^noctalia-(bar-.+|notification|dock|panel|osd)$
+        match:namespace = ^noctalia-(bar-.+|notification|dock|panel|attached-panel|osd)$
         ignore_alpha = 0.5
         blur = true
         blur_popups = true
