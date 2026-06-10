@@ -6,7 +6,7 @@
 }: let
   vars = import ../../hosts/${host}/variables.nix;
   hyprlandEnable = vars.hyprlandEnable or false;
-  barChoice = vars.barChoice or "noctalia";
+  barChoice = vars.barChoice or "";
   ghosttyEnable = vars.ghosttyEnable or false;
   tmuxEnable = vars.tmuxEnable or false;
   weztermEnable = vars.weztermEnable or false;
@@ -14,6 +14,7 @@
   helixEnable = vars.helixEnable or false;
   zedEnable = vars.zedEnable or false;
   yaziEnable = vars.yaziEnable or false;
+  virtEnable = vars.virtEnable or false;
 
   barModule = (
     if barChoice == "noctalia"
@@ -57,10 +58,14 @@ in {
           ./swaync
           ./rofi
           ./scripts
-          ./virtmanager.nix
           ./xdg.nix
         ]
         ++ barModule
+      else []
+    )
+    ++ (
+      if virtEnable
+      then [./virtmanager.nix]
       else []
     )
     ++ (
