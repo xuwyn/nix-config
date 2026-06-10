@@ -1,5 +1,5 @@
 {
-  description = "ZaneyOS";
+  description = "NixOS - Hyprland + Noctalia-v5";
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";

@@ -76,6 +76,8 @@ in {
         opacity.enable = true;
         transparentBackground = {
           main = true;
+          signColumn = false;
+          numberLine = false;
         };
       };
       starship = {

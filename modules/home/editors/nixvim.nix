@@ -63,7 +63,43 @@ in {
           options = {theme = "auto";};
         };
       };
-      bufferline.enable = true;
+      bufferline = {
+        enable = true;
+        settings = {
+          options = {
+            show_tab_indicators = false;
+            show_close_icon = false;
+            # separator_style = "slant";
+            indicator.style = "underline";
+          };
+          highlights = {
+            buffer_selected = {bg = "none";};
+            numbers_selected = {bg = "none";};
+            separator_selected = {
+              bg = "none";
+              fg = "none";
+            };
+            indicator_selected = {
+              bg = "none";
+              fg = "none";
+            }; # Clears the left line highlight
+            modified_selected = {bg = "none";};
+            close_button_selected = {bg = "none";};
+            buffer_visible = {bg = "none";};
+            numbers_visible = {bg = "none";};
+            separator_visible = {
+              bg = "none";
+              fg = "none";
+            };
+            indicator_visible = {
+              bg = "none";
+              fg = "none";
+            };
+            modified_visible = {bg = "none";};
+            close_button_visible = {bg = "none";};
+          };
+        };
+      };
       indent-blankline.enable = true;
       colorizer.enable = true;
       illuminate.enable = true;
