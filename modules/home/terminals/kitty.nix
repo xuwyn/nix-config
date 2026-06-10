@@ -8,7 +8,7 @@
   vars = import ../../../hosts/${host}/variables.nix;
   barThemeEnable = vars.barThemeEnable or false;
   barChoice = vars.barChoice or "";
-  themes = {
+  barThemes = {
     noctalia = builtins.readFile ../dotfiles/kitty/themes/noctalia.conf;
     caelestia = builtins.readFile ../dotfiles/kitty/themes/caelestia.conf;
   };
@@ -49,7 +49,7 @@ in {
     extraConfig = ''
       ${
         if barThemeEnable
-        then (themes.${barChoice} or "")
+        then (barThemes.${barChoice} or "")
         else ""
       }
       # Map missing Unicode symbols (starship) to font that has them

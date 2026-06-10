@@ -22,7 +22,7 @@
       plugins = {
         alwaysAnimate.enable = true;
         betterGifAltText.enable = true;
-        ClearURLs.enable = true;
+        clearUrls.enable = true;
         disableDeepLinks.enable = true;
         fakeNitro = {
           enable = true;

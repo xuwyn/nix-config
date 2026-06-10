@@ -295,7 +295,6 @@ network_poll_seconds = 1
 [theme]
 custom_palette = "m3-content"
 source = "wallpaper"
-wallpaper_scheme = "m3-fruit-salad"
 
     [theme.templates]
     builtin_ids = [ "btop", "cava", "hyprland", "kitty" ]
@@ -305,13 +304,13 @@ wallpaper_scheme = "m3-fruit-salad"
 directory = "/home/wyn/Pictures/Wallpapers"
 
     [wallpaper.default]
-    path = "/home/wyn/Pictures/Wallpapers/interlude_109.png"
+    path = "/home/wyn/Pictures/Wallpapers/interlude_MDxBA_1.png"
 
     [wallpaper.last]
-    path = "/home/wyn/Pictures/Wallpapers/interlude_109.png"
+    path = "/home/wyn/Pictures/Wallpapers/interlude_MDxBA_1.png"
 
     [wallpaper.monitors.DP-5]
-    path = "/home/wyn/Pictures/Wallpapers/interlude_109.png"
+    path = "/home/wyn/Pictures/Wallpapers/interlude_MDxBA_1.png"
 
 [weather]
 address = "Fredericton, CA"

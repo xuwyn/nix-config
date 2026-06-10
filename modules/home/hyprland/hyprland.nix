@@ -10,7 +10,13 @@
   extraMonitorSettings = vars.extraMonitorSettings or "";
   keyboardLayout = vars.keyboardLayout or "us";
   keyboardVariant = vars.keyboardVariant or "";
-  stylixImage = vars.stylixImage or null;
+
+  barChoice = vars.barChoice or "";
+  barThemeEnable = vars.barThemeEnable or false;
+  barThemes = {
+    noctalia = builtins.readFile ../dotfiles/hypr/noctalia.conf;
+    caelestia = builtins.readFile ../dotfiles/hypr/caelestia.conf;
+  };
 
   # Treat only known US-based variants as implying layout = "us".
   usVariants = ["dvorak" "colemak" "workman" "intl" "us-intl" "altgr-intl"];
@@ -125,15 +131,22 @@ in {
 
       monocle = {};
 
-      general = {
-        layout = "dwindle";
-        gaps_in = 5;
-        gaps_out = 10;
-        border_size = 3;
-        resize_on_border = true;
-        # "col.active_border" = "rgb(${config.lib.stylix.colors.base08}) rgb(${config.lib.stylix.colors.base0C}) 45deg";
-        # "col.inactive_border" = "rgb(${config.lib.stylix.colors.base01})";
-      };
+      general =
+        {
+          layout = "dwindle";
+          gaps_in = 5;
+          gaps_out = 10;
+          border_size = 3;
+          resize_on_border = true;
+        }
+        // (
+          if !barThemeEnable
+          then {
+            "col.active_border" = "rgb(${config.lib.stylix.colors.base08}) rgb(${config.lib.stylix.colors.base0C}) 45deg";
+            "col.inactive_border" = "rgb(${config.lib.stylix.colors.base01})";
+          }
+          else {}
+        );
 
       misc = {
         layers_hog_keyboard_focus = true;
@@ -223,33 +236,35 @@ in {
       };
     };
 
-    extraConfig = "
-monitor=,preferred,auto,auto
-monitor=Virtual-1,1920x1080@60,auto,1
-${extraMonitorSettings}
+    extraConfig = ''
+      monitor=,preferred,auto,auto
+      monitor=Virtual-1,1920x1080@60,auto,1
+      ${extraMonitorSettings}
 
-# To enable blur on waybar uncomment the line below
-# Thanks to SchotjeChrisman
-# layerrule = blur,waybar
+      # To enable blur on waybar uncomment the line below
+      # Thanks to SchotjeChrisman
+      # layerrule = blur,waybar
 
-# Noctalia blur
-layerrule {
-  name = noctalia
-  match:namespace = ^noctalia-(bar-.+|notification|dock|panel|osd)$
-  ignore_alpha = 0.5
-  blur = true
-  blur_popups = true
-}
+      # Noctalia blur
+      layerrule {
+        name = noctalia
+        match:namespace = ^noctalia-(bar-.+|notification|dock|panel|osd)$
+        ignore_alpha = 0.5
+        blur = true
+        blur_popups = true
+      }
 
-# Persistent workspaces
-workspace = 1, persistent:true
-workspace = 2, persistent:true
-workspace = 3, persistent:true
-workspace = 4, persistent:true
-workspace = 5, persistent:true
-
-# Reading noctalia.conf from the same directory
-${builtins.readFile ../dotfiles/hypr/noctalia.conf}
-    ";
+      # Persistent workspaces
+      workspace = 1, persistent:true
+      workspace = 2, persistent:true
+      workspace = 3, persistent:true
+      workspace = 4, persistent:true
+      workspace = 5, persistent:true
+      ${
+        if barThemeEnable
+        then (barThemes.${barChoice} or "")
+        else ''''
+      }
+    '';
   };
 }

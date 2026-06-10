@@ -60,7 +60,11 @@ in {
       else {};
     targets = {
       btop.enable = !barThemeEnable;
-      cava.enable = !barThemeEnable;
+      cava = {
+        enable = !barThemeEnable;
+        colors.enable = !barThemeEnable;
+        rainbow.enable = !barThemeEnable;
+      };
       kitty = {
         enable = true;
         colors.enable = !barThemeEnable;
@@ -75,8 +79,8 @@ in {
         };
       };
       starship = {
-        enable = true;
-        colors.enable = true;
+        enable = !barThemeEnable;
+        colors.enable = !barThemeEnable;
       };
       nixcord.enable = false;
       spicetify.enable = true;
@@ -90,7 +94,7 @@ in {
       gnome.enable = false;
       waybar.enable = false;
       rofi.enable = false;
-      hyprland.enable = false; # some conflicts in hyprland settings
+      hyprland.enable = false;
       hyprlock.enable = false;
       ghostty.enable = false;
 

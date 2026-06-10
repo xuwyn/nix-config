@@ -47,12 +47,12 @@ monitor = DP-2,1920x1080@165,0x0,1
 
   # Shell Panels & Bars
   barChoice = "noctalia";
-  barThemeEnable = true; # only for some apps
+  barThemeEnable = true; # check home stylix
   quickshellEnable = false;
 
   # System Theming (Stylix)
   systemThemeEnable = true;
-  stylixImage = ../../wallpapers/interlude_109.png;
+  stylixImage = ../../wallpapers/interlude_MDxBA_1.png;
 
   # Active Hyprland Animation Style
   animChoice = ../../modules/home/hyprland/animations/animations-ml4w-classic.nix;

@@ -27,15 +27,6 @@ in {
       color =
         if barChoice == ""
         then {
-          #gradient = 1;
-          #gradient_color_1 = "'#011f30'";
-          #gradient_color_2 = "'#09465b'";
-          #gradient_color_3 = "'#045a93'";
-          #gradient_color_4 = "'#00aa00'";
-          #gradient_color_5 = "'#ffff00'";
-          #gradient_color_6 = "'#cc8033'";
-          #gradient_color_7 = "'#aa0000'";
-          #gradient_color_8 = "'#ff00ff'";
           # Catpuccin
           gradient = 1;
           gradient_color_1 = "'#8bd5ca'";
@@ -46,6 +37,7 @@ in {
           gradient_color_6 = "'#f5bde6'";
           gradient_color_7 = "'#ee99a0'";
           gradient_color_8 = "'#ed8796'";
+
           # Dracula
           # gradient = 1;
           # gradient_color_1 = "'#8BE9FD'";
@@ -57,12 +49,9 @@ in {
           # gradient_color_7 = "'#FF6E67'";
           # gradient_color_8 = "'#FF5555'";
         }
-        else {
-          theme =
-            if barThemeEnable
-            then barChoice
-            else "";
-        };
+        else if barThemeEnable
+        then {theme = barChoice;}
+        else {}; # Stylix fallback (empty set)
     };
   };
 }
