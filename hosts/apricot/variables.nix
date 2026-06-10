@@ -1,6 +1,6 @@
 {
   ### THEME
-  stylixImage = ../../wallpapers/interlude_109.png;
+  stylixImage = ../../wallpapers/AztecCity.png;
 
   ### USER ENVIRONMENT & APPLICATIONS
   # Git Identity
