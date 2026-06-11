@@ -1,4 +1,7 @@
 {
+  ### NETWORK
+  hostId = "ff56a61b";
+
   ### THEME
   stylixImage = ../../wallpapers/AztecCity.png;
 

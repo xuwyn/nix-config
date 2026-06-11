@@ -13,9 +13,11 @@ in {
   };
 
   config = mkIf cfg.enable {
+    services.dbus.enable = true;
     wsl = {
       enable = true;
       defaultUser = username;
+      useWindowsDriver = true;
       startMenuLaunchers = true;
 
       wslConf = {
@@ -26,17 +28,16 @@ in {
           root = "/mnt";
           options = "metadata,uid=1000,gid=100,umask=22,fmask=11";
         };
-        network.hostname = host;
-      };
-
-      network = {
-        generateHosts = true;
-        generateResolvConf = true;
-      };
-
-      interop = {
-        enabled = true;
-        appendWindowsPath = true; # run .exe files from inside WSL
+        boot.systemd = true;
+        network = {
+          hostname = host;
+          generateHosts = true;
+          generateResolvConf = true;
+        };
+        interop = {
+          enabled = true;
+          appendWindowsPath = true; # run .exe files from inside WSL
+        };
       };
     };
   };

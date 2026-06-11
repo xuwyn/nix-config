@@ -7,6 +7,7 @@
   vars = import ../../hosts/${host}/variables.nix;
   hyprlandEnable = vars.hyprlandEnable or false;
   barChoice = vars.barChoice or "";
+  alacrittyEnable = vars.alacrittyEnable or false;
   ghosttyEnable = vars.ghosttyEnable or false;
   tmuxEnable = vars.tmuxEnable or false;
   weztermEnable = vars.weztermEnable or false;
@@ -85,6 +86,11 @@ in {
     ++ (
       if vscodeEnable
       then [./editors/vscode.nix]
+      else []
+    )
+    ++ (
+      if alacrittyEnable
+      then [./terminals/alacritty.nix]
       else []
     )
     ++ (

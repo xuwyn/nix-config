@@ -1,5 +1,3 @@
-{}: {
-  imports = [
-    ./variables.nix
-  ];
+{...}: {
+  imports = [./host-env.nix];
 }

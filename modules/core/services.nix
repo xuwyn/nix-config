@@ -21,7 +21,7 @@
 
     smartd = {
       enable =
-        if profile == "vm"
+        if (profile == "vm") || (profile == "wsl")
         then false
         else true;
       autodetect = true;

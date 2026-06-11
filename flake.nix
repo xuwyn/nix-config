@@ -73,7 +73,13 @@
       url = "github:ezequielgk/Umbrella-Fetch";
       flake = false;
     };
+
     mac-app-util.url = "github:hraban/mac-app-util";
+
+    nixos-wsl = {
+      url = "github:nix-community/NixOS-WSL/main";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = {
@@ -84,6 +90,7 @@
     alejandra,
     flake-utils,
     mac-app-util,
+    nixos-wsl,
     ...
   } @ inputs: let
     overlays = import ./modules/overlays {inherit inputs;};
@@ -93,13 +100,16 @@
       host,
       profile,
       username,
+      extraModules ? [],
     }:
       nixpkgs.lib.nixosSystem {
         inherit system;
         specialArgs = {inherit inputs overlays username host profile;};
-        modules = [
-          ./profiles/${profile}
-        ];
+        modules =
+          [
+            ./profiles/${profile}
+          ]
+          ++ extraModules;
       };
 
     mkHomeConfig = {
@@ -129,34 +139,26 @@
           profile = "amd-nvidia-sync";
           username = "wyn";
         };
-      };
-
-      nixosConfigurations = {
         lettuce = mkNixosConfig {
           system = "x86_64-linux";
           host = "lettuce";
           profile = "wsl";
           username = "wyn";
+          extraModules = [nixos-wsl.nixosModules.default];
         };
       };
-
       homeConfigurations = {
         "wyn@mango" = mkHomeConfig {
           system = "x86_64-linux";
           host = "mango";
           username = "wyn";
         };
-      };
-
-      homeConfigurations = {
         "wyn@lettuce" = mkHomeConfig {
           system = "x86_64-linux";
           host = "lettuce";
           username = "wyn";
+          extraModules = [./hosts/lettuce];
         };
-      };
-
-      homeConfigurations = {
         "wyn@apricot" = mkHomeConfig {
           system = "aarch64-darwin";
           host = "apricot";
