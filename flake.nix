@@ -131,10 +131,27 @@
         };
       };
 
+      nixosConfigurations = {
+        lettuce = mkNixosConfig {
+          system = "x86_64-linux";
+          host = "lettuce";
+          profile = "wsl";
+          username = "wyn";
+        };
+      };
+
       homeConfigurations = {
         "wyn@mango" = mkHomeConfig {
           system = "x86_64-linux";
           host = "mango";
+          username = "wyn";
+        };
+      };
+
+      homeConfigurations = {
+        "wyn@lettuce" = mkHomeConfig {
+          system = "x86_64-linux";
+          host = "lettuce";
           username = "wyn";
         };
       };

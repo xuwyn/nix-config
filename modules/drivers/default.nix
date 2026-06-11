@@ -6,5 +6,6 @@
     ./nvidia-amd-hybrid.nix
     ./nvidia-intel-hybrid.nix
     ./vm-guest-services.nix
+    ./wsl.nix
   ];
 }
