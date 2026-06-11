@@ -13,9 +13,11 @@
   '';
 in {
   home.file = {
-    ".config/spicetify/config-xpui.ini".source = mkOutOfStoreSymlink "${configDir}/spicetify/config-xpui.ini";
     ".local/state/noctalia/settings.toml".source = mkOutOfStoreSymlink "${configDir}/noctalia/settings.toml";
     ".config/kitty/themes".source = mkOutOfStoreSymlink "${configDir}/kitty/themes";
+    ".config/btop/themes".source = mkOutOfStoreSymlink "${configDir}/btop/themes";
+    ".config/cava/themes".source = mkOutOfStoreSymlink "${configDir}/cava/themes";
+    ".config/Equicord/themes".source = mkOutOfStoreSymlink "${configDir}/Equicord/themes";
     ".config/hypr/noctalia.conf".source = mkOutOfStoreSymlink "${configDir}/hypr/noctalia.conf";
   };
 
