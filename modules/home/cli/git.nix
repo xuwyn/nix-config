@@ -1,10 +1,15 @@
 {
   config,
   host,
+  pkgs,
   ...
 }: let
   inherit (import ../../../hosts/${host}/variables.nix) gitUsername gitEmail;
 in {
+  home.packages = with pkgs; [
+    git-lfs
+    git-filter-repo
+  ];
   programs.git = {
     enable = true;
     signing = {

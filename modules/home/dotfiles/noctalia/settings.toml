@@ -295,7 +295,7 @@ network_poll_seconds = 1
 
 [theme]
 custom_palette = "m3-content"
-mode = "auto"
+mode = "dark"
 source = "wallpaper"
 
     [theme.templates]
@@ -323,13 +323,15 @@ directory = "/home/wyn/Pictures/Wallpapers"
     theme_mode = "auto"
 
     [[wallpaper.favorite]]
+    palette_source = "wallpaper"
     path = "/home/wyn/Pictures/Wallpapers/Amiya19birthday.jpeg"
-    theme_mode = "auto"
+    theme_mode = "dark"
+    wallpaper_scheme = "m3-content"
 
     [[wallpaper.favorite]]
     palette_source = "wallpaper"
     path = "/home/wyn/Pictures/Wallpapers/interlude_MDxBA_1.png"
-    theme_mode = "auto"
+    theme_mode = "dark"
     wallpaper_scheme = "m3-content"
 
     [[wallpaper.favorite]]
