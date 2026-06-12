@@ -22,8 +22,6 @@ in {
         email = "${gitEmail}";
       };
       gpg.format = "ssh";
-      commit.gpgsign = true;
-      tag.gpgsign = true;
 
       # FOSS-friendly settings
       push.default = "simple"; # Match modern push behavior
@@ -40,8 +38,7 @@ in {
         co = "checkout";
         df = "diff";
         com = "commit -a";
-        gs = "stash";
-        gp = "pull";
+        cl = "clone -c lfs.fetchexclude=*";
         lg = "log --graph --pretty=format:'%Cred%h%Creset - %C(yellow)%d%Creset %s %C(green)(%cr)%C(bold blue) <%an>%Creset' --abbrev-commit";
         st = "status";
       };
