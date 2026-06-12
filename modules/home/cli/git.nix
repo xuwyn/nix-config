@@ -12,6 +12,7 @@ in {
   ];
   programs.git = {
     enable = true;
+    lfs.enable = true;
     signing = {
       key = "${config.home.homeDirectory}/.ssh/id_ed25519";
       signByDefault = true;

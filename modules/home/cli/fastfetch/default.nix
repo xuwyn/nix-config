@@ -13,7 +13,7 @@
 
       logo = {
         source = ./frieren.png;
-        type = "kitty-direct";
+        type = "iterm";
         height = 18;
         width = 25;
         padding = {

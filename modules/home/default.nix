@@ -10,6 +10,7 @@
   alacrittyEnable = vars.alacrittyEnable or false;
   ghosttyEnable = vars.ghosttyEnable or false;
   tmuxEnable = vars.tmuxEnable or false;
+  kittyEnable = vars.kittyEnable or false;
   weztermEnable = vars.weztermEnable or false;
   vscodeEnable = vars.vscodeEnable or false;
   helixEnable = vars.helixEnable or false;
@@ -38,7 +39,6 @@ in {
     [
       ./cli
       ./python.nix
-      ./terminals/kitty.nix
       ./sops
       #./editors/nvf.nix
       ./editors/nixvim.nix
@@ -86,6 +86,11 @@ in {
     ++ (
       if vscodeEnable
       then [./editors/vscode.nix]
+      else []
+    )
+    ++ (
+      if kittyEnable
+      then [./terminals/kitty.nix]
       else []
     )
     ++ (

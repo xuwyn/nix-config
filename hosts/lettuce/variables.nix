@@ -14,10 +14,8 @@
   # (Options: "zsh", "bash")
   shell = "zsh";
 
-  # Default Applications
-  terminal = "kitty";
-
   # Alternative Terminal Toggles
+  kittyEnable = false;
   tmuxEnable = false;
   alacrittyEnable = false;
   weztermEnable = false;
@@ -26,7 +24,7 @@
   # Development Text Editors
   vscodeEnable = false;
   helixEnable = false;
-  zedEnable = true;
+  zedEnable = false;
 
   # File Managers
   yaziEnable = true;

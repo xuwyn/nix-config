@@ -1,4 +1,10 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  host,
+  ...
+}: let
+  inherit (import ../../../hosts/${host}/variables.nix) terminal;
+in {
   home.packages = [
     (import ./DropTerminal.nix {inherit pkgs;})
     (import ./web-search.nix {inherit pkgs;})
@@ -12,7 +18,7 @@
     exec = "DropTerminal";
     terminal = false;
     type = "Application";
-    icon = "kitty";
+    icon = terminal;
     settings.StartupWMClass = "dropterminal";
     categories = ["System" "Utility" "TerminalEmulator"];
   };
