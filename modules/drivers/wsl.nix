@@ -13,7 +13,6 @@ in {
   };
 
   config = mkIf cfg.enable {
-    services.dbus.enable = true;
     wsl = {
       enable = true;
       defaultUser = username;

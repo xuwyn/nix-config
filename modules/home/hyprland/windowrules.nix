@@ -27,12 +27,6 @@ _: {
       }
 
       windowrule {
-        name = Brave-browser
-        match:class = ^(Brave-browser(-beta|-dev|-unstable)?)$
-        tag = +browser
-      }
-
-      windowrule {
         name = Firefox
         match:class = ^([Ff]irefox|org.mozilla.firefox|[Ff]irefox-esr)$
         tag = +browser

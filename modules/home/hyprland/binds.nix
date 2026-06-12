@@ -67,6 +67,8 @@ in {
     bind = $modifier SHIFT, I, layoutmsg, togglesplit #"Toggle Split"
     bind = $modifier, F, fullscreen, #"Maximize"
     bind = $modifier SHIFT, F, togglefloating, #"Toggle Floating"
+    bind = $modifier SHIFT, F, resizeactive, exact 1600 900
+    bind = $modifier SHIFT, F, centerwindow
     bind = $modifier ALT, F, exec, hyprland-float-all #"Float All Windows"
 
     # 6. LAYOUTS

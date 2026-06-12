@@ -11,7 +11,6 @@
       enable = true;
       enable32Bit = true;
     };
-    opengl.enable = true; # for games
     enableRedistributableFirmware = true;
     keyboard.qmk.enable = true;
     bluetooth.enable = true;
