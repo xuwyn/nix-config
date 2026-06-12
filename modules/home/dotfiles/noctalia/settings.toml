@@ -9,6 +9,7 @@ margin_edge = 0
 margin_ends = 12
 padding = 6
 panel_overlap = 0
+radius = 20
 scale = 1.1000000000000001
 shadow = false
 start = [ "workspaces", "media", "audio_visualizer" ]
@@ -294,6 +295,7 @@ network_poll_seconds = 1
 
 [theme]
 custom_palette = "m3-content"
+mode = "auto"
 source = "wallpaper"
 
     [theme.templates]
@@ -311,6 +313,60 @@ directory = "/home/wyn/Pictures/Wallpapers"
 
     [wallpaper.monitors.DP-5]
     path = "/home/wyn/Pictures/Wallpapers/interlude_MDxBA_1.png"
+
+    [[wallpaper.favorite]]
+    path = "/home/wyn/Pictures/Wallpapers/SnakeNewYear.png"
+    theme_mode = "auto"
+
+    [[wallpaper.favorite]]
+    path = "/home/wyn/Pictures/Wallpapers/voyager.png"
+    theme_mode = "auto"
+
+    [[wallpaper.favorite]]
+    path = "/home/wyn/Pictures/Wallpapers/Amiya19birthday.jpeg"
+    theme_mode = "auto"
+
+    [[wallpaper.favorite]]
+    palette_source = "wallpaper"
+    path = "/home/wyn/Pictures/Wallpapers/interlude_MDxBA_1.png"
+    theme_mode = "auto"
+    wallpaper_scheme = "m3-content"
+
+    [[wallpaper.favorite]]
+    path = "/home/wyn/Pictures/Wallpapers/Embraced_A.png"
+    theme_mode = "auto"
+
+    [[wallpaper.favorite]]
+    path = "/home/wyn/Pictures/Wallpapers/IS-Mysterious_Banquet.png"
+    theme_mode = "auto"
+
+    [[wallpaper.favorite]]
+    path = "/home/wyn/Pictures/Wallpapers/Ereshkigal.jpg"
+    theme_mode = "auto"
+
+    [[wallpaper.favorite]]
+    path = "/home/wyn/Pictures/Wallpapers/Frankenstein.jpg"
+    theme_mode = "auto"
+
+    [[wallpaper.favorite]]
+    path = "/home/wyn/Pictures/Wallpapers/Ishtar.jpg"
+    theme_mode = "auto"
+
+    [[wallpaper.favorite]]
+    path = "/home/wyn/Pictures/Wallpapers/IS5-Expansion-Official-Artwork.jpeg"
+    theme_mode = "auto"
+
+    [[wallpaper.favorite]]
+    path = "/home/wyn/Pictures/Wallpapers/HokusaiWin7.jpg"
+    theme_mode = "auto"
+
+    [[wallpaper.favorite]]
+    path = "/home/wyn/Pictures/Wallpapers/interlude_109.png"
+    theme_mode = "auto"
+
+    [[wallpaper.favorite]]
+    path = "/home/wyn/Pictures/Wallpapers/interlude_RinLen_5.png"
+    theme_mode = "auto"
 
 [weather]
 address = "Fredericton, CA"
