@@ -3,7 +3,7 @@
   hostId = "ff56a61b";
 
   ### THEME
-  stylixImage = ../../wallpapers/SnakeNewYear.png;
+  stylixImage = ../../wallpapers/DaVinci.jpg;
 
   ### USER ENVIRONMENT & APPLICATIONS
   # Git Identity
