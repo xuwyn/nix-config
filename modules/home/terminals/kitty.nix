@@ -37,6 +37,9 @@ in {
       open_url_with_default = true;
       detect_urls = true;
       allow_remote_control = true;
+      remember_window_size = "no";
+      initial_window_width = 1024;
+      initial_window_height = 720;
     };
 
     shellIntegration.enableZshIntegration = true;

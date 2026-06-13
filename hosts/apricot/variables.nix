@@ -1,6 +1,6 @@
 {
   ### THEME
-  stylixImage = ../../wallpapers/AztecCity.png;
+  stylixImage = ../../wallpapers/Amiya-Birthday-Skin-Promote.png;
 
   ### USER ENVIRONMENT & APPLICATIONS
   # Git Identity
