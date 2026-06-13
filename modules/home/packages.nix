@@ -52,10 +52,6 @@ in {
 
       # --- Font
       maple-mono.NF # kitty
-
-      # --- Terminal helpers
-      wl-clipboard # Wayland clipboard
-      cliphist # Clipboard history engine
     ]
     ++ (
       if hyprlandEnable
@@ -75,6 +71,8 @@ in {
           libnotify # Linux notification tool (provides notify-send)
           playerctl # Controls Linux media keys via D-Bus
           socat # Network utility (used here for Wayland screenshots)
+          wl-clipboard # Wayland clipboard
+          cliphist # Clipboard history engine
         ]
         ++ noctaliaPkgs
       else []
