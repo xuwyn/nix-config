@@ -61,8 +61,8 @@ in {
       #detect_urls yes
 
       # Clipboard
-      map ctrl+shift+v        paste_from_selection
-      map shift+insert        paste_from_selection
+      map ctrl+shift+v        paste_from_clipboard
+      map ctrl+shift+c        copy_to_clipboard
 
       # Scrolling
       map ctrl+shift+up        scroll_line_up

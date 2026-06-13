@@ -36,6 +36,7 @@ in {
       unrar # Archive unpacker
       zip # Compressor
       unzip # Unpacker
+      tree # print directory
 
       # --- Eye-candy ---
       onefetch # fastfetch for git repo
@@ -51,6 +52,10 @@ in {
 
       # --- Font
       maple-mono.NF # kitty
+
+      # --- Terminal helpers
+      wl-clipboard # Wayland clipboard
+      cliphist # Clipboard history engine
     ]
     ++ (
       if hyprlandEnable
@@ -67,11 +72,9 @@ in {
 
           # --- Wayland/Hyprland/Rofi ---
           app2unit # Launches Linux desktop entries as systemd user units
-          cliphist # Clipboard history engine
           libnotify # Linux notification tool (provides notify-send)
           playerctl # Controls Linux media keys via D-Bus
           socat # Network utility (used here for Wayland screenshots)
-          wl-clipboard # Wayland clipboard
         ]
         ++ noctaliaPkgs
       else []

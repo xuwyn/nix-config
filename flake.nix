@@ -165,6 +165,11 @@
           username = "wyn";
           extraModules = [mac-app-util.homeManagerModules.default];
         };
+        "wyn@capybara" = mkHomeConfig {
+          system = "x86_64-linux";
+          host = "capybara";
+          username = "wyn";
+        };
       };
     }
     // (flake-utils.lib.eachDefaultSystem (system: {

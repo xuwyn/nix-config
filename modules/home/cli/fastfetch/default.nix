@@ -24,6 +24,7 @@ in {
         padding = {
           top = 3;
           left = 0;
+          right = 0;
         };
       };
 
@@ -56,7 +57,7 @@ in {
         {
           type = "packages";
           key = " ├ 󰏖 ";
-          format = "{nix-all} (nix-all), {flatpak-all} (flatpak-all)";
+          # format = "{nix-all} (nix-all), {flatpak-all} (flatpak-all)";
           keyColor = "red";
           outputColor = "red";
         }
@@ -84,6 +85,13 @@ in {
           key = " ├ 󰏒 ";
           keyColor = "green";
           text = "noctalia --version";
+          outputColor = "green";
+        }
+        {
+          type = "command";
+          key = " ├  ";
+          keyColor = "green";
+          text = "echo -n 'Caelestia-shell v' && caelestia --version | awk '/caelestia-shell/ {print $2; exit}'";
           outputColor = "green";
         }
         {
