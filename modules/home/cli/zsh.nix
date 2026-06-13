@@ -35,7 +35,8 @@
       sv = "sudo nvim";
       v = "nvim";
       c = "clear";
-      ncg = "nix-collect-garbage --delete-old && sudo nix-collect-garbage -d && sudo /run/current-system/bin/switch-to-configuration boot";
+      # ncg = "nix-env --delete-generations old && nix-store --gc && nix-collect-garbage -d && nix-store --optimise";
+      ncg = "home-manager expire-generations '-0 days' && nix profile wipe-generations && nix store gc && nix store optimise";
       cat = "bat";
       man = "batman";
       gl = "git log";
