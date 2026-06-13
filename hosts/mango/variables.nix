@@ -75,6 +75,7 @@ monitor = DP-2,1920x1080@165,0x0,1
   alacrittyEnable = false;
   weztermEnable = false;
   ghosttyEnable = false;
+  kittyEnable = true;
 
   # Development Text Editors
   vscodeEnable = false;

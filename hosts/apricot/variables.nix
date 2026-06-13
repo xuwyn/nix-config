@@ -15,6 +15,7 @@
   terminal = "kitty";
 
   # Alternative Terminal Toggles
+  kittyEnable = true;
   tmuxEnable = false;
   alacrittyEnable = false;
   weztermEnable = false;

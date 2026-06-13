@@ -1,4 +1,6 @@
-{
+{host, ...}: let
+  inherit (import ../../../../hosts/${host}/variables.nix) terminal;
+in {
   programs.fastfetch = {
     enable = true;
 
@@ -13,7 +15,10 @@
 
       logo = {
         source = ./frieren.png;
-        type = "iterm";
+        type =
+          if terminal == "wezterm"
+          then "iterm"
+          else "kitty-direct";
         height = 18;
         width = 25;
         padding = {
