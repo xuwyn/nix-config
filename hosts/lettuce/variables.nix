@@ -14,6 +14,9 @@
   # (Options: "zsh", "bash")
   shell = "zsh";
 
+  # Default Terminal
+  terminal = "wezterm"; # cannot be undefined
+
   # Alternative Terminal Toggles
   kittyEnable = false;
   tmuxEnable = false;

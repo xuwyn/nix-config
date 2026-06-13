@@ -44,7 +44,7 @@ in {
       ./editors/nixvim.nix
       ./editors/nano.nix
       ./packages.nix
-      ./custom-pkgs.nix
+      ./src-packages.nix
       ./theme/stylix.nix
     ]
     ++ (
