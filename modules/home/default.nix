@@ -46,6 +46,7 @@ in {
       ./packages.nix
       ./src-packages.nix
       ./theme/stylix.nix
+      ./theme/fonts.nix
     ]
     ++ (
       if hyprlandEnable

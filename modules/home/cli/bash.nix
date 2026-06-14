@@ -10,7 +10,7 @@
       sv = "sudo nvim";
       v = "nvim";
       c = "clear";
-      ncg = "nix-collect-garbage --delete-old && sudo nix-collect-garbage -d && sudo /run/current-system/bin/switch-to-configuration boot";
+      ncg = "nix-collect-garbage --delete-old && nix-collect-garbage -d && nix-store --gc && nix-store --optimise";
       cat = "bat";
       man = "batman";
       gl = "git log";

@@ -1,8 +1,8 @@
 {
   ### THEME
   stylixImage = ../../wallpapers/interlude_RinLen_5.png;
-  barChoice = "caelestia"; # set barChoice for cava
-  barThemeEnable = false; # to apply stylix on cava
+  barChoice = "";
+  barThemeEnable = false;
 
   ### USER ENVIRONMENT & APPLICATIONS
   # Git Identity

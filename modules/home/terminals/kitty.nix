@@ -13,7 +13,6 @@
 in {
   programs.kitty = {
     enable = true;
-
     # Upstream test failures resolved; use default kitty package (>= 0.44).
     package = pkgs.kitty;
     settings = {
@@ -40,6 +39,8 @@ in {
       remember_window_size = "no";
       initial_window_width = 1024;
       initial_window_height = 720;
+      background_blur = 1;
+      shell = "${pkgs.zsh}/bin/zsh";
     };
 
     shellIntegration.enableZshIntegration = true;
@@ -53,6 +54,10 @@ in {
         then (barThemes.${barChoice} or "")
         else ""
       }
+
+      # Override outrageous bg colour from stylix
+      background #11111b
+
       # Map missing Unicode symbols (starship) to font that has them
       symbol_map U+2190-U+21FF DejaVu Sans
 

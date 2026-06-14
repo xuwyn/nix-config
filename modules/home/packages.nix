@@ -49,9 +49,6 @@ in {
       pipes # pipes screensaver
       fortune # pseudorandom messages
       taoup # same as fortune
-
-      # --- Font
-      maple-mono.NF # kitty
     ]
     ++ (
       if hyprlandEnable

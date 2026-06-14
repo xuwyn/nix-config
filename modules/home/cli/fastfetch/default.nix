@@ -24,7 +24,6 @@ in {
         padding = {
           top = 3;
           left = 0;
-          right = 0;
         };
       };
 
@@ -91,7 +90,7 @@ in {
           type = "command";
           key = " ├  ";
           keyColor = "green";
-          text = "echo -n 'Caelestia-shell v' && caelestia --version | awk '/caelestia-shell/ {print $2; exit}'";
+          text = "caelestia --version | awk '/caelestia-shell/ {printf \"%s v%s\\n\",$1,$2; exit}'";
           outputColor = "green";
         }
         {

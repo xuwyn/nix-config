@@ -29,6 +29,7 @@ in {
         kitty = {
           enable = true;
           colors.enable = !barThemeEnable;
+          variant256Colors = !barThemeEnable;
           opacity.enable = true;
         };
         starship = {
