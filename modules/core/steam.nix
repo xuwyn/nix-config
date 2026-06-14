@@ -5,13 +5,14 @@
       remotePlay.openFirewall = true;
       dedicatedServer.openFirewall = false;
       gamescopeSession.enable = true;
-      extraCompatPackages = [pkgs.proton-ge-bin];
+      extraCompatPackages = [
+        pkgs.proton-ge-bin
+        pkgs.proton-cachyos
+      ];
     };
-
     gamemode = {
       enable = true;
     };
-
     gamescope = {
       enable = true;
       capSysNice = true;
@@ -19,6 +20,18 @@
         "--rt"
         "--expose-wayland"
       ];
+    };
+  };
+
+  services = {
+    scx = {
+      enable = true;
+      scheduler = "scx_lavd";
+    };
+    ananicy = {
+      enable = true;
+      package = pkgs.ananicy-cpp;
+      rulesProvider = pkgs.ananicy-rules-cachyos;
     };
   };
 }

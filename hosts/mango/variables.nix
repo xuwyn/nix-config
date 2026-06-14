@@ -21,7 +21,8 @@
   xserverEnable = true;
   printEnable = true;
   gsrEnable = true; # gpu-screen-recorder
-  devToolsEnable = true; # cachix, nix-ld
+  devToolsEnable = true; # nix-ld.nix
+  cacheEnable = true; # cache.nix
   openrgbEnable = true;
 
   # Network Shares & Syncing

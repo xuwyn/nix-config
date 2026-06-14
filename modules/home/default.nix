@@ -17,6 +17,7 @@
   zedEnable = vars.zedEnable or false;
   yaziEnable = vars.yaziEnable or false;
   virtEnable = vars.virtEnable or false;
+  thunarEnable = vars.thunarEnable or false;
 
   barModule = (
     if barChoice == "noctalia"
@@ -72,6 +73,11 @@ in {
     ++ (
       if yaziEnable
       then [./yazi]
+      else []
+    )
+    ++ (
+      if thunarEnable
+      then [./thunar.nix]
       else []
     )
     ++ (

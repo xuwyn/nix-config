@@ -9,6 +9,7 @@
     };
     stylix.url = "github:danth/stylix/master";
     nix-flatpak.url = "github:gmodena/nix-flatpak?ref=latest";
+    chaotic.url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
 
     noctalia = {
       url = "github:noctalia-dev/noctalia";
@@ -85,6 +86,7 @@
   outputs = {
     nixpkgs,
     home-manager,
+    chaotic,
     nixvim,
     nix-flatpak,
     alejandra,
@@ -138,6 +140,7 @@
           host = "mango";
           profile = "amd-nvidia-sync";
           username = "wyn";
+          extraModules = [chaotic.nixosModules.default];
         };
         lettuce = mkNixosConfig {
           system = "x86_64-linux";

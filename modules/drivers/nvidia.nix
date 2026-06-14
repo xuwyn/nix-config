@@ -1,6 +1,5 @@
 {
   lib,
-  pkgs,
   config,
   ...
 }:
@@ -12,9 +11,6 @@ in {
   };
 
   config = mkIf cfg.enable {
-    # Choose specific kernel
-    # boot.kernelPackages = lib.mkForce pkgs.linuxPackages_6_12;
-
     services.xserver.videoDrivers = ["nvidia"];
 
     hardware.nvidia = {

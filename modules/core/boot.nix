@@ -1,10 +1,17 @@
 {
   pkgs,
   config,
+  host,
   ...
-}: {
+}: let
+  vars = import ../../hosts/${host}/variables.nix;
+  steamEnable = vars.steamEnable or false;
+in {
   boot = {
-    kernelPackages = pkgs.linuxPackages_latest;
+    kernelPackages =
+      if steamEnable
+      then pkgs.linuxPackages_cachyos
+      else pkgs.linuxPackages_latest;
     kernelModules = ["v4l2loopback"];
     extraModulePackages = [config.boot.kernelPackages.v4l2loopback];
     kernel.sysctl = {"vm.max_map_count" = 2147483642;};

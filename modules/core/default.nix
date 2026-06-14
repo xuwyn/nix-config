@@ -15,6 +15,7 @@
   flatpakEnable = vars.flatpakEnable or false;
   xserverEnable = vars.xserverEnable or false;
   devToolsEnable = vars.devToolsEnable or false;
+  cacheEnable = vars.cacheEnable or false;
 in {
   imports =
     [
@@ -37,7 +38,12 @@ in {
     )
     ++ (
       if devToolsEnable
-      then [./nix-ld.nix ./cachix.nix]
+      then [./nix-ld.nix]
+      else []
+    )
+    ++ (
+      if cacheEnable
+      then [./cache.nix]
       else []
     )
     ++ (
