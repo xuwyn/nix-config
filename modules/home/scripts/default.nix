@@ -7,6 +7,7 @@
 in {
   home.packages =
     [
+      (import ./rofi-launcher.nix {inherit pkgs;})
       (import ./web-search.nix {inherit pkgs;})
       (import ./hyprland-float-all.nix {inherit pkgs;})
       (import ./hyprland-change-layout.nix {inherit pkgs;})
