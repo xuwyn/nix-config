@@ -173,6 +173,12 @@
           host = "capybara";
           username = "wyn";
         };
+        "wyn@potato" = mkHomeConfig {
+          system = "x86_64-linux";
+          host = "potato";
+          username = "wyn";
+          extraModules = [./hosts/potato];
+        };
       };
     }
     // (flake-utils.lib.eachDefaultSystem (system: {
