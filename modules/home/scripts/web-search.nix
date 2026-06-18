@@ -5,22 +5,32 @@ pkgs.writeShellScriptBin "web-search" ''
     pkill rofi
   fi
 
-  declare -A URLS
-
-  URLS=(
-    ["🌎 Search"]="https://www.google.com/search?q="
-    ["❄️ Unstable Nix Packages"]="https://search.nixos.org/packages?channel=unstable&from=0&size=50&sort=relevance&type=packages&query="
-    ["🏠 Unstable Home Manager Options"]="https://home-manager-options.extranix.com/?release=master&query="
-    ["🎞️ YouTube"]="https://www.youtube.com/results?search_query="
-    ["🦥 Arch Wiki"]="https://wiki.archlinux.org/title/"
-    ["🐃 Gentoo Wiki"]="https://wiki.gentoo.org/index.php?title="
+  # 1. Define standard indexed arrays to preserve your exact order
+  PLATFORMS=(
+    "🌎 Search"
+    "❄️ Nix Packages (Unstable)"
+    "❄️ NixOS Options (Unstable)"
+    "🏠 Home Manager Options (Unstable)"
+    "🎞️ YouTube"
+    "🦥 Arch Wiki"
+    "🐃 Gentoo Wiki"
   )
 
-  # List for rofi
+  URLS=(
+    "https://www.google.com/search?q="
+    "https://search.nixos.org/packages?channel=unstable&from=0&size=50&sort=relevance&type=packages&query="
+    "https://search.nixos.org/options?channel=unstable&query="
+    "https://home-manager-options.extranix.com/?release=master&query="
+    "https://www.youtube.com/results?search_query="
+    "https://wiki.archlinux.org/title/"
+    "https://wiki.gentoo.org/index.php?title="
+  )
+
+  # List for rofi loops over the keys sequentially
   gen_list() {
-    for i in "''${!URLS[@]}"
+    for item in "''${PLATFORMS[@]}"
     do
-      echo "$i"
+      echo "$item"
     done
   }
 
@@ -29,10 +39,23 @@ pkgs.writeShellScriptBin "web-search" ''
     platform=$( (gen_list) | ${pkgs.rofi}/bin/rofi -dmenu -config ~/.config/rofi/config-long.rasi )
 
     if [[ -n "$platform" ]]; then
+      # Find the index of the selected platform to match it with its URL
+      index=-1
+      for i in "''${!PLATFORMS[@]}"; do
+         if [[ "''${PLATFORMS[$i]}" == "$platform" ]]; then
+             index=$i
+             break
+         fi
+      done
+
+      if [[ $index -eq -1 ]]; then
+        exit 1
+      fi
+
       query=$( (echo ) | ${pkgs.rofi}/bin/rofi -dmenu -config ~/.config/rofi/config-long.rasi )
 
       if [[ -n "$query" ]]; then
-        url=''${URLS[$platform]}$query
+        url=''${URLS[$index]}$query
         xdg-open "$url"
       else
         exit
@@ -42,7 +65,7 @@ pkgs.writeShellScriptBin "web-search" ''
     fi
   }
 
-   main
+  main
 
-   exit 0
+  exit 0
 ''
