@@ -8,6 +8,7 @@
   vars = import ../../../hosts/${host}/variables.nix;
   inherit (vars) stylixImage;
   hyprlandEnable = vars.hyprlandEnable or false;
+  i3Enable = vars.i3Enable or false;
   barThemeEnable = vars.barThemeEnable or false;
   barChoice = vars.barChoice or "";
   stylixThemeEnable = barChoice != "" && !barThemeEnable;
@@ -28,6 +29,7 @@ in {
         };
         kitty = {
           enable = true;
+          fonts.enable = false;
           colors.enable = !barThemeEnable;
           variant256Colors = !barThemeEnable;
           opacity.enable = true;
@@ -36,7 +38,7 @@ in {
           enable = !barThemeEnable;
           colors.enable = !barThemeEnable;
         };
-        nixcord.enable = false;
+        nixcord.enable = !barThemeEnable;
         spicetify.enable = true;
         zed.enable = false; # bug not fixed, hardcoded theme in zed.nix
         nixvim.enable = false; # use nvim plugin (looks dogshit)
@@ -52,8 +54,8 @@ in {
         hyprland.enable = false;
         hyprlock.enable = false;
         ghostty.enable = false;
-
-        gtk.enable = hyprlandEnable;
+        kde.enable = false;
+        gtk.enable = hyprlandEnable || i3Enable;
         qt = {
           enable = hyprlandEnable;
           platform = "qtct";
@@ -61,7 +63,7 @@ in {
       };
     }
     // (
-      if hyprlandEnable
+      if hyprlandEnable || i3Enable
       then {
         cursor = {
           package = pkgs.bibata-cursors;

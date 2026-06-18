@@ -70,6 +70,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    quickshell = {
+      url = "git+https://git.outfoxxed.me/outfoxxed/quickshell";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     umbrella-fetch = {
       url = "github:ezequielgk/Umbrella-Fetch";
       flake = false;
@@ -87,8 +92,6 @@
     nixpkgs,
     home-manager,
     chaotic,
-    nixvim,
-    nix-flatpak,
     alejandra,
     flake-utils,
     mac-app-util,

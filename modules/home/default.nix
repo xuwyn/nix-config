@@ -5,7 +5,8 @@
   ...
 }: let
   vars = import ../../hosts/${host}/variables.nix;
-  hyprlandEnable = vars.hyprlandEnable or false;
+  hyprlandEnable = vars.hyprlandEnable or false; # full desktop env NixOS
+  i3Enable = vars.i3Enable or false; # only available on home manager
   barChoice = vars.barChoice or "";
   alacrittyEnable = vars.alacrittyEnable or false;
   ghosttyEnable = vars.ghosttyEnable or false;
@@ -40,6 +41,7 @@ in {
 
   imports =
     [
+      ./nh.nix
       ./cli
       ./python.nix
       ./sops
@@ -62,9 +64,26 @@ in {
           ./theme/gtk.nix
           ./rofi
           ./scripts
-          ./xdg.nix
+          ./xdg
         ]
         ++ barModule
+      else []
+    )
+    ++ (
+      if i3Enable
+      then [
+        ./i3
+        ./picom.nix
+        ./dunst.nix
+        ./scripts
+        ./rofi
+        ./polybar.nix
+        ./theme/gtk.nix
+        ./apps/firefox.nix
+        ./apps/spicetify.nix
+        ./apps/nixcord.nix
+        ./xdg
+      ]
       else []
     )
     ++ (

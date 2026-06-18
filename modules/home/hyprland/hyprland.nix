@@ -50,19 +50,6 @@
   hyprKbLayout = layoutFromVariant;
   hyprKbVariant = variantFinal;
 in {
-  home.packages = with pkgs; [
-    grim
-    slurp
-    cliphist
-    wl-clipboard
-    # swappy
-    ydotool
-    hyprpolkitagent
-    hyprshot
-    hyprshutdown
-    hyprpicker
-    #hyprland-qtutils # needed for banners and ANR messages
-  ];
   systemd.user.targets.hyprland-session.Unit.Wants = [
     "xdg-desktop-autostart.target"
   ];

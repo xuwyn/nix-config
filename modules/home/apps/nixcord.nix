@@ -1,8 +1,11 @@
 {
   inputs,
-  pkgs,
+  host,
   ...
-}: {
+}: let
+  vars = import ../../../hosts/${host}/variables.nix;
+  barChoice = vars.barChoice or "";
+in {
   imports = [inputs.nixcord.homeModules.nixcord];
 
   # Nixcord options: https://flameflag.github.io/nixcord/
@@ -18,7 +21,10 @@
     # legcord.enable = true;
 
     config = {
-      enabledThemes = ["noctalia-material.theme.css" "noctalia.theme.css"];
+      enabledThemes =
+        if barChoice == "noctalia"
+        then ["noctalia-material.theme.css" "noctalia.theme.css"]
+        else ["stylix.theme.css"];
       plugins = {
         alwaysAnimate.enable = true;
         betterGifAltText.enable = true;

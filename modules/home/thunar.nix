@@ -1,4 +1,8 @@
-{host, ...}: let
+{
+  host,
+  config,
+  ...
+}: let
   inherit (import ../../hosts/${host}/variables.nix) terminal;
   openTerminal =
     if terminal == "foot"
@@ -30,5 +34,15 @@ in {
         <directories/>
     </action>
     </actions>
+  '';
+
+  # Set Bookmarks (xdg user-dirs is not enough)
+  home.file.".config/gtk-3.0/bookmarks".text = ''
+    file://${config.home.homeDirectory}/Downloads Downloads
+    file://${config.home.homeDirectory}/Documents Documents
+    file://${config.home.homeDirectory}/Pictures Pictures
+    file://${config.home.homeDirectory}/Pictures/Screenshots Screenshots
+    file://${config.home.homeDirectory}/Music Music
+    file://${config.home.homeDirectory}/Videos Videos
   '';
 }

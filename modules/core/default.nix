@@ -27,7 +27,6 @@ in {
       ./services.nix
       ./system.nix
       ./user.nix
-      ./nh.nix
     ]
     ++ (
       if displayManager == "tui"

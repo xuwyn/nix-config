@@ -1,4 +1,6 @@
-{...}: {
+{host, ...}: let
+  inherit (import ../../../hosts/${host}/variables.nix) terminal;
+in {
   wayland.windowManager.hyprland = {
     settings = {
       env = [
@@ -25,11 +27,11 @@
         "QT_SCALE_FACTOR,1"
         "EDITOR,nvim"
         # Set terminal and xdg_terminal_emulator to kitty
-        # To provent yazi from starting xterm when run from rofi menu
+        # To prevent yazi from starting xterm when run from rofi menu
         # You can set to your preferred terminal if you you like
         # ToDo: Pull default terminal from config
-        "TERMINAL,kitty"
-        "XDG_TERMINAL_EMULATOR,kitty"
+        "TERMINAL,${terminal}"
+        "XDG_TERMINAL_EMULATOR,${terminal}"
       ];
     };
   };
