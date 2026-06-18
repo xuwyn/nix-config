@@ -3,7 +3,7 @@
   inputs,
   ...
 }: {
-  environment.systemPackages = with pkgs; [
+  home.packages = with pkgs; [
     inputs.quickshell.packages.${pkgs.stdenv.hostPlatform.system}.default
 
     # Qt6 related kits（for slove Qt5Compat problem）
@@ -21,14 +21,17 @@
   ];
 
   # necessary environment variables
-  environment.variables = {
+  home.sessionVariables = {
     QML_IMPORT_PATH = "${pkgs.qt6.qt5compat}/lib/qt-6/qml:${pkgs.qt6.qtbase}/lib/qt-6/qml";
     QML2_IMPORT_PATH = "${pkgs.qt6.qt5compat}/lib/qt-6/qml:${pkgs.qt6.qtbase}/lib/qt-6/qml";
-  };
-
-  # make sure the Qt application is working properly
-  environment.sessionVariables = {
     QT_QPA_PLATFORM = "wayland;xcb";
     QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";
+  };
+
+  # make available to systemd units (optional)
+  systemd.user.sessionVariables = {
+    QML_IMPORT_PATH = "${pkgs.qt6.qt5compat}/lib/qt-6/qml:${pkgs.qt6.qtbase}/lib/qt-6/qml";
+    QML2_IMPORT_PATH = "${pkgs.qt6.qt5compat}/lib/qt-6/qml:${pkgs.qt6.qtbase}/lib/qt-6/qml";
+    QT_QPA_PLATFORM = "wayland;xcb";
   };
 }

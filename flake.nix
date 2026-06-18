@@ -1,14 +1,19 @@
 {
-  description = "NixOS - Hyprland + Noctalia-v5";
+  description = "NixOS + Home Manager Flake - Hyprland/Noctalia-v5 & i3/Polybar";
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
     stylix.url = "github:danth/stylix/master";
+
     nix-flatpak.url = "github:gmodena/nix-flatpak?ref=latest";
+
+    # CachyOS kernel for gaming
     chaotic.url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
 
     noctalia = {

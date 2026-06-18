@@ -8,6 +8,7 @@
   hyprlandEnable = vars.hyprlandEnable or false; # full desktop env NixOS
   i3Enable = vars.i3Enable or false; # only available on home manager
   barChoice = vars.barChoice or "";
+  quickshellEnable = vars.quickshellEnable or false;
   alacrittyEnable = vars.alacrittyEnable or false;
   ghosttyEnable = vars.ghosttyEnable or false;
   tmuxEnable = vars.tmuxEnable or false;
@@ -84,6 +85,11 @@ in {
         ./apps/nixcord.nix
         ./xdg
       ]
+      else []
+    )
+    ++ (
+      if quickshellEnable
+      then [./quickshell.nix]
       else []
     )
     ++ (

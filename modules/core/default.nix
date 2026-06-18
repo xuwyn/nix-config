@@ -7,7 +7,6 @@
   virtEnable = vars.virtEnable or false;
   syncthingEnable = vars.syncthingEnable or false;
   nfsEnable = vars.nfsEnable or false;
-  quickshellEnable = vars.quickshellEnable or false;
   thunarEnable = vars.thunarEnable or false;
   openrgbEnable = vars.openrgbEnable or false;
   steamEnable = vars.steamEnable or false;
@@ -83,11 +82,6 @@ in {
     ++ (
       if nfsEnable
       then [./nfs.nix]
-      else []
-    )
-    ++ (
-      if quickshellEnable
-      then [./quickshell.nix]
       else []
     )
     ++ (
