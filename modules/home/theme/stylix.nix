@@ -21,7 +21,11 @@ in {
       opacity.terminal = 0.9;
       polarity = "dark";
       targets = {
-        btop.enable = !barThemeEnable;
+        btop = {
+          enable = true;
+          colors.enable = !barThemeEnable;
+          opacity.enable = true;
+        };
         cava = {
           enable = stylixThemeEnable;
           colors.enable = stylixThemeEnable;

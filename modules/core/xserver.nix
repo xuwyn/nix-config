@@ -1,4 +1,8 @@
-{host, ...}: let
+{
+  host,
+  pkgs,
+  ...
+}: let
   vars = import ../../hosts/${host}/variables.nix;
   keyboardLayout = vars.keyboardLayout or "us";
   keyboardVariant = vars.keyboardVariant or "";
@@ -37,6 +41,7 @@
 in {
   services.xserver = {
     enable = true;
+    excludePackages = [pkgs.xterm];
     xkb = {
       layout = xkbLayout;
       variant = xkbVariant;
