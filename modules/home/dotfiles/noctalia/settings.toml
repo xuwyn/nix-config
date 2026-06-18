@@ -119,6 +119,7 @@ blurred_desktop = true
 enabled = true
 schema_version = 1
 widget_order = [
+    "lockscreen-login-box@HDMI-A-1",
     "lockscreen-login-box@DP-2",
     "lockscreen-login-box@WAYLAND-1",
     "lockscreen-login-box@DP-5",
@@ -135,35 +136,48 @@ widget_order = [
     visible = true
 
     [lockscreen_widgets.widget."lockscreen-login-box@DP-2"]
+    box_height = 0.0
+    box_width = 0.0
     cx = 960.0
     cy = 957.0
     output = "DP-2"
     rotation = 0.0
-    scale = 1.0
     type = "login_box"
 
     [lockscreen_widgets.widget."lockscreen-login-box@DP-5"]
+    box_height = 0.0
+    box_width = 0.0
     cx = 960.0
     cy = 1013.0
     output = "DP-5"
     rotation = 0.0
-    scale = 1.0
+    type = "login_box"
+
+    [lockscreen_widgets.widget."lockscreen-login-box@HDMI-A-1"]
+    box_height = 0.0
+    box_width = 0.0
+    cx = 960.0
+    cy = 957.0
+    output = "HDMI-A-1"
+    rotation = 0.0
     type = "login_box"
 
     [lockscreen_widgets.widget."lockscreen-login-box@WAYLAND-1"]
+    box_height = 0.0
+    box_width = 0.0
     cx = 235.0
     cy = 128.0
     output = "WAYLAND-1"
     rotation = 0.0
-    scale = 1.0
     type = "login_box"
 
     [lockscreen_widgets.widget.lockscreen-widget-0000000000000001]
+    box_height = 0.0
+    box_width = 0.0
     cx = 960.0
     cy = 292.5
     output = "DP-5"
     rotation = 0.0
-    scale = 2.1432433128356934
     type = "clock"
 
         [lockscreen_widgets.widget.lockscreen-widget-0000000000000001.settings]
@@ -171,22 +185,24 @@ widget_order = [
         shadow = true
 
     [lockscreen_widgets.widget.lockscreen-widget-0000000000000004]
+    box_height = 0.0
+    box_width = 0.0
     cx = 960.0
     cy = 416.89999389648438
     output = "DP-5"
     rotation = 0.0
-    scale = 0.93181818723678589
     type = "weather"
 
         [lockscreen_widgets.widget.lockscreen-widget-0000000000000004.settings]
         background = false
 
     [lockscreen_widgets.widget.lockscreen-widget-0000000000000005]
+    box_height = 0.0
+    box_width = 0.0
     cx = 964.9149169921875
     cy = 180.5
     output = "DP-5"
     rotation = 0.0
-    scale = 0.59472769498825073
     type = "clock"
 
         [lockscreen_widgets.widget.lockscreen-widget-0000000000000005.settings]
@@ -195,11 +211,12 @@ widget_order = [
         shadow = true
 
     [lockscreen_widgets.widget.lockscreen-widget-0000000000000007]
+    box_height = 0.0
+    box_width = 0.0
     cx = 960.0
     cy = 556.0
     output = "DP-5"
     rotation = 0.0
-    scale = 1.874591588973999
     type = "audio_visualizer"
 
         [lockscreen_widgets.widget.lockscreen-widget-0000000000000007.settings]
@@ -210,11 +227,12 @@ widget_order = [
         show_when_idle = false
 
     [lockscreen_widgets.widget.lockscreen-widget-0000000000000009]
+    box_height = 0.0
+    box_width = 0.0
     cx = 960.0
     cy = 791.205322265625
     output = "DP-5"
     rotation = 0.0
-    scale = 1.5120406150817871
     type = "media_player"
 
         [lockscreen_widgets.widget.lockscreen-widget-0000000000000009.settings]
