@@ -1,39 +1,50 @@
 {
   pkgs,
-  lib,
   host,
   ...
 }: let
   vars = import ../../hosts/${host}/variables.nix;
   hyprlandEnable = vars.hyprlandEnable or false;
 in {
-  programs = {
-    neovim = {
-      enable = true;
-      defaultEditor = true;
-    };
-
-    dconf.enable = true;
-    seahorse.enable = true;
-    fuse.userAllowOther = true;
-    mtr.enable = true;
-
-    gnupg.agent = {
-      enable = true;
-      enableSSHSupport = true;
-    };
-
-    hyprland = lib.mkIf hyprlandEnable {
-      enable = true; # set this so desktop file is created
-      withUWSM = false;
-    };
-    hyprlock = lib.mkIf hyprlandEnable {
-      enable = true;
-    };
-  };
-
   nixpkgs.config.allowUnfree = true;
   nixpkgs.config.permittedInsecurePackages = ["openssl-1.1.1w"];
+
+  programs =
+    {
+      neovim = {
+        enable = true;
+        defaultEditor = true;
+      };
+
+      # ping and traceroute
+      mtr.enable = true;
+
+      # mount cloud drives (rclone, sshfs)
+      # fuse.userAllowOther = true;
+    }
+    // (
+      if hyprlandEnable
+      then {
+        dconf.enable = true; # save gtk/gnome user settings
+        seahorse.enable = true; # GUI for GPG keys
+        localsend.enable = true;
+
+        gnupg.agent = {
+          enable = true;
+          enableSSHSupport = true;
+        };
+
+        hyprland = {
+          enable = true; # set this so desktop file is created
+          withUWSM = false;
+        };
+
+        hyprlock = {
+          enable = true;
+        };
+      }
+      else {}
+    );
 
   environment.systemPackages = with pkgs; [
     # --- Login Managers ---
