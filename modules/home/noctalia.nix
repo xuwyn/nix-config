@@ -1,10 +1,16 @@
 {
   pkgs,
   inputs,
+  host,
+  config,
   ...
 }: let
   system = pkgs.stdenv.hostPlatform.system;
   noctaliaPkg = inputs.noctalia.packages.${system}.default;
+
+  vars = import ../../hosts/${host}/variables.nix;
+  qylockTheme = vars.qylockTheme or "";
+  qylockEnable = qylockTheme != "";
 in {
   # Install the Noctalia package
   home.packages = [noctaliaPkg];
@@ -12,6 +18,96 @@ in {
   # Configure Noctalia via home module
   imports = [inputs.noctalia.homeModules.default];
   programs.noctalia = {
-    enable = false; # for now
+    enable = true;
+    systemd.enable = true;
+    settings = {
+      shell = {
+        avatar_path = "${config.home.homeDirectory}/nixos/modules/home/hyprland/face.jpg";
+        date_format = "%A, %Y %b %d";
+        font_family = "Maple Mono NF";
+        launch_apps_as_systemd_services = true;
+        settings_show_advanced = true;
+        telemetry_enabled = false;
+        ui_scale = 1.1;
+
+        panel = {
+          control_center_placement = "floating";
+          open_near_click_control_center = true;
+          session_placement = "centered";
+          shadow = false;
+          transparency_mode = "glass";
+          wallpaper_placement = "floating";
+        };
+
+        screen_corners = {
+          enabled = true;
+          size = 40;
+        };
+
+        screenshot = {
+          directory = "${config.home.homeDirectory}/Pictures/Screenshots";
+        };
+
+        session = {
+          actions = [
+            {
+              action = "command";
+              command = "qylock-lock";
+              enabled = qylockEnable;
+              glyph = "lock";
+              label = "Lock";
+              shortcut = "1";
+              variant = "default";
+            }
+            {
+              action = "lock";
+              enabled = !qylockEnable;
+              shortcut = "1";
+              variant = "default";
+            }
+
+            {
+              action = "logout";
+              enabled = true;
+              shortcut = "2";
+              variant = "default";
+            }
+            {
+              action = "lock_and_suspend";
+              enabled = true;
+              glyph = "player-pause";
+              label = "Suspend";
+              shortcut = "3";
+              variant = "default";
+            }
+            {
+              action = "command";
+              command = "systemctl reboot --firmware-setup";
+              enabled = true;
+              glyph = "cpu";
+              label = "BIOS Reboot";
+              shortcut = "4";
+              variant = "default";
+            }
+            {
+              action = "reboot";
+              enabled = true;
+              shortcut = "5";
+              variant = "default";
+            }
+            {
+              action = "shutdown";
+              enabled = true;
+              shortcut = "6";
+              variant = "destructive";
+            }
+          ];
+        };
+
+        shadow = {
+          alpha = 0.0;
+        };
+      };
+    };
   };
 }

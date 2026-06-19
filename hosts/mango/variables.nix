@@ -22,7 +22,6 @@
   printEnable = true;
   gsrEnable = true; # gpu-screen-recorder
   devToolsEnable = true; # nix-ld.nix
-  cacheEnable = true; # cache.nix
   openrgbEnable = true;
 
   # Network Shares & Syncing
@@ -36,8 +35,13 @@
   thunarEnable = true;
 
   ### DESKTOP ENVIRONMENT & GRAPHICS
-  # Login Screen ("tui" for text login, "sddm", or "silent")
+  # Login Screen ("tui" "qylock" "silent")
   displayManager = "silent";
+
+  # More lock and sddm themes
+  # "pixel-skyscrapers" "pixel-night-city" "pixel-dusk-city" "pixel-coffee"
+  qylockTheme = "pixel-night-city";
+  quickshellEnable = true; # must be enabled for qylock
 
   # Window Manager
   hyprlandEnable = true;
@@ -49,7 +53,6 @@ monitor = DP-2,1920x1080@165,0x0,1
   # Shell Panels & Bars
   barChoice = "noctalia";
   barThemeEnable = true; # check home stylix
-  quickshellEnable = false;
 
   # System Theming (Stylix)
   systemThemeEnable = true;

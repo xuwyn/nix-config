@@ -82,7 +82,7 @@ in {
           kb_layout = hyprKbLayout;
           kb_options = [
             "grp:alt_caps_toggle"
-            "caps:super"
+            # "caps:super"
           ];
           numlock_by_default = true;
           repeat_delay = 300;

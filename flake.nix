@@ -1,6 +1,23 @@
 {
   description = "NixOS + Home Manager Flake - Hyprland/Noctalia-v5 & i3/Polybar";
 
+  # Binary caches
+  nixConfig = {
+    substituters = [
+      "https://cache.nixos.org"
+      "https://hyprland.cachix.org"
+      "https://nix-community.cachix.org"
+      "https://nyx-cache.chaotic.cx/"
+      "https://noctalia.cachix.org"
+    ];
+    trusted-public-keys = [
+      "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
+      "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+      "nyx-cache.chaotic.cx:dJxTrgMC3V3cFfyIiBQDQorG6k1LsqurH/srpMSq7qk="
+      "noctalia.cachix.org-1:pCOR47nnMEo5thcxNDtzWpOxNFQsBRglJzxWPp3dkU4="
+    ];
+  };
+
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
@@ -74,6 +91,9 @@
       url = "github:uiriansan/SilentSDDM";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    # quickshell lockscreens & more sddm themes
+    qylock.url = "github:Darkkal44/qylock";
 
     quickshell = {
       url = "git+https://git.outfoxxed.me/outfoxxed/quickshell";

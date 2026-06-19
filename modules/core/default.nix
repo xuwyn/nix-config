@@ -2,6 +2,7 @@
   # Import the host-specific variables.nix
   vars = import ../../hosts/${host}/variables.nix;
   displayManager = vars.displayManager or "tui";
+  qylockTheme = vars.qylockTheme or "";
   printEnable = vars.printEnable or false;
   gsrEnable = vars.gsrEnable or false;
   virtEnable = vars.virtEnable or false;
@@ -14,7 +15,6 @@
   flatpakEnable = vars.flatpakEnable or false;
   xserverEnable = vars.xserverEnable or false;
   devToolsEnable = vars.devToolsEnable or false;
-  cacheEnable = vars.cacheEnable or false;
 in {
   imports =
     [
@@ -30,18 +30,16 @@ in {
     ++ (
       if displayManager == "tui"
       then [./ly.nix]
-      else if displayManager == "silent"
-      then [./sddm-silent.nix]
-      else [./sddm.nix]
+      else [./sddm.nix] # "silent" "qylock"
+    )
+    ++ (
+      if qylockTheme != ""
+      then [./qylock.nix]
+      else []
     )
     ++ (
       if devToolsEnable
       then [./nix-ld.nix]
-      else []
-    )
-    ++ (
-      if cacheEnable
-      then [./cache.nix]
       else []
     )
     ++ (

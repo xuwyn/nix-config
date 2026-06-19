@@ -1,6 +1,7 @@
 {host, ...}: let
   vars = import ../../../hosts/${host}/variables.nix;
   inherit (vars) barChoice browser terminal;
+  qylockTheme = vars.qylockTheme or "";
 in {
   wayland.windowManager.hyprland.extraConfig = ''
     # 1. WINDOW RESIZING
@@ -15,29 +16,38 @@ in {
 
     ${
       if barChoice == "noctalia"
-      then ''
-        # 3. NOCTALIA
-        bind = $modifier, A, exec, noctalia msg panel-toggle launcher #"Noctalia Launcher"
-        bind = $modifier, V, exec, noctalia msg panel-toggle clipboard #"Noctalia Clipboard"
-        bind = $modifier, C, exec, noctalia msg panel-toggle control-center #"Noctalia Control Center"
-        bind = $modifier CTRL, C, exec, noctalia msg settings-toggle #"Noctalia Settings"
-        bind = $modifier SHIFT, W, exec, noctalia msg panel-toggle wallpaper #"Noctalia Wallpaper"
-        bind = $modifier, N, exec, noctalia msg panel-toggle control-center "notifications" #"Notifications"
-        bind = $modifier, E, exec, noctalia msg panel-toggle launcher "/emo" #"Emoji Picker"
-        bind = $modifier CTRL, S, exec, noctalia msg screenshot-fullscreen #"Screenshot Fullscreen"
-        bind = $modifier SHIFT, S, exec, noctalia msg screenshot-region #"Screenshot Region"
-        # bind = $modifier CTRL, S, exec, hyprshot -m output -o "$HOME/Pictures/Screenshots" #"Screenshot Entire Screen"
-        # bind = $modifier SHIFT, S, exec, hyprshot -m region -o "$HOME/Pictures/Screenshots" #"Screenshot Region"
-        bind = $modifier ALT, S, exec, hyprshot -m window -o "$HOME/Pictures/Screenshots" #"Screenshot Window"
-        # bind = $modifier SHIFT, E, exec, noctalia msg panel-toggle plugin:kaomoji #"Kaomoji Picker"
-        # bind = $modifier, K, exec, noctalia msg panel-toggle plugin:keybind-cheatsheet #"Keybind Cheatsheet"
-        bind = $modifier, R, exec, noctalia msg scripted-widget screen_recorder focused toggle #"Toggle Screen Recorder"
-        bind = $modifier SHIFT, R, exec, killall -q noctalia; sleep 1; noctalia; #"Restart Noctalia shell"
-        bind = $modifier ALT, R, exec, hyprctl reload #"Reload Hyprland"
-        bind = CTRL+ALT, Delete, exec, noctalia msg panel-toggle session #"Noctalia Power Menu"
-        bind = $modifier, Delete, exit #"Hyprland Logout/Exit"
-        bind = $modifier, L, exec, noctalia msg session lock #"Noctalia Lock Screen"
-      ''
+      then
+        ''
+          # 3. NOCTALIA
+          bind = $modifier, A, exec, noctalia msg panel-toggle launcher #"Noctalia Launcher"
+          bind = $modifier, V, exec, noctalia msg panel-toggle clipboard #"Noctalia Clipboard"
+          bind = $modifier, C, exec, noctalia msg panel-toggle control-center #"Noctalia Control Center"
+          bind = $modifier CTRL, C, exec, noctalia msg settings-toggle #"Noctalia Settings"
+          bind = $modifier SHIFT, W, exec, noctalia msg panel-toggle wallpaper #"Noctalia Wallpaper"
+          bind = $modifier, N, exec, noctalia msg panel-toggle control-center "notifications" #"Notifications"
+          bind = $modifier, E, exec, noctalia msg panel-toggle launcher "/emo" #"Emoji Picker"
+          bind = $modifier CTRL, S, exec, noctalia msg screenshot-fullscreen #"Screenshot Fullscreen"
+          bind = $modifier SHIFT, S, exec, noctalia msg screenshot-region #"Screenshot Region"
+          # bind = $modifier CTRL, S, exec, hyprshot -m output -o "$HOME/Pictures/Screenshots" #"Screenshot Entire Screen"
+          # bind = $modifier SHIFT, S, exec, hyprshot -m region -o "$HOME/Pictures/Screenshots" #"Screenshot Region"
+          bind = $modifier ALT, S, exec, hyprshot -m window -o "$HOME/Pictures/Screenshots" #"Screenshot Window"
+          # bind = $modifier SHIFT, E, exec, noctalia msg panel-toggle plugin:kaomoji #"Kaomoji Picker"
+          # bind = $modifier, K, exec, noctalia msg panel-toggle plugin:keybind-cheatsheet #"Keybind Cheatsheet"
+          bind = $modifier, R, exec, noctalia msg scripted-widget screen_recorder focused toggle #"Toggle Screen Recorder"
+          bind = $modifier SHIFT, R, exec, killall -q noctalia; sleep 1; noctalia; #"Restart Noctalia shell"
+          bind = $modifier ALT, R, exec, hyprctl reload #"Reload Hyprland"
+          bind = CTRL+ALT, Delete, exec, noctalia msg panel-toggle session #"Noctalia Power Menu"
+          bind = $modifier, Delete, exit #"Hyprland Logout/Exit"
+        ''
+        + (
+          if qylockTheme == ""
+          then ''
+            bind = $modifier, L, exec, noctalia msg session lock #"Noctalia Lock Screen"
+          ''
+          else ''
+            bind = $modifier, L, exec, qylock-lock #"Lock with qylock"
+          ''
+        )
       else ''
         # 3. ROFI
         bind = $modifier, D, exec, rofi-launcher #"Rofi Launcher"

@@ -1,94 +1,63 @@
-# SDDM is a display manager for X11 and Wayland
 {
-  pkgs,
-  config,
-  lib,
+  inputs,
   host,
+  username,
+  lib,
+  pkgs,
   ...
 }: let
-  foreground = config.stylix.base16Scheme.base00;
-  textColor = config.stylix.base16Scheme.base05;
-  sddm-astronaut = pkgs.sddm-astronaut.override {
-    embeddedTheme = "pixel_sakura";
-    themeConfig =
-      if lib.hasSuffix "sakura_static.png" config.stylix.image
-      then {
-        FormPosition = "left";
-        Blur = "2.0";
-        HourFormat = "h:mm AP";
-      }
-      else if lib.hasSuffix "studio.png" config.stylix.image
-      then {
-        Background = pkgs.fetchurl {
-          url = "https://raw.githubusercontent.com/anotherhadi/nixy-wallpapers/refs/heads/main/wallpapers/studio.gif";
-          sha256 = "sha256-qySDskjmFYt+ncslpbz0BfXiWm4hmFf5GPWF2NlTVB8=";
-        };
-        HourFormat = "h:mm AP";
-        HeaderTextColor = "#${textColor}";
-        DateTextColor = "#${textColor}";
-        TimeTextColor = "#${textColor}";
-        LoginFieldTextColor = "#${textColor}";
-        PasswordFieldTextColor = "#${textColor}";
-        UserIconColor = "#${textColor}";
-        PasswordIconColor = "#${textColor}";
-        WarningColor = "#${textColor}";
-        LoginButtonBackgroundColor = "#${foreground}";
-        SystemButtonsIconsColor = "#${foreground}";
-        SessionButtonTextColor = "#${textColor}";
-        VirtualKeyboardButtonTextColor = "#${textColor}";
-        DropdownBackgroundColor = "#${foreground}";
-        HighlightBackgroundColor = "#${textColor}";
-      }
-      else {
-        FormPosition = "left";
-        Blur = "4.0";
-        Background = "${toString config.stylix.image}";
-        HourFormat = "h:mm AP";
-        HeaderTextColor = "#${textColor}";
-        DateTextColor = "#${textColor}";
-        TimeTextColor = "#${textColor}";
-        LoginFieldTextColor = "#${textColor}";
-        PasswordFieldTextColor = "#${textColor}";
-        UserIconColor = "#${textColor}";
-        PasswordIconColor = "#${textColor}";
-        WarningColor = "#${textColor}";
-        LoginButtonBackgroundColor = "#${config.stylix.base16Scheme.base01}";
-        SystemButtonsIconsColor = "#${textColor}";
-        SessionButtonTextColor = "#${textColor}";
-        VirtualKeyboardButtonTextColor = "#${textColor}";
-        DropdownBackgroundColor = "#${config.stylix.base16Scheme.base01}";
-        HighlightBackgroundColor = "#${textColor}";
-        FormBackgroundColor = "#${config.stylix.base16Scheme.base01}";
-      };
-  };
+  inherit (import ../../hosts/${host}/variables.nix) displayManager;
+  qylockEnable = displayManager == "qylock";
 in {
-  services.displayManager = {
-    sddm = {
-      package = pkgs.kdePackages.sddm;
-      extraPackages = [sddm-astronaut];
-      enable = true;
-      wayland.enable = true;
-      theme = "sddm-astronaut-theme";
-      settings = let
-        vars = import ../../hosts/${host}/variables.nix;
-        keyboardLayout = vars.keyboardLayout or "us";
-        keyboardVariant = vars.keyboardVariant or "";
-      in {
-        X11 = {
-          XkbLayout = keyboardLayout;
-          XkbVariant = keyboardVariant;
-        };
-      };
-    };
+  imports =
+    if qylockEnable
+    then []
+    else [inputs.silentSDDM.nixosModules.default];
+
+  environment.systemPackages = [pkgs.bibata-cursors];
+
+  services.displayManager.sddm = {
+    enable = true;
+    wayland.enable = lib.mkForce false; # nvidia shenanigan
+
+    # Enable custom cursor
+    setupScript = ''
+      ${pkgs.xrdb}/bin/xrdb -merge - <<EOF
+      Xcursor.theme: Bibata-Modern-Ice
+      Xcursor.size: 24
+      EOF
+    '';
   };
 
-  # Ensure Wayland SDDM also sees XKB defaults
-  systemd.services.display-manager.environment = let
-    vars = import ../../hosts/${host}/variables.nix;
-    keyboardLayout = vars.keyboardLayout or "us";
-    keyboardVariant = vars.keyboardVariant or "";
-  in ({XKB_DEFAULT_LAYOUT = keyboardLayout;}
-    // lib.optionalAttrs (keyboardVariant != "") {XKB_DEFAULT_VARIANT = keyboardVariant;});
-
-  environment.systemPackages = [sddm-astronaut];
+  programs =
+    if displayManager == "silent"
+    then {
+      silentSDDM = {
+        enable = true;
+        theme = "silvia";
+        backgrounds = {
+          cyTus = ../../wallpapers/cyTus.mp4;
+          frame-1 = ../../wallpapers/frame-1.png;
+        };
+        profileIcons = {
+          ${username} = ../home/hyprland/face.jpg;
+        };
+        settings = {
+          "General" = {
+            scale = 1.0;
+            enable-animations = true;
+            animated-background-placeholder = "frame-1.png";
+            background-fill-mode = "fill";
+          };
+          "LockScreen" = {
+            background = "cyTus.mp4";
+            saturation = 0;
+          };
+          "LoginScreen" = {
+            background = "cyTus.mp4";
+          };
+        };
+      };
+    }
+    else {};
 }
