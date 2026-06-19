@@ -6,5 +6,8 @@
     enableFishIntegration = true;
     enableZshIntegration = true;
     presets = ["nerd-font-symbols" "bracketed-segments"];
+    settings = {
+      scan_timeout = 250; #ms
+    };
   };
 }

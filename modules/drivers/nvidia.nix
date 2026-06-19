@@ -28,9 +28,19 @@ in {
     };
 
     environment.variables = {
-      # Change to "nvidia", "iHD" (Intel), or "radeonsi" (AMD)
-      LIBVA_DRIVER_NAME = "nvidia"; # Example for Nvidia
-      NVD_BACKEND = "direct"; # Required for Nvidia VA-API
+      # Enable vaapi for nvidia (unsupported)
+      LIBVA_DRIVER_NAME = "nvidia";
+      NVD_BACKEND = "direct";
+
+      # Forces the use of the NVIDIA driver for OpenGL
+      __GLX_VENDOR_LIBRARY_NAME = "nvidia";
+
+      # Forces the use of the NVIDIA driver for Vulkan
+      # This ensures the Vulkan loader prioritizes NVIDIA over the AMD iGPU
+      VK_ICD_FILENAMES = "/run/opengl-driver/share/vulkan/icd.d/nvidia_icd.x86_64.json";
+
+      # Optional: Helpful for some applications to recognize the GPU
+      # __NV_PRIME_RENDER_OFFLOAD = "1";
     };
   };
 }

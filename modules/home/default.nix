@@ -20,6 +20,7 @@
   yaziEnable = vars.yaziEnable or false;
   virtEnable = vars.virtEnable or false;
   thunarEnable = vars.thunarEnable or false;
+  fpsLimit = vars.fpsLimit or "";
 
   barModule = (
     if barChoice == "noctalia"
@@ -85,6 +86,11 @@ in {
         ./apps/nixcord.nix
         ./xdg
       ]
+      else []
+    )
+    ++ (
+      if fpsLimit != ""
+      then [./mangohud.nix]
       else []
     )
     ++ (

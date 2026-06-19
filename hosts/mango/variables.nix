@@ -31,8 +31,9 @@
 
   # Additional Applications
   flatpakEnable = true;
-  steamEnable = true;
   thunarEnable = true;
+  steamEnable = true;
+  fpsLimit = 144; # set this value to prevent unlimited fps
 
   ### DESKTOP ENVIRONMENT & GRAPHICS
   # Login Screen ("tui" "qylock" "silent")
