@@ -26,4 +26,5 @@
 
   # File Managers
   yaziEnable = true;
+  thunarEnable = true;
 }

@@ -12,8 +12,8 @@
         "nix-command"
         "flakes"
       ];
-      allowed-users = ["${username}"];
-      trusted-users = ["${username}"];
+      allowed-users = [username];
+      trusted-users = [username];
     };
   };
 }
