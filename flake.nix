@@ -4,7 +4,6 @@
   # Binary caches
   nixConfig = {
     substituters = [
-      "https://cache.nixos.org"
       "https://hyprland.cachix.org"
       "https://nix-community.cachix.org"
       "https://nyx-cache.chaotic.cx/"
@@ -188,7 +187,6 @@
           system = "x86_64-linux";
           host = "lettuce";
           username = "wyn";
-          extraModules = [./hosts/lettuce];
         };
         "wyn@apricot" = mkHomeConfig {
           system = "aarch64-darwin";
@@ -200,6 +198,7 @@
           system = "x86_64-linux";
           host = "capybara";
           username = "wyn";
+          extraModules = [./hosts/capybara];
         };
         "wyn@potato" = mkHomeConfig {
           system = "x86_64-linux";

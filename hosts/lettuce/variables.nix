@@ -15,7 +15,7 @@
   shell = "zsh";
 
   # Default Terminal
-  terminal = "wezterm"; # cannot be undefined
+  terminal = "wezterm"; # cannot be undefined (fastfetch)
 
   # Alternative Terminal Toggles
   kittyEnable = false;

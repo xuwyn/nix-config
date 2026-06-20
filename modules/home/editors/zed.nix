@@ -2,6 +2,10 @@
   inherit (config.lib.stylix.colors.withHashtag) base00 base01 base02 base03 base04 base05 base06 base07 base08 base09 base0A base0B base0C base0D base0E base0F;
   transparent = "#00000000";
 in {
+  home.sessionVariables = {
+    ZED_ALLOW_EMULATED_GPU = "1"; # for WSL
+  };
+
   programs.zed-editor = {
     enable = true;
     extensions = ["nix" "yaml" "toml"];

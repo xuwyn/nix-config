@@ -11,11 +11,6 @@ in {
 
   programs =
     {
-      neovim = {
-        enable = true;
-        defaultEditor = true;
-      };
-
       # ping and traceroute
       mtr.enable = true;
 
