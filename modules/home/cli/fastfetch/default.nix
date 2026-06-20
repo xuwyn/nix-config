@@ -127,21 +127,20 @@ in {
         }
         {
           type = "cpu";
-          format = "{1} ({3}) @ {7}";
-          key = " ├  ";
+          key = " ├ 󰓅 ";
           keyColor = "blue";
           outputColor = "blue";
         }
         {
           type = "gpu";
-          format = "{vendor} {name} [{type}]";
+          format = "{name} [{type}]";
           key = " ├ 󰢮 ";
           keyColor = "blue";
           outputColor = "blue";
         }
         {
           type = "memory";
-          key = " ├  ";
+          key = " ├  ";
           keyColor = "blue";
           outputColor = "blue";
         }

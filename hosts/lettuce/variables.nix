@@ -17,18 +17,6 @@
   # Default Terminal
   terminal = "wezterm"; # cannot be undefined (fastfetch)
 
-  # Alternative Terminal Toggles
-  kittyEnable = false;
-  tmuxEnable = false;
-  alacrittyEnable = false;
-  weztermEnable = false;
-  ghosttyEnable = false;
-
-  # Development Text Editors
-  vscodeEnable = false;
-  helixEnable = false;
-  zedEnable = false;
-
   # File Managers
   yaziEnable = true;
 }
