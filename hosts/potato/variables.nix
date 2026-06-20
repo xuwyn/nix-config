@@ -1,7 +1,7 @@
 {
   ### DESKTOP ENVIRONMENT
   stylixImage = ../../wallpapers/voyager.png;
-  barChoice = "";
+  barChoice = "polybar";
   barThemeEnable = false;
   i3Enable = true;
   hyprlandEnable = false;

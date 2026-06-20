@@ -25,6 +25,8 @@
   barModule = (
     if barChoice == "noctalia"
     then [./noctalia.nix]
+    else if barChoice == "polybar"
+    then [./polybar.nix]
     else []
   );
 in {
@@ -74,19 +76,17 @@ in {
     )
     ++ (
       if i3Enable
-      then [
-        ./i3
-        ./picom.nix
-        ./dunst.nix
-        ./scripts
-        ./rofi
-        ./polybar.nix
-        ./theme/gtk.nix
-        ./apps/firefox.nix
-        ./apps/spicetify.nix
-        ./apps/nixcord.nix
-        ./xdg
-      ]
+      then
+        [
+          ./i3
+          ./picom.nix
+          ./dunst.nix
+          ./scripts
+          ./rofi
+          ./theme/gtk.nix
+          ./xdg
+        ]
+        ++ barModule
       else []
     )
     ++ (
