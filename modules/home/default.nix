@@ -41,6 +41,14 @@ in {
 
   nixpkgs.config.allowUnfree = true;
 
+  nix = {
+    package = pkgs.nix;
+    settings = {
+      allowed-users = ["${username}"];
+      trusted-users = ["${username}"];
+    };
+  };
+
   imports =
     [
       ./nh.nix
