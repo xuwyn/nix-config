@@ -41,16 +41,9 @@ in {
 
   nixpkgs.config.allowUnfree = true;
 
-  nix = {
-    package = pkgs.nix;
-    settings = {
-      allowed-users = ["${username}"];
-      trusted-users = ["${username}"];
-    };
-  };
-
   imports =
     [
+      ../core/nix-conf.nix
       ./nh.nix
       ./cli
       ./python.nix

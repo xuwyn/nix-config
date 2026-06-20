@@ -2,16 +2,6 @@
   vars = import ../../hosts/${host}/variables.nix;
   consoleKeyMap = vars.consoleKeyMap or "us";
 in {
-  nix = {
-    settings = {
-      download-buffer-size = 200000000;
-      auto-optimise-store = true;
-      experimental-features = [
-        "nix-command"
-        "flakes"
-      ];
-    };
-  };
   time.timeZone = "America/Moncton";
   i18n.defaultLocale = "en_US.UTF-8";
   i18n.extraLocaleSettings = {

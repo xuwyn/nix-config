@@ -18,6 +18,7 @@
 in {
   imports =
     [
+      ./nix-conf.nix
       ./boot.nix
       ./hardware.nix
       ./network.nix

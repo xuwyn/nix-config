@@ -62,13 +62,13 @@ in {
         }
         {
           type = "terminal";
-          key = " ├  ";
+          key = " ├  ";
           keyColor = "red";
           outputColor = "red";
         }
         {
           type = "shell";
-          key = " └  ";
+          key = " └  ";
           keyColor = "red";
           outputColor = "red";
         }
@@ -133,7 +133,7 @@ in {
         }
         {
           type = "gpu";
-          format = "{name} [{type}]";
+          # format = "{name} [{type}]";
           key = " ├ 󰢮 ";
           keyColor = "blue";
           outputColor = "blue";

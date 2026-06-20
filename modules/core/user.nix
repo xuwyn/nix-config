@@ -50,8 +50,4 @@ in {
     shell = pkgs.${shell};
     ignoreShellProgramCheck = true;
   };
-  nix.settings = {
-    allowed-users = ["${username}"];
-    trusted-users = ["${username}"];
-  };
 }
