@@ -1,6 +1,7 @@
 {host, ...}: {
   imports = [
     ../../modules/drivers/wsl.nix
+    ../../modules/core/nix-conf.nix
     ../../modules/core/system.nix
     ../../modules/core/network.nix
     ../../modules/core/services.nix
