@@ -1,6 +1,7 @@
 {
   pkgs,
   host,
+  lib,
   ...
 }: let
   vars = import ../../hosts/${host}/variables.nix;
@@ -9,37 +10,29 @@ in {
   nixpkgs.config.allowUnfree = true;
   nixpkgs.config.permittedInsecurePackages = ["openssl-1.1.1w"];
 
-  programs =
-    {
-      # ping and traceroute
-      mtr.enable = true;
+  programs = {
+    # ping and traceroute
+    mtr.enable = true;
 
-      # mount cloud drives (rclone, sshfs)
-      # fuse.userAllowOther = true;
-    }
-    // (
-      if hyprlandEnable
-      then {
-        dconf.enable = true; # save gtk/gnome user settings
-        seahorse.enable = true; # GUI for GPG keys
-        localsend.enable = true;
+    gnupg.agent = {
+      enable = true;
+      enableSSHSupport = true;
+    };
 
-        gnupg.agent = {
-          enable = true;
-          enableSSHSupport = true;
-        };
+    # mount cloud drives (rclone, sshfs)
+    # fuse.userAllowOther = true;
 
-        hyprland = {
-          enable = true; # set this so desktop file is created
-          withUWSM = false;
-        };
+    dconf.enable = hyprlandEnable;
+    seahorse.enable = hyprlandEnable;
+    localsend.enable = hyprlandEnable;
 
-        hyprlock = {
-          enable = true;
-        };
-      }
-      else {}
-    );
+    hyprland = lib.mkIf hyprlandEnable {
+      enable = true; # set this so desktop file is created
+      withUWSM = false;
+    };
+
+    hyprlock.enable = hyprlandEnable;
+  };
 
   environment.systemPackages = with pkgs; [
     # --- Login Managers ---

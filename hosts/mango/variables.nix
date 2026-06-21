@@ -55,7 +55,7 @@ monitor = DP-2,1920x1080@165,0x0,1
   barChoice = "noctalia";
   barThemeEnable = true; # check home stylix
 
-  # System Theming (Stylix)
+  # System Theming
   systemThemeEnable = true;
   stylixImage = ../../wallpapers/interlude_MDxBA_1.png;
 
@@ -74,6 +74,15 @@ monitor = DP-2,1920x1080@165,0x0,1
   # Default Applications
   terminal = "kitty";
   browser = "firefox";
+
+  # Desktop Environment (needed for some apps)
+  xdgEnable = true;
+
+  # Apps
+  firefoxEnable = true;
+  nixcordEnable = true;
+  spicetifyEnable = true;
+  obsEnable = true;
 
   # Alternative Terminal Toggles
   tmuxEnable = false;

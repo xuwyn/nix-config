@@ -1,20 +1,9 @@
-{host, ...}: let
-  # Import the host-specific variables.nix
+{
+  host,
+  lib,
+  ...
+}: let
   vars = import ../../hosts/${host}/variables.nix;
-  displayManager = vars.displayManager or "tui";
-  qylockTheme = vars.qylockTheme or "";
-  printEnable = vars.printEnable or false;
-  gsrEnable = vars.gsrEnable or false;
-  virtEnable = vars.virtEnable or false;
-  syncthingEnable = vars.syncthingEnable or false;
-  nfsEnable = vars.nfsEnable or false;
-  thunarEnable = vars.thunarEnable or false;
-  openrgbEnable = vars.openrgbEnable or false;
-  steamEnable = vars.steamEnable or false;
-  systemThemeEnable = vars.systemThemeEnable or false;
-  flatpakEnable = vars.flatpakEnable or false;
-  xserverEnable = vars.xserverEnable or false;
-  devToolsEnable = vars.devToolsEnable or false;
 in {
   imports =
     [
@@ -29,73 +18,23 @@ in {
       ./user.nix
     ]
     ++ (
-      if displayManager == "tui"
+      if (vars.displayManager or "") == ""
+      then []
+      else if vars.displayManager == "tui"
       then [./ly.nix]
-      else [./sddm.nix] # "silent" "qylock"
+      else [./sddm.nix]
     )
-    ++ (
-      if qylockTheme != ""
-      then [./qylock.nix]
-      else []
-    )
-    ++ (
-      if devToolsEnable
-      then [./nix-ld.nix]
-      else []
-    )
-    ++ (
-      if xserverEnable
-      then [./xserver.nix]
-      else []
-    )
-    ++ (
-      if flatpakEnable
-      then [./flatpak.nix]
-      else []
-    )
-    ++ (
-      if systemThemeEnable
-      then [./fonts.nix ./stylix.nix]
-      else []
-    )
-    ++ (
-      if printEnable
-      then [./printing.nix]
-      else []
-    )
-    ++ (
-      if gsrEnable
-      then [./gpu-screen-recorder.nix]
-      else []
-    )
-    ++ (
-      if virtEnable
-      then [./virtualisation.nix]
-      else []
-    )
-    ++ (
-      if syncthingEnable
-      then [./syncthing.nix]
-      else []
-    )
-    ++ (
-      if nfsEnable
-      then [./nfs.nix]
-      else []
-    )
-    ++ (
-      if thunarEnable
-      then [./thunar.nix]
-      else []
-    )
-    ++ (
-      if openrgbEnable
-      then [./openrgb.nix]
-      else []
-    )
-    ++ (
-      if steamEnable
-      then [./steam.nix]
-      else []
-    );
+    ++ lib.optional ((vars.qylockTheme or "") != "") ./qylock.nix
+    ++ lib.optional (vars.devToolsEnable or false) ./nix-ld.nix
+    ++ lib.optional (vars.xserverEnable or false) ./xserver.nix
+    ++ lib.optional (vars.flatpakEnable or false) ./flatpak.nix
+    ++ lib.optionals (vars.systemThemeEnable or false) [./fonts.nix ./stylix.nix]
+    ++ lib.optional (vars.printEnable or false) ./printing.nix
+    ++ lib.optional (vars.gsrEnable or false) ./gpu-screen-recorder.nix
+    ++ lib.optional (vars.virtEnable or false) ./virtualisation.nix
+    ++ lib.optional (vars.syncthingEnable or false) ./syncthing.nix
+    ++ lib.optional (vars.nfsEnable or false) ./nfs.nix
+    ++ lib.optional (vars.thunarEnable or false) ./thunar.nix
+    ++ lib.optional (vars.openrgbEnable or false) ./openrgb.nix
+    ++ lib.optional (vars.steamEnable or false) ./steam.nix;
 }

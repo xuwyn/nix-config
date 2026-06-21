@@ -12,6 +12,12 @@
   # Default terminal
   terminal = "kitty";
 
+  # Desktop Environment (needed for some apps)
+  xdgEnable = true;
+
+  # Apps
+  firefoxEnable = true;
+
   # Alternative Terminal Toggles
   kittyEnable = true;
   tmuxEnable = false;

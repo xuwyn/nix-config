@@ -25,7 +25,15 @@
 
   # Default apps
   terminal = "kitty";
-  browser = "firefox";
+  browser = "firefox"; # do nothing
+
+  # Desktop Environment (needed for some apps)
+  xdgEnable = true;
+
+  # Apps
+  firefoxEnable = true;
+  nixcordEnable = true;
+  spicetifyEnable = true;
 
   # Alternative Terminal Toggles
   kittyEnable = true;

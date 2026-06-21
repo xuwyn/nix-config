@@ -8,7 +8,14 @@
     # mount cloud drives (rclone, sshfs)
     # fuse.userAllowOther = true;
 
-    dconf.enable = true; # save gtk/gnome user settings
+    # save gtk/gnome user settings
+    dconf.enable = true;
+
+    # gpg/ssh
+    gnupg.agent = {
+      enable = true;
+      enableSSHSupport = true;
+    };
   };
 
   environment.systemPackages = with pkgs; [

@@ -1,22 +1,24 @@
 {
   host,
   pkgs,
+  lib,
   ...
 }: let
   vars = import ../../hosts/${host}/variables.nix;
   hyprlandEnable = vars.hyprlandEnable or false;
   i3Enable = vars.i3Enable or false;
-  barChoice = vars.barChoice or "noctalia";
+  barChoice = vars.barChoice or "";
 
-  # Noctalia-specific packages
-  noctaliaPkgs =
-    if barChoice == "noctalia"
-    then
-      with pkgs; [
-        matugen # color palette generator needed for noctalia-shell
-        evtest # read kb input for bongo cat
-      ]
-    else [];
+  barPackages = with pkgs; {
+    noctalia = [
+      matugen # color palette generator
+      evtest # read kb input for bongo cat
+    ];
+    polybar = [];
+    waybar = [];
+  };
+
+  currentBarPkgs = barPackages.${barChoice} or [];
 in {
   home.packages = with pkgs;
     [
@@ -53,42 +55,33 @@ in {
       fortune # pseudorandom messages
       taoup # same as fortune
     ]
-    ++ (
-      if hyprlandEnable
-      then
-        [
-          # --- Desktop Apps ---
-          gimp # Photo editor
-          mpv # Video player
-          picard # Music tagger GUI
-          rhythmbox # Music player GUI
-          eog # GNOME Image viewer (GTK based)
-          file-roller # GNOME Archive manager interface
-          pavucontrol # PulseAudio/PipeWire volume panel
+    ++ lib.optionals hyprlandEnable ([
+        # --- Desktop Apps ---
+        gimp # Photo editor
+        mpv # Video player
+        picard # Music tagger GUI
+        rhythmbox # Music player GUI
+        eog # GNOME Image viewer (GTK based)
+        file-roller # GNOME Archive manager interface
+        pavucontrol # PulseAudio/PipeWire volume panel
 
-          # --- Hyprland Helpers ---
-          app2unit # Launches Linux desktop entries as systemd user units
-          libnotify # Linux notification tool (provides notify-send)
-          playerctl # Controls Linux media keys via D-Bus
-          socat # Network utility (used here for Wayland screenshots)
-          wl-clipboard # Wayland clipboard
-          cliphist # Clipboard history engine
-          grim # Grabs image data from the screen
-          slurp # Select rectangle region on the screen
-          swappy # GUI to edit screenshots
-          ydotool # Simulates mouse and kb inputs
-          hyprpolkitagent # root pwd and auth prompts
-          hyprshot # Hyprland screenshot script
-          # hyprshutdown # Hyprland power-off menu
-          hyprpicker # Hyprland color picker
-          # hyprland-qtutils # needed for banners and ANR messages
-        ]
-        ++ noctaliaPkgs
-      else []
-    )
-    ++ (
-      if i3Enable
-      then [
+        # --- Hyprland Helpers ---
+        app2unit # Launches Linux desktop entries as systemd user units
+        libnotify # Linux notification tool (provides notify-send)
+        playerctl # Controls Linux media keys via D-Bus
+        socat # Network utility (used here for Wayland screenshots)
+        wl-clipboard # Wayland clipboard
+        cliphist # Clipboard history engine
+        grim # Grabs image data from the screen
+        slurp # Select rectangle region on the screen
+        swappy # GUI to edit screenshots
+        ydotool # Simulates mouse and kb inputs
+        hyprpolkitagent # root pwd and auth prompts
+        hyprshot # Hyprland screenshot script
+        hyprpicker # Hyprland color picker
+      ]
+      ++ currentBarPkgs)
+    ++ lib.optionals i3Enable ([
         ddcutil # Monitor brightness
         i3-volume # audio control with notifications
         playerctl # Media player for polybar
@@ -107,6 +100,5 @@ in {
         xclip # access X clipboard for screenshot
         eog # GNOME Image viewer (GTK based)
       ]
-      else []
-    );
+      ++ currentBarPkgs);
 }

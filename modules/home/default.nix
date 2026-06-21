@@ -2,33 +2,17 @@
   host,
   username,
   pkgs,
+  lib,
   ...
 }: let
   vars = import ../../hosts/${host}/variables.nix;
-  hyprlandEnable = vars.hyprlandEnable or false; # full desktop env NixOS
-  i3Enable = vars.i3Enable or false; # only available on home manager
-  barChoice = vars.barChoice or "";
-  quickshellEnable = vars.quickshellEnable or false;
-  alacrittyEnable = vars.alacrittyEnable or false;
-  ghosttyEnable = vars.ghosttyEnable or false;
-  tmuxEnable = vars.tmuxEnable or false;
-  kittyEnable = vars.kittyEnable or false;
-  weztermEnable = vars.weztermEnable or false;
-  vscodeEnable = vars.vscodeEnable or false;
-  helixEnable = vars.helixEnable or false;
-  zedEnable = vars.zedEnable or false;
-  yaziEnable = vars.yaziEnable or false;
-  virtEnable = vars.virtEnable or false;
-  thunarEnable = vars.thunarEnable or false;
-  fpsLimit = vars.fpsLimit or "";
 
-  barModule = (
-    if barChoice == "noctalia"
+  barModule =
+    if (vars.barChoice or "") == "noctalia"
     then [./noctalia.nix]
-    else if barChoice == "polybar"
+    else if (vars.barChoice or "") == "polybar"
     then [./polybar.nix]
-    else []
-  );
+    else [];
 in {
   home = {
     username = username;
@@ -39,8 +23,8 @@ in {
     stateVersion = "23.11";
     sessionPath = ["$HOME/.local/bin"];
   };
-  programs.home-manager.enable = true;
 
+  programs.home-manager.enable = true;
   nixpkgs.config.allowUnfree = true;
 
   imports =
@@ -50,108 +34,49 @@ in {
       ./cli
       ./python.nix
       ./sops
-      #./editors/nvf.nix
-      ./editors/nixvim.nix
+      ./editors/nixvim.nix # or ./editors/nvf.nix
       ./editors/nano.nix
       ./packages.nix
       ./src-packages.nix
       ./theme/stylix.nix
       ./theme/fonts.nix
     ]
-    ++ (
-      if hyprlandEnable
-      then
-        [
-          ./apps
-          ./dotfiles
-          ./hyprland
-          ./theme/qt.nix
-          ./theme/gtk.nix
-          ./rofi
-          ./scripts
-          ./xdg
-        ]
-        ++ barModule
-      else []
-    )
-    ++ (
-      if i3Enable
-      then
-        [
-          ./i3
-          ./picom.nix
-          ./dunst.nix
-          ./scripts
-          ./rofi
-          ./theme/gtk.nix
-          ./xdg
-        ]
-        ++ barModule
-      else []
-    )
-    ++ (
-      if fpsLimit != ""
-      then [./mangohud.nix]
-      else []
-    )
-    ++ (
-      if quickshellEnable
-      then [./quickshell.nix]
-      else []
-    )
-    ++ (
-      if virtEnable
-      then [./virtmanager.nix]
-      else []
-    )
-    ++ (
-      if yaziEnable
-      then [./yazi]
-      else []
-    )
-    ++ (
-      if thunarEnable
-      then [./thunar.nix]
-      else []
-    )
-    ++ (
-      if zedEnable
-      then [./editors/zed.nix]
-      else []
-    )
-    ++ (
-      if helixEnable
-      then [./editors/evil-helix.nix]
-      else []
-    )
-    ++ (
-      if vscodeEnable
-      then [./editors/vscode.nix]
-      else []
-    )
-    ++ (
-      if kittyEnable
-      then [./terminals/kitty.nix]
-      else []
-    )
-    ++ (
-      if alacrittyEnable
-      then [./terminals/alacritty.nix]
-      else []
-    )
-    ++ (
-      if weztermEnable
-      then [./terminals/wezterm.nix]
-      else []
-    )
-    ++ (
-      if ghosttyEnable
-      then [./terminals/ghostty.nix]
-      else []
-    )
-    ++ (
-      if tmuxEnable
-      then [./terminals/tmux.nix]
-      else []
-    );
+    # Desktop Environments
+    ++ lib.optionals (vars.hyprlandEnable or false) ([
+        ./hyprland
+        ./rofi
+        ./scripts
+        ./theme/qt.nix
+        ./theme/gtk.nix
+        ./apps
+        ./dotfiles
+      ]
+      ++ barModule)
+    ++ lib.optionals (vars.i3Enable or false) ([
+        ./i3
+        ./picom.nix
+        ./dunst.nix
+        ./rofi
+        ./scripts
+        ./theme/gtk.nix
+        ./apps
+      ]
+      ++ barModule)
+    # System/App Toggles
+    ++ lib.optional ((vars.fpsLimit or "") != "") ./mangohud.nix
+    ++ lib.optional (vars.xdgEnable or false) ./xdg
+    ++ lib.optional (vars.quickshellEnable or false) ./quickshell.nix
+    ++ lib.optional (vars.virtEnable or false) ./virtmanager.nix
+    ++ lib.optional (vars.yaziEnable or false) ./yazi
+    ++ lib.optional (vars.thunarEnable or false) ./thunar.nix
+    # Editors
+    ++ lib.optional (vars.zedEnable or false) ./editors/zed.nix
+    ++ lib.optional (vars.helixEnable or false) ./editors/evil-helix.nix
+    ++ lib.optional (vars.vscodeEnable or false) ./editors/vscode.nix
+    # Terminals
+    ++ lib.optional (vars.kittyEnable or false) ./terminals/kitty.nix
+    ++ lib.optional (vars.alacrittyEnable or false) ./terminals/alacritty.nix
+    ++ lib.optional (vars.weztermEnable or false) ./terminals/wezterm.nix
+    ++ lib.optional (vars.ghosttyEnable or false) ./terminals/ghostty.nix
+    ++ lib.optional (vars.tmuxEnable or false) ./terminals/tmux.nix;
 }
