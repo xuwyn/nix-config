@@ -30,6 +30,7 @@ in {
   imports =
     [
       ../core/nix-conf.nix
+      ./apps
       ./nh.nix
       ./cli
       ./python.nix
@@ -48,7 +49,6 @@ in {
         ./scripts
         ./theme/qt.nix
         ./theme/gtk.nix
-        ./apps
         ./dotfiles
       ]
       ++ barModule)
@@ -59,7 +59,6 @@ in {
         ./rofi
         ./scripts
         ./theme/gtk.nix
-        ./apps
       ]
       ++ barModule)
     # System/App Toggles
