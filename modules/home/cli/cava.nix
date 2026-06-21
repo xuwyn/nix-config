@@ -7,7 +7,7 @@
   barChoice = vars.barChoice or "";
   barThemeEnable = vars.barThemeEnable or false;
 in {
-  # xdg.configFile."cava/config".force = true;
+  xdg.configFile."cava/config".force = true;
   programs.cava = {
     enable = true;
     settings = {

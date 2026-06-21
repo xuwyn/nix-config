@@ -63,6 +63,7 @@ in {
     bind = $modifier, Z, exec, app2unit -- zeditor #"Zed"
     bind = $modifier, W, exec, app2unit -- ${browser} #"Web Browser"
     bind = $modifier ALT, W, exec, web-search #"Web Search"
+    unbind = $modifier, O
     bind = $modifier, O, exec, obs #"OBS Studio"
     bind = $modifier ALT, C, exec, hyprpicker -a #"Color Picker"
     bind = $modifier, G, exec, gimp #"GIMP"

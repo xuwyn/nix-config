@@ -10,4 +10,6 @@
     btop.enable = lib.mkForce false;
     cava.enable = lib.mkForce false;
   };
+
+  xdg.configFile."cava/config".force = lib.mkForce false;
 }
