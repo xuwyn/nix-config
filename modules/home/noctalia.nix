@@ -65,7 +65,6 @@ in {
               shortcut = "1";
               variant = "default";
             }
-
             {
               action = "logout";
               enabled = true;
@@ -73,8 +72,17 @@ in {
               variant = "default";
             }
             {
+              action = "command";
+              command = "qylock-lock & sleep 2 && systemctl suspend";
+              enabled = qylockEnable;
+              glyph = "player-pause";
+              label = "Suspend";
+              shortcut = "3";
+              variant = "default";
+            }
+            {
               action = "lock_and_suspend";
-              enabled = true;
+              enabled = !qylockEnable;
               glyph = "player-pause";
               label = "Suspend";
               shortcut = "3";
