@@ -6,7 +6,6 @@ _: {
         class = "^([Tt]hunar|org.gnome.Nautilus|[Pp]cmanfm-qt)$",
       },
       tag = "+file-manager",
-      opacity = "0.90 0.80",
     })
 
     hl.window_rule({
@@ -328,7 +327,8 @@ _: {
       match = {
         tag = "file-manager*",
       },
-      opacity = "0.9 0.8",
+      opacity = "0.95 0.85",
+      no_blur = false,
     })
 
     hl.window_rule({
