@@ -14,8 +14,7 @@
   barChoice = vars.barChoice or "";
   barThemeEnable = vars.barThemeEnable or false;
   barThemes = {
-    noctalia = builtins.readFile ../dotfiles/hypr/noctalia.conf;
-    caelestia = builtins.readFile ../dotfiles/hypr/caelestia.conf;
+    noctalia = builtins.readFile ../dotfiles/hypr/noctalia.lua;
   };
 
   # Treat only known US-based variants as implying layout = "us".
@@ -62,10 +61,10 @@ in {
     };
     ".face".source = ./face.jpg;
   };
-  xdg.configFile."hypr/hyprland.conf".force = true;
+  xdg.configFile."hypr/hyprland.lua".force = true;
   wayland.windowManager.hyprland = {
     enable = true;
-    configType = "hyprlang";
+    configType = "lua";
     package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
     portalPackage = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
     systemd = {
@@ -76,14 +75,12 @@ in {
     xwayland = {
       enable = true;
     };
-    settings = {
+    settings.config = {
+      animations.enabled = true;
       input =
         {
           kb_layout = hyprKbLayout;
-          kb_options = [
-            "grp:alt_caps_toggle"
-            # "caps:super"
-          ];
+          kb_options = "grp:alt_caps_toggle";
           numlock_by_default = true;
           repeat_delay = 300;
           follow_mouse = 1;
@@ -98,8 +95,15 @@ in {
         }
         // lib.optionalAttrs (hyprKbVariant != "") {kb_variant = hyprKbVariant;};
 
+      cursor = {
+        enable_hyprcursor = false;
+        no_hardware_cursors = 2;
+        no_warps = true;
+        sync_gsettings_theme = true;
+        warp_on_change_workspace = 2;
+      };
+
       gestures = {
-        gesture = ["3, horizontal, workspace"];
         workspace_swipe_distance = 500;
         workspace_swipe_invert = true;
         workspace_swipe_min_speed_to_force = 30;
@@ -107,7 +111,6 @@ in {
         workspace_swipe_create_new = true;
         workspace_swipe_forever = true;
       };
-      "$modifier" = "SUPER";
 
       scrolling = {
         column_width = 0.80;
@@ -126,14 +129,10 @@ in {
           border_size = 3;
           resize_on_border = true;
         }
-        // (
-          if !barThemeEnable
-          then {
-            "col.active_border" = "rgb(${config.lib.stylix.colors.base08}) rgb(${config.lib.stylix.colors.base0C}) 45deg";
-            "col.inactive_border" = "rgb(${config.lib.stylix.colors.base01})";
-          }
-          else {}
-        );
+        // lib.optionalAttrs (!barThemeEnable) {
+          "col.active_border" = "rgb(${config.lib.stylix.colors.base08}) rgb(${config.lib.stylix.colors.base0C}) 45deg";
+          "col.inactive_border" = "rgb(${config.lib.stylix.colors.base01})";
+        };
 
       misc = {
         layers_hog_keyboard_focus = true;
@@ -143,10 +142,6 @@ in {
         disable_hyprland_logo = true;
         disable_splash_rendering = true;
         enable_swallow = false;
-        # vfr = true; # Variable Frame Rate Not supported post v0.54.3
-        # vrr = 2; # Variable Refresh Rate  Might need to set to 0 for NVIDIA/AQ_DRM_DEVICES
-        # Screen flashing to black momentarily or going black when app is fullscreen
-        # Try setting vrr to 0
         vrr = 0;
 
         #  Application not responding (ANR) settings
@@ -166,35 +161,27 @@ in {
       };
 
       decoration = {
-        rounding = 10;
-        rounding_power = 2;
         blur = {
           enabled = true;
-          size = 3;
-          passes = 2;
-          vibrancy = 0.1696;
           ignore_opacity = false;
           new_optimizations = true;
+          passes = 2;
+          size = 3;
+          vibrancy = 0.169600;
         };
         shadow = {
+          color = "rgba(ee1a1a1a)";
           enabled = true;
           range = 4;
           render_power = 3;
-          color = "rgba(ee1a1a1a)";
         };
+        rounding = 10;
+        rounding_power = 2;
       };
 
       ecosystem = {
         no_donation_nag = true;
         no_update_news = false;
-      };
-
-      cursor = {
-        sync_gsettings_theme = true;
-        no_hardware_cursors = 2; # change to 1 if want to disable
-        enable_hyprcursor = false;
-        warp_on_change_workspace = 2;
-        no_warps = true;
       };
 
       render = {
@@ -224,34 +211,69 @@ in {
     };
 
     extraConfig = ''
-      monitor=,preferred,auto,auto
-      monitor=Virtual-1,1920x1080@60,auto,1
-      ${extraMonitorSettings}
+      local modifier = "SUPER"
 
-      # To enable blur on waybar uncomment the line below
-      # Thanks to SchotjeChrisman
-      # layerrule = blur,waybar
+      hl.gesture({
+          fingers = 3,
+          direction = "horizontal",
+          action = "workspace",
+      })
 
-      # Noctalia blur
-      layerrule {
-        name = noctalia
-        match:namespace = ^noctalia-(bar-.+|notification|dock|panel|attached-panel|osd)$
-        ignore_alpha = 0.5
-        blur = true
-        blur_popups = true
-      }
+      hl.monitor({
+        output = "",
+        mode = "preferred",
+        position = "auto",
+        scale = "auto",
+      })
 
-      # Persistent workspaces
-      workspace = 1, persistent:true
-      workspace = 2, persistent:true
-      workspace = 3, persistent:true
-      workspace = 4, persistent:true
-      workspace = 5, persistent:true
-      ${
-        if barThemeEnable
-        then (barThemes.${barChoice} or "")
-        else ''''
-      }
+      hl.monitor({
+        output = "Virtual-1",
+        mode = "1920x1080@60",
+        position = "auto",
+        scale = 1,
+      })
+
+      ${lib.optionalString (extraMonitorSettings != "") extraMonitorSettings}
+
+      -- Persistent Workspaces 1-5
+      hl.workspace_rule({
+          workspace = "1",
+          persistent = true,
+      })
+
+      hl.workspace_rule({
+          workspace = "2",
+          persistent = true,
+      })
+
+      hl.workspace_rule({
+          workspace = "3",
+          persistent = true,
+      })
+
+      hl.workspace_rule({
+          workspace = "4",
+          persistent = true,
+      })
+
+      hl.workspace_rule({
+          workspace = "5",
+          persistent = true,
+      })
+
+      -- Noctalia Blur
+      hl.layer_rule({
+        name = "noctalia",
+        match = {
+          namespace = "^noctalia-(bar-.+|notification|dock|panel|attached-panel|osd)$",
+        },
+        no_anim = true,
+        ignore_alpha = 0.5,
+        blur = true,
+        blur_popups = true,
+      })
+
+      ${lib.optionalString barThemeEnable (barThemes.${barChoice} or "")}
     '';
   };
 }

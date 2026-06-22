@@ -46,10 +46,21 @@
 
   # Window Manager
   hyprlandEnable = true;
-  extraMonitorSettings = "
-monitor = DP-5,1920x1080@165,0x0,1
-monitor = DP-2,1920x1080@165,0x0,1
-  ";
+  extraMonitorSettings = ''
+    hl.monitor({
+      output = "DP-5",
+      mode = "1920x1080@165",
+      position = "0x0",
+      scale = 1,
+    })
+
+    hl.monitor({
+      output = "DP-2",
+      mode = "1920x1080@165",
+      position = "0x0",
+      scale = 1,
+    })
+  '';
 
   # Shell Panels & Bars
   barChoice = "noctalia";
@@ -60,7 +71,7 @@ monitor = DP-2,1920x1080@165,0x0,1
   stylixImage = ../../wallpapers/interlude_MDxBA_1.png;
 
   # Active Hyprland Animation Style
-  animChoice = ../../modules/home/hyprland/animations/animations-ml4w-classic.nix;
+  # animChoice = ../../modules/home/hyprland/animations/animations-ml4w-classic.nix;
 
   ### USER ENVIRONMENT & APPLICATIONS
   # Git Identity

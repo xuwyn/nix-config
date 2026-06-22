@@ -23,6 +23,7 @@ in {
       ".config/cava/themes".source = mkOutOfStoreSymlink "${configDir}/cava/themes";
       ".config/Equicord/themes".source = mkOutOfStoreSymlink "${configDir}/Equicord/themes";
       ".config/hypr/noctalia.conf".source = mkOutOfStoreSymlink "${configDir}/hypr/noctalia.conf";
+      ".config/hypr/noctalia.lua".source = mkOutOfStoreSymlink "${configDir}/hypr/noctalia.lua";
     }
     // (
       if i3Enable

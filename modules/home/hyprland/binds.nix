@@ -4,152 +4,153 @@
   qylockTheme = vars.qylockTheme or "";
 in {
   wayland.windowManager.hyprland.extraConfig = ''
-    # 1. WINDOW RESIZING
-    binde = $modifier ALT, left, resizeactive, -10% 0 #"Resize Window to the Left"
-    binde = $modifier ALT, right, resizeactive, 10% 0 #"Resize Window to the right"
-    binde = $modifier ALT, up, resizeactive, 0 -10% #"Resize Window Upward"
-    binde = $modifier ALT, down, resizeactive, 0 10% #"Resize Window Downward"
+    -- 1. WINDOW RESIZING
+    hl.bind(modifier .. " + ALT + left", function() local w = hl.get_active_window(); if not w then return end; hl.dispatch(hl.dsp.window.resize({ x = math.floor(w.size.x * -10 / 100), y = 0, relative = true })) end, { repeating = true })
+    hl.bind(modifier .. " + ALT + right", function() local w = hl.get_active_window(); if not w then return end; hl.dispatch(hl.dsp.window.resize({ x = math.floor(w.size.x * 10 / 100), y = 0, relative = true })) end, { repeating = true })
+    hl.bind(modifier .. " + ALT + up", function() local w = hl.get_active_window(); if not w then return end; hl.dispatch(hl.dsp.window.resize({ x = 0, y = math.floor(w.size.y * -10 / 100), relative = true })) end, { repeating = true })
+    hl.bind(modifier .. " + ALT + down", function() local w = hl.get_active_window(); if not w then return end; hl.dispatch(hl.dsp.window.resize({ x = 0, y = math.floor(w.size.y * 10 / 100), relative = true })) end, { repeating = true })
 
-    # 2. MOUSE
-    bindm = $modifier, mouse:272, movewindow #"Move Window"
-    bindm = $modifier, mouse:273, resizewindow #"Resize Window"
+    -- 2. MOUSE
+    hl.bind(modifier .. " + mouse:272", hl.dsp.window.drag())
+    hl.bind(modifier .. " + mouse:273", hl.dsp.window.resize())
 
     ${
       if barChoice == "noctalia"
       then
         ''
-          # 3. NOCTALIA
-          bind = $modifier, A, exec, noctalia msg panel-toggle launcher #"Noctalia Launcher"
-          bind = $modifier, V, exec, noctalia msg panel-toggle clipboard #"Noctalia Clipboard"
-          bind = $modifier, C, exec, noctalia msg panel-toggle control-center #"Noctalia Control Center"
-          bind = $modifier CTRL, C, exec, noctalia msg settings-toggle #"Noctalia Settings"
-          bind = $modifier SHIFT, W, exec, noctalia msg panel-toggle wallpaper #"Noctalia Wallpaper"
-          bind = $modifier, N, exec, noctalia msg panel-toggle control-center "notifications" #"Notifications"
-          bind = $modifier, E, exec, noctalia msg panel-toggle launcher "/emo" #"Emoji Picker"
-          bind = $modifier CTRL, S, exec, noctalia msg screenshot-fullscreen #"Screenshot Fullscreen"
-          bind = $modifier SHIFT, S, exec, noctalia msg screenshot-region #"Screenshot Region"
-          # bind = $modifier CTRL, S, exec, hyprshot -m output -o "$HOME/Pictures/Screenshots" #"Screenshot Entire Screen"
-          # bind = $modifier SHIFT, S, exec, hyprshot -m region -o "$HOME/Pictures/Screenshots" #"Screenshot Region"
-          bind = $modifier ALT, S, exec, hyprshot -m window -o "$HOME/Pictures/Screenshots" #"Screenshot Window"
-          # bind = $modifier SHIFT, E, exec, noctalia msg panel-toggle plugin:kaomoji #"Kaomoji Picker"
-          # bind = $modifier, K, exec, noctalia msg panel-toggle plugin:keybind-cheatsheet #"Keybind Cheatsheet"
-          bind = $modifier, R, exec, noctalia msg scripted-widget screen_recorder focused toggle #"Toggle Screen Recorder"
-          bind = $modifier SHIFT, R, exec, killall -q noctalia; sleep 1; noctalia; #"Restart Noctalia shell"
-          bind = $modifier ALT, R, exec, hyprctl reload #"Reload Hyprland"
-          bind = CTRL+ALT, Delete, exec, noctalia msg panel-toggle session #"Noctalia Power Menu"
-          bind = $modifier, Delete, exit #"Hyprland Logout/Exit"
+          -- 3. NOCTALIA
+          hl.bind(modifier .. " + A", hl.dsp.exec_cmd("noctalia msg panel-toggle launcher"))
+          hl.bind(modifier .. " + V", hl.dsp.exec_cmd("noctalia msg panel-toggle clipboard"))
+          hl.bind(modifier .. " + C", hl.dsp.exec_cmd("noctalia msg panel-toggle control-center"))
+          hl.bind(modifier .. " + CTRL + C", hl.dsp.exec_cmd("noctalia msg settings-toggle"))
+          hl.bind(modifier .. " + SHIFT + W", hl.dsp.exec_cmd("noctalia msg panel-toggle wallpaper"))
+          hl.bind(modifier .. " + N", hl.dsp.exec_cmd("noctalia msg panel-toggle control-center \"notifications\""))
+          hl.bind(modifier .. " + E", hl.dsp.exec_cmd("noctalia msg panel-toggle launcher \"/emo\""))
+          hl.bind(modifier .. " + CTRL + S", hl.dsp.exec_cmd("noctalia msg screenshot-fullscreen"))
+          hl.bind(modifier .. " + SHIFT + S", hl.dsp.exec_cmd("noctalia msg screenshot-region"))
+          hl.bind(modifier .. " + ALT + S", hl.dsp.exec_cmd("hyprshot -m window -o \"$HOME/Pictures/Screenshots\""))
+          hl.bind(modifier .. " + R", hl.dsp.exec_cmd("noctalia msg scripted-widget screen_recorder focused toggle"))
+          hl.bind(modifier .. " + SHIFT + R", hl.dsp.exec_cmd("killall -q noctalia; sleep 1; noctalia;"))
+          hl.bind(modifier .. " + ALT + R", hl.dsp.exec_cmd("hyprctl reload"))
+          hl.bind("CTRL+ALT + Delete", hl.dsp.exec_cmd("noctalia msg panel-toggle session"))
+          hl.bind(modifier .. " + Delete", hl.dsp.exit())
+
+          -- hl.bind(modifier .. " + CTRL + S", hl.dsp.exec_cmd("hyprshot -m output -o \"$HOME/Pictures/Screenshots\""))
+          -- hl.bind(modifier .. " + SHIFT + S", hl.dsp.exec_cmd("hyprshot -m region -o \"$HOME/Pictures/Screenshots\""))
+          -- hl.bind(modifier .. " + SHIFT + E", hl.dsp.exec_cmd("noctalia msg panel-toggle plugin:kaomoji"))
+          -- hl.bind(modifier .. " + K", hl.dsp.exec_cmd("noctalia msg panel-toggle plugin:keybind-cheatsheet"))
         ''
         + (
           if qylockTheme == ""
           then ''
-            bind = $modifier, L, exec, noctalia msg session lock #"Noctalia Lock Screen"
+            hl.bind(modifier .. " + L", hl.dsp.exec_cmd("noctalia msg session lock"))
           ''
           else ''
-            bind = $modifier, L, exec, qylock-lock #"Lock with qylock"
+            hl.bind(modifier .. " + L", hl.dsp.exec_cmd("qylock-lock"))
           ''
         )
       else ''
-        # 3. ROFI
-        bind = $modifier, D, exec, rofi-launcher #"Rofi Launcher"
-        bind = $modifier SHIFT, Return, exec, rofi-launcher #"Rofi Launcher"
-        bind = $modifier, V, exec, cliphist list | rofi -dmenu | cliphist decode | wl-copy #"Clipboard History"
+        -- 3. ROFI
+        hl.bind(modifier .. " + A", hl.dsp.exec_cmd("rofi-launcher"))
+        hl.bind(modifier .. " + SHIFT + A", hl.dsp.exec_cmd("rofi -show window"))
+        hl.bind(modifier .. " + V", hl.dsp.exec_cmd("cliphist list | rofi -dmenu | cliphist decode | wl-copy"))
       ''
     }
 
-    # 4. APPLICATIONS
-    bind = $modifier, Return, exec, ${terminal} #"Terminal"
-    bind = $modifier, D, exec, app2unit -- discord #"Discord"
-    bind = $modifier, S, exec, app2unit -- spotify #"Spotify"
-    bind = $modifier, Z, exec, app2unit -- zeditor #"Zed"
-    bind = $modifier, W, exec, app2unit -- ${browser} #"Web Browser"
-    bind = $modifier ALT, W, exec, web-search #"Web Search"
-    unbind = $modifier, O
-    bind = $modifier, O, exec, obs #"OBS Studio"
-    bind = $modifier ALT, C, exec, hyprpicker -a #"Color Picker"
-    bind = $modifier, G, exec, gimp #"GIMP"
-    bind = $modifier SHIFT, T, exec, sh -lc 'DropTerminal' #"Dropdown Terminal"
-    bind = $modifier, T, exec, thunar #"Thunar"
-    bind = $modifier, Y, exec, kitty -e yazi #"Yazi"
-    bind = $modifier ALT, M, exec, pavucontrol #"Audio Control"
+    -- 4. APPLICATIONS
+    hl.bind(modifier .. " + Return", hl.dsp.exec_cmd("${terminal}"))
+    hl.bind(modifier .. " + D", hl.dsp.exec_cmd("app2unit -- discord"))
+    hl.bind(modifier .. " + S", hl.dsp.exec_cmd("app2unit -- spotify"))
+    hl.bind(modifier .. " + Z", hl.dsp.exec_cmd("app2unit -- zeditor"))
+    hl.bind(modifier .. " + W", hl.dsp.exec_cmd("app2unit -- ${browser}"))
+    hl.bind(modifier .. " + ALT + W", hl.dsp.exec_cmd("web-search"))
+    -- TODO: manual review — 'unbind = $modifier, O'. In Lua, capture the result of hl.bind(...) and call :remove(). See hl.meta.lua.
+    hl.bind(modifier .. " + O", hl.dsp.exec_cmd("obs"))
+    hl.bind(modifier .. " + ALT + C", hl.dsp.exec_cmd("hyprpicker -a"))
+    hl.bind(modifier .. " + G", hl.dsp.exec_cmd("gimp"))
+    hl.bind(modifier .. " + SHIFT + T", hl.dsp.exec_cmd("sh -lc 'DropTerminal'"))
+    hl.bind(modifier .. " + T", hl.dsp.exec_cmd("thunar"))
+    hl.bind(modifier .. " + Y", hl.dsp.exec_cmd("kitty -e yazi"))
+    hl.bind(modifier .. " + ALT + M", hl.dsp.exec_cmd("pavucontrol"))
 
-    # 5. WINDOW MANAGEMENT
-    bind = $modifier, Q, killactive, #"Kill Active Window"
-    bind = $modifier, P, pseudo, #"Pseudo Tile"
-    bind = $modifier SHIFT, I, layoutmsg, togglesplit #"Toggle Split"
-    bind = $modifier, F, fullscreen, #"Maximize"
-    bind = $modifier SHIFT, F, togglefloating, #"Toggle Floating"
-    bind = $modifier SHIFT, F, resizeactive, exact 1600 900
-    bind = $modifier SHIFT, F, centerwindow
-    bind = $modifier ALT, F, exec, hyprland-float-all #"Float All Windows"
+    -- 5. WINDOW MANAGEMENT
+    hl.bind(modifier .. " + Q", hl.dsp.window.close())
+    hl.bind(modifier .. " + P", hl.dsp.window.pseudo())
+    hl.bind(modifier .. " + SHIFT + I", hl.dsp.layout("togglesplit"))
+    hl.bind(modifier .. " + F", hl.dsp.window.fullscreen({ mode = "fullscreen", action = "toggle" }))
+    hl.bind(modifier .. " + SHIFT + F", hl.dsp.window.float({ action = "toggle" }))
+    hl.bind(modifier .. " + SHIFT + F", hl.dsp.window.resize({ x = 1600, y = 900 }))
+    hl.bind(modifier .. " + SHIFT + F", hl.dsp.window.center())
+    hl.bind(modifier .. " + ALT + F", hl.dsp.exec_cmd("hyprland-float-all"))
 
-    # 6. LAYOUTS
-    bind = $modifier ALT, L, exec, hyprland-change-layout toggle #"Toggle Layouts"
-    bind = $modifier ALT, 1, exec, hyprland-change-layout dwindle #"Layout Dwindle"
-    bind = $modifier ALT, 2, exec, hyprland-change-layout master #"Layout Master"
-    bind = $modifier ALT, 3, exec, hyprland-change-layout scrolling #"Layout Scrolling"
-    bind = $modifier ALT, 4, exec, hyprland-change-layout monocle #"Layout Monocle"
+    -- 6. LAYOUTS
+    hl.bind(modifier .. " + ALT + L", hl.dsp.exec_cmd("hyprland-change-layout toggle"))
+    hl.bind(modifier .. " + ALT + 1", hl.dsp.exec_cmd("hyprland-change-layout dwindle"))
+    hl.bind(modifier .. " + ALT + 2", hl.dsp.exec_cmd("hyprland-change-layout master"))
+    hl.bind(modifier .. " + ALT + 3", hl.dsp.exec_cmd("hyprland-change-layout scrolling"))
+    hl.bind(modifier .. " + ALT + 4", hl.dsp.exec_cmd("hyprland-change-layout monocle"))
 
-    # 7. WINDOW MOVEMENT
-    bind = $modifier SHIFT, left, movewindow, l #"Move Left"
-    bind = $modifier SHIFT, right, movewindow, r #"Move Right"
-    bind = $modifier SHIFT, up, movewindow, u #"Move Up"
-    bind = $modifier SHIFT, down, movewindow, d #"Move Down"
+    -- 7. WINDOW MOVEMENT
+    hl.bind(modifier .. " + SHIFT + left", hl.dsp.window.move({ direction = "l" }))
+    hl.bind(modifier .. " + SHIFT + right", hl.dsp.window.move({ direction = "r" }))
+    hl.bind(modifier .. " + SHIFT + up", hl.dsp.window.move({ direction = "u" }))
+    hl.bind(modifier .. " + SHIFT + down", hl.dsp.window.move({ direction = "d" }))
 
-    # 8. FOCUS MOVEMENT
-    bind = $modifier, left, movefocus, l #"Focus Left"
-    bind = $modifier, right, movefocus, r #"Focus Right"
-    bind = $modifier, up, movefocus, u #"Focus Up"
-    bind = $modifier, down, movefocus, d #"Focus Down"
+    -- 8. FOCUS MOVEMENT
+    hl.bind(modifier .. " + left", hl.dsp.focus({ direction = "left" }))
+    hl.bind(modifier .. " + right", hl.dsp.focus({ direction = "right" }))
+    hl.bind(modifier .. " + up", hl.dsp.focus({ direction = "up" }))
+    hl.bind(modifier .. " + down", hl.dsp.focus({ direction = "down" }))
 
-    # 9. WORKSPACE SWITCHING
-    bind = $modifier, 1, workspace, 1 #"Workspace 1"
-    bind = $modifier, 2, workspace, 2 #"Workspace 2"
-    bind = $modifier, 3, workspace, 3 #"Workspace 3"
-    bind = $modifier, 4, workspace, 4 #"Workspace 4"
-    bind = $modifier, 5, workspace, 5 #"Workspace 5"
-    bind = $modifier, 6, workspace, 6 #"Workspace 6"
-    bind = $modifier, 7, workspace, 7 #"Workspace 7"
-    bind = $modifier, 8, workspace, 8 #"Workspace 8"
-    bind = $modifier, 9, workspace, 9 #"Workspace 9"
-    bind = $modifier, 0, workspace, 10 #"Workspace 10"
+    -- 9. WORKSPACE SWITCHING
+    hl.bind(modifier .. " + 1", hl.dsp.focus({ workspace = 1 }))
+    hl.bind(modifier .. " + 2", hl.dsp.focus({ workspace = 2 }))
+    hl.bind(modifier .. " + 3", hl.dsp.focus({ workspace = 3 }))
+    hl.bind(modifier .. " + 4", hl.dsp.focus({ workspace = 4 }))
+    hl.bind(modifier .. " + 5", hl.dsp.focus({ workspace = 5 }))
+    hl.bind(modifier .. " + 6", hl.dsp.focus({ workspace = 6 }))
+    hl.bind(modifier .. " + 7", hl.dsp.focus({ workspace = 7 }))
+    hl.bind(modifier .. " + 8", hl.dsp.focus({ workspace = 8 }))
+    hl.bind(modifier .. " + 9", hl.dsp.focus({ workspace = 9 }))
+    hl.bind(modifier .. " + 0", hl.dsp.focus({ workspace = 10 }))
 
-    # 10. MOVE WINDOW TO WORKSPACE
-    binde = $modifier CTRL SHIFT, left, movetoworkspace, -1 #"Move to Left Workspace"
-    binde = $modifier CTRL SHIFT, right, movetoworkspace, +1 #"Move to Right Workspace"
-    bind = $modifier, SPACE, togglespecialworkspace #"Toggle Special Workspace"
-    bind = $modifier SHIFT, SPACE, movetoworkspace, special #"Move to Special"
-    bind = $modifier CTRL SHIFT, up, movetoworkspace, special #"Move to Special"
-    bind = $modifier CTRL SHIFT, down, movetoworkspace, e+0 #"Move out of Special"
-    bind = $modifier SHIFT, 1, movetoworkspace, 1 #"Move to Workspace 1"
-    bind = $modifier SHIFT, 2, movetoworkspace, 2 #"Move to Workspace 2"
-    bind = $modifier SHIFT, 3, movetoworkspace, 3 #"Move to Workspace 3"
-    bind = $modifier SHIFT, 4, movetoworkspace, 4 #"Move to Workspace 4"
-    bind = $modifier SHIFT, 5, movetoworkspace, 5 #"Move to Workspace 5"
-    bind = $modifier SHIFT, 6, movetoworkspace, 6 #"Move to Workspace 6"
-    bind = $modifier SHIFT, 7, movetoworkspace, 7 #"Move to Workspace 7"
-    bind = $modifier SHIFT, 8, movetoworkspace, 8 #"Move to Workspace 8"
-    bind = $modifier SHIFT, 9, movetoworkspace, 9 #"Move to Workspace 9"
-    bind = $modifier SHIFT, 0, movetoworkspace, 10 #"Move to Workspace 10"
+    -- 10. MOVE WINDOW TO WORKSPACE
+    hl.bind(modifier .. " + CTRL + SHIFT + left", hl.dsp.window.move({ workspace = -1 }), { repeating = true })
+    hl.bind(modifier .. " + CTRL + SHIFT + right", hl.dsp.window.move({ workspace = "+1" }), { repeating = true })
+    hl.bind(modifier .. " + SPACE", hl.dsp.workspace.toggle_special(""))
+    hl.bind(modifier .. " + SHIFT + SPACE", hl.dsp.window.move({ workspace = "special" }))
+    hl.bind(modifier .. " + CTRL + SHIFT + up", hl.dsp.window.move({ workspace = "special" }))
+    hl.bind(modifier .. " + CTRL + SHIFT + down", hl.dsp.window.move({ workspace = "e+0" }))
+    hl.bind(modifier .. " + SHIFT + 1", hl.dsp.window.move({ workspace = 1 }))
+    hl.bind(modifier .. " + SHIFT + 2", hl.dsp.window.move({ workspace = 2 }))
+    hl.bind(modifier .. " + SHIFT + 3", hl.dsp.window.move({ workspace = 3 }))
+    hl.bind(modifier .. " + SHIFT + 4", hl.dsp.window.move({ workspace = 4 }))
+    hl.bind(modifier .. " + SHIFT + 5", hl.dsp.window.move({ workspace = 5 }))
+    hl.bind(modifier .. " + SHIFT + 6", hl.dsp.window.move({ workspace = 6 }))
+    hl.bind(modifier .. " + SHIFT + 7", hl.dsp.window.move({ workspace = 7 }))
+    hl.bind(modifier .. " + SHIFT + 8", hl.dsp.window.move({ workspace = 8 }))
+    hl.bind(modifier .. " + SHIFT + 9", hl.dsp.window.move({ workspace = 9 }))
+    hl.bind(modifier .. " + SHIFT + 0", hl.dsp.window.move({ workspace = 10 }))
 
-    # 11. WORKSPACE NAVIGATION
-    bind = $modifier CONTROL, right, workspace, e+1 #"Next Workspace"
-    bind = $modifier CONTROL, left, workspace, e-1 #"Previous Workspace"
-    bind = $modifier, mouse_down, workspace, e+1 #"Next Workspace Mouse"
-    bind = $modifier, mouse_up, workspace, e-1 #"Previous Workspace Mouse"
+    -- 11. WORKSPACE NAVIGATION
+    hl.bind(modifier .. " + CONTROL + right", hl.dsp.focus({ workspace = "e+1" }))
+    hl.bind(modifier .. " + CONTROL + left", hl.dsp.focus({ workspace = "e-1" }))
+    hl.bind(modifier .. " + mouse_down", hl.dsp.focus({ workspace = "e+1" }))
+    hl.bind(modifier .. " + mouse_up", hl.dsp.focus({ workspace = "e-1" }))
 
-    # 12. WINDOW CYCLING
-    bind = ALT, Tab, cyclenext #"Cycle Next Window"
-    bind = ALT, Tab, bringactivetotop #"Bring Active To Top"
+    -- 12. WINDOW CYCLING
+    hl.bind("ALT + Tab", hl.dsp.window.cycle_next({ next = true }))
+    hl.bind("ALT + Tab", hl.dsp.window.bring_to_top())
 
-    # 13. MEDIA & HARDWARE CONTROLS
-    bind = , XF86AudioRaiseVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+ #"Volume Up"
-    bind = , XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%- #"Volume Down"
-    bind = , XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle #"Mute Toggle"
-    bind = , XF86AudioPlay, exec, playerctl play-pause #"Play Pause"
-    bind = , XF86AudioPause, exec, playerctl play-pause #"Play Pause"
-    bind = , XF86AudioNext, exec, playerctl next #"Next Track"
-    bind = , XF86AudioPrev, exec, playerctl previous #"Previous Track"
-    bind = , XF86MonBrightnessDown, exec, noctalia msg brightness-down #"Brightness Down"
-    bind = , XF86MonBrightnessUp, exec, noctalia msg brightness-up #"Brightness Up"
+    -- 13. MEDIA & HARDWARE CONTROLS
+    hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+"))
+    hl.bind("XF86AudioLowerVolume", hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"))
+    hl.bind("XF86AudioMute", hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"))
+    hl.bind("XF86AudioPlay", hl.dsp.exec_cmd("playerctl play-pause"))
+    hl.bind("XF86AudioPause", hl.dsp.exec_cmd("playerctl play-pause"))
+    hl.bind("XF86AudioNext", hl.dsp.exec_cmd("playerctl next"))
+    hl.bind("XF86AudioPrev", hl.dsp.exec_cmd("playerctl previous"))
+    hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd("noctalia msg brightness-down"))
+    hl.bind("XF86MonBrightnessUp", hl.dsp.exec_cmd("noctalia msg brightness-up"))
   '';
 }

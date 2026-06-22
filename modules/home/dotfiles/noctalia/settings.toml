@@ -83,9 +83,9 @@ show_dots = true
 show_instance_count = false
 
 [hooks]
-logging_out = "hyprctl dispatch exit"
-rebooting = "hyprctl dispatch exit"
-shutting_down = "hyprctl dispatch exit"
+logging_out = "hyprctl dispatch 'hl.dsp.exit()'"
+rebooting = "hyprctl dispatch 'hl.dsp.exit()'"
+shutting_down = "hyprctl dispatch 'hl.dsp.exit()'"
 started = "pkill openrgb; sleep 1; openrgb --startminimized --profile purple;"
 
 [idle]
