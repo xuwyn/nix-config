@@ -22,7 +22,7 @@ in {
     systemd.enable = true;
     settings = {
       shell = {
-        avatar_path = "${config.home.homeDirectory}/nixos/modules/home/hyprland/face.jpg";
+        avatar_path = "${config.home.homeDirectory}/.face";
         date_format = "%A, %Y %b %d";
         font_family = "Maple Mono NF";
         launch_apps_as_systemd_services = true;

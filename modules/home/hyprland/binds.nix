@@ -78,17 +78,86 @@ in {
     hl.bind(modifier .. " + P", hl.dsp.window.pseudo())
     hl.bind(modifier .. " + SHIFT + I", hl.dsp.layout("togglesplit"))
     hl.bind(modifier .. " + F", hl.dsp.window.fullscreen({ mode = "fullscreen", action = "toggle" }))
-    hl.bind(modifier .. " + SHIFT + F", hl.dsp.window.float({ action = "toggle" }))
-    hl.bind(modifier .. " + SHIFT + F", hl.dsp.window.resize({ x = 1600, y = 900 }))
-    hl.bind(modifier .. " + SHIFT + F", hl.dsp.window.center())
-    hl.bind(modifier .. " + ALT + F", hl.dsp.exec_cmd("hyprland-float-all"))
+
+    -- Float Toggle
+    hl.bind(modifier .. " + SHIFT + F", function()
+        local window = hl.get_active_window()
+        if window ~= nil then
+            if window.floating then
+              hl.dispatch(hl.dsp.window.float({ action = "toggle" }))
+              local w = hl.get_active_workspace()
+              if not w then return end
+              hl.workspace_rule({ workspace = tostring(w.id), layout = "dwindle" })
+            else
+              hl.dispatch(hl.dsp.window.float({ action = "toggle" }))
+              hl.dispatch(hl.dsp.window.resize({ x = 1600, y = 900 }))
+              hl.dispatch(hl.dsp.window.center())
+            end
+        end
+    end)
+
+    -- Float all windows toggle
+    hl.bind(modifier .. " + ALT + F", function ()
+      local workspace = hl.get_active_workspace()
+      if workspace == nil then
+        return
+      end
+      local windows = hl.get_workspace_windows(workspace)
+      for _, window in ipairs(windows) do
+        hl.dispatch(hl.dsp.window.float({ window = window, action = "toggle" }))
+        hl.dispatch(hl.dsp.window.center())
+      end
+    end)
 
     -- 6. LAYOUTS
-    hl.bind(modifier .. " + ALT + L", hl.dsp.exec_cmd("hyprland-change-layout toggle"))
-    hl.bind(modifier .. " + ALT + 1", hl.dsp.exec_cmd("hyprland-change-layout dwindle"))
-    hl.bind(modifier .. " + ALT + 2", hl.dsp.exec_cmd("hyprland-change-layout master"))
-    hl.bind(modifier .. " + ALT + 3", hl.dsp.exec_cmd("hyprland-change-layout scrolling"))
-    hl.bind(modifier .. " + ALT + 4", hl.dsp.exec_cmd("hyprland-change-layout monocle"))
+    -- See: https://wiki.hypr.land/Configuring/Advanced-and-Cool/Uncommon-tips-and-tricks/#cycle-layout-for-current-workspace
+    hl.bind(modifier .. " + TAB", function ()
+        local layouts     = { "scrolling", "dwindle", "master", "monocle" }
+        local workspace   = hl.get_active_workspace()
+      if hl.get_active_special_workspace() then
+        workspace = hl.get_active_special_workspace()
+      end
+        local next_layout = "dwindle"
+        if not workspace then
+            return
+        end
+        for i = 1, #layouts do
+            if layouts[i] == workspace.tiled_layout then
+                local next_layout_idx = (i % #layouts) + 1
+                next_layout = layouts[next_layout_idx]
+                break
+            end
+        end
+      if workspace.special then
+        hl.workspace_rule({ workspace = tostring(workspace.name), layout = next_layout })
+      else
+        hl.workspace_rule({ workspace = tostring(workspace.id), layout = next_layout })
+      end
+    end)
+
+    hl.bind(modifier .. " + ALT + 1", function()
+      local w = hl.get_active_workspace()
+      if not w then return end
+      hl.workspace_rule({ workspace = tostring(w.id), layout = "scrolling" })
+    end)
+
+    hl.bind(modifier .. " + ALT + 2", function()
+      local w = hl.get_active_workspace()
+      if not w then return end
+      hl.workspace_rule({ workspace = tostring(w.id), layout = "dwindle" })
+    end)
+
+    hl.bind(modifier .. " + ALT + 3", function()
+      local w = hl.get_active_workspace()
+      if not w then return end
+      hl.workspace_rule({ workspace = tostring(w.id), layout = "master" })
+    end)
+
+    hl.bind(modifier .. " + ALT + 4", function()
+      local w = hl.get_active_workspace()
+      if not w then return end
+      hl.workspace_rule({ workspace = tostring(w.id), layout = "monocle" })
+    end)
 
     -- 7. WINDOW MOVEMENT
     hl.bind(modifier .. " + SHIFT + left", hl.dsp.window.move({ direction = "l" }))
@@ -139,8 +208,10 @@ in {
     hl.bind(modifier .. " + mouse_up", hl.dsp.focus({ workspace = "e-1" }))
 
     -- 12. WINDOW CYCLING
-    hl.bind("ALT + Tab", hl.dsp.window.cycle_next({ next = true }))
-    hl.bind("ALT + Tab", hl.dsp.window.bring_to_top())
+    hl.bind("ALT + TAB", function()
+      hl.dispatch(hl.dsp.window.cycle_next({ next = true }))
+      hl.dispatch(hl.dsp.window.bring_to_top())
+    end)
 
     -- 13. MEDIA & HARDWARE CONTROLS
     hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+"))

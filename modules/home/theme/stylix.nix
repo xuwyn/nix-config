@@ -18,7 +18,7 @@ in {
     {
       enable = true;
       image = stylixImage;
-      opacity.terminal = 0.9;
+      opacity.terminal = 0.95;
       polarity = "dark";
       targets = {
         btop = {
