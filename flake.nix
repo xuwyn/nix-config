@@ -27,6 +27,14 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # den
+    flake-parts = {
+      url = "github:hercules-ci/flake-parts";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    import-tree.url = "github:denful/import-tree";
+
     stylix.url = "github:danth/stylix/master";
 
     nix-flatpak.url = "github:gmodena/nix-flatpak?ref=latest";
@@ -51,8 +59,6 @@
       url = "github:kamadorueda/alejandra";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    flake-utils.url = "github:numtide/flake-utils";
 
     hyprland.url = "github:hyprwm/Hyprland";
 
@@ -114,103 +120,7 @@
     };
   };
 
-  outputs = {
-    nixpkgs,
-    home-manager,
-    chaotic,
-    alejandra,
-    flake-utils,
-    mac-app-util,
-    nixos-wsl,
-    ...
-  } @ inputs: let
-    overlays = import ./modules/overlays {inherit inputs;};
-
-    mkNixosConfig = {
-      system,
-      host,
-      profile,
-      username,
-      extraModules ? [],
-    }:
-      nixpkgs.lib.nixosSystem {
-        inherit system;
-        specialArgs = {inherit inputs overlays username host profile;};
-        modules =
-          [
-            ./profiles/${profile}
-          ]
-          ++ extraModules;
-      };
-
-    mkHomeConfig = {
-      system,
-      host,
-      username,
-      extraModules ? [],
-    }:
-      home-manager.lib.homeManagerConfiguration {
-        pkgs = import nixpkgs {
-          inherit system overlays;
-          config.allowUnfree = true;
-        };
-        extraSpecialArgs = {inherit inputs username host;};
-        modules =
-          [
-            ./modules/home
-          ]
-          ++ extraModules;
-      };
-  in
-    {
-      nixosConfigurations = {
-        mango = mkNixosConfig {
-          system = "x86_64-linux";
-          host = "mango";
-          profile = "amd-nvidia-sync";
-          username = "wyn";
-          extraModules = [chaotic.nixosModules.default];
-        };
-        lettuce = mkNixosConfig {
-          system = "x86_64-linux";
-          host = "lettuce";
-          profile = "wsl";
-          username = "wyn";
-          extraModules = [nixos-wsl.nixosModules.default];
-        };
-      };
-      homeConfigurations = {
-        "wyn@mango" = mkHomeConfig {
-          system = "x86_64-linux";
-          host = "mango";
-          username = "wyn";
-        };
-        "wyn@lettuce" = mkHomeConfig {
-          system = "x86_64-linux";
-          host = "lettuce";
-          username = "wyn";
-        };
-        "wyn@apricot" = mkHomeConfig {
-          system = "aarch64-darwin";
-          host = "apricot";
-          username = "wyn";
-          extraModules = [mac-app-util.homeManagerModules.default];
-        };
-        "wyn@capybara" = mkHomeConfig {
-          system = "x86_64-linux";
-          host = "capybara";
-          username = "wyn";
-          extraModules = [./hosts/capybara];
-        };
-        "wyn@potato" = mkHomeConfig {
-          system = "x86_64-linux";
-          host = "potato";
-          username = "wyn";
-          extraModules = [./hosts/potato];
-        };
-      };
-    }
-    // (flake-utils.lib.eachDefaultSystem (system: {
-      formatter = alejandra.packages.${system}.default;
-    }));
+  outputs = inputs:
+    inputs.flake-parts.lib.mkFlake {inherit inputs;}
+    (inputs.import-tree ./modules);
 }
