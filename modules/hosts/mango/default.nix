@@ -1,18 +1,48 @@
-{
-  inputs,
-  config,
-  ...
-}: let
-  inherit (config.flake.modules) nixos home;
+{config, ...}: let
+  stylixImage = ../../../wallpapers/interlude_MDxBA_1.png;
 in {
   nixos.mango = {
     host = "mango";
     profile = "amd-nvidia-sync";
     username = "wyn";
-    modules = [
+    modules = with config.flake.modules.nixos; [
       ./_hardware.nix
-      inputs.chaotic.nixosModules.default
-      nixos.boot
+
+      boot
+      hardware
+      network
+      nix-conf
+      security
+      system
+      user
+
+      displayManager
+      fonts
+      hyprland
+      qylock
+      stylix
+      thunar
+      utilities
+      xserver
+
+      gpu-screen-recorder
+      openrgb
+      steam
+
+      printing
+
+      (_: {
+        nixos = {
+          amd-nvidia-sync = {
+            nvidiaID = "PCI:1:0:0";
+            amdgpuID = "PCI:15:0:0";
+          };
+          network.hostId = "5ab03f50";
+          boot.cachyOSKernel.enable = true;
+          displayManager.mode = "silent";
+          stylix.image = stylixImage;
+        };
+      })
     ];
   };
 

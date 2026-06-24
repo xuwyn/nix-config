@@ -28,11 +28,7 @@
     };
 
     # den
-    flake-parts = {
-      url = "github:hercules-ci/flake-parts";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
+    flake-parts.url = "github:hercules-ci/flake-parts";
     import-tree.url = "github:denful/import-tree";
 
     stylix.url = "github:danth/stylix/master";
