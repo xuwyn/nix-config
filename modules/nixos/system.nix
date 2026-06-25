@@ -63,6 +63,7 @@
         lshw # Detailed hardware list; won't work properly as a normal user
         pciutils # Inspects physical PCI devices (lspci)
         usbutils # Inspects physical USB buses (lsusb)
+        procps # process utilities
 
         # --- Backup Utilities ---
         killall

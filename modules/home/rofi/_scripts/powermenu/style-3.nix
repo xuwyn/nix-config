@@ -19,7 +19,7 @@
         /* Resolution : 1920x1080 */
         mainbox-spacing:             50px;
         mainbox-margin:              50px;
-        message-margin:              0px 300px;
+        message-margin:              0px 250px;
         message-padding:             12px;
         message-border-radius:       12px;
         listview-spacing:            20px;
