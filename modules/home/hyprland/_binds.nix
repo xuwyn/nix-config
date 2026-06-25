@@ -79,19 +79,19 @@ in {
 
     -- Float Toggle
     hl.bind("SUPER + SHIFT + F", function()
-        local window = hl.get_active_window()
-        if window ~= nil then
-            if window.floating then
-              hl.dispatch(hl.dsp.window.float({ action = "toggle" }))
-              local w = hl.get_active_workspace()
-              if not w then return end
-              hl.workspace_rule({ workspace = tostring(w.id), layout = "dwindle" })
-            else
-              hl.dispatch(hl.dsp.window.float({ action = "toggle" }))
-              hl.dispatch(hl.dsp.window.resize({ x = 1600, y = 900 }))
-              hl.dispatch(hl.dsp.window.center())
-            end
+      local window = hl.get_active_window()
+      if window ~= nil then
+        if window.floating then
+          hl.dispatch(hl.dsp.window.float({ action = "toggle" }))
+          local w = hl.get_active_workspace()
+          if not w then return end
+          hl.workspace_rule({ workspace = tostring(w.id), layout = "dwindle" })
+        else
+          hl.dispatch(hl.dsp.window.float({ action = "toggle" }))
+          hl.dispatch(hl.dsp.window.resize({ x = 1600, y = 900 }))
+          hl.dispatch(hl.dsp.window.center())
         end
+      end
     end)
 
     -- Float all windows toggle
@@ -182,12 +182,28 @@ in {
     hl.bind("SUPER + 0", hl.dsp.focus({ workspace = 10 }))
 
     -- 10. MOVE WINDOW TO WORKSPACE
+    local function move_to_special_and_resize()
+      hl.dispatch(hl.dsp.window.move({ workspace = "special" }))
+      hl.dispatch(hl.dsp.window.float({ action = "set" }))
+      hl.dispatch(hl.dsp.window.resize({ x = 1800, y = 1000, relative = false }))
+    end
+    local function move_out_from_special()
+      hl.dispatch(hl.dsp.window.move({ workspace = "e+0" }))
+      local ws = hl.get_active_workspace()
+      if not ws then return end
+      local w = hl.get_active_window()
+      if w ~= nil and w.floating then
+        hl.dispatch(hl.dsp.window.float({ action = "toggle" }))
+      end
+      hl.workspace_rule({ workspace = tostring(w.id), layout = "dwindle" })
+    end
+    hl.bind("SUPER + SPACE", hl.dsp.workspace.toggle_special(""))
+    hl.bind("SUPER + SHIFT + SPACE", move_to_special_and_resize)
+    hl.bind("SUPER + CTRL + SHIFT + up", move_to_special_and_resize)
+    hl.bind("SUPER + CTRL + SHIFT + down", move_out_from_special)
+
     hl.bind("SUPER + CTRL + SHIFT + left", hl.dsp.window.move({ workspace = -1 }), { repeating = true })
     hl.bind("SUPER + CTRL + SHIFT + right", hl.dsp.window.move({ workspace = "+1" }), { repeating = true })
-    hl.bind("SUPER + SPACE", hl.dsp.workspace.toggle_special(""))
-    hl.bind("SUPER + SHIFT + SPACE", hl.dsp.window.move({ workspace = "special" }))
-    hl.bind("SUPER + CTRL + SHIFT + up", hl.dsp.window.move({ workspace = "special" }))
-    hl.bind("SUPER + CTRL + SHIFT + down", hl.dsp.window.move({ workspace = "e+0" }))
     hl.bind("SUPER + SHIFT + 1", hl.dsp.window.move({ workspace = 1 }))
     hl.bind("SUPER + SHIFT + 2", hl.dsp.window.move({ workspace = 2 }))
     hl.bind("SUPER + SHIFT + 3", hl.dsp.window.move({ workspace = 3 }))
