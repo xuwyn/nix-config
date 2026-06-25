@@ -48,7 +48,7 @@
               enable = config.homeManager.starship.stylixTheme.enable or false;
               colors.enable = config.homeManager.starship.stylixTheme.enable or false;
             };
-            nixcord.enable = config.homeManager.stylixTheme.enable or false;
+            nixcord.enable = config.homeManager.nixcord.stylixTheme.enable or false;
             spicetify.enable = true;
             zed.enable = false; # bug not fixed, hardcoded theme in zed.nix
             nixvim.enable = false;

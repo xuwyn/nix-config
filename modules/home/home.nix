@@ -17,6 +17,19 @@
     programs.home-manager.enable = true;
     nixpkgs.config.allowUnfree = true;
 
+    nix = {
+      package = pkgs.nix;
+      settings = {
+        auto-optimise-store = true;
+        experimental-features = [
+          "nix-command"
+          "flakes"
+        ];
+        allowed-users = ["root" username];
+        trusted-users = ["root" username];
+      };
+    };
+
     home.packages = with pkgs; [
       # --- Dev Stuffs ---
       alejandra # Nix formatter

@@ -1,5 +1,6 @@
 {
   pkgs,
+  config,
   ...
 }: let
   inherit (config.homeManager.i3) monitors;
