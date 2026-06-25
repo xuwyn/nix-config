@@ -10,9 +10,7 @@
         enable = true;
         extraArgs = "--keep-since 7d --keep 5";
       };
-      flake = "${config.home.homeDirectory}/nixos";
-      # osFlake = "${config.home.homeDirectory}/nixos";
-      # homeFlake = "${config.home.homeDirectory}/nixos";
+      flake = "${config.home.homeDirectory}/nix-config";
     };
 
     home.packages = with pkgs; [
@@ -22,8 +20,8 @@
     ];
 
     home.sessionVariables = {
-      NH_FLAKE = "${config.home.homeDirectory}/nixos";
-      NH_HOME_FLAKE = "${config.home.homeDirectory}/nixos";
+      NH_FLAKE = "${config.home.homeDirectory}/nix-config";
+      NH_HOME_FLAKE = "${config.home.homeDirectory}/nix-config";
     };
   };
 }
