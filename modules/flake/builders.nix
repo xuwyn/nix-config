@@ -30,10 +30,6 @@ in {
       type = lib.types.lazyAttrsOf (
         lib.types.submodule ({name, ...}: {
           options = {
-            host = lib.mkOption {
-              type = lib.types.str;
-              default = name;
-            };
             system = lib.mkOption {type = lib.types.str;};
             modules = lib.mkOption {
               type = lib.types.listOf lib.types.deferredModule;

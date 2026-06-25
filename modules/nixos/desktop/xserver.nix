@@ -6,34 +6,6 @@
     ...
   }: let
     cfg = config.nixos.xserver;
-
-    usVariants = ["dvorak" "colemak" "workman" "intl" "us-intl" "altgr-intl"];
-    normalizeUSVariant = v:
-      if v == "us-intl"
-      then "intl"
-      else v;
-
-    layoutFromLayout =
-      if builtins.elem cfg.keyboardLayout usVariants
-      then "us"
-      else cfg.keyboardLayout;
-
-    variantFromLayout =
-      if builtins.elem cfg.keyboardLayout usVariants
-      then normalizeUSVariant cfg.keyboardLayout
-      else "";
-
-    layoutFromVariant =
-      if builtins.elem cfg.keyboardVariant usVariants
-      then "us"
-      else layoutFromLayout;
-
-    variantFinal =
-      if builtins.elem cfg.keyboardVariant usVariants
-      then normalizeUSVariant cfg.keyboardVariant
-      else if variantFromLayout != ""
-      then variantFromLayout
-      else cfg.keyboardVariant;
   in {
     options.nixos.xserver = {
       keyboardLayout = lib.mkOption {
@@ -48,7 +20,35 @@
       };
     };
 
-    config = {
+    config = let
+      usVariants = ["dvorak" "colemak" "workman" "intl" "us-intl" "altgr-intl"];
+      normalizeUSVariant = v:
+        if v == "us-intl"
+        then "intl"
+        else v;
+
+      layoutFromLayout =
+        if builtins.elem cfg.keyboardLayout usVariants
+        then "us"
+        else cfg.keyboardLayout;
+
+      variantFromLayout =
+        if builtins.elem cfg.keyboardLayout usVariants
+        then normalizeUSVariant cfg.keyboardLayout
+        else "";
+
+      layoutFromVariant =
+        if builtins.elem cfg.keyboardVariant usVariants
+        then "us"
+        else layoutFromLayout;
+
+      variantFinal =
+        if builtins.elem cfg.keyboardVariant usVariants
+        then normalizeUSVariant cfg.keyboardVariant
+        else if variantFromLayout != ""
+        then variantFromLayout
+        else cfg.keyboardVariant;
+    in {
       services.xserver = {
         enable = true;
         excludePackages = [pkgs.xterm];

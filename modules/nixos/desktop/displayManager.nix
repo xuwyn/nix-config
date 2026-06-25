@@ -70,7 +70,7 @@
             frame-1 = ../../../wallpapers/frame-1.png;
           };
           profileIcons = {
-            ${username} = ../../_home/hyprland/face.jpg;
+            ${username} = ../../home/hyprland/face.jpg;
           };
           settings = {
             "General" = {
