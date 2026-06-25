@@ -53,6 +53,8 @@
           enable = true;
           enableSSHSupport = true;
         };
+
+        dconf.enable = true;
       };
 
       environment.systemPackages = with pkgs; [

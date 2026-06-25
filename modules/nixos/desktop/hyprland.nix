@@ -1,7 +1,6 @@
 {
   flake.modules.nixos.hyprland = {pkgs, ...}: {
     programs = {
-      dconf.enable = true;
       seahorse.enable = true;
       localsend.enable = true;
 

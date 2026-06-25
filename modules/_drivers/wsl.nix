@@ -3,6 +3,7 @@
   config,
   username,
   host,
+  inputs,
   ...
 }:
 with lib; let
@@ -11,8 +12,10 @@ in {
   options.drivers.wsl = {
     enable = mkEnableOption "Enable WSL";
   };
-
+  imports = [inputs.nixos-wsl.nixosModules.default];
   config = mkIf cfg.enable {
+    nixpkgs.hostPlatform = "x86_64-linux";
+
     wsl = {
       enable = true;
       defaultUser = username;
