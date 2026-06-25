@@ -1,10 +1,15 @@
-{config, ...}: let
+{
+  config,
+  inputs,
+  ...
+}: let
   stylixImage = ../../../wallpapers/Amiya-Birthday-Skin-Promote.png;
 in {
   home."wyn@apricot" = {
     system = "aarch64-darwin";
     username = "wyn";
     modules = with config.flake.modules.homeManager; [
+      inputs.mac-app-util.homeManagerModules.default
       home
       cli
       sops
