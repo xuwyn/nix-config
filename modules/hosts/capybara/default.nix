@@ -12,6 +12,7 @@ in {
       nh
 
       # cli
+      fastfetch
       bash
       zsh
       bat
@@ -52,9 +53,7 @@ in {
             username = "wyn";
             email = "173407133+suquynh@users.noreply.github.com";
           };
-          nixcord.stylixTheme.enable = true;
           stylix.image = stylixImage;
-          rofi.background = stylixImage;
         };
       })
     ];
