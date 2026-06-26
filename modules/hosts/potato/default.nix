@@ -43,7 +43,7 @@ in {
         homeManager = {
           git = {
             username = "wyn";
-            email = "173407133+suquynh@users.noreply.github.com";
+            email = "173407133+xuwyn@users.noreply.github.com";
           };
           btop.stylixTheme.enable = true;
           cava.stylixTheme.enable = true;
