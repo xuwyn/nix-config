@@ -5,8 +5,13 @@
     ...
   }: {
     home.sessionVariables = {
-      ZED_ALLOW_EMULATED_GPU = "1"; # for WSL
+      ZED_ALLOW_EMULATED_GPU = "1";
     };
+
+    home.packages = with pkgs; [
+      lua-language-server
+      stylua
+    ];
 
     programs.zed-editor = {
       enable = true;
@@ -28,6 +33,25 @@
           formatter.external = {
             command = "${pkgs.alejandra}/bin/alejandra";
             arguments = ["--quiet" "--"];
+          };
+        };
+
+        lsp.lua-language-server = {
+          binary.path = "${pkgs.lua-language-server}/bin/lua-language-server";
+          settings.Lua.diagnostics.disable = ["unused-local" "undefined-global" "lowercase-global"];
+        };
+        languages.Lua = {
+          language_servers = ["lua-language-server" "..."];
+          format_on_save = "on";
+          formatter.external = {
+            command = "${pkgs.stylua}/bin/stylua";
+            arguments = [
+              "--syntax=Lua54"
+              "--respect-ignores"
+              "--stdin-filepath"
+              "{buffer_path}"
+              "-"
+            ];
           };
         };
         theme = "Vortriz";

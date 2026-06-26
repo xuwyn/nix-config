@@ -78,6 +78,7 @@ icon_size = 35
 inactive_opacity = 0.59999998658895493
 item_spacing = 8
 padding = 6
+reserve_space = false
 shadow = false
 show_dots = true
 show_instance_count = false
