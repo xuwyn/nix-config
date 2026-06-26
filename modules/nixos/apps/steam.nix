@@ -5,7 +5,6 @@
     username,
     ...
   }: {
-
     imports = [inputs.chaotic.nixosModules.default];
 
     users.users.${username} = {
