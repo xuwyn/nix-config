@@ -9,16 +9,20 @@
     cfg = config.nixos.boot;
   in {
     options.nixos.boot = {
-      cachyOSKernel.enable = lib.mkEnableOption "Use CachyOS kernel";
+      cachyOSKernel = {
+        enable = lib.mkEnableOption "Use CachyOS kernel";
+        package = lib.mkOption {
+          type = lib.types.raw;
+          default = pkgs.cachyosKernels.linux-cachyos-latest;
+          description = "Choose specific cachyos kernel version";
+        };
+      };
     };
-    # duplicate with steam imports
-    # imports = [inputs.chaotic.nixosModules.default];
-
     config = {
       boot = {
         kernelPackages =
           if cfg.cachyOSKernel.enable
-          then pkgs.linuxPackages_cachyos
+          then cfg.cachyOSKernel.package
           else pkgs.linuxPackages_latest;
         kernelModules = ["v4l2loopback"];
         extraModulePackages = [config.boot.kernelPackages.v4l2loopback];

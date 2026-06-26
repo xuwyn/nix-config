@@ -5,8 +5,6 @@
     username,
     ...
   }: {
-    imports = [inputs.chaotic.nixosModules.default];
-
     users.users.${username} = {
       extraGroups = ["gamemode"];
     };
@@ -19,7 +17,6 @@
         gamescopeSession.enable = true;
         extraCompatPackages = [
           pkgs.proton-ge-bin
-          pkgs.proton-cachyos
         ];
       };
       gamemode = {

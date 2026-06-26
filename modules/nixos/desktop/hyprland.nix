@@ -6,7 +6,7 @@
 
       hyprland = {
         enable = true; # set this so desktop file is created
-        withUWSM = false;
+        withUWSM = true;
       };
 
       # hyprlock.enable = true;

@@ -33,14 +33,17 @@ in {
       # services
       printing
 
-      (_: {
+      ({pkgs, ...}: {
         nixos = {
           amd-nvidia-sync = {
             nvidiaID = "PCI:1:0:0";
             amdgpuID = "PCI:15:0:0";
           };
           network.hostId = "5ab03f50";
-          boot.cachyOSKernel.enable = true;
+          boot.cachyOSKernel = {
+            enable = true;
+            package = pkgs.cachyosKernels.linuxPackages-cachyos-bore-lto-zen4;
+          };
           displayManager.mode = "silent";
           stylix.image = stylixImage;
         };

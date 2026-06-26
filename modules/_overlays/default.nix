@@ -2,6 +2,9 @@
   # Firefox addons
   inputs.nur.overlays.default
 
+  # cachyOS kernel (pinned version for cache hit)
+  inputs.nix-cachyos-kernel.overlays.pinned
+
   # Build tumbler without EPUB thumbnailer (libgepub) to avoid webkitgtk
   (_final: prev: {
     xfce =

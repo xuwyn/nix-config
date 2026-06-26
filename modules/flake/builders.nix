@@ -49,10 +49,20 @@ in {
         name: cfg:
           inputs.nixpkgs.lib.nixosSystem {
             specialArgs = {
-              inherit inputs overlays;
+              inherit inputs;
               inherit (cfg) host username profile;
             };
-            modules = cfg.modules ++ [config.flake.modules.nixos.${cfg.profile}];
+            modules =
+              cfg.modules
+              ++ [
+                config.flake.modules.nixos.${cfg.profile}
+                (_: {
+                  nixpkgs = {
+                    inherit overlays;
+                    config.allowUnfree = true;
+                  };
+                })
+              ];
           }
       )
       config.nixos;
