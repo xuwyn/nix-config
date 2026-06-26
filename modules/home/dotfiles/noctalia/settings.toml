@@ -4,7 +4,7 @@ capsule = true
 capsule_border = "primary"
 capsule_foreground = "primary"
 center = [ "group:g3" ]
-end = [ "screen_recorder", "group:g1", "group:g2" ]
+end = [ "recorder", "group:g1", "group:g2" ]
 margin_edge = 0
 margin_ends = 12
 padding = 6
@@ -37,7 +37,7 @@ start = [ "workspaces", "media", "audio_visualizer" ]
     fill = "surface_variant"
     foreground = "primary"
     id = "g3"
-    members = [ "tray", "notifications", "clock", "bongocat" ]
+    members = [ "tray", "notifications", "clock", "cat" ]
     opacity = 1.0
     padding = 6.0
 
@@ -88,24 +88,6 @@ logging_out = "hyprctl dispatch 'hl.dsp.exit()'"
 rebooting = "hyprctl dispatch 'hl.dsp.exit()'"
 shutting_down = "hyprctl dispatch 'hl.dsp.exit()'"
 started = "pkill openrgb; sleep 1; openrgb --startminimized --profile purple;"
-
-[idle]
-behavior_order = [ "lock", "screen-off", "lock-and-suspend" ]
-
-    [idle.behavior.lock]
-    action = "lock"
-    enabled = true
-    timeout = 600
-
-    [idle.behavior.lock-and-suspend]
-    action = "lock_and_suspend"
-    enabled = false
-    timeout = 900
-
-    [idle.behavior.screen-off]
-    action = "screen_off"
-    enabled = false
-    timeout = 660
 
 [keybinds]
 cancel = [ "Delete", "Escape" ]
@@ -242,6 +224,9 @@ widget_order = [
         hide_when_no_media = true
         layout = "horizontal"
 
+[plugins]
+enabled = [ "noctalia/bongocat", "noctalia/screen_recorder", "noctalia/wallhaven" ]
+
 [system.monitor]
 cpu_poll_seconds = 1
 network_poll_seconds = 1
@@ -262,6 +247,9 @@ directory = "/home/wyn/Pictures/Wallpapers"
     path = "/home/wyn/Pictures/Wallpapers/interlude_MDxBA_1.png"
 
     [wallpaper.last]
+    path = "/home/wyn/Pictures/Wallpapers/interlude_MDxBA_1.png"
+
+    [wallpaper.monitors.DP-2]
     path = "/home/wyn/Pictures/Wallpapers/interlude_MDxBA_1.png"
 
     [wallpaper.monitors.DP-5]
@@ -337,12 +325,21 @@ script = "scripts/bongocat.lua"
 tappy_mode = true
 type = "scripted"
 
+[widget.cat]
+audio_spectrum = true
+scale = 1.45
+tappy_mode = true
+type = "noctalia/bongocat:cat"
+
 [widget.media]
 hide_when_no_media = true
 title_scroll = "always"
 
 [widget.network]
 show_label = false
+
+[widget.recorder]
+type = "noctalia/screen_recorder:recorder"
 
 [widget.screen_recorder]
 hot_reload = true

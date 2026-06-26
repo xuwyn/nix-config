@@ -55,7 +55,12 @@
 
     config = let
       barThemes = {
-        noctalia = builtins.readFile ../dotfiles/hypr/noctalia.lua;
+        noctalia = ''
+          local noctalia_theme = (function()
+          ${builtins.readFile ../dotfiles/hypr/noctalia.lua}
+          end)()
+          noctalia_theme.apply_theme()
+        '';
       };
 
       usVariants = ["dvorak" "colemak" "workman" "intl" "us-intl" "altgr-intl"];

@@ -22,6 +22,29 @@
       enable = true;
       systemd.enable = true;
       settings = {
+        idle = {
+          behavior_order = ["qylock" "idle-behavior" "idle-behavior-2"];
+          pre_action_fade_seconds = 0;
+          behavior = {
+            "qylock" = {
+              action = "command";
+              command = "qylock-lock";
+              enabled = qylockEnable;
+              timeout = 600;
+            };
+            "idle-behavior" = {
+              action = "lock";
+              enabled = !qylockEnable;
+              timeout = 600;
+            };
+            "idle-behavior-2" = {
+              action = "suspend";
+              enabled = true;
+              lock_before_suspend = false;
+              timeout = 1200;
+            };
+          };
+        };
         shell = {
           avatar_path = "${config.home.homeDirectory}/.face";
           date_format = "%A, %Y %b %d";
@@ -34,7 +57,8 @@
           panel = {
             control_center_placement = "floating";
             open_near_click_control_center = true;
-            session_placement = "centered";
+            session_placement = "floating";
+            session_position = "center";
             shadow = false;
             transparency_mode = "glass";
             wallpaper_placement = "floating";
