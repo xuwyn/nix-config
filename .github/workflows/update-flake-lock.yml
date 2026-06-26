@@ -1,0 +1,25 @@
+name: "flake.lock: update Nix dependencies"
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 0 * * 6' # every Saturday at 00:00 UTC
+
+jobs:
+  nix-flake-update:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      issues: write
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: DeterminateSystems/determinate-nix-action@v3
+
+      - uses: DeterminateSystems/update-flake-lock@main
+        with:
+          pr-title: "Update flake.lock"
+          pr-labels: |
+            dependencies
+            automated
