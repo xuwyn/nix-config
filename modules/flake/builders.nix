@@ -77,7 +77,7 @@ in {
             };
             extraSpecialArgs = {
               inherit inputs;
-              inherit (cfg) host username;
+              inherit (cfg) username;
             };
             modules = cfg.modules;
           }
