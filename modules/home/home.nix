@@ -1,4 +1,4 @@
-{
+{inputs, ...}: {
   flake.modules.homeManager.home = {
     username,
     pkgs,
@@ -20,7 +20,6 @@
     nix = {
       package = pkgs.nix;
       settings = {
-        auto-optimise-store = true;
         experimental-features = [
           "nix-command"
           "flakes"
@@ -28,6 +27,12 @@
         allowed-users = ["root" username];
         trusted-users = ["root" username];
       };
+    };
+
+    imports = [inputs.nix-index-database.homeModules.default];
+    programs = {
+      nix-index.enable = true;
+      nix-index-database.comma.enable = true;
     };
 
     home.packages = with pkgs; [

@@ -22,39 +22,31 @@
 
     config = let
       usVariants = ["dvorak" "colemak" "workman" "intl" "us-intl" "altgr-intl"];
-      normalizeUSVariant = v:
+      normalize = v:
         if v == "us-intl"
         then "intl"
         else v;
 
-      layoutFromLayout =
-        if builtins.elem cfg.keyboardLayout usVariants
+      isUSVariant = builtins.elem cfg.keyboardLayout usVariants || builtins.elem cfg.keyboardVariant usVariants;
+
+      finalKbLayout =
+        if isUSVariant
         then "us"
         else cfg.keyboardLayout;
 
-      variantFromLayout =
-        if builtins.elem cfg.keyboardLayout usVariants
-        then normalizeUSVariant cfg.keyboardLayout
-        else "";
-
-      layoutFromVariant =
+      finalKbVariant =
         if builtins.elem cfg.keyboardVariant usVariants
-        then "us"
-        else layoutFromLayout;
-
-      variantFinal =
-        if builtins.elem cfg.keyboardVariant usVariants
-        then normalizeUSVariant cfg.keyboardVariant
-        else if variantFromLayout != ""
-        then variantFromLayout
+        then normalize cfg.keyboardVariant
+        else if builtins.elem cfg.keyboardLayout usVariants
+        then normalize cfg.keyboardLayout
         else cfg.keyboardVariant;
     in {
       services.xserver = {
         enable = true;
         excludePackages = [pkgs.xterm];
         xkb = {
-          layout = layoutFromVariant;
-          variant = variantFinal;
+          layout = finalKbLayout;
+          variant = finalKbVariant;
         };
       };
     };
