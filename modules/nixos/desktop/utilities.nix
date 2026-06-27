@@ -1,5 +1,22 @@
 {
-  flake.modules.nixos.utilities = {profile, ...}: {
+  flake.modules.nixos.desktop-utilities = {
+    profile,
+    pkgs,
+    ...
+  }: {
+    # Keyboard input for other languages
+    i18n.inputMethod = {
+      enable = true;
+      type = "fcitx5";
+      fcitx5 = {
+        waylandFrontend = true;
+        addons = with pkgs; [
+          fcitx5-mozc
+          fcitx5-bamboo
+        ];
+      };
+    };
+
     # Services to start
     services = {
       upower.enable = true; # noctalia shell battery
@@ -8,7 +25,7 @@
       gnome.gnome-keyring.enable = true;
       smartd = {
         enable =
-          if (profile == "vm") || (profile == "wsl")
+          if profile == "vm"
           then false
           else true;
         autodetect = true;

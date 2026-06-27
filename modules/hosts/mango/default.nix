@@ -22,7 +22,7 @@ in {
       qylock
       stylix
       thunar
-      utilities
+      desktop-utilities
       xserver
 
       # apps

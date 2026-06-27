@@ -37,17 +37,6 @@
           LC_TELEPHONE = "en_US.UTF-8";
           LC_TIME = "en_US.UTF-8";
         };
-        inputMethod = {
-          enable = true;
-          type = "fcitx5";
-          fcitx5 = {
-            waylandFrontend = true;
-            addons = with pkgs; [
-              fcitx5-mozc
-              fcitx5-bamboo
-            ];
-          };
-        };
       };
 
       # Console Input
