@@ -21,7 +21,6 @@ in {
       eza
       fzf
       git
-      lazygit
       starship
       tealdeer
       zoxide
@@ -46,6 +45,9 @@ in {
 
       # extra
       umbrella-fetch
+      dev
+      utils
+      eyecandy
 
       (_: {
         homeManager = {

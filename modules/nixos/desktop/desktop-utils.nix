@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.desktop-utilities = {
+  flake.modules.nixos.desktop-utils = {
     profile,
     pkgs,
     ...

@@ -36,7 +36,7 @@ pkgs.writeShellScriptBin "web-search" ''
 
   main() {
     # Pass the list to rofi
-    platform=$( (gen_list) | ${pkgs.rofi}/bin/rofi -dmenu -config ~/.config/rofi/config-long.rasi )
+    platform=$( (gen_list) | ${pkgs.rofi}/bin/rofi -dmenu -config ~/.config/rofi/theme.rasi )
 
     if [[ -n "$platform" ]]; then
       # Find the index of the selected platform to match it with its URL
@@ -52,7 +52,7 @@ pkgs.writeShellScriptBin "web-search" ''
         exit 1
       fi
 
-      query=$( (echo ) | ${pkgs.rofi}/bin/rofi -dmenu -config ~/.config/rofi/config-long.rasi )
+      query=$( (echo ) | ${pkgs.rofi}/bin/rofi -dmenu -config ~/.config/rofi/theme.rasi )
 
       if [[ -n "$query" ]]; then
         url=''${URLS[$index]}$query

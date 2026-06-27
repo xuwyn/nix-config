@@ -15,7 +15,7 @@
       };
     };
     imports = [
-      ./_config-long.nix
+      ./_theme.nix
       ./_scripts
     ];
     config = {

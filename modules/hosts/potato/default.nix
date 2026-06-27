@@ -38,6 +38,9 @@ in {
 
       # extra
       umbrella-fetch
+      dev
+      utils
+      eyecandy
 
       (_: {
         homeManager = {

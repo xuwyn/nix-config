@@ -7,6 +7,8 @@
     ...
   }: let
     cfg = config.homeManager.git;
+    accent = "#${config.lib.stylix.colors.base0D}";
+    muted = "#${config.lib.stylix.colors.base03}";
   in {
     options.homeManager.git = {
       username = lib.mkOption {
@@ -61,6 +63,30 @@
               lg = "log --graph --pretty=format:'%Cred%h%Creset - %C(yellow)%d%Creset %s %C(green)(%cr)%C(bold blue) <%an>%Creset' --abbrev-commit";
               st = "status";
             };
+          };
+        };
+      };
+      programs.lazygit = {
+        enable = true;
+        settings = lib.mkForce {
+          disableStartupPopups = true;
+          notARepository = "skip";
+          promptToReturnFromSubprocess = false;
+          update.method = "never";
+          git = {
+            commit.signOff = true;
+            parseEmoji = true;
+          };
+          gui = {
+            theme = {
+              activeBorderColor = [accent "bold"];
+              inactiveBorderColor = [muted];
+            };
+            showListFooter = false;
+            showRandomTip = false;
+            showCommandLog = false;
+            showBottomLine = false;
+            nerdFontsVersion = "3";
           };
         };
       };

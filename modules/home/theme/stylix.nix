@@ -44,6 +44,12 @@
               variant256Colors = !(config.homeManager.kitty.barTheme.enable or false);
               opacity.enable = true;
             };
+            ghostty = {
+              enable = true;
+              fonts.enable = false;
+              colors.enable = !(config.homeManager.ghostty.barTheme.enable or false);
+              opacity.enable = true;
+            };
             starship = {
               enable = config.homeManager.starship.stylixTheme.enable or false;
               colors.enable = config.homeManager.starship.stylixTheme.enable or false;
@@ -63,7 +69,6 @@
             rofi.enable = false;
             hyprland.enable = false;
             hyprlock.enable = false;
-            ghostty.enable = false;
             kde.enable = false;
             gtk.enable = config.homeManager.gtk.stylixTheme.enable or false;
             qt = {

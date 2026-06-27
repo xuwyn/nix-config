@@ -13,7 +13,6 @@ in {
       fzf
       git
       htop
-      lazygit
       starship
       tealdeer
       zoxide

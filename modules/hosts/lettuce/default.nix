@@ -24,11 +24,25 @@ in {
     username = "wyn";
     modules = with config.flake.modules.homeManager; [
       home
-      cli
       sops
       python
       nh
       yazi
+
+      # cli
+      fastfetch
+      bash
+      zsh
+      bat
+      btop
+      bottom
+      htop
+      eza
+      fzf
+      git
+      starship
+      tealdeer
+      zoxide
 
       # editors
       nano
@@ -39,6 +53,9 @@ in {
 
       # extra
       umbrella-fetch
+      dev
+      utils
+      eyecandy
 
       (_: {
         homeManager = {

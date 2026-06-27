@@ -1,7 +1,7 @@
 {config, ...}: let
   inherit (config.homeManager.rofi) background;
 in {
-  home.file.".config/rofi/config-long.rasi".text = ''
+  home.file.".config/rofi/theme.rasi".text = ''
     @import "~/.config/rofi/config.rasi"
     window {
       width: 750px;

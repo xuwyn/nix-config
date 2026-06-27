@@ -22,7 +22,7 @@ in {
       qylock
       stylix
       thunar
-      desktop-utilities
+      desktop-utils
       xserver
 
       # apps
@@ -90,6 +90,9 @@ in {
 
       # extra
       umbrella-fetch
+      dev
+      utils
+      eyecandy
 
       (_: {
         homeManager = {
