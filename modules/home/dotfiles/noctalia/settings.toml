@@ -57,7 +57,7 @@ sidebar_section = "none"
     type = "caffeine"
 
     [[control_center.shortcuts]]
-    type = "keyboard_layout"
+    type = "audio"
 
 [desktop_widgets]
 schema_version = 1

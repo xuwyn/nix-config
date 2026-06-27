@@ -20,25 +20,45 @@
       };
     };
     config = {
+      system.stateVersion = "23.11"; # Do not change!
+
+      # Localization
       time.timeZone = cfg.timeZone;
-      i18n.defaultLocale = "en_US.UTF-8";
-      i18n.extraLocaleSettings = {
-        LC_ADDRESS = "en_US.UTF-8";
-        LC_IDENTIFICATION = "en_US.UTF-8";
-        LC_MEASUREMENT = "en_US.UTF-8";
-        LC_MONETARY = "en_US.UTF-8";
-        LC_NAME = "en_US.UTF-8";
-        LC_NUMERIC = "en_US.UTF-8";
-        LC_PAPER = "en_US.UTF-8";
-        LC_TELEPHONE = "en_US.UTF-8";
-        LC_TIME = "en_US.UTF-8";
+      i18n = {
+        defaultLocale = "en_US.UTF-8";
+        extraLocaleSettings = {
+          LC_ADDRESS = "en_US.UTF-8";
+          LC_IDENTIFICATION = "en_US.UTF-8";
+          LC_MEASUREMENT = "en_US.UTF-8";
+          LC_MONETARY = "en_US.UTF-8";
+          LC_NAME = "en_US.UTF-8";
+          LC_NUMERIC = "en_US.UTF-8";
+          LC_PAPER = "en_US.UTF-8";
+          LC_TELEPHONE = "en_US.UTF-8";
+          LC_TIME = "en_US.UTF-8";
+        };
+        inputMethod = {
+          enable = true;
+          type = "fcitx5";
+          fcitx5 = {
+            waylandFrontend = true;
+            addons = with pkgs; [
+              fcitx5-mozc
+              fcitx5-bamboo
+            ];
+          };
+        };
       };
+
+      # Console Input
+      console.keyMap = cfg.consoleKeyMap;
+
+      # Global environment variables
       environment.variables = {
         NIXOS_OZONE_WL = "1";
       };
-      console.keyMap = cfg.consoleKeyMap;
-      system.stateVersion = "23.11"; # Do not change!
 
+      # General services, programs and packages
       services = {
         libinput.enable = true; # Input Handling
         blueman.enable = true; # Bluetooth Support
@@ -67,7 +87,7 @@
         usbutils # Inspects physical USB buses (lsusb)
         procps # process utilities
 
-        # --- Backup Utilities ---
+        # --- Utilities ---
         killall
         wget
       ];
