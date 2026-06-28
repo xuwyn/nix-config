@@ -14,7 +14,6 @@ in {
       security
       system
       user
-
       desktop
       apps
       services
@@ -70,20 +69,10 @@ in {
       sops
       python
       quickshell
-      nh
-      kitty
-
-      # apps
-      firefox
-      nixcord
-      obs-studio
-      spicetify
-      mangohud
-
-      # editors
-      nano
-      nixvim
-      zed
+      terminals
+      apps
+      editors
+      theme
 
       # desktop/hyprland
       dotfiles
@@ -93,26 +82,66 @@ in {
       xdg
       thunar
       yazi
-      fonts
-      stylix
-      gtk
-      qt
 
       # extra
-      umbrella-fetch
       dev
       utils
       eyecandy
 
       (_: {
         homeManager = {
-          git = {
-            username = "wyn";
-            email = "173407133+xuwyn@users.noreply.github.com";
+          apps = {
+            firefox.enable = true;
+            mangohud = {
+              enable = true;
+              fpsLimit = 165;
+            };
+            nixcord = {
+              enable = true;
+              themes = ["noctalia-material.theme.css" "noctalia.theme.css"];
+            };
+            obs-studio.enable = true;
+            spicetify.enable = true;
           };
-          btop.theme = "noctalia";
-          cava.theme = "noctalia";
-          nixcord.themes = ["noctalia-material.theme.css" "noctalia.theme.css"];
+          terminals = {
+            kitty = {
+              enable = true;
+              barName = "noctalia";
+              barTheme.enable = true;
+            };
+          };
+          cli = {
+            zsh.enable = true;
+            bash.enable = true;
+            git = {
+              enable = true;
+              username = "wyn";
+              email = "173407133+xuwyn@users.noreply.github.com";
+            };
+            btop = {
+              enable = true;
+              theme = "noctalia";
+            };
+            cava = {
+              enable = true;
+              theme = "noctalia";
+            };
+            fastfetch.enable = true;
+            bottom.enable = true;
+            htop.enable = true;
+            eza.enable = true;
+            fzf.enable = true;
+            zoxide.enable = true;
+            bat.enable = true;
+            starship.enable = true;
+            nh.enable = true;
+            tealdeer.enable = true;
+          };
+          editors = {
+            zed.enable = true;
+            nano.enable = true;
+            nixvim.enable = true;
+          };
           hyprland = {
             enable = true;
             extraMonitorSettings = ''
@@ -129,19 +158,25 @@ in {
                 scale = 1,
               })
             '';
-            barChoice = "noctalia";
+            barName = "noctalia";
             barTheme.enable = true;
             qylock.enable = true;
           };
-          mangohud.fpsLimit = 165;
-          stylix.image = stylixImage;
-          rofi.background = stylixImage;
-          kitty = {
-            barChoice = "noctalia";
-            barTheme.enable = true;
+          theme = {
+            stylix = {
+              enable = true;
+              image = stylixImage;
+            };
+            qt = {
+              enable = true;
+              stylixTheme.enable = true;
+            };
+            gtk = {
+              enable = true;
+              stylixTheme.enable = true;
+            };
           };
-          gtk.stylixTheme.enable = true;
-          qt.stylixTheme.enable = true;
+          rofi.background = stylixImage;
         };
       })
     ];

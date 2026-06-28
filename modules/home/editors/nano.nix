@@ -1,47 +1,60 @@
 {
-  flake.modules.homeManager.nano = {pkgs, ...}: {
-    # Ensure nano is installed for the user
-    home.packages = [pkgs.nano];
+  flake.modules.homeManager.editors = {
+    pkgs,
+    config,
+    lib,
+    ...
+  }: let
+    cfg = config.homeManager.editors.nano;
+  in {
+    options.homeManager.editors.nano = {
+      enable = lib.mkEnableOption "Enable custom nano";
+    };
 
-    # Manage ~/.nanorc with a Catppuccin-like dark UI and sensible defaults
-    home.file.".nanorc".text = ''
-      # Syntax highlighting files from NixOS path
-      include /run/current-system/sw/share/nano/*.nanorc
+    config = lib.mkIf cfg.enable {
+      # Ensure nano is installed for the user
+      home.packages = [pkgs.nano];
 
-      # Navigation
-      set linenumbers
-      unset jumpyscrolling
-      set mouse
-      set constantshow
+      # Manage ~/.nanorc with a Catppuccin-like dark UI and sensible defaults
+      home.file.".nanorc".text = ''
+        # Syntax highlighting files from NixOS path
+        include /run/current-system/sw/share/nano/*.nanorc
 
-      # Editing Assistance
-      set softwrap
-      set tabsize 4
-      set tabstospaces
-      set autoindent
-      set backup
-      set whitespace "»·"
-      set matchbrackets "(<[{)>]}"
+        # Navigation
+        set linenumbers
+        unset jumpyscrolling
+        set mouse
+        set constantshow
 
-      # Search and Replace
-      unset casesensitive
+        # Editing Assistance
+        set softwrap
+        set tabsize 4
+        set tabstospaces
+        set autoindent
+        set backup
+        set whitespace "»·"
+        set matchbrackets "(<[{)>]}"
 
-      # File Management
-      set locking
-      set multibuffer
+        # Search and Replace
+        unset casesensitive
 
-      # Interface (Catppuccin-like dark)
-      set titlecolor white,brightblack
-      set statuscolor white,brightblack
-      set errorcolor white,brightblack
-      set selectedcolor white,brightblack
-      set numbercolor brightblack
-      set keycolor blue
-      set functioncolor magenta
-      set promptcolor white,brightblack
+        # File Management
+        set locking
+        set multibuffer
 
-      # Key bindings
-      bind ^S savefile main
-    '';
+        # Interface (Catppuccin-like dark)
+        set titlecolor white,brightblack
+        set statuscolor white,brightblack
+        set errorcolor white,brightblack
+        set selectedcolor white,brightblack
+        set numbercolor brightblack
+        set keycolor blue
+        set functioncolor magenta
+        set promptcolor white,brightblack
+
+        # Key bindings
+        bind ^S savefile main
+      '';
+    };
   };
 }

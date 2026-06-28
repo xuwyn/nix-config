@@ -1,12 +1,13 @@
 {
-  flake.modules.homeManager.fastfetch = {
+  flake.modules.homeManager.cli = {
     config,
     lib,
     ...
   }: let
-    cfg = config.homeManager.fastfetch;
+    cfg = config.homeManager.cli.fastfetch;
   in {
-    options.homeManager.fastfetch = {
+    options.homeManager.cli.fastfetch = {
+      enable = lib.mkEnableOption "Enable fastfetch";
       terminal = lib.mkOption {
         type = lib.types.enum ["kitty" "foot" "alacritty" "ghostty" "wezterm"];
         default = "kitty";
@@ -14,7 +15,7 @@
       };
     };
 
-    config = {
+    config = lib.mkIf cfg.enable {
       programs.fastfetch = {
         enable = true;
 
@@ -55,12 +56,6 @@
               keyColor = "red";
               outputColor = "red";
             }
-            # {
-            #   type = "command";
-            #   key = " ├  ZaneyOS ";
-            #   keyColor = "red";
-            #   text = "echo v$" + "{ZANEYOS_VERSION}";
-            # }
             {
               type = "kernel";
               key = " ├  ";
@@ -70,7 +65,6 @@
             {
               type = "packages";
               key = " ├ 󰏖 ";
-              # format = "{nix-all} (nix-all), {flatpak-all} (flatpak-all)";
               keyColor = "red";
               outputColor = "red";
             }

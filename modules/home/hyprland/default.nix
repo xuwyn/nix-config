@@ -9,7 +9,7 @@
     cfg = config.homeManager.hyprland;
   in {
     options.homeManager.hyprland = {
-      enable = lib.mkEnableOption "Enable homeManager Hyprland";
+      enable = lib.mkEnableOption "Enable Hyprland";
       extraMonitorSettings = lib.mkOption {
         type = lib.types.str;
         default = "";
@@ -25,7 +25,7 @@
         default = "";
         description = "Keyboard variant layout.";
       };
-      barChoice = lib.mkOption {
+      barName = lib.mkOption {
         type = lib.types.str;
         default = "";
         description = "Which bar to deploy";
@@ -87,15 +87,6 @@
         systemd.user.targets.hyprland-session.Unit.Wants = [
           "xdg-desktop-autostart.target"
         ];
-        # Place Files Inside Home Directory
-        home.file = {
-          "Pictures/Wallpapers" = {
-            source = ../../../wallpapers;
-            # recursive = true;
-            force = true;
-          };
-          ".face".source = ./face.jpg;
-        };
         xdg.configFile."hypr/hyprland.lua".force = true;
         wayland.windowManager.hyprland = {
           enable = true;
@@ -306,7 +297,7 @@
               blur_popups = true,
             })
 
-            ${lib.optionalString cfg.barTheme.enable (barThemes.${cfg.barChoice} or "")}
+            ${lib.optionalString cfg.barTheme.enable (barThemes.${cfg.barName} or "")}
           '';
         };
       };

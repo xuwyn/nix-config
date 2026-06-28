@@ -232,12 +232,13 @@ cpu_poll_seconds = 1
 network_poll_seconds = 1
 
 [theme]
+builtin = "Ayu"
 custom_palette = "m3-content"
 mode = "dark"
 source = "wallpaper"
 
     [theme.templates]
-    builtin_ids = [ "btop", "cava", "hyprland", "kitty" ]
+    builtin_ids = [ "btop", "cava", "ghostty", "hyprland", "kitty" ]
     community_ids = [ "discord" ]
 
 [wallpaper]
@@ -308,8 +309,10 @@ directory = "/home/wyn/Pictures/Wallpapers"
     theme_mode = "auto"
 
     [[wallpaper.favorite]]
+    palette_source = "wallpaper"
     path = "/home/wyn/Pictures/Wallpapers/interlude_RinLen_5.png"
-    theme_mode = "auto"
+    theme_mode = "dark"
+    wallpaper_scheme = "m3-content"
 
 [weather]
 address = "Fredericton, CA"

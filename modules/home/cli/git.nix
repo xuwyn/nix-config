@@ -1,16 +1,17 @@
 {
-  flake.modules.homeManager.git = {
+  flake.modules.homeManager.cli = {
     config,
     pkgs,
     lib,
     username,
     ...
   }: let
-    cfg = config.homeManager.git;
+    cfg = config.homeManager.cli.git;
     accent = "#${config.lib.stylix.colors.base0D}";
     muted = "#${config.lib.stylix.colors.base03}";
   in {
-    options.homeManager.git = {
+    options.homeManager.cli.git = {
+      enable = lib.mkEnableOption "Enable Git and lazygit";
       username = lib.mkOption {
         type = lib.types.str;
         default = username;
@@ -22,7 +23,7 @@
         description = "Set Git email";
       };
     };
-    config = {
+    config = lib.mkIf cfg.enable {
       home.packages = with pkgs; [
         git-lfs
         git-filter-repo

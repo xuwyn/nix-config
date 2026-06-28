@@ -7,7 +7,7 @@
 
   # Noctalia-specific startup commands
   noctaliaExec =
-    if cfg.barChoice == "noctalia"
+    if cfg.barName == "noctalia"
     then ["noctalia &"]
     else [];
 in {

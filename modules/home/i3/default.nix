@@ -8,7 +8,7 @@
     cfg = config.homeManager.i3;
   in {
     options.homeManager.i3 = {
-      enable = lib.mkEnableOption "Enable homeManager i3";
+      enable = lib.mkEnableOption "Enable i3";
       monitors = lib.mkOption {
         type = lib.types.listOf (lib.types.submodule {
           options = {

@@ -2,7 +2,6 @@
   flake.modules.homeManager.utils = {pkgs, ...}: {
     home.packages = with pkgs; [
       # --- Terminal Utilities ---
-      htop # System monitor
       duf # Disk utility (disk space)
       dysk # Disk utility (disk formatting info)
       ncdu # Interactive disk space analyzer

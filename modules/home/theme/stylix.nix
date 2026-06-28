@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.stylix = {
+  flake.modules.homeManager.theme = {
     inputs,
     username,
     pkgs,
@@ -9,17 +9,17 @@
   }: let
     hyprlandEnable = config.homeManager.hyprland.enable or false;
     i3Enable = config.homeManager.i3.enable or false;
-
-    cfg = config.homeManager.stylix;
+    cfg = config.homeManager.theme.stylix;
   in {
-    options.homeManager.stylix = {
+    options.homeManager.theme.stylix = {
+      enable = lib.mkEnableOption "Enable home stylix";
       image = lib.mkOption {
         type = lib.types.path;
         description = "Set stylix image relative path";
       };
     };
     imports = [inputs.stylix.homeModules.stylix];
-    config = {
+    config = lib.mkIf cfg.enable {
       stylix =
         {
           enable = true;
@@ -27,54 +27,21 @@
           opacity.terminal = 0.95;
           polarity = "dark";
           targets = {
-            btop = {
-              enable = true;
-              colors.enable = config.homeManager.btop.stylixTheme.enable or false;
-              opacity.enable = true;
-            };
-            cava = {
-              enable = config.homeManager.cava.stylixTheme.enable or false;
-              colors.enable = config.homeManager.cava.stylixTheme.enable or false;
-              rainbow.enable = config.homeManager.cava.stylixTheme.enable or false;
-            };
-            kitty = {
-              enable = true;
-              fonts.enable = false;
-              colors.enable = !(config.homeManager.kitty.barTheme.enable or false);
-              variant256Colors = !(config.homeManager.kitty.barTheme.enable or false);
-              opacity.enable = true;
-            };
-            ghostty = {
-              enable = true;
-              fonts.enable = false;
-              colors.enable = !(config.homeManager.ghostty.barTheme.enable or false);
-              opacity.enable = true;
-            };
-            starship = {
-              enable = config.homeManager.starship.stylixTheme.enable or false;
-              colors.enable = config.homeManager.starship.stylixTheme.enable or false;
-            };
-            nixcord.enable = config.homeManager.nixcord.stylixTheme.enable or false;
             spicetify.enable = true;
-            zed.enable = false; # bug not fixed, hardcoded theme in zed.nix
-            nixvim.enable = false;
             firefox = {
               enable = true;
               profileNames = [username];
               colorTheme.enable = true;
             };
-            # Avoid fetching GNOME Shell sources on non-GNOME systems (breaks on some remotes)
+            starship.enable = false; # let starship use terminal colors
+            zed.enable = false; # bug not fixed, hardcoded theme for zed
+            nixvim.enable = false; # use catpuccin with stylix color override
             gnome.enable = false;
             waybar.enable = false;
             rofi.enable = false;
             hyprland.enable = false;
             hyprlock.enable = false;
             kde.enable = false;
-            gtk.enable = config.homeManager.gtk.stylixTheme.enable or false;
-            qt = {
-              enable = config.homeManager.qt.stylixTheme.enable or false;
-              platform = "qtct";
-            };
           };
         }
         // (

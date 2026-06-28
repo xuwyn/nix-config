@@ -14,15 +14,17 @@
     '';
   in {
     home.file = {
+      "Pictures/Wallpapers" = {
+        source = ../../../wallpapers;
+        force = true;
+      };
+      ".face".source = ../face.jpg;
       ".local/state/noctalia/settings.toml".source = mkOutOfStoreSymlink "${configDir}/noctalia/settings.toml";
       ".config/kitty/themes".source = mkOutOfStoreSymlink "${configDir}/kitty/themes";
-      ".config/btop/themes".source = mkOutOfStoreSymlink "${configDir}/btop/themes";
-      ".config/cava/themes".source = mkOutOfStoreSymlink "${configDir}/cava/themes";
-      ".config/Equicord/themes".source = mkOutOfStoreSymlink "${configDir}/Equicord/themes";
       ".config/hypr/noctalia.lua".source = mkOutOfStoreSymlink "${configDir}/hypr/noctalia.lua";
     };
 
-    home.activation = {
+    home.activation = lib.mkIf (config.homeManager.hyprland.enable or false) {
       inherit reloadHyprland;
     };
   };

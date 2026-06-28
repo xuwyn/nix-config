@@ -1,5 +1,5 @@
 {config, ...}: let
-  inherit (config.homeManager.hyprland) browser terminal barChoice qylock;
+  inherit (config.homeManager.hyprland) browser terminal barName qylock;
 in {
   wayland.windowManager.hyprland.extraConfig = ''
     -- 1. WINDOW RESIZING
@@ -13,7 +13,7 @@ in {
     hl.bind("SUPER + mouse:273", hl.dsp.window.resize())
 
     ${
-      if barChoice == "noctalia"
+      if barName == "noctalia"
       then
         ''
           -- 3. NOCTALIA

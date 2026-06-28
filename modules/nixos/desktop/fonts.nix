@@ -31,6 +31,7 @@
           nerd-fonts.ubuntu
           nerd-fonts.jetbrains-mono
           nerd-fonts.fira-mono
+          nerd-fonts.noto
           noto-fonts
           noto-fonts-color-emoji
           noto-fonts-cjk-sans
