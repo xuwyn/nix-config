@@ -1,21 +1,22 @@
 {
-  flake.modules.nixos.stylix = {
+  flake.modules.nixos.desktop = {
     pkgs,
     inputs,
     config,
     lib,
     ...
   }: let
-    cfg = config.nixos.stylix;
+    cfg = config.nixos.desktop.stylix;
   in {
-    options.nixos.stylix = {
+    options.nixos.desktop.stylix = {
+      enable = lib.mkEnableOption "Enable stylix system wide (icons, plymouth, etc.)";
       image = lib.mkOption {
         type = lib.types.path;
         description = "Set Stylix Theme via Image Path (cannot be null)";
       };
     };
     imports = [inputs.stylix.nixosModules.stylix];
-    config = {
+    config = lib.mkIf cfg.enable {
       stylix = {
         enable = true;
         image = cfg.image;

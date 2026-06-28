@@ -1,13 +1,14 @@
 {
-  flake.modules.nixos.xserver = {
+  flake.modules.nixos.desktop = {
     config,
     lib,
     pkgs,
     ...
   }: let
-    cfg = config.nixos.xserver;
+    cfg = config.nixos.desktop.xserver;
   in {
-    options.nixos.xserver = {
+    options.nixos.desktop.xserver = {
+      enable = lib.mkEnableOption "Enable xserver for keyboard layout";
       keyboardLayout = lib.mkOption {
         type = lib.types.str;
         default = "us";
@@ -40,15 +41,16 @@
         else if builtins.elem cfg.keyboardLayout usVariants
         then normalize cfg.keyboardLayout
         else cfg.keyboardVariant;
-    in {
-      services.xserver = {
-        enable = true;
-        excludePackages = [pkgs.xterm];
-        xkb = {
-          layout = finalKbLayout;
-          variant = finalKbVariant;
+    in
+      lib.mkIf cfg.enable {
+        services.xserver = {
+          enable = true;
+          excludePackages = [pkgs.xterm];
+          xkb = {
+            layout = finalKbLayout;
+            variant = finalKbVariant;
+          };
         };
       };
-    };
   };
 }

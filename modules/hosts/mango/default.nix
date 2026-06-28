@@ -15,23 +15,9 @@ in {
       system
       user
 
-      # desktop
-      displayManager
-      fonts
-      hyprland
-      qylock
-      stylix
-      thunar
-      desktop-utils
-      xserver
-
-      # apps
-      gpu-screen-recorder
-      openrgb
-      steam
-
-      # services
-      printing
+      desktop
+      apps
+      services
 
       ({pkgs, ...}: {
         nixos = {
@@ -44,8 +30,32 @@ in {
             enable = true;
             package = pkgs.cachyosKernels.linuxPackages-cachyos-bore-lto-zen4;
           };
-          displayManager.mode = "silent";
-          stylix.image = stylixImage;
+          desktop = {
+            displayManager = {
+              enable = true;
+              mode = "silent";
+            };
+            qylock.enable = true;
+            hyprland.enable = true;
+            fonts.enable = true;
+            stylix = {
+              enable = true;
+              image = stylixImage;
+            };
+            thunar.enable = true;
+            xserver.enable = true;
+            utils.enable = true;
+          };
+          apps = {
+            gpu-screen-recorder.enable = true;
+            openrgb.enable = true;
+            steam.enable = true;
+          };
+          services = {
+            printing.enable = true;
+            nix-ld.enable = true;
+            syncthing.enable = true;
+          };
         };
       })
     ];

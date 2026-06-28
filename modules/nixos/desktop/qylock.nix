@@ -1,15 +1,16 @@
 {
-  flake.modules.nixos.qylock = {
+  flake.modules.nixos.desktop = {
     inputs,
     pkgs,
     config,
     lib,
     ...
   }: let
-    cfg = config.nixos.qylock;
-    qylockSDDMEnable = config.nixos.displayManager.mode == "qylock";
+    cfg = config.nixos.desktop.qylock;
+    qylockSDDMEnable = config.nixos.desktop.displayManager.mode == "qylock";
   in {
-    options.nixos.qylock = {
+    options.nixos.desktop.qylock = {
+      enable = lib.mkEnableOption "Enable qylock as lock screen and login screen";
       # See: https://github.com/Darkkal44/qylock/tree/main/themes
       # My favourites: "pixel-skyscrapers" "pixel-night-city" "pixel-dusk-city" "pixel-coffee"
       theme = lib.mkOption {
@@ -21,7 +22,7 @@
 
     imports = [inputs.qylock.nixosModules.default];
 
-    config = {
+    config = lib.mkIf cfg.enable {
       environment.systemPackages = with pkgs; [
         gst_all_1.gstreamer
         gst_all_1.gst-plugins-base

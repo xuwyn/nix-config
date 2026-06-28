@@ -1,26 +1,36 @@
 {
-  flake.modules.nixos.printing = {
+  flake.modules.nixos.services = {
     pkgs,
     username,
+    lib,
+    config,
     ...
-  }: {
-    users.users.${username} = {
-      extraGroups = ["lp" "scanner"];
+  }: let
+    cfg = config.nixos.services.printing;
+  in {
+    options.nixos.services.printing = {
+      enable = lib.mkEnableOption "Enable printing service";
     };
 
-    services = {
-      printing = {
-        enable = true;
-        drivers = [
-          # pkgs.hplipWithPlugin
-        ];
+    config = lib.mkIf cfg.enable {
+      users.users.${username} = {
+        extraGroups = ["lp" "scanner"];
       };
-      avahi = {
-        enable = true;
-        nssmdns4 = true;
-        openFirewall = true;
+
+      services = {
+        printing = {
+          enable = true;
+          drivers = [
+            # pkgs.hplipWithPlugin
+          ];
+        };
+        avahi = {
+          enable = true;
+          nssmdns4 = true;
+          openFirewall = true;
+        };
+        ipp-usb.enable = true;
       };
-      ipp-usb.enable = true;
     };
   };
 }
