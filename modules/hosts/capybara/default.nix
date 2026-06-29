@@ -9,53 +9,55 @@ in {
       home
       sops
       python
-      nh
-
-      # cli
-      fastfetch
-      bash
-      zsh
-      bat
-      bottom
-      htop
-      eza
-      fzf
-      git
-      starship
-      tealdeer
-      zoxide
-
-      # terminals
-      kitty
-
-      # apps
-      firefox
-
-      # editors
-      nano
-      nixvim
-      zed
-
-      # desktop
+      cli
+      terminals
+      apps
+      editors
+      theme
       xdg
       thunar
       yazi
-      fonts
-      stylix
 
       # extra
-      umbrella-fetch
       dev
       utils
       eyecandy
 
       (_: {
         homeManager = {
-          git = {
-            username = "wyn";
-            email = "173407133+xuwyn@users.noreply.github.com";
+          cli = {
+            zsh.enable = true;
+            bash.enable = true;
+            git = {
+              enable = true;
+              username = "wyn";
+              email = "173407133+xuwyn@users.noreply.github.com";
+            };
+            fastfetch.enable = true;
+            bottom.enable = true;
+            htop.enable = true;
+            eza.enable = true;
+            fzf.enable = true;
+            zoxide.enable = true;
+            bat.enable = true;
+            starship.enable = true;
+            nh.enable = true;
+            tealdeer.enable = true;
           };
-          stylix.image = stylixImage;
+          editors = {
+            zed.enable = true;
+            nano.enable = true;
+            nixvim.enable = true;
+          };
+          apps.firefox.enable = true;
+          terminals.kitty.enable = true;
+          theme = {
+            fonts.enable = true;
+            stylix = {
+              enable = true;
+              image = stylixImage;
+            };
+          };
         };
       })
     ];
