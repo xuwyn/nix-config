@@ -26,47 +26,54 @@ in {
       home
       sops
       python
-      nh
       yazi
-
-      # cli
-      fastfetch
-      bash
-      zsh
-      bat
-      btop
-      bottom
-      htop
-      eza
-      fzf
-      git
-      starship
-      tealdeer
-      zoxide
-
-      # editors
-      nano
-      nixvim
-
-      # theme
-      stylix
+      cli
+      editors
+      theme
 
       # extra
-      umbrella-fetch
       dev
       utils
       eyecandy
 
       (_: {
         homeManager = {
-          git = {
-            username = "wyn";
-            email = "173407133+xuwyn@users.noreply.github.com";
+          cli = {
+            zsh.enable = true;
+            bash.enable = true;
+            git = {
+              enable = true;
+              username = "wyn";
+              email = "173407133+xuwyn@users.noreply.github.com";
+            };
+            fastfetch = {
+              enable = true;
+              terminal = "wezterm";
+            };
+            btop = {
+              enable = true;
+              stylixTheme.enable = true;
+            };
+            bottom.enable = true;
+            htop.enable = true;
+            eza.enable = true;
+            fzf.enable = true;
+            zoxide.enable = true;
+            bat.enable = true;
+            starship.enable = true;
+            nh.enable = true;
+            tealdeer.enable = true;
           };
-          fastfetch.terminal = "wezterm";
-          btop.stylixTheme.enable = true;
-          cava.stylixTheme.enable = true;
-          stylix.image = stylixImage;
+          editors = {
+            nano.enable = true;
+            nixvim.enable = true;
+          };
+          theme = {
+            stylix = {
+              enable = true;
+              image = stylixImage;
+            };
+          };
         };
       })
     ];
