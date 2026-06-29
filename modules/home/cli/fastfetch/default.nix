@@ -89,6 +89,13 @@
             }
             {
               type = "command";
+              key = " ├  ";
+              keyColor = "green";
+              text = "polybar -v | head -n 1";
+              outputColor = "green";
+            }
+            {
+              type = "command";
               key = " ├ 󰏒 ";
               keyColor = "green";
               text = "noctalia --version";
