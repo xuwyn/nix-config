@@ -7,52 +7,33 @@ in {
     modules = with config.flake.modules.homeManager; [
       ./_gpu.nix
       home
-      cli
       sops
       python
-      nh
-      kitty
-
-      # apps
-      firefox
-      nixcord
-      spicetify
-
-      # editors
-      nano
-      nixvim
-      zed
+      cli
+      apps
+      editors
+      terminals
+      theme
 
       # desktop/i3
       i3
-      polybar
-      dunst
-      picom
       rofi
       xdg
       thunar
       yazi
-      fonts
-      stylix
-      gtk
 
       # extra
-      umbrella-fetch
       dev
       utils
       eyecandy
 
       (_: {
         homeManager = {
-          git = {
-            username = "wyn";
-            email = "173407133+xuwyn@users.noreply.github.com";
-          };
-          btop.stylixTheme.enable = true;
-          cava.stylixTheme.enable = true;
-          nixcord.stylixTheme.enable = true;
           i3 = {
             enable = true;
+            picom.enable = true;
+            dunst.enable = true;
+            polybar.enable = true;
             monitors = [
               {
                 name = "DP-2";
@@ -62,9 +43,58 @@ in {
             ];
             background = stylixImage;
           };
-          stylix.image = stylixImage;
-          rofi.background = stylixImage;
-          gtk.stylixTheme.enable = true;
+          cli = {
+            zsh.enable = true;
+            bash.enable = true;
+            git = {
+              enable = true;
+              username = "wyn";
+              email = "173407133+xuwyn@users.noreply.github.com";
+            };
+            btop = {
+              enable = true;
+              stylixTheme.enable = true;
+            };
+            cava = {
+              enable = true;
+              stylixTheme.enable = true;
+            };
+            fastfetch.enable = true;
+            bottom.enable = true;
+            htop.enable = true;
+            eza.enable = true;
+            fzf.enable = true;
+            zoxide.enable = true;
+            bat.enable = true;
+            starship.enable = true;
+            nh.enable = true;
+            tealdeer.enable = true;
+          };
+          editors = {
+            zed.enable = true;
+            nano.enable = true;
+            nixvim.enable = true;
+          };
+          apps = {
+            firefox.enable = true;
+            nixcord = {
+              enable = true;
+              stylixTheme.enable = true;
+            };
+            spicetify.enable = true;
+          };
+          terminals.kitty.enable = true;
+          theme = {
+            fonts.enable = true;
+            stylix = {
+              enable = true;
+              image = stylixImage;
+            };
+            gtk = {
+              enable = true;
+              stylixTheme.enable = true;
+            };
+          };
         };
       })
     ];

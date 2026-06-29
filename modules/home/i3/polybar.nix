@@ -181,8 +181,8 @@
           ;   <bar-load>
           ;   <ramp-load>
           ;   <ramp-coreload>
-          format = <ramp-load> <label>
-          format-warn = <ramp-load> <label-warn>
+          format = 󰓅 <label>
+          format-warn = 󰓅 <label-warn>
 
           label = %percentage%%
           label-warn= %{F#${config.lib.stylix.colors.base07}}%percentage%%%{F-}
