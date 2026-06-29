@@ -94,11 +94,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # quickshell lockscreens & more sddm themes
     qylock.url = "github:Darkkal44/qylock";
 
     quickshell = {
-      url = "git+https://git.outfoxxed.me/outfoxxed/quickshell";
+      url = "github:quickshell-mirror/quickshell/v0.3.0";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
