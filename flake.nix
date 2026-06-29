@@ -96,9 +96,11 @@
 
     qylock.url = "github:Darkkal44/qylock";
 
+    nixpkgs-qt.url = "github:nixos/nixpkgs/a799d3e3886da994fa307f817a6bc705ae538eeb";
+
     quickshell = {
       url = "github:quickshell-mirror/quickshell/v0.3.0";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "nixpkgs-qt";
     };
 
     umbrella-fetch = {
