@@ -5,7 +5,7 @@
     system,
     ...
   }: let
-    qtPkgs = import inputs.nixpkgs-qt {inherit system;};
+    qtPkgs = import inputs.nixpkgs-stable {inherit system;};
   in {
     home.packages = with qtPkgs; [
       inputs.quickshell.packages.${pkgs.stdenv.hostPlatform.system}.default

@@ -68,9 +68,19 @@ in {
       config.nixos;
     homeConfigurations =
       lib.mapAttrs (
-        name: cfg:
-          inputs.home-manager.lib.homeManagerConfiguration {
-            pkgs = import inputs.nixpkgs {
+        name: cfg: let
+          isMac = cfg.system == "aarch64-darwin" || cfg.system == "x86_64-darwin";
+          hmLib =
+            if isMac
+            then inputs.home-manager-stable.lib
+            else inputs.home-manager.lib;
+          chosenNixpkgs =
+            if isMac
+            then inputs.nixpkgs-stable
+            else inputs.nixpkgs;
+        in
+          hmLib.homeManagerConfiguration {
+            pkgs = import chosenNixpkgs {
               inherit (cfg) system;
               inherit overlays;
               config.allowUnfree = true;

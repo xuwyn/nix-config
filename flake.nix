@@ -9,6 +9,7 @@
       "https://nix-community.cachix.org"
       "https://noctalia.cachix.org"
       "https://cache.xinux.uz"
+      "https://zed-industries.cachix.org"
     ];
     trusted-public-keys = [
       "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
@@ -16,15 +17,22 @@
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
       "noctalia.cachix.org-1:pCOR47nnMEo5thcxNDtzWpOxNFQsBRglJzxWPp3dkU4="
       "cache.xinux.uz:BXCrtqejFjWzWEB9YuGB7X2MV4ttBur1N8BkwQRdH+0="
+      "zed-industries.cachix.org-1:fgVpvtdF+ssrgP1lB6EusuR3uM6bNcncWduKxri3u6Y="
     ];
   };
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs-stable.url = "github:nixos/nixpkgs/a799d3e3886da994fa307f817a6bc705ae538eeb";
 
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    home-manager-stable = {
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs-stable";
     };
 
     # den
@@ -96,11 +104,9 @@
 
     qylock.url = "github:Darkkal44/qylock";
 
-    nixpkgs-qt.url = "github:nixos/nixpkgs/a799d3e3886da994fa307f817a6bc705ae538eeb";
-
     quickshell = {
       url = "github:quickshell-mirror/quickshell/v0.3.0";
-      inputs.nixpkgs.follows = "nixpkgs-qt";
+      inputs.nixpkgs.follows = "nixpkgs-stable";
     };
 
     umbrella-fetch = {
