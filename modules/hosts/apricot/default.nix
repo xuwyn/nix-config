@@ -18,6 +18,7 @@ in {
       terminals
       yazi
       theme
+      aerospace
 
       # extra
       dev
@@ -26,6 +27,7 @@ in {
 
       (_: {
         homeManager = {
+          aerospace.enable = true;
           cli = {
             zsh.enable = true;
             bash.enable = true;
