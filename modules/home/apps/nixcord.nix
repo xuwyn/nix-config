@@ -42,7 +42,9 @@
             enabledThemes =
               if !cfg.stylixTheme.enable
               then cfg.themes
-              else ["stylix.theme.css"];
+              else if cfg.stylixTheme.enable && isStylixEnabled
+              then ["stylix.theme.css"]
+              else [];
             plugins = {
               alwaysAnimate.enable = true;
               betterGifAltText.enable = true;

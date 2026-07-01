@@ -35,12 +35,12 @@
             name = "JetBrains Mono";
           };
           sansSerif = {
-            package = pkgs.montserrat;
-            name = "Montserrat";
+            package = pkgs.nerd-fonts.noto;
+            name = "Noto Sans";
           };
           serif = {
-            package = pkgs.montserrat;
-            name = "Montserrat";
+            package = pkgs.nerd-fonts.noto;
+            name = "Noto Serif";
           };
           sizes = {
             applications = 12;

@@ -7,8 +7,15 @@
     ...
   }: let
     cfg = config.homeManager.cli.git;
-    accent = "#${config.lib.stylix.colors.base0D}";
-    muted = "#${config.lib.stylix.colors.base03}";
+    isStylixEnabled = config.homeManager.theme.stylix.enable or false;
+    accent =
+      if isStylixEnabled
+      then "#" + config.lib.stylix.colors.base0D
+      else "#89b4fa";
+    muted =
+      if isStylixEnabled
+      then "#" + config.lib.stylix.colors.base03
+      else "#585b70";
   in {
     options.homeManager.cli.git = {
       enable = lib.mkEnableOption "Enable Git and lazygit";

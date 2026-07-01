@@ -6,6 +6,20 @@
     ...
   }: let
     cfg = config.homeManager.rofi;
+    isStylixEnabled = config.homeManager.theme.stylix.enable or false;
+    colors =
+      if isStylixEnabled
+      then config.lib.stylix.colors.withHashtag
+      else {
+        base00 = "#1e1e2e";
+        base01 = "#181825";
+        base05 = "#cdd6f4";
+        base08 = "#f38ba8";
+        base09 = "#fab387";
+        base0B = "#a6e3a1";
+        base0E = "#cba6f7";
+        base0F = "#f2cdcd";
+      };
   in {
     options.homeManager.rofi = {
       background = lib.mkOption {
@@ -36,15 +50,15 @@
           inherit (config.lib.formats.rasi) mkLiteral;
         in {
           "*" = {
-            bg = mkLiteral "#${config.stylix.base16Scheme.base00}";
-            bg-alt = mkLiteral "#${config.stylix.base16Scheme.base09}";
-            foreground = mkLiteral "#${config.stylix.base16Scheme.base01}";
-            selected = mkLiteral "#${config.stylix.base16Scheme.base08}";
-            active = mkLiteral "#${config.stylix.base16Scheme.base0B}";
-            text-selected = mkLiteral "#${config.stylix.base16Scheme.base00}";
-            text-color = mkLiteral "#${config.stylix.base16Scheme.base05}";
-            border-color = mkLiteral "#${config.stylix.base16Scheme.base0F}";
-            urgent = mkLiteral "#${config.stylix.base16Scheme.base0E}";
+            bg = mkLiteral colors.base00;
+            bg-alt = mkLiteral colors.base09;
+            foreground = mkLiteral colors.base01;
+            selected = mkLiteral colors.base08;
+            active = mkLiteral colors.base0B;
+            text-selected = mkLiteral colors.base00;
+            text-color = mkLiteral colors.base05;
+            border-color = mkLiteral colors.base0F;
+            urgent = mkLiteral colors.base0E;
           };
           "window" = {
             transparency = "real";

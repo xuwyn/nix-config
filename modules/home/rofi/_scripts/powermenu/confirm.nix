@@ -1,4 +1,18 @@
-{config}: {
+{config}: let
+  isStylixEnabled = config.homeManager.theme.stylix.enable or false;
+
+  colors =
+    if isStylixEnabled
+    then config.lib.stylix.colors
+    else {
+      base00 = "1e1e2e";
+      base01 = "181825";
+      base05 = "cdd6f4";
+      base0D = "89b4fa";
+      base0B = "a6e3a1";
+      base08 = "f38ba8";
+    };
+in {
   text = ''
     /**
      *
@@ -16,12 +30,12 @@
 
     /*****----- Global Properties -----*****/
     * {
-      background:     #${config.lib.stylix.colors.base00}FF;
-      background-alt: #${config.lib.stylix.colors.base01}FF;
-      foreground:     #${config.lib.stylix.colors.base05}FF;
-      selected:       #${config.lib.stylix.colors.base0D}FF;
-      active:         #${config.lib.stylix.colors.base0B}FF;
-      urgent:         #${config.lib.stylix.colors.base08}FF;
+      background:     #${colors.base00}FF;
+      background-alt: #${colors.base01}FF;
+      foreground:     #${colors.base05}FF;
+      selected:       #${colors.base0D}FF;
+      active:         #${colors.base0B}FF;
+      urgent:         #${colors.base08}FF;
 
       font: "JetBrains Mono Nerd Font 12";
     }
@@ -35,7 +49,7 @@
         width:                       400px;
         border-radius:               20px;
         cursor:                      "default";
-        background-color:            black/20%;
+        background-color:            black/50%;
     }
 
     /*****----- Main Box -----*****/

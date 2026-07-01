@@ -5,9 +5,19 @@
     ...
   }: let
     cfg = config.homeManager.cli;
-    accent = "#" + config.lib.stylix.colors.base0D;
-    foreground = "#" + config.lib.stylix.colors.base05;
-    muted = "#" + config.lib.stylix.colors.base03;
+    isStylixEnabled = config.homeManager.theme.stylix.enable or false;
+    accent =
+      if isStylixEnabled
+      then "#" + config.lib.stylix.colors.base0D
+      else "#89b4fa";
+    foreground =
+      if isStylixEnabled
+      then "#" + config.lib.stylix.colors.base05
+      else "#cdd6f4";
+    muted =
+      if isStylixEnabled
+      then "#" + config.lib.stylix.colors.base03
+      else "#585b70";
   in {
     options.homeManager.cli = {
       zoxide.enable = lib.mkEnableOption "fast cd";

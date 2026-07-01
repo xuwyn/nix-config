@@ -7,6 +7,7 @@
     ...
   }: let
     cfg = config.homeManager.editors.nixvim;
+    isStylixEnabled = config.homeManager.theme.stylix.enable or false;
   in {
     options.homeManager.editors.nixvim = {
       enable = lib.mkEnableOption "Enable nixvim";
@@ -48,38 +49,42 @@
 
         colorschemes.catppuccin = {
           enable = true;
-          settings = {
-            flavour = "mocha"; # "latte", "mocha", "frappe", "macchiato", "auto"
-            transparent_background = true;
-            integrations = {
-              lualine = true;
-              bufferline = true;
-            };
-            # get stylix base16 colors
-            color_overrides.all = {
-              base = "#${config.lib.stylix.colors.base00}"; # Default Background
-              mantle = "#${config.lib.stylix.colors.base01}"; # Darker Background
-              crust = "#${config.lib.stylix.colors.base01}"; # Darkest Background
+          settings = lib.mkMerge [
+            {
+              flavour = "mocha"; # "latte", "mocha", "frappe", "macchiato", "auto"
+              transparent_background = true;
+              integrations = {
+                lualine = true;
+                bufferline = true;
+              };
+            }
+            (lib.mkIf isStylixEnabled {
+              # get stylix base16 colors
+              color_overrides.all = {
+                base = "#${config.lib.stylix.colors.base00}"; # Default Background
+                mantle = "#${config.lib.stylix.colors.base01}"; # Darker Background
+                crust = "#${config.lib.stylix.colors.base01}"; # Darkest Background
 
-              surface0 = "#${config.lib.stylix.colors.base02}"; # Selection Background
-              surface1 = "#${config.lib.stylix.colors.base03}"; # Comments / Muted text
-              surface2 = "#${config.lib.stylix.colors.base04}"; # Dark Foreground
+                surface0 = "#${config.lib.stylix.colors.base02}"; # Selection Background
+                surface1 = "#${config.lib.stylix.colors.base03}"; # Comments / Muted text
+                surface2 = "#${config.lib.stylix.colors.base04}"; # Dark Foreground
 
-              text = "#${config.lib.stylix.colors.base05}"; # Default Foreground
-              subtext1 = "#${config.lib.stylix.colors.base06}"; # Light Foreground
-              subtext0 = "#${config.lib.stylix.colors.base07}"; # Lightest Foreground
+                text = "#${config.lib.stylix.colors.base05}"; # Default Foreground
+                subtext1 = "#${config.lib.stylix.colors.base06}"; # Light Foreground
+                subtext0 = "#${config.lib.stylix.colors.base07}"; # Lightest Foreground
 
-              # Color Accents
-              red = "#${config.lib.stylix.colors.base08}";
-              peach = "#${config.lib.stylix.colors.base09}";
-              yellow = "#${config.lib.stylix.colors.base0A}";
-              green = "#${config.lib.stylix.colors.base0B}";
-              teal = "#${config.lib.stylix.colors.base0C}";
-              blue = "#${config.lib.stylix.colors.base0D}";
-              mauve = "#${config.lib.stylix.colors.base0E}";
-              rosewater = "#${config.lib.stylix.colors.base0F}";
-            };
-          };
+                # Color Accents
+                red = "#${config.lib.stylix.colors.base08}";
+                peach = "#${config.lib.stylix.colors.base09}";
+                yellow = "#${config.lib.stylix.colors.base0A}";
+                green = "#${config.lib.stylix.colors.base0B}";
+                teal = "#${config.lib.stylix.colors.base0C}";
+                blue = "#${config.lib.stylix.colors.base0D}";
+                mauve = "#${config.lib.stylix.colors.base0E}";
+                rosewater = "#${config.lib.stylix.colors.base0F}";
+              };
+            })
+          ];
         };
 
         plugins = {
@@ -438,8 +443,17 @@
           -- Notify background using Stylix palette
           local ok, notify = pcall(require, 'notify')
           if ok then
-            notify.setup({ background_colour = "#${config.lib.stylix.colors.base01}" })
-            vim.notify = notify
+          ${
+            if isStylixEnabled
+            then ''
+              notify.setup({ background_colour = "#${config.lib.stylix.colors.base01}" })
+              vim.notify = notify
+            ''
+            else ''
+              notify.setup({ background_colour = "#181825" })
+              vim.notify = notify
+            ''
+          }
           end
 
 

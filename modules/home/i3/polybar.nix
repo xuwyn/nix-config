@@ -6,6 +6,29 @@
     ...
   }: let
     cfg = config.homeManager.i3.polybar;
+    isStylixEnabled = config.homeManager.theme.stylix.enable or false;
+    colors =
+      if isStylixEnabled
+      then {
+        background = config.lib.stylix.colors.base00;
+        backgroundAlt = config.lib.stylix.colors.base01;
+        base02 = config.lib.stylix.colors.base02;
+        base03 = config.lib.stylix.colors.base03;
+        foreground = config.lib.stylix.colors.base05;
+        base07 = config.lib.stylix.colors.base07;
+        base08 = config.lib.stylix.colors.base08;
+        primary = config.lib.stylix.colors.base0D;
+      }
+      else {
+        background = "1e1e2e"; # Base
+        backgroundAlt = "181825"; # Mantle
+        base02 = "313244"; # Surface0
+        base03 = "45475a"; # Surface1
+        foreground = "cdd6f4"; # Text
+        base07 = "b4befe"; # Lavender (used as accent here)
+        base08 = "f38ba8"; # Red (used for urgent)
+        primary = "89b4fa"; # Blue
+      };
   in {
     options.homeManager.i3.polybar = {
       enable = lib.mkEnableOption "Enable polybar";
@@ -40,11 +63,10 @@
             font-1 = "JetBrainsMono Nerd Font:size=12;2";
             font-2 = "Noto Sans CJK JP:size=10;2";
 
-            # Stylix color integration with transparency prefix
-            background = "#90${config.lib.stylix.colors.base00}";
-            foreground = "#${config.lib.stylix.colors.base05}";
-            background-alt = "#${config.lib.stylix.colors.base01}";
-            primary = "#${config.lib.stylix.colors.base0D}";
+            background = "#90${colors.background}";
+            foreground = "#${colors.foreground}";
+            background-alt = "#${colors.backgroundAlt}";
+            primary = "#${colors.primary}";
           };
         };
 
@@ -66,24 +88,24 @@
 
           ; Focused workspace on active monitor
           label-focused = %index%
-          label-focused-background = #${config.lib.stylix.colors.base02}
-          label-focused-foreground = #${config.lib.stylix.colors.base05}
-          label-focused-underline = #${config.lib.stylix.colors.base0D}
+          label-focused-background = #313244
+          label-focused-foreground = #${colors.foreground}
+          label-focused-underline = #${colors.primary}
           label-focused-padding = 2
 
           ; Unfocused workspace on any monitor (has windows open but not viewed right now)
           label-unfocused = %index%
           label-unfocused-padding = 2
-          label-unfocused-foreground = #${config.lib.stylix.colors.base03}
+          label-unfocused-foreground = #${colors.base03}
 
           ; Visible workspace on an inactive monitor (for multi-monitor setups)
           label-visible = %index%
-          label-visible-background = #${config.lib.stylix.colors.base01}
+          label-visible-background = #${colors.backgroundAlt}
           label-visible-padding = 2
 
           ; Urgent workspace (e.g., a window demands attention)
           label-urgent = %index%
-          label-urgent-background = #${config.lib.stylix.colors.base07}
+          label-urgent-background = #${colors.base07}
           label-urgent-padding = 2
 
           [module/date]
@@ -112,7 +134,7 @@
           format-volume = <ramp-volume> <label-volume>
 
           format-muted = 󰝟 0%
-          format-muted-foreground = #${config.lib.stylix.colors.base07}
+          format-muted-foreground = #${colors.base07}
 
           click-right = pavucontrol
 
@@ -122,13 +144,13 @@
           base-temperature = 20
           warn-temperature = 70
           hwmon-path = "''${env:CPU_HWMON_PATH}"
-          label-warn-foreground = #${config.lib.stylix.colors.base07}
+          label-warn-foreground = #${colors.base07}
           format = <ramp> <label>
           format-warn = <ramp> <label-warn>
           ramp-0 = 
           ramp-1 = 
           ramp-2 = 
-          ; ramp-foreground = #${config.lib.stylix.colors.base07}
+          ; ramp-foreground = #${colors.base07}
 
           [module/wireless-network]
           type = internal/network
@@ -148,17 +170,13 @@
           ;   %upspeed%
           ;   %downspeed%
           label-connected = %{A1:nm-connection-editor:}%essid%%{A}
-          ; label-connected-foreground = #${config.lib.stylix.colors.base05}
-
           label-disconnected = 󰤮 Disconnected
-          ; label-disconnected-foreground = #${config.lib.stylix.colors.base03}
 
           ramp-signal-0 = 󰤯
           ramp-signal-1 = 󰤟
           ramp-signal-2 = 󰤢
           ramp-signal-3 = 󰤥
           ramp-signal-4 = 󰤨
-          ; ramp-signal-foreground = #${config.lib.stylix.colors.base0B}
 
           [module/memory]
           type = internal/memory
@@ -169,7 +187,7 @@
           format-warn = <label-warn>
 
           label =  %gb_used% / %gb_total%
-          label-warn =  %{F#${config.lib.stylix.colors.base07}}%gb_used%%{F-} / %gb_total%
+          label-warn =  %{F#${colors.base07}}%gb_used%%{F-} / %gb_total%
 
           [module/cpu]
           type = internal/cpu
@@ -185,7 +203,7 @@
           format-warn = 󰓅 <label-warn>
 
           label = %percentage%%
-          label-warn= %{F#${config.lib.stylix.colors.base07}}%percentage%%%{F-}
+          label-warn= %{F#${colors.base07}}%percentage%%%{F-}
 
           ramp-load-0 = ▁
           ramp-load-1 = ▂

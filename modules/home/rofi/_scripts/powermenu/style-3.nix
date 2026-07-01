@@ -31,7 +31,7 @@
         textbox-font:                "JetBrains Mono Nerd Font 12";
         element-text-font:           "JetBrains Mono Nerd Font 48";
 
-        background-window:           black/20%;
+        background-window:           black/50%;
         background-normal:           white/5%;
         background-selected:         white/15%;
         foreground-normal:           white;
