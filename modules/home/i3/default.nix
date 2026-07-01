@@ -85,8 +85,8 @@
             };
 
             gaps = {
-              inner = 6;
-              outer = 10;
+              inner = 5;
+              outer = 5;
             };
 
             # Assign workspaces to specific monitor

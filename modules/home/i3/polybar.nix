@@ -53,7 +53,7 @@
             modules-right = "volume wireless-network time date";
 
             module-margin = 2;
-            border-top-size = 12;
+            border-top-size = 5;
             border-left-size = 15;
             border-right-size = 15;
             padding = 3;
