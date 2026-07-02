@@ -28,7 +28,7 @@ in {
       utils
       eyecandy
 
-      (_: {
+      ({pkgs, ...}: {
         homeManager = {
           i3 = {
             enable = true;
@@ -86,7 +86,16 @@ in {
           };
           terminals.kitty.enable = true;
           theme = {
-            fonts.enable = true;
+            fonts = {
+              enable = true;
+              extraFonts = with pkgs; [
+                nerd-fonts.jetbrains-mono
+                nerd-fonts.noto
+                noto-fonts-cjk-sans
+                noto-fonts-cjk-serif
+                dejavu_fonts
+              ];
+            };
             stylix = {
               enable = true;
               image = stylixImage;

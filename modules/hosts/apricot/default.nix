@@ -62,6 +62,7 @@ in {
           };
           terminals.kitty.enable = true;
           theme = {
+            fonts.enable = true;
             stylix = {
               enable = true;
               image = stylixImage;
