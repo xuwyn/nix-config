@@ -14,6 +14,7 @@ in {
       editors
       terminals
       theme
+      syncthing
 
       # desktop/i3
       i3

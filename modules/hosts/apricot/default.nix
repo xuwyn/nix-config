@@ -12,6 +12,7 @@ in {
       inputs.mac-app-util.homeManagerModules.default
       home
       sops
+      syncthing
       python
       cli
       editors

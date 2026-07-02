@@ -17,6 +17,7 @@ in {
       xdg
       thunar
       yazi
+      syncthing
 
       # extra
       dev
