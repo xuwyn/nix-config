@@ -42,10 +42,13 @@
           enable = true;
           lfs.enable = true;
           signing = {
-            key = "${config.home.homeDirectory}/.ssh/id_ed25519";
+            key = config.sops.secrets.private_ssh_key.path;
             signByDefault = true;
           };
           settings = {
+            core = {
+              sshCommand = "ssh -i ${config.sops.secrets.private_ssh_key.path}";
+            };
             user = {
               name = cfg.username;
               email = cfg.email;

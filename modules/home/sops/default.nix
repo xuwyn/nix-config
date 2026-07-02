@@ -8,6 +8,7 @@
     imports = [inputs.sops-nix.homeManagerModules.sops];
     home.packages = with pkgs; [
       age # sops key
+      sops
     ];
     sops = {
       # Path to keys
@@ -19,14 +20,9 @@
 
       # What to decrypt and where to put them
       secrets = {
-        "private_ssh_key" = {
-          path = "${config.home.homeDirectory}/.ssh/id_ed25519";
-          mode = "0600";
-        };
-        "public_ssh_key" = {
-          path = "${config.home.homeDirectory}/.ssh/id_ed25519.pub";
-          mode = "0644";
-        };
+        "private_ssh_key" = {};
+        "public_ssh_key" = {};
+        "syncthing_password" = {};
       };
     };
   };

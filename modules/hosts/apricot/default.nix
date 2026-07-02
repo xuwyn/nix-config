@@ -27,7 +27,6 @@ in {
 
       (_: {
         homeManager = {
-          aerospace.enable = true;
           cli = {
             zsh.enable = true;
             bash.enable = true;

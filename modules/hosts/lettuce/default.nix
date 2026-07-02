@@ -11,11 +11,6 @@ in {
       security
       system
       user
-      (_: {
-        nixos = {
-          network.hostId = "ff56a61b"; # not really neccesary lol
-        };
-      })
     ];
   };
 

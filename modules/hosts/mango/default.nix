@@ -24,7 +24,6 @@ in {
             nvidiaID = "PCI:1:0:0";
             amdgpuID = "PCI:15:0:0";
           };
-          network.hostId = "5ab03f50";
           boot.cachyOSKernel = {
             enable = true;
             package = pkgs.cachyosKernels.linuxPackages-cachyos-bore-lto-zen4;
@@ -53,7 +52,6 @@ in {
           services = {
             printing.enable = true;
             nix-ld.enable = true;
-            syncthing.enable = true;
           };
         };
       })
@@ -73,6 +71,7 @@ in {
       apps
       editors
       theme
+      syncthing
 
       # desktop/hyprland
       dotfiles
