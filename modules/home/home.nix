@@ -22,6 +22,7 @@
     nix = {
       package = pkgs.nix;
       settings = {
+        accept-flake-config = true;
         experimental-features = [
           "nix-command"
           "flakes"
