@@ -351,22 +351,6 @@ mkdir -p ~/.config/pacman
 echo 'PKG_CONFIG_PATH="/usr/lib/pkgconfig:/usr/share/pkgconfig"' >> ~/.config/pacman/makepkg.conf
 ```
 
-#### Debian-based Distros
-
-Change the environment variables of the command with `env`
-
-```sh
-env PKG_CONFIG_PATH="/usr/lib/x86_64-linux-gnu/pkgconfig:/usr/lib/pkgconfig:/usr/share/pkgconfig" <my-command>
-```
-
-Or reserve a shell for `apt` or any command that needs native host environment.
-For example, disable `bash` in Home Manager and set `PKG_CONFIG_PATH` for it
-
-```bash
-bash
-export PKG_CONFIG_PATH="/usr/lib/x86_64-linux-gnu/pkgconfig:/usr/lib/pkgconfig:/usr/share/pkgconfig"
-```
-
 ## Acknowledgement
 
 Huge thanks to everyone whose configurations I have referenced for the past two months learning Nix!
