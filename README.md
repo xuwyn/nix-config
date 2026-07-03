@@ -1,4 +1,4 @@
-# A Half-baked Dendritic Nix Config
+<h2 align="center">Half-baked Dendritic Nix Config</h2>
 
 My personal config for NixOS and Home Manager running on `x86_64-linux` and `aarch64-darwin`.
 Currently, I have no desire to fully transform every hosts I have into NixOS,
@@ -11,6 +11,8 @@ so most features are in Home Manager for portability.
 ![Hyprland + Noctalia Screenshot](./previews/hyprland-noctalia.png)
 
 ### i3 + Polybar
+
+![i3 + Polybar Screenshot](./previews/i3-polybar.png)
 
 ## Overview
 
