@@ -289,9 +289,6 @@ nh home switch --accept-flake-config --dry
 
 # apply changes after build
 nh home switch --accept-flake-config
-
-# switch with backup files
-nh home switch -b bak --accept-flake-config
 ```
 
 ### Garbage Collector
