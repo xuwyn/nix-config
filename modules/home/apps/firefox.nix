@@ -8,7 +8,8 @@
     ...
   }: let
     cfg = config.homeManager.apps.firefox;
-    inherit (inputs.firefox-addons.lib.${pkgs.stdenv.hostPlatform.system}) buildFirefoxXpiAddon;
+    isStylixEnabled = config.homeManager.theme.stylix.enable or false;
+    # inherit (inputs.firefox-addons.lib.${pkgs.stdenv.hostPlatform.system}) buildFirefoxXpiAddon;
     #   pywalfox = buildFirefoxXpiAddon rec {
     #     pname = "pywalfox";
     #     version = "2.1.0";
@@ -24,70 +25,80 @@
     options.homeManager.apps.firefox = {
       enable = lib.mkEnableOption "Enable firefox user profile";
     };
-    config = lib.mkIf cfg.enable {
-      # home.packages = with pkgs; [
-      #   pywalfox-native
-      # ];
-
-      programs.firefox = {
-        enable = true;
-        configPath = "${config.xdg.configHome}/mozilla/firefox";
-
-        # System-level policies
-        policies = {
-          DisableTelemetry = true;
-          DisableFirefoxStudies = true;
-          DisablePocket = true;
-          BlockAboutConfig = false;
-          OfferToSaveLogins = false;
+    config = lib.mkIf cfg.enable (lib.mkMerge [
+      (lib.mkIf (isStylixEnabled && config ? stylix) {
+        stylix.targets.firefox = {
+          enable = true;
+          profileNames = [username];
+          colorTheme.enable = true;
         };
+      })
 
-        # nativeMessagingHosts = [pkgs.pywalfox-native];
+      {
+        # home.packages = with pkgs; [
+        #   pywalfox-native
+        # ];
 
-        profiles.${username} = {
-          name = username;
-          isDefault = true;
+        programs.firefox = {
+          enable = true;
+          configPath = "${config.xdg.configHome}/mozilla/firefox";
 
-          extensions.force = true; # enable overwrite
-          extensions.packages = with pkgs.nur.repos.rycee.firefox-addons;
-            [
-              ublock-origin
-              old-reddit-redirect
-              reddit-enhancement-suite
-              tree-style-tab
-              don-t-fuck-with-paste
-              return-youtube-dislikes
-              youtube-nonstop
-              darkreader
-              ctrl-number-to-switch-tabs
-            ]
-            ++ (with customAddons; [
-              # pywalfox
-            ]);
+          # System-level policies
+          policies = {
+            DisableTelemetry = true;
+            DisableFirefoxStudies = true;
+            DisablePocket = true;
+            BlockAboutConfig = false;
+            OfferToSaveLogins = false;
+          };
 
-          settings = {
-            # Enable theming by stylix
-            "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
+          # nativeMessagingHosts = [pkgs.pywalfox-native];
 
-            # Clean up Firefox Home Content (New Tab Page)
-            "browser.newtabpage.activity-stream.nova.enabled" = false;
-            "browser.newtabpage.activity-stream.feeds.weatherfeed" = false;
-            "browser.newtabpage.activity-stream.feeds.section.topstories" = false;
-            "browser.newtabpage.activity-stream.feeds.topsites" = false;
-            "browser.newtabpage.activity-stream.showSponsored" = false;
-            "browser.newtabpage.activity-stream.showSponsoredCheckboxes" = false;
-            "browser.newtabpage.activity-stream.showSponsoredTopSites" = false;
-            "browser.newtabpage.activity-stream.showWeather" = false;
-            "browser.newtabpage.activity-stream.showSearch" = false;
-            "browser.newtabpage.activity-stream.system.showWeather" = false;
-            "browser.newtabpage.activity-stream.widgets.system.weather.enabled" = false;
-            "browser.newtabpage.activity-stream.widgets.weather.enabled" = false;
+          profiles.${username} = {
+            name = username;
+            isDefault = true;
 
-            # Resume previous browser session
-            "browser.startup.page" = 3;
+            extensions.force = true; # enable overwrite
+            extensions.packages = with pkgs.nur.repos.rycee.firefox-addons;
+              [
+                ublock-origin
+                old-reddit-redirect
+                reddit-enhancement-suite
+                tree-style-tab
+                don-t-fuck-with-paste
+                return-youtube-dislikes
+                youtube-nonstop
+                darkreader
+                ctrl-number-to-switch-tabs
+              ]
+              ++ (with customAddons; [
+                # pywalfox
+              ]);
+
+            settings = {
+              # Enable theming by stylix
+              "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
+
+              # Clean up Firefox Home Content (New Tab Page)
+              "browser.newtabpage.activity-stream.nova.enabled" = false;
+              "browser.newtabpage.activity-stream.feeds.weatherfeed" = false;
+              "browser.newtabpage.activity-stream.feeds.section.topstories" = false;
+              "browser.newtabpage.activity-stream.feeds.topsites" = false;
+              "browser.newtabpage.activity-stream.showSponsored" = false;
+              "browser.newtabpage.activity-stream.showSponsoredCheckboxes" = false;
+              "browser.newtabpage.activity-stream.showSponsoredTopSites" = false;
+              "browser.newtabpage.activity-stream.showWeather" = false;
+              "browser.newtabpage.activity-stream.showSearch" = false;
+              "browser.newtabpage.activity-stream.system.showWeather" = false;
+              "browser.newtabpage.activity-stream.widgets.system.weather.enabled" = false;
+              "browser.newtabpage.activity-stream.widgets.weather.enabled" = false;
+
+              # Resume previous browser session
+              "browser.startup.page" = 3;
+            };
           };
         };
-      };
-    };
+      }
+    ]);
   };
 }
