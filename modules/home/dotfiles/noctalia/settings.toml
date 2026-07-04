@@ -5,6 +5,7 @@ capsule_border = "primary"
 capsule_foreground = "primary"
 center = [ "group:g3" ]
 end = [ "recorder", "group:g1", "group:g2" ]
+font_family = "Maple Mono NF"
 margin_edge = 0
 margin_ends = 12
 padding = 6

@@ -15,7 +15,6 @@
       guiAddress = "https://127.0.0.1:8384";
       overrideFolders = true;
       settings = {
-        urAccepted = -1; # do not submit anonymous usage data
         folders = {
           "Shared" = {
             id = "e4820aa7e79671fc";
