@@ -58,6 +58,7 @@ in {
             starship.enable = true;
             nh.enable = true;
             tealdeer.enable = true;
+            nix-search-tv.enable = true;
           };
           editors = {
             nano.enable = true;
