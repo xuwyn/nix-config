@@ -136,6 +136,7 @@ in {
             nh.enable = true;
             tealdeer.enable = true;
             nix-search-tv.enable = true;
+            television.enable = true;
           };
           editors = {
             zed.enable = true;
