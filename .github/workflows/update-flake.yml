@@ -8,16 +8,46 @@ on:
 jobs:
   nix-flake-update:
     runs-on: ubuntu-latest
+    if: ${{ github.repository == 'xuwyn/nix-config' }}
     permissions:
       contents: write
       pull-requests: write
     steps:
       - uses: actions/checkout@v6
+
       - uses: cachix/install-nix-action@v31
-      - run: nix flake update
-      - uses: DeterminateSystems/update-flake-lock@main
         with:
-          pr-title: "chore(flake): update flake.lock"
-          pr-labels: |
+          github_access_token: ${{ secrets.GITHUB_TOKEN }}
+          extra_nix_config: |
+            substituters = https://cache.nixos.org https://hyprland.cachix.org https://nix-community.cachix.org https://noctalia.cachix.org https://cache.xinux.uz https://zed-industries.cachix.org
+            trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc= nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs= noctalia.cachix.org-1:pCOR47nnMEo5thcxNDtzWpOxNFQsBRglJzxWPp3dkU4= cache.xinux.uz:BXCrtqejFjWzWEB9YuGB7X2MV4ttBur1N8BkwQRdH+0= zed-industries.cachix.org-1:fgVpvtdF+ssrgP1lB6EusuR3uM6bNcncWduKxri3u6Y=
+
+      - name: update flake.lock 
+        run: nix flake update 2> log
+
+      - name: run flake check
+        run: nix flake check
+
+      - name: parse commit message body
+        run: |
+          delim=$(openssl rand -hex 8)
+          echo "COMMIT_MSG<<$delim" >> $GITHUB_ENV
+          echo "chore(flake): update flake.lock" >> $GITHUB_ENV
+          echo "" >> $GITHUB_ENV
+          cat log >> $GITHUB_ENV
+          echo "$delim" >> $GITHUB_ENV
+
+      - uses: peter-evans/create-pull-request@v8
+        with: 
+          title: "chore(flake): update flake.lock" 
+          body-path: ./log
+          branch: automated/flake-update
+          commit-message: ${{ env.COMMIT_MSG }}
+          labels: |
             dependencies
             automated
+
+
+
+
+
