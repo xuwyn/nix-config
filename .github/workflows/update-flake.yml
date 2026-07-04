@@ -14,8 +14,6 @@ jobs:
       pull-requests: write
     steps:
       - uses: actions/checkout@v6
-        with:
-          lfs: true
 
       - uses: cachix/install-nix-action@v31
 
