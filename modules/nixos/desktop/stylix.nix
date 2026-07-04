@@ -35,8 +35,8 @@
             name = "JetBrains Mono";
           };
           sansSerif = {
-            package = pkgs.maple-mono.NF;
-            name = "Maple Mono NF";
+            package = pkgs.nerd-fonts.noto;
+            name = "Noto Sans";
           };
           serif = {
             package = pkgs.nerd-fonts.noto;

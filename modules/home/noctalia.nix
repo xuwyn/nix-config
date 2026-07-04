@@ -47,6 +47,7 @@
         };
         shell = {
           avatar_path = "${config.home.homeDirectory}/.face";
+          font_family = "Maple Mono NF";
           date_format = "%A, %Y %b %d";
           launch_apps_as_systemd_services = true;
           settings_show_advanced = true;

@@ -33,6 +33,8 @@
             gnome.enable = false;
             waybar.enable = false;
             rofi.enable = false;
+            noctalia.enable = false;
+            noctalia-shell.enable = false;
             hyprland.enable = false;
             hyprlock.enable = false;
             kde.enable = false;
@@ -60,8 +62,6 @@
                 name = "JetBrains Mono";
               };
               sansSerif = {
-                # package = pkgs.maple-mono.NF;
-                # name = "Maple Mono NF";
                 package = pkgs.nerd-fonts.noto;
                 name = "Noto Sans";
               };
