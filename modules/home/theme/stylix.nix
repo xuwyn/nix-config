@@ -27,15 +27,9 @@
           opacity.terminal = 0.95;
           polarity = "dark";
           targets = {
-            spicetify.enable = true;
-            firefox = {
-              enable = true;
-              profileNames = [username];
-              colorTheme.enable = true;
-            };
             starship.enable = false; # let starship use terminal colors
             zed.enable = false; # bug not fixed, hardcoded theme for zed
-            nixvim.enable = false; # use catpuccin with stylix color override
+            nixvim.enable = false; # use catppuccin with stylix color override
             gnome.enable = false;
             waybar.enable = false;
             rofi.enable = false;
@@ -66,8 +60,10 @@
                 name = "JetBrains Mono";
               };
               sansSerif = {
-                package = pkgs.maple-mono.NF;
-                name = "Maple Mono NF";
+                # package = pkgs.maple-mono.NF;
+                # name = "Maple Mono NF";
+                package = pkgs.nerd-fonts.noto;
+                name = "Noto Sans";
               };
               serif = {
                 package = pkgs.nerd-fonts.noto;
