@@ -57,12 +57,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # nix formatter
-    alejandra = {
-      url = "github:kamadorueda/alejandra";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     hyprland.url = "github:hyprwm/Hyprland/v0.55.4";
 
     zed = {

@@ -390,6 +390,7 @@
             stylua
             shfmt
             nixpkgs-fmt
+            alejandra
             figlet
             toilet
             bash-language-server
