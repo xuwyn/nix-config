@@ -2,6 +2,7 @@
   flake.modules.homeManager.cli = {
     lib,
     config,
+    pkgs,
     ...
   }: let
     cfg = config.homeManager.cli;
@@ -22,6 +23,8 @@
     options.homeManager.cli = {
       zoxide.enable = lib.mkEnableOption "fast cd";
       fzf.enable = lib.mkEnableOption "fuzzy finder";
+      fd.enable = lib.mkEnableOption "alternative to find";
+      rg.enable = lib.mkEnableOption "ripgrep, only enabled if missing";
     };
     config = lib.mkMerge [
       (lib.mkIf cfg.fzf.enable {
@@ -60,6 +63,17 @@
             "--cmd cd"
           ];
         };
+      })
+      (lib.mkIf cfg.fd.enable {
+        programs.fd = {
+          enable = true;
+          hidden = true;
+          ignores = [];
+          extraOptions = [];
+        };
+      })
+      (lib.mkIf cfg.rg.enable {
+        home.packages = [pkgs.ripgrep];
       })
     ];
   };
