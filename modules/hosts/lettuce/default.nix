@@ -27,7 +27,6 @@ in {
       theme
 
       # extra
-      dev
       utils
       eyecandy
 
@@ -51,17 +50,12 @@ in {
             };
             bottom.enable = true;
             htop.enable = true;
-            eza.enable = true;
-            fzf.enable = true;
-            zoxide.enable = true;
-            fd.enable = true;
-            rg.enable = true;
-            bat.enable = true;
-            starship.enable = true;
             nh.enable = true;
             tealdeer.enable = true;
             nix-search-tv.enable = true;
             television.enable = true;
+            search.enable = true;
+            styling.enable = true;
           };
           editors = {
             nano.enable = true;

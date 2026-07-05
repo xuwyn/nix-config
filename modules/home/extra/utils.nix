@@ -11,8 +11,8 @@
       unrar # Archive unpacker
       zip # Compressor
       unzip # Unpacker
-      tree # print directory
       gnugrep # grep cmd
+      jq # json processor
     ];
   };
 }
