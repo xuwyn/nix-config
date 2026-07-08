@@ -1,14 +1,21 @@
 {config, ...}: let
   inherit (config.homeManager.hyprland) browser terminal barName qylock;
+  inherit (config.homeManager.theme.stylix) image;
+  imageName = builtins.baseNameOf (toString image);
 in {
   wayland.windowManager.hyprland.extraConfig = ''
-    -- 1. WINDOW RESIZING
+    -- HYPRLAND
+    hl.bind("SUPER + Delete", hl.dsp.exit())
+    hl.bind("SUPER + ALT + R", hl.dsp.exec_cmd("hyprctl reload"))
+    hl.bind("SUPER + ALT + S", hl.dsp.exec_cmd("hyprshot -m window -o \"$HOME/Pictures/Screenshots\""))
+
+    -- WINDOW RESIZING
     hl.bind("SUPER + ALT + left", function() local w = hl.get_active_window(); if not w then return end; hl.dispatch(hl.dsp.window.resize({ x = math.floor(w.size.x * -10 / 100), y = 0, relative = true })) end, { repeating = true })
     hl.bind("SUPER + ALT + right", function() local w = hl.get_active_window(); if not w then return end; hl.dispatch(hl.dsp.window.resize({ x = math.floor(w.size.x * 10 / 100), y = 0, relative = true })) end, { repeating = true })
     hl.bind("SUPER + ALT + up", function() local w = hl.get_active_window(); if not w then return end; hl.dispatch(hl.dsp.window.resize({ x = 0, y = math.floor(w.size.y * -10 / 100), relative = true })) end, { repeating = true })
     hl.bind("SUPER + ALT + down", function() local w = hl.get_active_window(); if not w then return end; hl.dispatch(hl.dsp.window.resize({ x = 0, y = math.floor(w.size.y * 10 / 100), relative = true })) end, { repeating = true })
 
-    -- 2. MOUSE
+    -- MOUSE
     hl.bind("SUPER + mouse:272", hl.dsp.window.drag())
     hl.bind("SUPER + mouse:273", hl.dsp.window.resize())
 
@@ -16,7 +23,7 @@ in {
       if barName == "noctalia"
       then
         ''
-          -- 3. NOCTALIA
+          -- NOCTALIA
           hl.bind("SUPER + A", hl.dsp.exec_cmd("noctalia msg panel-toggle launcher"))
           hl.bind("SUPER + V", hl.dsp.exec_cmd("noctalia msg panel-toggle clipboard"))
           hl.bind("SUPER + C", hl.dsp.exec_cmd("noctalia msg panel-toggle control-center"))
@@ -26,17 +33,11 @@ in {
           hl.bind("SUPER + E", hl.dsp.exec_cmd("noctalia msg panel-toggle launcher \"/emo\""))
           hl.bind("SUPER + CTRL + S", hl.dsp.exec_cmd("noctalia msg screenshot-fullscreen"))
           hl.bind("SUPER + SHIFT + S", hl.dsp.exec_cmd("noctalia msg screenshot-region"))
-          hl.bind("SUPER + ALT + S", hl.dsp.exec_cmd("hyprshot -m window -o \"$HOME/Pictures/Screenshots\""))
           hl.bind("SUPER + R", hl.dsp.exec_cmd("noctalia msg plugin noctalia/screen_recorder:service all toggle"))
           hl.bind("SUPER + SHIFT + R", hl.dsp.exec_cmd("killall -q noctalia; sleep 1; noctalia;"))
-          hl.bind("SUPER + ALT + R", hl.dsp.exec_cmd("hyprctl reload"))
-          hl.bind("CTRL+ALT + Delete", hl.dsp.exec_cmd("noctalia msg panel-toggle session"))
-          hl.bind("SUPER + Delete", hl.dsp.exit())
-
-          -- hl.bind("SUPER + CTRL + S", hl.dsp.exec_cmd("hyprshot -m output -o \"$HOME/Pictures/Screenshots\""))
-          -- hl.bind("SUPER + SHIFT + S", hl.dsp.exec_cmd("hyprshot -m region -o \"$HOME/Pictures/Screenshots\""))
-          -- hl.bind("SUPER + SHIFT + E", hl.dsp.exec_cmd("noctalia msg panel-toggle plugin:kaomoji"))
-          -- hl.bind("SUPER + K", hl.dsp.exec_cmd("noctalia msg panel-toggle plugin:keybind-cheatsheet"))
+          hl.bind("CTRL + ALT + DELETE", hl.dsp.exec_cmd("noctalia msg panel-toggle session"))
+          hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd("noctalia msg brightness-down"))
+          hl.bind("XF86MonBrightnessUp", hl.dsp.exec_cmd("noctalia msg brightness-up"))
         ''
         + (
           if !qylock.enable
@@ -47,22 +48,54 @@ in {
             hl.bind("SUPER + L", hl.dsp.exec_cmd("qylock-lock"))
           ''
         )
+      else if barName == "dms"
+      then
+        ''
+          hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd("dms ipc call brightness decrement 5 \"\""))
+          hl.bind("XF86MonBrightnessUp", hl.dsp.exec_cmd("dms ipc call brightness increment 5 \"\" "))
+          hl.bind("SUPER + A", hl.dsp.exec_cmd("dms ipc call spotlight toggle"))
+          hl.bind("SUPER + V", hl.dsp.exec_cmd("dms ipc call clipboard toggle"))
+          hl.bind("SUPER + N", hl.dsp.exec_cmd("dms ipc call notifications toggle"))
+          hl.bind("SUPER + SHIFT + N", hl.dsp.exec_cmd("dms ipc call notifications clearAll"))
+          hl.bind("SUPER + CTRL + N", hl.dsp.exec_cmd("dms ipc call notepad toggle"))
+          hl.bind("SUPER + SHIFT + W", hl.dsp.exec_cmd("dms ipc call plugins enable wallpaperCarousel && dms ipc wallpaperCarousel toggle"))
+          hl.bind("CTRL + ALT + DELETE", hl.dsp.exec_cmd("dms ipc call powermenu toggle"))
+          hl.bind("SUPER + SHIFT + ESCAPE", hl.dsp.exec_cmd("dms ipc call processlist toggle"))
+          hl.bind("SUPER + C", hl.dsp.exec_cmd("dms ipc call dash toggle overview"))
+          hl.bind("SUPER + C", hl.dsp.exec_cmd("dms ipc call profile setImage $HOME/.face"))
+          hl.bind("SUPER + SHIFT + C", hl.dsp.exec_cmd("dms ipc call control-center toggle"))
+          hl.bind("SUPER + SHIFT + C", hl.dsp.exec_cmd("dms ipc call profile setImage $HOME/.face"))
+          hl.bind("SUPER + CTRL + C", hl.dsp.exec_cmd("dms ipc call settings toggle"))
+          hl.bind("SUPER + CTRL + C", hl.dsp.exec_cmd("dms ipc call profile setImage $HOME/.face"))
+          hl.bind("SUPER + SHIFT + R", hl.dsp.exec_cmd("dms restart && sleep 1 && dms ipc call wallpaper set $HOME/Pictures/Wallpapers/${imageName}"))
+          hl.bind("SUPER + CTRL + S", hl.dsp.exec_cmd("dms screenshot full -d ~/Pictures/Screenshots"))
+          hl.bind("SUPER + SHIFT + S", hl.dsp.exec_cmd("dms screenshot -d ~/Pictures/Screenshots"))
+          hl.bind("SUPER + E", hl.dsp.exec_cmd("dms ipc call plugins enable emojiLauncher && dms ipc call spotlight toggleQuery \":e\""))
+        ''
+        + (
+          if !qylock.enable
+          then ''
+            hl.bind("SUPER + L", hl.dsp.exec_cmd("dms ipc call lock lock"))
+          ''
+          else ''
+            hl.bind("SUPER + L", hl.dsp.exec_cmd("qylock-lock"))
+          ''
+        )
       else ''
-        -- 3. ROFI
+        -- ROFI
         hl.bind("SUPER + A", hl.dsp.exec_cmd("rofi-launcher"))
         hl.bind("SUPER + SHIFT + A", hl.dsp.exec_cmd("rofi -show window"))
         hl.bind("SUPER + V", hl.dsp.exec_cmd("cliphist list | rofi -dmenu | cliphist decode | wl-copy"))
+        hl.bind("SUPER + ALT + W", hl.dsp.exec_cmd("web-search"))
       ''
     }
 
-    -- 4. APPLICATIONS
+    -- APPLICATIONS
     hl.bind("SUPER + Return", hl.dsp.exec_cmd("${terminal}"))
     hl.bind("SUPER + D", hl.dsp.exec_cmd("app2unit -- discord"))
     hl.bind("SUPER + S", hl.dsp.exec_cmd("app2unit -- spotify"))
     hl.bind("SUPER + Z", hl.dsp.exec_cmd("app2unit -- zeditor"))
     hl.bind("SUPER + W", hl.dsp.exec_cmd("app2unit -- ${browser}"))
-    hl.bind("SUPER + ALT + W", hl.dsp.exec_cmd("web-search"))
-    -- TODO: manual review — 'unbind = $modifier, O'. In Lua, capture the result of hl.bind(...) and call :remove(). See hl.meta.lua.
     hl.bind("SUPER + O", hl.dsp.exec_cmd("obs"))
     hl.bind("SUPER + ALT + C", hl.dsp.exec_cmd("hyprpicker -a"))
     hl.bind("SUPER + G", hl.dsp.exec_cmd("gimp"))
@@ -70,7 +103,7 @@ in {
     hl.bind("SUPER + Y", hl.dsp.exec_cmd("kitty -e yazi"))
     hl.bind("SUPER + ALT + M", hl.dsp.exec_cmd("pavucontrol"))
 
-    -- 5. WINDOW MANAGEMENT
+    -- WINDOW MANAGEMENT
     hl.bind("SUPER + Q", hl.dsp.window.close())
     hl.bind("SUPER + P", hl.dsp.window.pseudo())
     hl.bind("SUPER + SHIFT + I", hl.dsp.layout("togglesplit"))
@@ -106,7 +139,7 @@ in {
       end
     end)
 
-    -- 6. LAYOUTS
+    -- LAYOUTS
     -- See: https://wiki.hypr.land/Configuring/Advanced-and-Cool/Uncommon-tips-and-tricks/#cycle-layout-for-current-workspace
     hl.bind("SUPER + TAB", function ()
         local layouts     = { "scrolling", "dwindle", "master", "monocle" }
@@ -156,19 +189,19 @@ in {
       hl.workspace_rule({ workspace = tostring(w.id), layout = "monocle" })
     end)
 
-    -- 7. WINDOW MOVEMENT
+    -- WINDOW MOVEMENT
     hl.bind("SUPER + SHIFT + left", hl.dsp.window.move({ direction = "l" }))
     hl.bind("SUPER + SHIFT + right", hl.dsp.window.move({ direction = "r" }))
     hl.bind("SUPER + SHIFT + up", hl.dsp.window.move({ direction = "u" }))
     hl.bind("SUPER + SHIFT + down", hl.dsp.window.move({ direction = "d" }))
 
-    -- 8. FOCUS MOVEMENT
+    -- FOCUS MOVEMENT
     hl.bind("SUPER + left", hl.dsp.focus({ direction = "left" }))
     hl.bind("SUPER + right", hl.dsp.focus({ direction = "right" }))
     hl.bind("SUPER + up", hl.dsp.focus({ direction = "up" }))
     hl.bind("SUPER + down", hl.dsp.focus({ direction = "down" }))
 
-    -- 9. WORKSPACE SWITCHING
+    -- WORKSPACE SWITCHING
     hl.bind("SUPER + 1", hl.dsp.focus({ workspace = 1 }))
     hl.bind("SUPER + 2", hl.dsp.focus({ workspace = 2 }))
     hl.bind("SUPER + 3", hl.dsp.focus({ workspace = 3 }))
@@ -180,7 +213,7 @@ in {
     hl.bind("SUPER + 9", hl.dsp.focus({ workspace = 9 }))
     hl.bind("SUPER + 0", hl.dsp.focus({ workspace = 10 }))
 
-    -- 10. MOVE WINDOW TO WORKSPACE
+    -- MOVE WINDOW TO WORKSPACE
     local function move_to_special_and_resize()
       hl.dispatch(hl.dsp.window.move({ workspace = "special" }))
       hl.dispatch(hl.dsp.window.float({ action = "set" }))
@@ -214,19 +247,19 @@ in {
     hl.bind("SUPER + SHIFT + 9", hl.dsp.window.move({ workspace = 9 }))
     hl.bind("SUPER + SHIFT + 0", hl.dsp.window.move({ workspace = 10 }))
 
-    -- 11. WORKSPACE NAVIGATION
+    -- WORKSPACE NAVIGATION
     hl.bind("SUPER + CONTROL + right", hl.dsp.focus({ workspace = "e+1" }))
     hl.bind("SUPER + CONTROL + left", hl.dsp.focus({ workspace = "e-1" }))
     hl.bind("SUPER + mouse_down", hl.dsp.focus({ workspace = "e+1" }))
     hl.bind("SUPER + mouse_up", hl.dsp.focus({ workspace = "e-1" }))
 
-    -- 12. WINDOW CYCLING
+    -- WINDOW CYCLING
     hl.bind("ALT + TAB", function()
       hl.dispatch(hl.dsp.window.cycle_next({ next = true }))
       hl.dispatch(hl.dsp.window.bring_to_top())
     end)
 
-    -- 13. MEDIA & HARDWARE CONTROLS
+    -- MEDIA & HARDWARE CONTROLS
     hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+"))
     hl.bind("XF86AudioLowerVolume", hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"))
     hl.bind("XF86AudioMute", hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"))
@@ -234,7 +267,5 @@ in {
     hl.bind("XF86AudioPause", hl.dsp.exec_cmd("playerctl play-pause"))
     hl.bind("XF86AudioNext", hl.dsp.exec_cmd("playerctl next"))
     hl.bind("XF86AudioPrev", hl.dsp.exec_cmd("playerctl previous"))
-    hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd("noctalia msg brightness-down"))
-    hl.bind("XF86MonBrightnessUp", hl.dsp.exec_cmd("noctalia msg brightness-up"))
   '';
 }

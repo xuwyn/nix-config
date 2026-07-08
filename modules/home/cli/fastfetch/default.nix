@@ -19,7 +19,13 @@
       programs.fastfetch = {
         enable = true;
 
-        settings = {
+        settings = let
+          colors = {
+            os = "light_magenta";
+            wm = "light_cyan";
+            hw = "blue";
+          };
+        in {
           display = {
             # color = {
             #   keys = "35";
@@ -41,147 +47,143 @@
               left = 0;
             };
           };
-
           modules = [
             "break"
             {
               type = "title";
               key = "OS   ";
-              keyColor = "red";
-              outputColor = "red";
+              keyColor = colors.os;
+              outputColor = colors.os;
             }
             {
               type = "os";
               key = " ├  ";
-              keyColor = "red";
-              outputColor = "red";
+              keyColor = colors.os;
+              outputColor = colors.os;
             }
             {
               type = "kernel";
               key = " ├  ";
-              keyColor = "red";
-              outputColor = "red";
+              keyColor = colors.os;
+              outputColor = colors.os;
             }
             {
               type = "packages";
               key = " ├ 󰏖 ";
-              keyColor = "red";
-              outputColor = "red";
+              keyColor = colors.os;
+              outputColor = colors.os;
             }
             {
               type = "terminal";
               key = " ├  ";
-              keyColor = "red";
-              outputColor = "red";
+              keyColor = colors.os;
+              outputColor = colors.os;
             }
             {
               type = "shell";
               key = " └  ";
-              keyColor = "red";
-              outputColor = "red";
+              keyColor = colors.os;
+              outputColor = colors.os;
             }
             "break"
             {
               type = "wm";
               key = "WM   ";
-              keyColor = "green";
-              outputColor = "green";
+              keyColor = colors.wm;
+              outputColor = colors.wm;
             }
             {
               type = "command";
               key = " ├  ";
-              keyColor = "green";
+              keyColor = colors.wm;
               text = "polybar -v | head -n 1";
-              outputColor = "green";
+              outputColor = colors.wm;
             }
             {
               type = "command";
               key = " ├ 󰏒 ";
-              keyColor = "green";
+              keyColor = colors.wm;
               text = "noctalia --version";
-              outputColor = "green";
+              outputColor = colors.wm;
+            }
+            {
+              type = "command";
+              key = " ├  ";
+              keyColor = colors.wm;
+              text = "dms version | cut -d'+' -f1";
+              outputColor = colors.wm;
             }
             {
               type = "command";
               key = " ├  ";
-              keyColor = "green";
+              keyColor = colors.wm;
               text = "caelestia --version | awk '/caelestia-shell/ {printf \"%s v%s\\n\",$1,$2; exit}'";
-              outputColor = "green";
+              outputColor = colors.wm;
             }
             {
               type = "wmtheme";
               key = " ├ 󰉼 ";
-              keyColor = "green";
-              outputColor = "green";
+              keyColor = colors.wm;
+              outputColor = colors.wm;
             }
             {
               type = "icons";
               key = " ├ 󰀻 ";
-              keyColor = "green";
-              outputColor = "green";
+              keyColor = colors.wm;
+              outputColor = colors.wm;
             }
             {
               type = "cursor";
               key = " ├  ";
-              keyColor = "green";
-              outputColor = "green";
+              keyColor = colors.wm;
+              outputColor = colors.wm;
             }
             {
               type = "terminalfont";
               key = " └  ";
-              keyColor = "green";
-              outputColor = "green";
+              keyColor = colors.wm;
+              outputColor = colors.wm;
             }
             "break"
             {
               type = "host";
               format = "{5} {2}";
               key = "HW   ";
-              keyColor = "blue";
-              outputColor = "blue";
+              keyColor = colors.hw;
+              outputColor = colors.hw;
             }
             {
               type = "cpu";
               key = " ├ 󰓅 ";
-              keyColor = "blue";
-              outputColor = "blue";
+              keyColor = colors.hw;
+              outputColor = colors.hw;
             }
             {
               type = "gpu";
               # format = "{name} [{type}]";
               key = " ├ 󰢮 ";
-              keyColor = "blue";
-              outputColor = "blue";
+              keyColor = colors.hw;
+              outputColor = colors.hw;
             }
             {
               type = "memory";
               key = " ├  ";
-              keyColor = "blue";
-              outputColor = "blue";
+              keyColor = colors.hw;
+              outputColor = colors.hw;
             }
             {
               type = "disk";
               key = " ├ 󰋊 ";
-              keyColor = "blue";
-              outputColor = "blue";
+              keyColor = colors.hw;
+              outputColor = colors.hw;
             }
             {
               type = "monitor";
               format = "{width}x{height} @ {refresh-rate} Hz";
               key = " └  ";
-              keyColor = "blue";
-              outputColor = "blue";
+              keyColor = colors.hw;
+              outputColor = colors.hw;
             }
-            # {
-            #   type = "player";
-            #   key = " ├ 󰥠 ";
-            #   keyColor = "blue";outputColor = "blue";
-            # }
-            # {
-            #   type = "media";
-            #   key = " └ 󰝚 ";
-            #   keyColor = "blue";outputColor = "blue";
-            # }
             "break"
             {
               type = "uptime";

@@ -5,7 +5,6 @@
     ...
   }: let
     cfg = config.homeManager.theme.qt;
-    isStylixEnabled = config.homeManager.theme.stylix.enable or false;
   in {
     options.homeManager.theme.qt = {
       enable = lib.mkEnableOption "Enable theming for qt apps";
@@ -13,16 +12,19 @@
     };
     config = lib.mkIf cfg.enable (lib.mkMerge [
       {
-        qt = {
-          enable = true;
-          platformTheme.name = lib.mkForce "qtct";
-        };
+        qt.enable = true;
       }
-      (lib.mkIf (isStylixEnabled && (config ? stylix)) {
-        stylix.targets.qt = {
-          enable = cfg.stylixTheme.enable;
-          platform = "qtct";
+      (lib.mkIf (config ? stylix && cfg.stylixTheme.enable) {
+        qt.platformTheme.name = "qtct";
+        stylix.targets.qt.enable = true;
+        xdg.configFile = {
+          "qt5ct/qt5ct.conf".force = true;
+          "qt6ct/qt6ct.conf".force = true;
         };
+      })
+      (lib.mkIf (!cfg.stylixTheme.enable) {
+        qt.platformTheme.name = "gtk3";
+        stylix.targets.qt.enable = false;
       })
     ]);
   };

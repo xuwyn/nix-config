@@ -48,21 +48,13 @@
       ./_animation.nix
       ./_binds.nix
       ./_env.nix
-      ./_exec-cmd.nix
+      ./_start.nix
       ./_windowrules.nix
+      ./_layerrules.nix
       ./_packages.nix
     ];
 
     config = let
-      barThemes = {
-        noctalia = ''
-          local noctalia_theme = (function()
-          ${builtins.readFile ../dotfiles/hypr/noctalia.lua}
-          end)()
-          noctalia_theme.apply_theme()
-        '';
-      };
-
       usVariants = ["dvorak" "colemak" "workman" "intl" "us-intl" "altgr-intl"];
       normalize = v:
         if v == "us-intl"
@@ -139,7 +131,7 @@
             };
 
             scrolling = {
-              column_width = 0.80;
+              column_width = 0.60;
               fullscreen_on_one_column = true;
               direction = "right";
               follow_focus = true;
@@ -149,7 +141,7 @@
 
             general =
               {
-                layout = "dwindle";
+                layout = "scrolling";
                 gaps_in = 5;
                 gaps_out = 10;
                 border_size = 3;
@@ -284,20 +276,6 @@
                 workspace = "5",
                 persistent = true,
             })
-
-            -- Noctalia Blur
-            hl.layer_rule({
-              name = "noctalia",
-              match = {
-                namespace = "^noctalia-(bar-.+|notification|dock|panel|attached-panel|osd)$",
-              },
-              no_anim = true,
-              ignore_alpha = 0.5,
-              blur = true,
-              blur_popups = true,
-            })
-
-            ${lib.optionalString cfg.barTheme.enable (barThemes.${cfg.barName} or "")}
           '';
         };
       };
