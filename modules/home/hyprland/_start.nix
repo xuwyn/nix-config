@@ -3,13 +3,16 @@
   lib,
   ...
 }: let
-  cfg = config.homeManager.hyprland;
+  inherit (config.homeManager.hyprland) barName;
+  inherit (config.homeManager.theme.stylix) image;
+  imageName = builtins.baseNameOf (toString image);
 
-  # Noctalia-specific startup commands
-  noctaliaExec =
-    if cfg.barName == "noctalia"
-    then ["noctalia &"]
-    else [];
+  barExec =
+    if barName == "noctalia"
+    then ''hl.exec_cmd("noctalia &")''
+    else if barName == "dms"
+    then ''hl.exec_cmd("dms run -d && sleep 2 && dms ipc call wallpaper set $HOME/Pictures/Wallpapers/${imageName}")''
+    else '''';
 in {
   wayland.windowManager.hyprland.settings = {
     on = {
@@ -24,7 +27,8 @@ in {
             hl.exec_cmd("systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP")
             hl.exec_cmd("systemctl --user start hyprpolkitagent")
             hl.exec_cmd("fcitx5 -d -r")
-            ${lib.optionalString (noctaliaExec != []) "hl.exec_cmd(\"${builtins.head noctaliaExec}\")"}
+            hl.exec_cmd("pkill openrgb; sleep 1; openrgb --startminimized --profile purple;")
+            ${barExec}
           end
         '')
       ];

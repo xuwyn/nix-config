@@ -33,6 +33,8 @@
             gnome.enable = false;
             waybar.enable = false;
             rofi.enable = false;
+            dank-calendar.enable = false;
+            dank-material-shell.enable = false;
             noctalia.enable = false;
             noctalia-shell.enable = false;
             hyprland.enable = false;

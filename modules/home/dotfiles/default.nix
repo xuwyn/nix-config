@@ -20,8 +20,6 @@
       };
       ".face".source = ../face.jpg;
       ".local/state/noctalia/settings.toml".source = mkOutOfStoreSymlink "${configDir}/noctalia/settings.toml";
-      ".config/kitty/themes".source = mkOutOfStoreSymlink "${configDir}/kitty/themes";
-      ".config/hypr/noctalia.lua".source = mkOutOfStoreSymlink "${configDir}/hypr/noctalia.lua";
     };
 
     home.activation = lib.mkIf (config.homeManager.hyprland.enable or false) {

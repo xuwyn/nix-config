@@ -76,7 +76,8 @@ in {
       # desktop/hyprland
       dotfiles
       hyprland
-      noctalia
+      # noctalia
+      dms
       xdg
       thunar
       yazi
@@ -88,7 +89,10 @@ in {
       (_: {
         homeManager = {
           apps = {
-            firefox.enable = true;
+            firefox = {
+              enable = true;
+              barTheme.enable = true;
+            };
             mangohud = {
               enable = true;
               fpsLimit = 165;
@@ -103,7 +107,10 @@ in {
           terminals = {
             kitty = {
               enable = true;
-              barName = "noctalia";
+              barTheme.enable = true;
+            };
+            ghostty = {
+              enable = true;
               barTheme.enable = true;
             };
           };
@@ -134,9 +141,15 @@ in {
             styling.enable = true;
           };
           editors = {
-            zed.enable = true;
+            zed = {
+              enable = true;
+              barTheme.enable = true;
+            };
             nano.enable = true;
-            nixvim.enable = true;
+            nixvim = {
+              enable = true;
+              barTheme.enable = false;
+            };
           };
           hyprland = {
             enable = true;
@@ -154,7 +167,7 @@ in {
                 scale = 1,
               })
             '';
-            barName = "noctalia";
+            barName = "dms";
             barTheme.enable = true;
             qylock.enable = true;
           };
@@ -163,13 +176,10 @@ in {
               enable = true;
               image = stylixImage;
             };
-            qt = {
-              enable = true;
-              stylixTheme.enable = true;
-            };
+            qt.enable = true;
             gtk = {
               enable = true;
-              stylixTheme.enable = true;
+              barTheme.enable = true;
             };
           };
         };

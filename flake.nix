@@ -52,6 +52,21 @@
 
     noctalia.url = "github:noctalia-dev/noctalia/cachix";
 
+    dms = {
+      url = "github:AvengeMedia/DankMaterialShell/stable";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    dms-plugin-registry = {
+      url = "github:AvengeMedia/dms-plugin-registry";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    dgop = {
+      url = "github:AvengeMedia/dgop";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     nixvim = {
       url = "github:nix-community/nixvim";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -99,7 +114,7 @@
     qylock.url = "github:Darkkal44/qylock";
 
     quickshell = {
-      url = "github:quickshell-mirror/quickshell/v0.3.0";
+      url = "github:quickshell-mirror/quickshell";
       inputs.nixpkgs.follows = "nixpkgs-stable";
     };
 

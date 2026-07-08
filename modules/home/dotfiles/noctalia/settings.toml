@@ -88,7 +88,7 @@ show_instance_count = false
 logging_out = "hyprctl dispatch 'hl.dsp.exit()'"
 rebooting = "hyprctl dispatch 'hl.dsp.exit()'"
 shutting_down = "hyprctl dispatch 'hl.dsp.exit()'"
-started = "pkill openrgb; sleep 1; openrgb --startminimized --profile purple;"
+started = ""
 
 [keybinds]
 cancel = [ "Delete", "Escape" ]
