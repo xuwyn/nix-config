@@ -76,8 +76,7 @@ in {
       # desktop/hyprland
       dotfiles
       hyprland
-      # noctalia
-      dms
+      noctalia
       xdg
       thunar
       yazi
@@ -148,7 +147,7 @@ in {
             nano.enable = true;
             nixvim = {
               enable = true;
-              barTheme.enable = false;
+              barTheme.enable = true;
             };
           };
           hyprland = {
@@ -167,7 +166,7 @@ in {
                 scale = 1,
               })
             '';
-            barName = "dms";
+            barName = "noctalia";
             barTheme.enable = true;
             qylock.enable = true;
           };

@@ -8,19 +8,23 @@
   }: let
     cfg = config.homeManager.apps.spicetify;
     spicePkgs = inputs.spicetify-nix.legacyPackages.${pkgs.stdenv.hostPlatform.system};
-    isStylixEnabled = config.homeManager.theme.stylix.enable or false;
   in {
     options.homeManager.apps.spicetify = {
       enable = lib.mkEnableOption "Enable Spicetify";
+      stylixTheme.enable = lib.mkEnableOption "Whether to apply stylix theme";
     };
     imports = [inputs.spicetify-nix.homeManagerModules.default];
     config = lib.mkIf cfg.enable (lib.mkMerge [
-      (lib.mkIf (isStylixEnabled && config ? stylix) {
-        stylix.targets.spicetify = {
-          enable = true;
+      (lib.mkIf (cfg.stylixTheme.enable && config ? stylix) {
+        stylix.targets.spicetify.enable = true;
+      })
+      (lib.mkIf (!cfg.stylixTheme.enable && config ? stylix) {
+        stylix.targets.spicetify.enable = false;
+        programs.spicetify = {
+          theme = spicePkgs.themes.catppuccin;
+          colorScheme = "mocha";
         };
       })
-
       {
         programs.spicetify = {
           enable = true;
@@ -29,8 +33,6 @@
             hidePodcasts
             shuffle
           ];
-          # theme = spicePkgs.themes.catppuccin;
-          # colorScheme = "mocha";
         };
       }
     ]);
