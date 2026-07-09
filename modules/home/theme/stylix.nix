@@ -40,6 +40,7 @@
             hyprland.enable = false;
             hyprlock.enable = false;
             kde.enable = false;
+            yazi.enable = false;
           };
         }
         // (

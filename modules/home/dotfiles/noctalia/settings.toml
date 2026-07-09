@@ -237,25 +237,26 @@ builtin = "Ayu"
 custom_palette = "m3-content"
 mode = "dark"
 source = "wallpaper"
+wallpaper_scheme = "faithful"
 
     [theme.templates]
-    builtin_ids = [ "btop", "cava", "ghostty", "hyprland", "kitty" ]
-    community_ids = [ "discord" ]
+    builtin_ids = [ "btop", "cava", "gtk3", "gtk4", "ghostty", "hyprland", "kitty" ]
+    community_ids = [ "pywalfox", "neovim", "zed", "discord" ]
 
 [wallpaper]
 directory = "/home/wyn/Pictures/Wallpapers"
 
     [wallpaper.default]
-    path = "/home/wyn/Pictures/Wallpapers/interlude_MDxBA_1.png"
+    path = "/home/wyn/Pictures/Wallpapers/FemMerlin.png"
 
     [wallpaper.last]
-    path = "/home/wyn/Pictures/Wallpapers/interlude_MDxBA_1.png"
+    path = "/home/wyn/Pictures/Wallpapers/FemMerlin.png"
 
     [wallpaper.monitors.DP-2]
     path = "/home/wyn/Pictures/Wallpapers/interlude_MDxBA_1.png"
 
     [wallpaper.monitors.DP-5]
-    path = "/home/wyn/Pictures/Wallpapers/interlude_MDxBA_1.png"
+    path = "/home/wyn/Pictures/Wallpapers/FemMerlin.png"
 
     [[wallpaper.favorite]]
     path = "/home/wyn/Pictures/Wallpapers/SnakeNewYear.png"
@@ -282,8 +283,10 @@ directory = "/home/wyn/Pictures/Wallpapers"
     theme_mode = "auto"
 
     [[wallpaper.favorite]]
+    palette_source = "wallpaper"
     path = "/home/wyn/Pictures/Wallpapers/IS-Mysterious_Banquet.png"
     theme_mode = "auto"
+    wallpaper_scheme = "m3-content"
 
     [[wallpaper.favorite]]
     path = "/home/wyn/Pictures/Wallpapers/Ereshkigal.jpg"
@@ -298,8 +301,10 @@ directory = "/home/wyn/Pictures/Wallpapers"
     theme_mode = "auto"
 
     [[wallpaper.favorite]]
+    palette_source = "wallpaper"
     path = "/home/wyn/Pictures/Wallpapers/IS5-Expansion-Official-Artwork.jpeg"
     theme_mode = "auto"
+    wallpaper_scheme = "faithful"
 
     [[wallpaper.favorite]]
     path = "/home/wyn/Pictures/Wallpapers/HokusaiWin7.jpg"

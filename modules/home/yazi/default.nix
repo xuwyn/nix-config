@@ -1,18 +1,14 @@
 {
-  flake.modules.homeManager.yazi = {pkgs, ...}: let
-    settings = import ./_settings.nix;
-    keymap = import ./_keymap.nix;
-    theme = import ./_theme.nix;
-  in {
+  flake.modules.homeManager.yazi = {pkgs, ...}: {
     programs.yazi = {
       enable = true;
       enableZshIntegration = true;
       enableBashIntegration = true;
       enableFishIntegration = true;
       shellWrapperName = "yy";
-      settings = settings;
-      keymap = keymap;
-      theme = theme;
+      settings = import ./_settings.nix;
+      keymap = import ./_keymap.nix;
+      theme = import ./_theme.nix;
       plugins = {
         lazygit = pkgs.yaziPlugins.lazygit;
         full-border = pkgs.yaziPlugins.full-border;

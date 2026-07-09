@@ -9,9 +9,86 @@
     cfg = config.homeManager.editors.nixvim;
     isStylixEnabled = config.homeManager.theme.stylix.enable or false;
     barThemes = {
+      noctalia = ''
+        local function build_lualine_theme()
+          local g = vim.g
+          if not g.base16_gui00 then return nil end -- setup() hasn't run yet
+
+          local bg      = g.base16_gui00
+          local bg_alt  = g.base16_gui01
+          local bg_sel  = g.base16_gui02
+          local fg_dim  = g.base16_gui03
+          local fg      = g.base16_gui05
+          local accent  = g.base16_gui0D
+          local green   = g.base16_gui0B
+          local yellow  = g.base16_gui0A
+          local red     = g.base16_gui08
+
+          return {
+            normal = {
+              a = { fg = bg, bg = accent, gui = 'bold' },
+              b = { fg = fg, bg = bg_alt },
+              c = { fg = fg_dim, bg = bg },
+            },
+            insert = {
+              a = { fg = bg, bg = green, gui = 'bold' },
+              b = { fg = fg, bg = bg_alt },
+              c = { fg = fg_dim, bg = bg },
+            },
+            visual = {
+              a = { fg = bg, bg = yellow, gui = 'bold' },
+              b = { fg = fg, bg = bg_alt },
+              c = { fg = fg_dim, bg = bg },
+            },
+            replace = {
+              a = { fg = bg, bg = red, gui = 'bold' },
+              b = { fg = fg, bg = bg_alt },
+              c = { fg = fg_dim, bg = bg },
+            },
+            command = {
+              a = { fg = bg, bg = accent, gui = 'bold' },
+              b = { fg = fg, bg = bg_alt },
+              c = { fg = fg_dim, bg = bg },
+            },
+            inactive = {
+              a = { fg = fg_dim, bg = bg_sel },
+              b = { fg = fg_dim, bg = bg_sel },
+              c = { fg = fg_dim, bg = bg_sel },
+            },
+          }
+        end
+
+        local function apply_lualine_theme()
+          local theme = build_lualine_theme()
+          if not theme then return end
+
+          local ok, lualine = pcall(require, 'lualine')
+          if not ok then return end
+
+          local cfg = require('lualine.config').get_config()
+          cfg.options.theme = theme
+          lualine.setup(cfg)
+        end
+
+        local matugen_path = vim.fn.stdpath("config") .. "/lua/matugen.lua"
+        local function apply_noctalia_theme()
+          if vim.uv.fs_stat(matugen_path) then
+            local ok, mod = pcall(dofile, matugen_path)
+            if ok and mod and mod.setup then
+              mod.setup()
+              apply_lualine_theme()
+            end
+          end
+        end
+        apply_noctalia_theme()
+
+        local signal = vim.uv.new_signal()
+        signal:start('sigusr1', vim.schedule_wrap(function()
+          vim.defer_fn(apply_lualine_theme, 50)
+        end))
+      '';
       dms = ''
         local dankcolors_path = vim.fn.stdpath("config") .. "/lua/plugins/dankcolors.lua"
-
         local function apply_dank_theme()
           if vim.uv.fs_stat(dankcolors_path) then
             local ok, spec = pcall(dofile, dankcolors_path)
@@ -20,7 +97,6 @@
             end
           end
         end
-
         apply_dank_theme()
       '';
     };
@@ -175,7 +251,7 @@
 
         plugins = {
           # UI and visuals
-          web-devicons.enable = true;
+          web-devicons.enable = false;
           lualine = {
             enable = true;
             settings = {
@@ -183,7 +259,7 @@
             };
           };
           bufferline = {
-            enable = true;
+            enable = false;
             settings = {
               options = {
                 show_tab_indicators = false;
@@ -194,6 +270,9 @@
           indent-blankline.enable = true;
           colorizer.enable = true;
           illuminate.enable = true;
+
+          # Save last session
+          persistence.enable = true;
 
           # File tree (Neo-tree to match NVF)
           neo-tree = {
@@ -350,7 +429,6 @@
           };
         };
 
-        # Keymaps aligned with your NVF setup
         keymaps = [
           # Insert-mode escape
           {
@@ -380,6 +458,18 @@
             mode = ["n"];
             action = "<cmd>Neotree toggle<cr>";
             options.desc = "File browser toggle";
+          }
+
+          # Open last session
+          {
+            mode = "n";
+            key = "<leader>sl";
+            action.__raw = ''
+              function()
+                require("persistence").load({ last = true })
+              end
+            '';
+            options.desc = "Restore last session";
           }
 
           # Terminal
@@ -546,69 +636,6 @@
               vim.notify = notify
             ''
           }
-          end
-
-
-          -- Startup dashboard (alpha-nvim)
-          do
-            local ok_alpha, alpha = pcall(require, "alpha")
-            if ok_alpha then
-              local dashboard = require("alpha.themes.dashboard")
-
-              -- Prefer generating the header with toilet (ansi-shadow), then figlet; fall back if unavailable
-              local header_lines = nil
-              local function gen_banner(cmd)
-                local h = io.popen(cmd)
-                if not h then return nil end
-                local out = h:read("*a") or ""
-                h:close()
-                if #out == 0 then return nil end
-                local lines = {}
-                for line in out:gmatch("([^\n]*)\n?") do
-                  if line ~= "" then table.insert(lines, line) end
-                end
-                return #lines > 0 and lines or nil
-              end
-
-              header_lines = gen_banner('toilet -f ansi-shadow NIXVIM 2>/dev/null')
-                or gen_banner('figlet -f "ANSI Shadow" NIXVIM 2>/dev/null')
-                or gen_banner('figlet NIXVIM 2>/dev/null')
-
-              if not header_lines then
-                header_lines = {
-                  "███╗   ██╗██╗██╗  ██╗██╗   ██╗██╗███╗   ███╗",
-                  "████╗  ██║██║╚██╗██╔╝██║   ██║██║████╗ ████║",
-                  "██╔██╗ ██║██║ ╚███╔╝ ██║   ██║██║██╔████╔██║",
-                  "██║╚██╗██║██║ ██╔██╗ ╚██╗ ██╔╝██║██║╚██╔╝██║",
-                  "██║ ╚████║██║██╔╝ ██╗ ╚████╔╝ ██║██║ ╚═╝ ██║",
-                  "╚═╝  ╚═══╝╚═╝╚═╝  ╚═╝  ╚═══╝  ╚═╝╚═╝     ╚═╝",
-                }
-              end
-              dashboard.section.header.val = header_lines
-
-              dashboard.section.buttons.val = {
-                dashboard.button("f", "  Find file", ":Telescope find_files<CR>"),
-                dashboard.button("r", "  Recent files", ":Telescope oldfiles<CR>"),
-                dashboard.button("g", "󰺮  Live grep", ":Telescope live_grep<CR>"),
-                dashboard.button("n", "  New file", ":enew<CR>"),
-                dashboard.button("e", "  File browser", ":Neotree toggle<CR>"),
-                dashboard.button("q", "  Quit", ":qa<CR>"),
-              }
-
-              local v = vim.version()
-              dashboard.section.footer.val = string.format("NixVim • Neovim %d.%d.%d", v.major, v.minor, v.patch)
-
-              dashboard.opts.opts.noautocmd = true
-              alpha.setup(dashboard.config)
-
-              -- Disable folding in alpha buffer
-              vim.api.nvim_create_autocmd("FileType", {
-                pattern = "alpha",
-                callback = function()
-                  vim.opt_local.foldenable = false
-                end,
-              })
-            end
           end
         '';
       };
