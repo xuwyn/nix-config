@@ -37,7 +37,6 @@
 
     # den
     flake-parts.url = "github:hercules-ci/flake-parts";
-    import-tree.url = "github:denful/import-tree";
 
     stylix.url = "github:danth/stylix/master";
 
@@ -131,7 +130,23 @@
     };
   };
 
-  outputs = inputs:
+  outputs = {nixpkgs, ...} @ inputs: let
+    inherit (nixpkgs) lib;
+    import-tree = dir:
+      builtins.concatMap (
+        elem: let
+          path = dir + "/${elem}";
+        in
+          if (builtins.readDir dir).${elem} == "directory"
+          then
+            (
+              if lib.hasPrefix "_" elem
+              then []
+              else import-tree path
+            )
+          else lib.optional (lib.hasSuffix ".nix" elem && !lib.hasPrefix "_" elem) path
+      ) (builtins.attrNames (builtins.readDir dir));
+  in
     inputs.flake-parts.lib.mkFlake {inherit inputs;}
-    (inputs.import-tree ./modules);
+    {imports = import-tree ./modules;};
 }
