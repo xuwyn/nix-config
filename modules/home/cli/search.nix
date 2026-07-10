@@ -6,18 +6,18 @@
     ...
   }: let
     cfg = config.homeManager.cli.search;
-    isStylixEnabled = config.homeManager.theme.stylix.enable or false;
+    isMatugenEnabled = config.programs.matugen.enable or false;
     accent =
-      if isStylixEnabled
-      then "#" + config.lib.stylix.colors.base0D
+      if isMatugenEnabled
+      then "#" + config.programs.matugen.theme.colors.primary.default.color
       else "#89b4fa";
     foreground =
-      if isStylixEnabled
-      then "#" + config.lib.stylix.colors.base05
+      if isMatugenEnabled
+      then "#" + config.programs.matugen.theme.colors.on_surface.default.color
       else "#cdd6f4";
     muted =
-      if isStylixEnabled
-      then "#" + config.lib.stylix.colors.base03
+      if isMatugenEnabled
+      then "#" + config.programs.matugen.theme.colors.surface_variant.default.color
       else "#585b70";
   in {
     options.homeManager.cli.search = {

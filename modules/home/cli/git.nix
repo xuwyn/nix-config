@@ -7,14 +7,14 @@
     ...
   }: let
     cfg = config.homeManager.cli.git;
-    isStylixEnabled = config.homeManager.theme.stylix.enable or false;
+    isMatugenEnabled = config.programs.matugen.enable or false;
     accent =
-      if isStylixEnabled
-      then "#" + config.lib.stylix.colors.base0D
+      if isMatugenEnabled
+      then "#" + config.programs.matugen.theme.colors.primary.default.color
       else "#89b4fa";
     muted =
-      if isStylixEnabled
-      then "#" + config.lib.stylix.colors.base03
+      if isMatugenEnabled
+      then "#" + config.programs.matugen.theme.colors.surface_variant.default.color
       else "#585b70";
   in {
     options.homeManager.cli.git = {

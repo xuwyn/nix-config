@@ -1,5 +1,5 @@
 {config, ...}: let
-  stylixImage = ../../../wallpapers/voyager.png;
+  wallpaper = ../../../wallpapers/voyager.png;
 in {
   home."wyn@potato" = {
     system = "x86_64-linux";
@@ -41,7 +41,7 @@ in {
                 workspaces = ["1" "2" "3" "4" "5"];
               }
             ];
-            background = stylixImage;
+            background = wallpaper;
           };
           cli = {
             zsh.enable = true;
@@ -50,14 +50,8 @@ in {
               username = "wyn";
               email = "173407133+xuwyn@users.noreply.github.com";
             };
-            btop = {
-              enable = true;
-              stylixTheme.enable = true;
-            };
-            cava = {
-              enable = true;
-              stylixTheme.enable = true;
-            };
+            btop.enable = true;
+            cava.enable = true;
             fastfetch.enable = true;
             bottom.enable = true;
             htop.enable = true;
@@ -75,14 +69,12 @@ in {
           };
           apps = {
             firefox.enable = true;
-            nixcord = {
-              enable = true;
-              stylixTheme.enable = true;
-            };
+            nixcord.enable = true;
             spicetify.enable = true;
           };
           terminals.kitty.enable = true;
           theme = {
+            cursor.enable = true;
             fonts = {
               enable = true;
               extraFonts = with pkgs; [
@@ -93,14 +85,12 @@ in {
                 dejavu_fonts
               ];
             };
-            stylix = {
+            matugen = {
               enable = true;
-              image = stylixImage;
+              wallpaper = wallpaper;
             };
-            gtk = {
-              enable = true;
-              stylixTheme.enable = true;
-            };
+            gtk.enable = true;
+            qt.enable = true;
           };
         };
       })

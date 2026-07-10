@@ -45,6 +45,7 @@
     };
 
     imports = [
+      ./_colors.nix
       ./_animation.nix
       ./_binds.nix
       ./_env.nix
@@ -139,18 +140,13 @@
 
             monocle = {};
 
-            general =
-              {
-                layout = "scrolling";
-                gaps_in = 5;
-                gaps_out = 10;
-                border_size = 3;
-                resize_on_border = true;
-              }
-              // lib.optionalAttrs (!cfg.barTheme.enable) {
-                "col.active_border" = "rgb(${config.lib.stylix.colors.base08}) rgb(${config.lib.stylix.colors.base0C}) 45deg";
-                "col.inactive_border" = "rgb(${config.lib.stylix.colors.base01})";
-              };
+            general = {
+              layout = "scrolling";
+              gaps_in = 5;
+              gaps_out = 10;
+              border_size = 3;
+              resize_on_border = true;
+            };
 
             misc = {
               layers_hog_keyboard_focus = true;

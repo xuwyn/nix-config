@@ -1,5 +1,5 @@
 {config, ...}: let
-  stylixImage = ../../../wallpapers/interlude_MDxBA_1.png;
+  wallpaper = ../../../wallpapers/Embraced_A.png;
 in {
   nixos.mango = {
     host = "mango";
@@ -38,7 +38,7 @@ in {
             fonts.enable = true;
             stylix = {
               enable = true;
-              image = stylixImage;
+              image = wallpaper;
             };
             thunar.enable = true;
             xserver.enable = true;
@@ -129,7 +129,10 @@ in {
               enable = true;
               theme = "noctalia";
             };
-            fastfetch.enable = true;
+            fastfetch = {
+              enable = true;
+              logo = "png";
+            };
             bottom.enable = true;
             htop.enable = true;
             nh.enable = true;
@@ -171,11 +174,15 @@ in {
             qylock.enable = true;
           };
           theme = {
-            stylix = {
+            matugen = {
               enable = true;
-              image = stylixImage;
+              wallpaper = wallpaper;
             };
-            qt.enable = true;
+            cursor.enable = true;
+            qt = {
+              enable = true;
+              barTheme.enable = true;
+            };
             gtk = {
               enable = true;
               barTheme.enable = true;

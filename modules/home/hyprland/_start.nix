@@ -4,14 +4,16 @@
   ...
 }: let
   inherit (config.homeManager.hyprland) barName;
-  inherit (config.homeManager.theme.stylix) image;
-  imageName = builtins.baseNameOf (toString image);
+  inherit (config.homeManager.theme.matugen) wallpaper;
+  wallpaperName = builtins.baseNameOf (toString wallpaper);
 
   barExec =
     if barName == "noctalia"
-    then ''hl.exec_cmd("noctalia &")''
+    then ''
+      hl.exec_cmd("noctalia &")''
     else if barName == "dms"
-    then ''hl.exec_cmd("dms run -d && sleep 2 && dms ipc call wallpaper set $HOME/Pictures/Wallpapers/${imageName}")''
+    then ''
+      hl.exec_cmd("dms run -d && sleep 2 && dms ipc call wallpaper set $HOME/Pictures/Wallpapers/${wallpaperName}")''
     else '''';
 in {
   wayland.windowManager.hyprland.settings = {

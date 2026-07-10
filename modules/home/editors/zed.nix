@@ -6,6 +6,7 @@
     ...
   }: let
     cfg = config.homeManager.editors.zed;
+    isMatugenEnabled = config.programs.matugen.enable;
     barThemes = {
       noctalia = "Noctalia Dark Transparent";
       dms = "DankShell Dark Transparent";
@@ -40,13 +41,13 @@
           "lua"
         ];
 
-        themes.custom = import ./_theme.nix {inherit config;};
-
         userSettings = {
           theme =
             if cfg.barTheme.enable
-            then (barThemes.${cfg.barName} or "Vortriz")
-            else "Vortriz";
+            then barThemes.${cfg.barName}
+            else if isMatugenEnabled
+            then "Matugen Dark"
+            else "Ayu Mirage";
 
           lsp.nil = {
             binary.path = "${pkgs.nil}/bin/nil";
