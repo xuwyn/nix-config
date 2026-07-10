@@ -7,7 +7,7 @@
     ...
   }: let
     cfg = config.homeManager.editors.nixvim;
-    isStylixEnabled = config.homeManager.theme.stylix.enable or false;
+    isMatugenEnabled = config.programs.matugen.enable or false;
     barThemes = {
       noctalia = ''
         local function build_lualine_theme()
@@ -146,103 +146,15 @@
         };
 
         colorschemes.catppuccin = {
-          enable = !cfg.barTheme.enable;
-          settings = lib.mkMerge [
-            {
-              flavour = "mocha"; # "latte", "mocha", "frappe", "macchiato", "auto"
-              transparent_background = true;
-              integrations = {
-                lualine = true;
-                bufferline = true;
-              };
-            }
-            (lib.mkIf isStylixEnabled {
-              # get stylix base16 colors
-              color_overrides.all = {
-                base = "#${config.lib.stylix.colors.base00}"; # Default Background
-                mantle = "#${config.lib.stylix.colors.base01}"; # Darker Background
-                crust = "#${config.lib.stylix.colors.base01}"; # Darkest Background
-
-                surface0 = "#${config.lib.stylix.colors.base02}"; # Selection Background
-                surface1 = "#${config.lib.stylix.colors.base03}"; # Comments / Muted text
-                surface2 = "#${config.lib.stylix.colors.base04}"; # Dark Foreground
-
-                text = "#${config.lib.stylix.colors.base05}"; # Default Foreground
-                subtext1 = "#${config.lib.stylix.colors.base06}"; # Light Foreground
-                subtext0 = "#${config.lib.stylix.colors.base07}"; # Lightest Foreground
-
-                # Color Accents
-                red = "#${config.lib.stylix.colors.base08}";
-                peach = "#${config.lib.stylix.colors.base09}";
-                yellow = "#${config.lib.stylix.colors.base0A}";
-                green = "#${config.lib.stylix.colors.base0B}";
-                teal = "#${config.lib.stylix.colors.base0C}";
-                blue = "#${config.lib.stylix.colors.base0D}";
-                mauve = "#${config.lib.stylix.colors.base0E}";
-                rosewater = "#${config.lib.stylix.colors.base0F}";
-              };
-              highlight_overrides.all = {
-                Visual = {
-                  bg = "#${config.lib.stylix.colors.base02}";
-                  fg = "#${config.lib.stylix.colors.base05}";
-                  style = ["bold"];
-                };
-                Search = {
-                  bg = "#${config.lib.stylix.colors.base0A}";
-                  fg = "#${config.lib.stylix.colors.base00}";
-                };
-                IncSearch = {
-                  bg = "#${config.lib.stylix.colors.base09}";
-                  fg = "#${config.lib.stylix.colors.base00}";
-                };
-                CurSearch = {
-                  bg = "#${config.lib.stylix.colors.base09}";
-                  fg = "#${config.lib.stylix.colors.base00}";
-                };
-                Pmenu = {
-                  bg = "#${config.lib.stylix.colors.base01}";
-                  fg = "#${config.lib.stylix.colors.base06}";
-                };
-                PmenuSel = {
-                  bg = "#${config.lib.stylix.colors.base02}";
-                  fg = "#${config.lib.stylix.colors.base05}";
-                  style = ["bold"];
-                };
-                PmenuMatch = {
-                  fg = "#${config.lib.stylix.colors.base0D}";
-                  style = ["bold"];
-                };
-                PmenuMatchSel = {
-                  fg = "#${config.lib.stylix.colors.base0D}";
-                  style = ["bold"];
-                };
-                WildMenu = {
-                  bg = "#${config.lib.stylix.colors.base02}";
-                  fg = "#${config.lib.stylix.colors.base05}";
-                  style = ["bold"];
-                };
-                BlinkCmpMenu = {
-                  bg = "#${config.lib.stylix.colors.base01}";
-                  fg = "#${config.lib.stylix.colors.base06}";
-                };
-                BlinkCmpMenuBorder = {fg = "#${config.lib.stylix.colors.base03}";};
-                BlinkCmpMenuSelection = {
-                  bg = "#${config.lib.stylix.colors.base02}";
-                  fg = "#${config.lib.stylix.colors.base05}";
-                  style = ["bold"];
-                };
-                BlinkCmpLabel = {fg = "#${config.lib.stylix.colors.base06}";};
-                BlinkCmpLabelMatch = {
-                  fg = "#${config.lib.stylix.colors.base0D}";
-                  style = ["bold"];
-                };
-                BlinkCmpLabelDeprecated = {
-                  fg = "#${config.lib.stylix.colors.base03}";
-                  style = ["strikethrough"];
-                };
-              };
-            })
-          ];
+          enable = !cfg.barTheme.enable && !isMatugenEnabled;
+          settings = {
+            flavour = "mocha"; # "latte", "mocha", "frappe", "macchiato", "auto"
+            transparent_background = true;
+            integrations = {
+              lualine = true;
+              bufferline = true;
+            };
+          };
         };
 
         extraPlugins = with pkgs; [
@@ -586,7 +498,25 @@
           ${
             if cfg.barTheme.enable
             then (barThemes.${cfg.barName} or "")
-            else ""
+            else if isMatugenEnabled
+            then ''
+              local matugen_path = vim.fn.stdpath("config") .. "/lua/matugen-colors.lua"
+              local function apply_matugen_theme()
+                if vim.uv.fs_stat(matugen_path) then
+                  local ok, err = pcall(dofile, matugen_path)
+                  if not ok then
+                    vim.notify("Failed to load matugen theme: " .. tostring(err), vim.log.levels.ERROR)
+                    return
+                  end
+                end
+              end
+              apply_matugen_theme()
+              local signal = vim.uv.new_signal()
+              signal:start('sigusr1', vim.schedule_wrap(function()
+                vim.defer_fn(apply_matugen_theme, 50)
+              end))
+            ''
+            else ''''
           }
           -- Inline diagnostics (virtual text) similar to NVF virtual_lines
           vim.diagnostic.config({
@@ -622,20 +552,11 @@
             })
           end
 
-          -- Notify background using Stylix palette
+          -- Notify background color
           local ok, notify = pcall(require, 'notify')
           if ok then
-          ${
-            if isStylixEnabled
-            then ''
-              notify.setup({ background_colour = "#${config.lib.stylix.colors.base01}" })
-              vim.notify = notify
-            ''
-            else ''
-              notify.setup({ background_colour = "#181825" })
-              vim.notify = notify
-            ''
-          }
+            notify.setup({ background_colour = vim.g.base16_gui00 or "#1e1e2e" })
+            vim.notify = notify
           end
         '';
       };

@@ -3,7 +3,7 @@
   inputs,
   ...
 }: let
-  stylixImage = ../../../wallpapers/Amiya-Birthday-Skin-Promote.png;
+  wallpaper = ../../../wallpapers/Amiya-Birthday-Skin-Promote.png;
 in {
   home."wyn@apricot" = {
     system = "aarch64-darwin";
@@ -35,14 +35,8 @@ in {
               username = "wyn";
               email = "173407133+xuwyn@users.noreply.github.com";
             };
-            btop = {
-              enable = true;
-              stylixTheme.enable = true;
-            };
-            cava = {
-              enable = true;
-              stylixTheme.enable = true;
-            };
+            btop.enable = true;
+            cava.enable = true;
             fastfetch.enable = true;
             bottom.enable = true;
             htop.enable = true;
@@ -61,9 +55,9 @@ in {
           terminals.kitty.enable = true;
           theme = {
             fonts.enable = true;
-            stylix = {
+            matugen = {
               enable = true;
-              image = stylixImage;
+              wallpaper = wallpaper;
             };
           };
         };

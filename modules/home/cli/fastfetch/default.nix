@@ -13,6 +13,11 @@
         default = "kitty";
         description = "Choose terminal emulator";
       };
+      logo = lib.mkOption {
+        type = lib.types.enum ["png" "gif"];
+        default = "png";
+        description = "Choose logo image type";
+      };
     };
 
     config = lib.mkIf cfg.enable {
@@ -21,9 +26,32 @@
 
         settings = let
           colors = {
-            os = "light_magenta";
-            wm = "light_cyan";
-            hw = "blue";
+            os = "cyan";
+            wm = "blue";
+            hw = "dim_blue";
+          };
+          logo = {
+            gif = {
+              source = ./onlooker.gif;
+              type = "kitty-icat";
+              padding = {
+                top = 6;
+                left = 0;
+              };
+            };
+            png = {
+              source = ./frieren.png;
+              type =
+                if cfg.terminal == "wezterm"
+                then "iterm"
+                else "kitty";
+              height = 20;
+              width = 26;
+              padding = {
+                top = 1;
+                left = 0;
+              };
+            };
           };
         in {
           display = {
@@ -34,19 +62,8 @@
             separator = " ➜  ";
           };
 
-          logo = {
-            source = ./frieren.png;
-            type =
-              if cfg.terminal == "wezterm"
-              then "iterm"
-              else "kitty-direct";
-            height = 18;
-            width = 25;
-            padding = {
-              top = 3;
-              left = 0;
-            };
-          };
+          logo = logo.${cfg.logo};
+
           modules = [
             "break"
             {
@@ -154,7 +171,7 @@
             }
             {
               type = "cpu";
-              key = " ├ 󰓅 ";
+              key = " ├  ";
               keyColor = colors.hw;
               outputColor = colors.hw;
             }
@@ -167,7 +184,7 @@
             }
             {
               type = "memory";
-              key = " ├  ";
+              key = " ├  ";
               keyColor = colors.hw;
               outputColor = colors.hw;
             }

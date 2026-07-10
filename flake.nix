@@ -49,6 +49,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    matugen.url = "github:/InioX/Matugen";
+
     noctalia.url = "github:noctalia-dev/noctalia/cachix";
 
     dms = {

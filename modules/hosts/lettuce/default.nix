@@ -1,5 +1,5 @@
 {config, ...}: let
-  stylixImage = ../../../wallpapers/DaVinci.jpg;
+  wallpaper = ../../../wallpapers/DaVinci.jpg;
 in {
   nixos.lettuce = {
     host = "lettuce";
@@ -44,10 +44,7 @@ in {
               enable = true;
               terminal = "wezterm";
             };
-            btop = {
-              enable = true;
-              stylixTheme.enable = true;
-            };
+            btop.enable = true;
             bottom.enable = true;
             htop.enable = true;
             nh.enable = true;
@@ -62,9 +59,9 @@ in {
             nixvim.enable = true;
           };
           theme = {
-            stylix = {
+            matugen = {
               enable = true;
-              image = stylixImage;
+              wallpaper = wallpaper;
             };
           };
         };

@@ -336,7 +336,7 @@ _: {
       match = {
         tag = "terminal*",
       },
-      opacity = "0.95 0.85",
+      opacity = "0.90 0.80",
       no_blur = false,
     })
 

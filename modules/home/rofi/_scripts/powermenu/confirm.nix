@@ -1,9 +1,15 @@
 {config}: let
-  isStylixEnabled = config.homeManager.theme.stylix.enable or false;
-
+  isMatugenEnabled = config.programs.matugen.enable or false;
   colors =
-    if isStylixEnabled
-    then config.lib.stylix.colors
+    if isMatugenEnabled
+    then {
+      base00 = config.programs.matugen.theme.colors.surface.default.color;
+      base01 = config.programs.matugen.theme.colors.surface_container_low.default.color;
+      base05 = config.programs.matugen.theme.colors.on_surface.default.color;
+      base0D = config.programs.matugen.theme.colors.primary.default.color;
+      base0B = config.programs.matugen.theme.colors.tertiary.default.color;
+      base08 = config.programs.matugen.theme.colors.error.default.color;
+    }
     else {
       base00 = "1e1e2e";
       base01 = "181825";

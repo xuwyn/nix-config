@@ -6,28 +6,28 @@
     ...
   }: let
     cfg = config.homeManager.i3.polybar;
-    isStylixEnabled = config.homeManager.theme.stylix.enable or false;
+    isMatugenEnabled = config.programs.matugen.enable or false;
     colors =
-      if isStylixEnabled
+      if isMatugenEnabled
       then {
-        background = config.lib.stylix.colors.base00;
-        backgroundAlt = config.lib.stylix.colors.base01;
-        base02 = config.lib.stylix.colors.base02;
-        base03 = config.lib.stylix.colors.base03;
-        foreground = config.lib.stylix.colors.base05;
-        base07 = config.lib.stylix.colors.base07;
-        base08 = config.lib.stylix.colors.base08;
-        primary = config.lib.stylix.colors.base0D;
+        background = config.programs.matugen.theme.colors.surface.default.color;
+        backgroundAlt = config.programs.matugen.theme.colors.surface_container_low.default.color;
+        base02 = config.programs.matugen.theme.colors.surface_container.default.color;
+        base03 = config.programs.matugen.theme.colors.surface_container_high.default.color;
+        foreground = config.programs.matugen.theme.colors.on_surface.default.color;
+        base07 = config.programs.matugen.theme.colors.tertiary.default.color;
+        base08 = config.programs.matugen.theme.colors.error.default.color;
+        primary = config.programs.matugen.theme.colors.primary.default.color;
       }
       else {
-        background = "1e1e2e"; # Base
-        backgroundAlt = "181825"; # Mantle
-        base02 = "313244"; # Surface0
-        base03 = "45475a"; # Surface1
-        foreground = "cdd6f4"; # Text
-        base07 = "b4befe"; # Lavender (used as accent here)
-        base08 = "f38ba8"; # Red (used for urgent)
-        primary = "89b4fa"; # Blue
+        background = "1e1e2e";
+        backgroundAlt = "181825";
+        base02 = "313244";
+        base03 = "45475a";
+        foreground = "cdd6f4";
+        base07 = "b4befe";
+        base08 = "f38ba8";
+        primary = "89b4fa";
       };
   in {
     options.homeManager.i3.polybar = {

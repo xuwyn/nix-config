@@ -1,5 +1,5 @@
 {config, ...}: let
-  stylixImage = ../../../wallpapers/interlude_RinLen_5.png;
+  wallpaper = ../../../wallpapers/interlude_RinLen_5.png;
 in {
   home."wyn@capybara" = {
     system = "x86_64-linux";
@@ -52,9 +52,9 @@ in {
           terminals.kitty.enable = true;
           theme = {
             fonts.enable = true;
-            stylix = {
+            matugen = {
               enable = true;
-              image = stylixImage;
+              wallpaper = wallpaper;
             };
           };
         };

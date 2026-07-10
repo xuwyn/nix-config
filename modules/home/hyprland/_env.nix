@@ -4,16 +4,12 @@ in {
   wayland.windowManager.hyprland.extraConfig = ''
     ${
       if barName == "noctalia"
-      then ''
-        hl.env("QT_QPA_PLATFORMTHEME", "qt5ct")
-      ''
+      then ''''
       else if barName == "dms"
-      then ''
-        hl.env("QT_QPA_PLATFORMTHEME", "gtk3")
-        hl.env("QT_QPA_PLATFORMTHEME_QT6", "gtk3")
-      ''
+      then ''''
       else ''''
     }
+    hl.env("QT_QPA_PLATFORMTHEME", "qt6ct")
     hl.env("NIXOS_OZONE_WL", "1")
     hl.env("NIXPKGS_ALLOW_UNFREE", "1")
     hl.env("XDG_CURRENT_DESKTOP", "Hyprland")

@@ -16,7 +16,7 @@
       settings = import ./_settings.nix {inherit config;};
       session = import ./_session.nix;
       quickshell.package = inputs.quickshell.packages.${pkgs.stdenv.hostPlatform.system}.default;
-      dgop.package = inputs.dgop.packages.${pkgs.system}.default;
+      dgop.package = inputs.dgop.packages.${pkgs.stdenv.hostPlatform.system}.default;
 
       # Core features
       enableSystemMonitoring = true; # System monitoring widgets (dgop)

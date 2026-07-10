@@ -6,19 +6,36 @@
     ...
   }: let
     cfg = config.homeManager.rofi;
-    isStylixEnabled = config.homeManager.theme.stylix.enable or false;
+    isMatugenEnabled = config.programs.matugen.enable or false;
     colors =
-      if isStylixEnabled
-      then config.lib.stylix.colors.withHashtag
+      if isMatugenEnabled
+      then {
+        base00 = "#" + config.programs.matugen.theme.colors.surface.default.color;
+        base01 = "#" + config.programs.matugen.theme.colors.surface_container_low.default.color;
+        base05 = "#" + config.programs.matugen.theme.colors.on_surface.default.color;
+        base08 = "#" + config.programs.matugen.theme.colors.error.default.color;
+        base09 = "#" + config.programs.matugen.theme.colors.tertiary.default.color;
+        base0B = "#" + config.programs.matugen.theme.colors.primary.default.color;
+        base0E = "#" + config.programs.matugen.theme.colors.secondary.default.color;
+        base0F = "#" + config.programs.matugen.theme.colors.outline.default.color;
+      }
       else {
         base00 = "#1e1e2e";
-        base01 = "#181825";
-        base05 = "#cdd6f4";
-        base08 = "#f38ba8";
-        base09 = "#fab387";
-        base0B = "#a6e3a1";
-        base0E = "#cba6f7";
-        base0F = "#f2cdcd";
+        base01 = "#1e1e2e";
+        base05 = "#1e1e2e";
+        base08 = "#1e1e2e";
+        base09 = "#1e1e2e";
+        base0B = "#1e1e2e";
+        base0E = "#1e1e2e";
+        base0F = "#1e1e2e";
+
+        # base01 = "#181825";
+        # base05 = "#cdd6f4";
+        # base08 = "#f38ba8";
+        # base09 = "#fab387";
+        # base0B = "#a6e3a1";
+        # base0E = "#cba6f7";
+        # base0F = "#f2cdcd";
       };
   in {
     options.homeManager.rofi = {

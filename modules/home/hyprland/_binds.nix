@@ -1,7 +1,7 @@
 {config, ...}: let
   inherit (config.homeManager.hyprland) browser terminal barName qylock;
-  inherit (config.homeManager.theme.stylix) image;
-  imageName = builtins.baseNameOf (toString image);
+  inherit (config.homeManager.theme.matugen) wallpaper;
+  wallpaperName = builtins.baseNameOf (toString wallpaper);
 in {
   wayland.windowManager.hyprland.extraConfig = ''
     -- HYPRLAND
@@ -51,6 +51,7 @@ in {
       else if barName == "dms"
       then
         ''
+          -- DankMaterialShell
           hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd("dms ipc call brightness decrement 5 \"\""))
           hl.bind("XF86MonBrightnessUp", hl.dsp.exec_cmd("dms ipc call brightness increment 5 \"\" "))
           hl.bind("SUPER + A", hl.dsp.exec_cmd("dms ipc call spotlight toggle"))
@@ -61,13 +62,13 @@ in {
           hl.bind("SUPER + SHIFT + W", hl.dsp.exec_cmd("dms ipc call plugins enable wallpaperCarousel && dms ipc wallpaperCarousel toggle"))
           hl.bind("CTRL + ALT + DELETE", hl.dsp.exec_cmd("dms ipc call powermenu toggle"))
           hl.bind("SUPER + SHIFT + ESCAPE", hl.dsp.exec_cmd("dms ipc call processlist toggle"))
-          hl.bind("SUPER + C", hl.dsp.exec_cmd("dms ipc call dash toggle overview"))
           hl.bind("SUPER + C", hl.dsp.exec_cmd("dms ipc call profile setImage $HOME/.face"))
-          hl.bind("SUPER + SHIFT + C", hl.dsp.exec_cmd("dms ipc call control-center toggle"))
+          hl.bind("SUPER + C", hl.dsp.exec_cmd("dms ipc call dash toggle overview"))
           hl.bind("SUPER + SHIFT + C", hl.dsp.exec_cmd("dms ipc call profile setImage $HOME/.face"))
-          hl.bind("SUPER + CTRL + C", hl.dsp.exec_cmd("dms ipc call settings toggle"))
+          hl.bind("SUPER + SHIFT + C", hl.dsp.exec_cmd("dms ipc call control-center toggle"))
           hl.bind("SUPER + CTRL + C", hl.dsp.exec_cmd("dms ipc call profile setImage $HOME/.face"))
-          hl.bind("SUPER + SHIFT + R", hl.dsp.exec_cmd("dms restart && sleep 1 && dms ipc call wallpaper set $HOME/Pictures/Wallpapers/${imageName}"))
+          hl.bind("SUPER + CTRL + C", hl.dsp.exec_cmd("dms ipc call settings toggle"))
+          hl.bind("SUPER + SHIFT + R", hl.dsp.exec_cmd("dms restart && sleep 1 && dms ipc call wallpaper set $HOME/Pictures/Wallpapers/${wallpaperName}"))
           hl.bind("SUPER + CTRL + S", hl.dsp.exec_cmd("dms screenshot full -d ~/Pictures/Screenshots"))
           hl.bind("SUPER + SHIFT + S", hl.dsp.exec_cmd("dms screenshot -d ~/Pictures/Screenshots"))
           hl.bind("SUPER + E", hl.dsp.exec_cmd("dms ipc call plugins enable emojiLauncher && dms ipc call spotlight toggleQuery \":e\""))

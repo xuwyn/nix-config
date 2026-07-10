@@ -3,27 +3,26 @@
   background,
   config,
 }: let
-  isStylixEnabled = config.homeManager.theme.stylix.enable or false;
-
+  isMatugenEnabled = config.programs.matugen.enable or false;
   colors =
-    if isStylixEnabled
+    if isMatugenEnabled
     then {
-      base00 = config.lib.stylix.colors.base00;
-      base05 = config.lib.stylix.colors.base05;
-      base06 = config.lib.stylix.colors.base06;
-      base07 = config.lib.stylix.colors.base07;
-      base08 = config.lib.stylix.colors.base08;
-      base0B = config.lib.stylix.colors.base0B;
-      base0D = config.lib.stylix.colors.base0D;
+      base00 = config.programs.matugen.theme.colors.surface.default.color;
+      base05 = config.programs.matugen.theme.colors.on_surface.default.color;
+      base06 = config.programs.matugen.theme.colors.on_surface_variant.default.color;
+      base07 = config.programs.matugen.theme.colors.tertiary.default.color;
+      base08 = config.programs.matugen.theme.colors.error.default.color;
+      base0B = config.programs.matugen.theme.colors.secondary.default.color;
+      base0D = config.programs.matugen.theme.colors.primary.default.color;
     }
     else {
-      base00 = "1e1e2e"; # Base
-      base05 = "cdd6f4"; # Text
-      base06 = "f5e0dc"; # Rosewater
-      base07 = "b4befe"; # Lavender
-      base08 = "f38ba8"; # Red
-      base0B = "a6e3a1"; # Green
-      base0D = "89b4fa"; # Blue
+      base00 = "1e1e2e";
+      base05 = "cdd6f4";
+      base06 = "f5e0dc";
+      base07 = "b4befe";
+      base08 = "f38ba8";
+      base0B = "a6e3a1";
+      base0D = "89b4fa";
     };
 in
   pkgs.writeShellScriptBin "i3-lock" ''
@@ -36,7 +35,7 @@ in
     # Using absolute path to ensure pkgs.imagemagick works seamlessly
     ${pkgs.imagemagick}/bin/magick "$WALLPAPER" -brightness-contrast -20x0 -blur 0x5 "$LOCK_IMG"
 
-    # Lock screen using Stylix base16 hex colors directly
+    # Lock screen using Matugen base16 hex colors directly
     # Added opacity hex values (e.g., '00' for transparent, '88' for semi, 'ff' for solid)
     i3lock \
       --image "$LOCK_IMG" \
