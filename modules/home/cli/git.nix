@@ -12,6 +12,10 @@
       if isMatugenEnabled
       then "#" + config.programs.matugen.theme.colors.primary.default.color
       else "#89b4fa";
+    foreground =
+      if isMatugenEnabled
+      then "#" + config.programs.matugen.theme.colors.surface_container_high.default.color
+      else "#cdd6f4";
     muted =
       if isMatugenEnabled
       then "#" + config.programs.matugen.theme.colors.surface_variant.default.color
@@ -92,6 +96,7 @@
             theme = {
               activeBorderColor = [accent "bold"];
               inactiveBorderColor = [muted];
+              selectedLineBgColor = [foreground];
             };
             showListFooter = false;
             showRandomTip = false;

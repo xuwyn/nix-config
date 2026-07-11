@@ -56,6 +56,12 @@
     ];
 
     config = let
+      reloadHyprland = lib.hm.dag.entryAfter ["writeBoundary"] ''
+        if ${pkgs.procps}/bin/pgrep "Hyprland" > /dev/null; then
+          ${pkgs.hyprland}/bin/hyprctl reload
+        fi
+      '';
+
       usVariants = ["dvorak" "colemak" "workman" "intl" "us-intl" "altgr-intl"];
       normalize = v:
         if v == "us-intl"
@@ -80,7 +86,9 @@
         systemd.user.targets.hyprland-session.Unit.Wants = [
           "xdg-desktop-autostart.target"
         ];
+
         xdg.configFile."hypr/hyprland.lua".force = true;
+
         wayland.windowManager.hyprland = {
           enable = true;
           configType = "lua";
@@ -273,6 +281,18 @@
                 persistent = true,
             })
           '';
+        };
+
+        home.file = {
+          "Pictures/Wallpapers" = {
+            source = ../../../wallpapers;
+            force = true;
+          };
+          ".face".source = ../face.jpg;
+        };
+
+        home.activation = lib.mkIf (config.homeManager.hyprland.enable or false) {
+          inherit reloadHyprland;
         };
       };
   };
