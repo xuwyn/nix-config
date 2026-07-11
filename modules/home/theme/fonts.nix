@@ -16,11 +16,25 @@
     };
 
     config = lib.mkIf cfg.enable {
-      fonts.fontconfig.enable = true;
+      fonts.fontconfig = {
+        enable = true;
+        defaultFonts = {
+          sansSerif = ["Noto Sans"];
+          serif = ["Noto Serif"];
+          monospace = ["Noto Sans Mono"];
+          emoji = ["Noto Color Emoji"];
+        };
+      };
 
       home.packages = with pkgs;
         [
           maple-mono.NF
+          nerd-fonts.noto
+          noto-fonts
+          noto-fonts-monochrome-emoji
+          noto-fonts-color-emoji
+          noto-fonts-cjk-sans
+          noto-fonts-cjk-serif
         ]
         ++ cfg.extraFonts;
     };
