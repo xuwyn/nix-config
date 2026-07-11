@@ -17,7 +17,7 @@
       pkgs.evtest # read kb input for bongo cat
     ];
 
-    home.file."local/state/noctalia/settings.toml".source =
+    home.file.".local/state/noctalia/settings.toml".source =
       mkOutOfStoreSymlink
       "${config.home.homeDirectory}/nix-config/modules/home/noctalia/settings.toml";
 

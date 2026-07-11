@@ -237,7 +237,7 @@ builtin = "Ayu"
 custom_palette = "m3-content"
 mode = "dark"
 source = "wallpaper"
-wallpaper_scheme = "m3-content"
+wallpaper_scheme = "m3-tonal-spot"
 
     [theme.templates]
     builtin_ids = [ "btop", "cava", "gtk3", "gtk4", "ghostty", "hyprland", "kitty", "qt" ]
@@ -256,7 +256,7 @@ directory = "/home/wyn/Pictures/Wallpapers"
     path = "/home/wyn/Pictures/Wallpapers/Embraced_A.png"
 
     [wallpaper.monitors.DP-5]
-    path = "/home/wyn/Pictures/Wallpapers/Ishtar.jpg"
+    path = "/home/wyn/Pictures/Wallpapers/Embraced_A.png"
 
     [[wallpaper.favorite]]
     path = "/home/wyn/Pictures/Wallpapers/SnakeNewYear.png"
@@ -282,7 +282,7 @@ directory = "/home/wyn/Pictures/Wallpapers"
     palette_source = "wallpaper"
     path = "/home/wyn/Pictures/Wallpapers/Embraced_A.png"
     theme_mode = "dark"
-    wallpaper_scheme = "m3-content"
+    wallpaper_scheme = "m3-tonal-spot"
 
     [[wallpaper.favorite]]
     palette_source = "wallpaper"

@@ -36,10 +36,6 @@ in {
             qylock.enable = true;
             hyprland.enable = true;
             fonts.enable = true;
-            stylix = {
-              enable = true;
-              image = wallpaper;
-            };
             thunar.enable = true;
             xserver.enable = true;
             utils.enable = true;
@@ -104,10 +100,6 @@ in {
           };
           terminals = {
             kitty = {
-              enable = true;
-              barTheme.enable = true;
-            };
-            ghostty = {
               enable = true;
               barTheme.enable = true;
             };

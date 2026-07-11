@@ -35,8 +35,6 @@
       inputs.nixpkgs.follows = "nixpkgs-stable";
     };
 
-    stylix.url = "github:danth/stylix/master";
-
     nix-flatpak.url = "github:gmodena/nix-flatpak?ref=latest";
 
     nix-cachyos-kernel.url = "github:xddxdd/nix-cachyos-kernel/release";
@@ -167,7 +165,7 @@
       system:
         lib.mapAttrs' (
           name: _:
-            lib.nameValuePair "nixos-${name}"
+            lib.nameValuePair "${name}"
             config.nixosConfigurations.${name}.config.system.build.toplevel
         ) (
           lib.filterAttrs (
@@ -178,7 +176,7 @@
         )
         // lib.mapAttrs' (
           name: _:
-            lib.nameValuePair "home-${name}"
+            lib.nameValuePair "${name}"
             config.homeConfigurations.${name}.activationPackage
         ) (lib.filterAttrs (name: cfg: cfg.system == system) config.home)
     );

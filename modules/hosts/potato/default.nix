@@ -75,16 +75,7 @@ in {
           terminals.kitty.enable = true;
           theme = {
             cursor.enable = true;
-            fonts = {
-              enable = true;
-              extraFonts = with pkgs; [
-                nerd-fonts.jetbrains-mono
-                nerd-fonts.noto
-                noto-fonts-cjk-sans
-                noto-fonts-cjk-serif
-                dejavu_fonts
-              ];
-            };
+            fonts.enable = true;
             matugen = {
               enable = true;
               wallpaper = wallpaper;
