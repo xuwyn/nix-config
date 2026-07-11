@@ -16,9 +16,8 @@ so most features are in Home Manager for portability.
 
 ## Overview
 
-This config uses [flake](https://nix.dev/concepts/flakes.html), [flake-parts](https://flake.parts)
-and [import-tree](https://github.com/denful/import-tree) to implement a half-baked
-[dendritic pattern](https://github.com/mightyiam/dendritic).
+This config uses [flake](https://nix.dev/concepts/flakes.html) and [flake-parts](https://flake.parts)
+to implement a half-baked [dendritic pattern](https://github.com/mightyiam/dendritic).
 Why half-baked? Because mixing different classes (i.e., `nixos`, `homeManager`, and `darwin`)
 into the same aspect doesn't feel right to me.
 From what I learned, there are two main ways of setting up dendritic pattern:
@@ -243,26 +242,26 @@ Run initial build with `nixos-rebuild`
 cd ~/nix-config
 
 # use `dry-activate` to preview changes without applying them
-sudo nixos-rebuild dry-activate --flake .#new-host --accept-flake-config
+sudo nixos-rebuild dry-activate --flake .#new-host
 
 # use `switch` to apply changes after build
-sudo nixos-rebuild switch --flake .#new-host --accept-flake-config
+sudo nixos-rebuild switch --flake .#new-host
 
 # use `boot` to apply changes after a reboot
-sudo nixos-rebuild boot --flake .#new-host --accept-flake-config
+sudo nixos-rebuild boot --flake .#new-host
 ```
 
 If `nh` is enabled with the initial `home-manager switch`, subsequent rebuilds can be executed with
 
 ```sh
 # use flag `--dry` to preview changes without applying them
-nh os switch --accept-flake-config --dry
+nh os switch --dry
 
 # use `switch` to apply changes after build
-nh os switch --accept-flake-config
+nh os switch
 
 # use `boot` to apply change after a reboot
-nh os boot --accept-flake-config
+nh os boot
 ```
 
 ### Home Manager Switch
@@ -285,10 +284,10 @@ If `nh` is enabled with the initial `home-manager switch`, subsequent builds can
 
 ```sh
 # use flag `--dry` to preview changes without applying them
-nh home switch --accept-flake-config --dry
+nh home switch --dry
 
 # apply changes after build
-nh home switch --accept-flake-config
+nh home switch
 ```
 
 ### Garbage Collector
