@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.nix-conf = {
+  modules.nixos.nix-conf = {
     pkgs,
     username,
     ...

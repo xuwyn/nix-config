@@ -5,7 +5,7 @@ in {
     host = "mango";
     profile = "amd-nvidia-sync";
     username = "wyn";
-    modules = with config.flake.modules.nixos; [
+    modules = with config.modules.nixos; [
       ./_hardware.nix
       boot
       hardware
@@ -61,7 +61,7 @@ in {
   home."wyn@mango" = {
     system = "x86_64-linux";
     username = "wyn";
-    modules = with config.flake.modules.homeManager; [
+    modules = with config.modules.homeManager; [
       home
       cli
       sops

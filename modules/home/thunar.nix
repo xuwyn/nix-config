@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.thunar = {
+  modules.homeManager.thunar = {
     config,
     lib,
     ...

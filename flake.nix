@@ -35,9 +35,6 @@
       inputs.nixpkgs.follows = "nixpkgs-stable";
     };
 
-    # den
-    flake-parts.url = "github:hercules-ci/flake-parts";
-
     stylix.url = "github:danth/stylix/master";
 
     nix-flatpak.url = "github:gmodena/nix-flatpak?ref=latest";
@@ -134,6 +131,9 @@
 
   outputs = {nixpkgs, ...} @ inputs: let
     inherit (nixpkgs) lib;
+
+    systems = ["x86_64-linux" "aarch64-darwin"];
+
     import-tree = dir:
       builtins.concatMap (
         elem: let
@@ -148,7 +148,39 @@
             )
           else lib.optional (lib.hasSuffix ".nix" elem && !lib.hasPrefix "_" elem) path
       ) (builtins.attrNames (builtins.readDir dir));
-  in
-    inputs.flake-parts.lib.mkFlake {inherit inputs;}
-    {imports = import-tree ./modules;};
+
+    inherit
+      (lib.evalModules {
+        modules = import-tree ./modules;
+        specialArgs = {inherit inputs;};
+      })
+      config
+      ;
+  in {
+    inherit (config) nixosConfigurations homeConfigurations;
+
+    formatter = lib.genAttrs systems (
+      system: inputs.nixpkgs.legacyPackages.${system}.alejandra
+    );
+
+    checks = lib.genAttrs systems (
+      system:
+        lib.mapAttrs' (
+          name: _:
+            lib.nameValuePair "nixos-${name}"
+            config.nixosConfigurations.${name}.config.system.build.toplevel
+        ) (
+          lib.filterAttrs (
+            name: _:
+              config.nixosConfigurations.${name}.config.nixpkgs.hostPlatform.system == system
+          )
+          config.nixos
+        )
+        // lib.mapAttrs' (
+          name: _:
+            lib.nameValuePair "home-${name}"
+            config.homeConfigurations.${name}.activationPackage
+        ) (lib.filterAttrs (name: cfg: cfg.system == system) config.home)
+    );
+  };
 }

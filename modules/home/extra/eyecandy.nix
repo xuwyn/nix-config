@@ -1,5 +1,5 @@
 {inputs, ...}: {
-  flake.modules.homeManager.eyecandy = {pkgs, ...}: let
+  modules.homeManager.eyecandy = {pkgs, ...}: let
     umbrella-fetch = pkgs.rustPlatform.buildRustPackage {
       name = "umbrella-fetch";
       src = inputs.umbrella-fetch;

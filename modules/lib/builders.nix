@@ -6,44 +6,7 @@
 }: let
   overlays = import ../_overlays {inherit inputs;};
 in {
-  options = {
-    nixos = lib.mkOption {
-      type = lib.types.lazyAttrsOf (
-        lib.types.submodule ({name, ...}: {
-          options = {
-            host = lib.mkOption {
-              type = lib.types.str;
-              default = name;
-            };
-            modules = lib.mkOption {
-              type = lib.types.listOf lib.types.deferredModule;
-              default = [];
-            };
-            username = lib.mkOption {type = lib.types.str;};
-            profile = lib.mkOption {type = lib.types.str;};
-          };
-        })
-      );
-      default = {};
-    };
-    home = lib.mkOption {
-      type = lib.types.lazyAttrsOf (
-        lib.types.submodule ({name, ...}: {
-          options = {
-            system = lib.mkOption {type = lib.types.str;};
-            modules = lib.mkOption {
-              type = lib.types.listOf lib.types.deferredModule;
-              default = [];
-            };
-            username = lib.mkOption {type = lib.types.str;};
-          };
-        })
-      );
-      default = {};
-    };
-  };
-
-  config.flake = {
+  config = {
     nixosConfigurations =
       lib.mapAttrs (
         name: cfg:
@@ -55,7 +18,7 @@ in {
             modules =
               cfg.modules
               ++ [
-                config.flake.modules.nixos.${cfg.profile}
+                config.modules.nixos.${cfg.profile}
                 (_: {
                   nixpkgs = {
                     inherit overlays;
@@ -66,6 +29,7 @@ in {
           }
       )
       config.nixos;
+
     homeConfigurations =
       lib.mapAttrs (
         name: cfg: let

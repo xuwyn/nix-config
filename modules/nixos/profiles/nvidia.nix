@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.nvidia = {...}: {
+  modules.nixos.nvidia = {...}: {
     imports = [
       ../../_drivers/nvidia.nix
     ];

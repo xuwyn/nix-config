@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.hardware = {pkgs, ...}: {
+  modules.nixos.hardware = {pkgs, ...}: {
     hardware = {
       sane = {
         enable = true;

@@ -4,7 +4,7 @@ in {
   home."wyn@capybara" = {
     system = "x86_64-linux";
     username = "wyn";
-    modules = with config.flake.modules.homeManager; [
+    modules = with config.modules.homeManager; [
       ./_gpu.nix
       home
       sops

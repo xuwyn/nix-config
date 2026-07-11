@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.intel = {...}: {
+  modules.nixos.intel = {...}: {
     imports = [
       ../../_drivers/intelgpu.nix
     ];

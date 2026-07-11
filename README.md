@@ -49,7 +49,7 @@ Sure hope one day my brain will cooperate enough to refactor this mess into [den
 
 > [!TIP]
 >
-> - Naming scheme: **`flake.modules.<class>.<aspect>`** with **`options.<class>.<aspect>.<module>`**
+> - Naming scheme: **`modules.<class>.<aspect>`** with **`options.<class>.<aspect>.<module>`**
 >   - **`<class>`**: `nixos` or `homeManager`
 >   - **`<aspect>`**: Usually the same as the folder name. (The two exceptions are `./modules/nixos/profiles` and `./modules/home/extra`)
 >   - **`<module>`**: Usually the same as the filename. (Some files has multiple modules in them)
@@ -181,7 +181,7 @@ in {
   home."new-user@new-host" = {
     system = "x86_64-linux";
     username = "new-user";
-    modules = with config.flake.modules.homeManager; [
+    modules = with config.modules.homeManager; [
       home
       cli
       terminals

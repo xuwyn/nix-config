@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.amd = {...}: {
+  modules.nixos.amd = {...}: {
     imports = [
       ../../_drivers/amdgpu.nix
     ];

@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.vm = {...}: {
+  modules.nixos.vm = {...}: {
     imports = [
       ../../_drivers/vm-guest-services.nix
     ];

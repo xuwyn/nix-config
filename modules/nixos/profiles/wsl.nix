@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.wsl = {...}: {
+  modules.nixos.wsl = {...}: {
     imports = [
       ../../_drivers/wsl.nix
     ];

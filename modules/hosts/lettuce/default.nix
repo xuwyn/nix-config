@@ -5,7 +5,7 @@ in {
     host = "lettuce";
     profile = "wsl";
     username = "wyn";
-    modules = with config.flake.modules.nixos; [
+    modules = with config.modules.nixos; [
       network
       nix-conf
       security
@@ -17,7 +17,7 @@ in {
   home."wyn@lettuce" = {
     system = "x86_64-linux";
     username = "wyn";
-    modules = with config.flake.modules.homeManager; [
+    modules = with config.modules.homeManager; [
       home
       sops
       python

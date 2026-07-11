@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.hyprland = {
+  modules.homeManager.hyprland = {
     config,
     pkgs,
     lib,
@@ -140,7 +140,7 @@
             };
 
             scrolling = {
-              column_width = 0.60;
+              column_width = 0.50;
               fullscreen_on_one_column = true;
               direction = "right";
               follow_focus = true;

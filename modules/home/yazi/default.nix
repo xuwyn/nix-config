@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.yazi = {pkgs, ...}: {
+  modules.homeManager.yazi = {pkgs, ...}: {
     programs.yazi = {
       enable = true;
       enableZshIntegration = true;
