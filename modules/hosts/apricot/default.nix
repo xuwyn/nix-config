@@ -8,7 +8,7 @@ in {
   home."wyn@apricot" = {
     system = "aarch64-darwin";
     username = "wyn";
-    modules = with config.flake.modules.homeManager; [
+    modules = with config.modules.homeManager; [
       inputs.mac-app-util.homeManagerModules.default
       home
       sops

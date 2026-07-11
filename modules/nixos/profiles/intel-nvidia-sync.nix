@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.intel-nvidia-sync = {
+  modules.nixos.intel-nvidia-sync = {
     config,
     lib,
     ...

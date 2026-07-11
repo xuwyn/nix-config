@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.dms = {
+  modules.homeManager.dms = {
     config,
     lib,
     inputs,

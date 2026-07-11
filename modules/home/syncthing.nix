@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.syncthing = {
+  modules.homeManager.syncthing = {
     username,
     config,
     lib,

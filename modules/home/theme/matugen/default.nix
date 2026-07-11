@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.theme = {
+  modules.homeManager.theme = {
     config,
     lib,
     inputs,

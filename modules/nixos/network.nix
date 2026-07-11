@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.network = {
+  modules.nixos.network = {
     pkgs,
     profile,
     lib,

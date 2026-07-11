@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.aerospace = {
+  modules.homeManager.aerospace = {
     pkgs,
     username,
     ...

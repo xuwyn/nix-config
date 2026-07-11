@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.intel-nvidia-offload = {
+  modules.nixos.intel-nvidia-offload = {
     config,
     lib,
     ...

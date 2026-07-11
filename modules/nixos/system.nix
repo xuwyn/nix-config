@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.system = {
+  modules.nixos.system = {
     lib,
     config,
     pkgs,

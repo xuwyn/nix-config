@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.editors = {
+  modules.homeManager.editors = {
     pkgs,
     config,
     lib,

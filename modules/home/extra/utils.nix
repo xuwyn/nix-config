@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.utils = {pkgs, ...}: {
+  modules.homeManager.utils = {pkgs, ...}: {
     home.packages = with pkgs; [
       # --- Terminal Utilities ---
       duf # Disk utility (disk space)

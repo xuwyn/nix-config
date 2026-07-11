@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.terminals = {
+  modules.homeManager.terminals = {
     pkgs,
     config,
     lib,

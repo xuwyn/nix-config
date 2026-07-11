@@ -1,5 +1,5 @@
 {inputs, ...}: {
-  flake.modules.homeManager.home = {
+  modules.homeManager.home = {
     username,
     pkgs,
     ...
