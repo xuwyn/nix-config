@@ -74,7 +74,6 @@ in {
       syncthing
 
       # desktop/hyprland
-      dotfiles
       hyprland
       noctalia
       xdg

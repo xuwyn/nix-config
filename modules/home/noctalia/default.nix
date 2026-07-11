@@ -6,6 +6,7 @@
     ...
   }: let
     system = pkgs.stdenv.hostPlatform.system;
+    mkOutOfStoreSymlink = path: config.lib.file.mkOutOfStoreSymlink path;
     noctaliaPkg = inputs.noctalia.packages.${system}.default;
     qylockEnable = config.homeManager.hyprland.qylock.enable or false;
   in {
@@ -15,6 +16,10 @@
       pkgs.matugen # color palette generator
       pkgs.evtest # read kb input for bongo cat
     ];
+
+    home.file."local/state/noctalia/settings.toml".source =
+      mkOutOfStoreSymlink
+      "${config.home.homeDirectory}/nix-config/modules/home/noctalia/settings.toml";
 
     # Configure Noctalia via home module
     imports = [inputs.noctalia.homeModules.default];
