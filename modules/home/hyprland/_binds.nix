@@ -55,6 +55,7 @@ in {
           hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd("dms ipc call brightness decrement 5 \"\""))
           hl.bind("XF86MonBrightnessUp", hl.dsp.exec_cmd("dms ipc call brightness increment 5 \"\" "))
           hl.bind("SUPER + A", hl.dsp.exec_cmd("dms ipc call spotlight toggle"))
+          hl.bind("SUPER + CTRL + SPACE", hl.dsp.exec_cmd("dms ipc call spotlight-bar toggle"))
           hl.bind("SUPER + V", hl.dsp.exec_cmd("dms ipc call clipboard toggle"))
           hl.bind("SUPER + N", hl.dsp.exec_cmd("dms ipc call notifications toggle"))
           hl.bind("SUPER + SHIFT + N", hl.dsp.exec_cmd("dms ipc call notifications clearAll"))

@@ -88,16 +88,7 @@
         end))
       '';
       dms = ''
-        local dankcolors_path = vim.fn.stdpath("config") .. "/lua/plugins/dankcolors.lua"
-        local function apply_dank_theme()
-          if vim.uv.fs_stat(dankcolors_path) then
-            local ok, spec = pcall(dofile, dankcolors_path)
-            if ok and spec and spec[1] and spec[1].config then
-              spec[1].config()
-            end
-          end
-        end
-        apply_dank_theme()
+        vim.cmd.colorscheme("dms")
       '';
     };
   in {
@@ -159,6 +150,17 @@
 
         extraPlugins = with pkgs; [
           vimPlugins.base16-nvim
+          (pkgs.vimUtils.buildVimPlugin {
+            pname = "base46";
+            version = "unstable";
+            src = pkgs.fetchFromGitHub {
+              owner = "AvengeMedia";
+              repo = "base46";
+              rev = "cb8a1257bbc2640f6e7415a01219b34d3efd1494";
+              hash = "sha256-6kK8q2dmmW3RO9FQmlcYN6Yyhl6fXE5ey1l8PWRVCfc=";
+            };
+            doCheck = false;
+          })
         ];
 
         plugins = {

@@ -71,7 +71,8 @@ in {
 
       # desktop/hyprland
       hyprland
-      noctalia
+      dms
+      # noctalia
       xdg
       thunar
       yazi
@@ -93,13 +94,18 @@ in {
             };
             nixcord = {
               enable = true;
-              themes = ["noctalia-material.theme.css" "noctalia.theme.css"];
+              # themes = ["noctalia-material.theme.css" "noctalia.theme.css"];
+              themes = ["dank-discord.css"];
             };
             obs-studio.enable = true;
             spicetify.enable = true;
           };
           terminals = {
             kitty = {
+              enable = true;
+              barTheme.enable = true;
+            };
+            ghostty = {
               enable = true;
               barTheme.enable = true;
             };
@@ -114,11 +120,11 @@ in {
             };
             btop = {
               enable = true;
-              theme = "noctalia";
+              # theme = "noctalia";
             };
             cava = {
               enable = true;
-              theme = "noctalia";
+              # theme = "noctalia";
             };
             fastfetch = {
               enable = true;
@@ -160,7 +166,7 @@ in {
                 scale = 1,
               })
             '';
-            barName = "noctalia";
+            barName = "dms";
             barTheme.enable = true;
             qylock.enable = true;
           };
