@@ -1,5 +1,5 @@
 {config, ...}: let
-  wallpaper = ../../../wallpapers/Embraced_A.png;
+  wallpaper = ../../../wallpapers/IS-Mysterious_Banquet.png;
 in {
   nixos.mango = {
     host = "mango";
