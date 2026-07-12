@@ -32,11 +32,11 @@
             ${
               if cfg.barTheme.enable
               then ''
-                color_scheme_path=${config.home.homeDirectory}/.config/qt5ct/colors/${barThemes.${cfg.barName}}
+                color_scheme_path="$HOME/.config/qt5ct/colors/${barThemes.${cfg.barName}}"
               ''
               else if isMatugenEnabled
               then ''
-                color_scheme_path=${config.home.homeDirectory}/.config/qt5ct/colors/matugen-colors.conf
+                color_scheme_path="$HOME/.config/qt5ct/colors/matugen-colors.conf"
               ''
               else ''''
             }
@@ -52,11 +52,11 @@
             ${
               if cfg.barTheme.enable
               then ''
-                color_scheme_path=${config.home.homeDirectory}/.config/qt6ct/colors/${barThemes.${cfg.barName}}
+                color_scheme_path="$HOME/.config/qt6ct/colors/${barThemes.${cfg.barName}}"
               ''
               else if isMatugenEnabled
               then ''
-                color_scheme_path=${config.home.homeDirectory}/.config/qt6ct/colors/matugen-colors.conf
+                color_scheme_path="$HOME/.config/qt6ct/colors/matugen-colors.conf"
               ''
               else ''''
             }

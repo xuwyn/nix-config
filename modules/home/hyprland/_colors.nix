@@ -13,49 +13,7 @@
       end
     '';
     dms = ''
-      local ok, err = pcall(function()
-        local path = os.getenv("HOME") .. "/.config/hypr/dms/colors.conf"
-        local f = io.open(path, "r")
-        if not f then return end
-
-        local vars = {}
-        for line in f:lines() do
-          local name, hex = line:match("^%s*%$(%w+)%s*=%s*rgb%((%x+)%)")
-          if name then
-            vars[name] = "rgb(" .. hex .. ")"
-          end
-        end
-        f:close()
-
-        if not (vars.primary and vars.outline and vars.error) then
-          return
-        end
-
-        hl.config({
-          general = {
-            col = {
-              active_border   = vars.primary,
-              inactive_border = vars.outline,
-            },
-          },
-          group = {
-            col = {
-              border_active          = vars.primary,
-              border_inactive        = vars.outline,
-              border_locked_active   = vars.error,
-              border_locked_inactive = vars.outline,
-            },
-            groupbar = {
-              col = {
-                active         = vars.primary,
-                inactive       = vars.outline,
-                locked_active  = vars.error,
-                locked_inactive = vars.outline,
-              },
-            },
-          },
-        })
-      end)
+      require("dms.colors")
     '';
   };
 in {

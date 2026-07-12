@@ -49,7 +49,7 @@
     noctalia.url = "github:noctalia-dev/noctalia/cachix";
 
     dms = {
-      url = "github:AvengeMedia/DankMaterialShell/stable";
+      url = "github:AvengeMedia/DankMaterialShell/v1.5.0";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
