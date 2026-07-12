@@ -294,7 +294,7 @@ directory = "/home/wyn/Pictures/Wallpapers"
     path = "/home/wyn/Pictures/Wallpapers/IS-Mysterious_Banquet.png"
 
     [wallpaper.monitors.DP-5]
-    path = "/home/wyn/Pictures/Wallpapers/Embraced_A.png"
+    path = "/home/wyn/Pictures/Wallpapers/IS-Mysterious_Banquet.png"
 
     [[wallpaper.favorite]]
     palette_source = "wallpaper"
