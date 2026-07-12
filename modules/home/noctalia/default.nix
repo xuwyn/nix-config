@@ -57,7 +57,6 @@
           launch_apps_as_systemd_services = true;
           settings_show_advanced = true;
           telemetry_enabled = false;
-          ui_scale = 1.1;
 
           panel = {
             control_center_placement = "floating";
