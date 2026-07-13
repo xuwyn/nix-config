@@ -11,34 +11,32 @@ jobs:
     if: ${{ github.repository == 'xuwyn/nix-config' }}
     permissions:
       contents: write
-      pull-requests: write
     steps:
       - uses: actions/checkout@v6
 
       - uses: cachix/install-nix-action@v31
 
-      - name: Update flake.lock 
+      - name: Update .tack/pins.lock.json
         run: |
-          nix flake update --accept-flake-config 2> log_raw
-          grep -A 2 '^•' log_raw > log || true
-
-      - name: Parse commit message body
-        run: |
+          log=$(GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} nix run nixpkgs#tack -- update)
           delim=$(openssl rand -hex 8)
-          echo "COMMIT_MSG<<$delim" >> $GITHUB_ENV
-          echo "chore(flake): update flake.lock" >> $GITHUB_ENV
-          echo "" >> $GITHUB_ENV
-          cat log >> $GITHUB_ENV
-          echo "$delim" >> $GITHUB_ENV
-
-      - name: Remove log
-        run: rm -rf log log_raw
-
-      - uses: peter-evans/create-pull-request@v8
-        with: 
-          title: "chore(flake): update flake.lock" 
-          branch: flake-update
-          commit-message: ${{ env.COMMIT_MSG }}
-          labels: |
-            dependencies
-            automated
+          {
+            echo "TACK_LOG<<$delim"
+            echo "chore(flake): update pins.lock.json"
+            echo ""
+            echo "$log"
+            echo "$delim"
+          } >> $GITHUB_ENV
+      
+      - name: Commit and Push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          
+          if [[ -n $(git status -s .tack/pins.lock.json) ]]; then
+            git add .tack/pins.lock.json
+            git commit -m "$TACK_LOG"
+            git push origin main
+          else
+            echo "No changes detected, skipping commit."
+          fi

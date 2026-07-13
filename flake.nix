@@ -1,5 +1,5 @@
 {
-  description = "NixOS + Home Manager Flake - Hyprland/Noctalia-v5 & i3/Polybar";
+  description = "nixos+home: hyprland+noctalia/dms & i3+polybar";
 
   # Binary caches
   nixConfig = {
@@ -21,116 +21,13 @@
     ];
   };
 
-  inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    nixpkgs-stable.url = "github:nixos/nixpkgs/a799d3e3886da994fa307f817a6bc705ae538eeb";
-
-    home-manager = {
-      url = "github:nix-community/home-manager";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    home-manager-stable = {
-      url = "github:nix-community/home-manager";
-      inputs.nixpkgs.follows = "nixpkgs-stable";
-    };
-
-    nix-flatpak.url = "github:gmodena/nix-flatpak?ref=latest";
-
-    nix-cachyos-kernel.url = "github:xddxdd/nix-cachyos-kernel/release";
-
-    nix-index-database = {
-      url = "github:nix-community/nix-index-database";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    matugen.url = "github:/InioX/Matugen";
-
-    noctalia.url = "github:noctalia-dev/noctalia/cachix";
-
-    dms = {
-      url = "github:AvengeMedia/DankMaterialShell/v1.5.0";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    dms-plugin-registry = {
-      url = "github:AvengeMedia/dms-plugin-registry";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    dgop = {
-      url = "github:AvengeMedia/dgop";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    nixvim = {
-      url = "github:nix-community/nixvim";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    hyprland.url = "github:hyprwm/Hyprland/v0.55.4";
-
-    zed = {
-      url = "github:zed-industries/zed";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    # encryption
-    sops-nix = {
-      url = "github:Mic92/sops-nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    nix-ld = {
-      url = "github:Mic92/nix-ld";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    # for firefox addons
-    nur = {
-      url = "github:nix-community/NUR";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    # for custom addons not on NUR
-    firefox-addons = {
-      url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    nixcord.url = "github:FlameFlag/nixcord";
-
-    spicetify-nix.url = "github:Gerg-L/spicetify-nix";
-
-    silentSDDM = {
-      url = "github:uiriansan/SilentSDDM";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    qylock.url = "github:Darkkal44/qylock";
-
-    quickshell = {
-      url = "github:quickshell-mirror/quickshell";
-      inputs.nixpkgs.follows = "nixpkgs-stable";
-    };
-
-    umbrella-fetch = {
-      url = "github:ezequielgk/Umbrella-Fetch";
-      flake = false;
-    };
-
-    mac-app-util.url = "github:hraban/mac-app-util";
-
-    nixos-wsl = {
-      url = "github:nix-community/NixOS-WSL/main";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-  };
-
-  outputs = {nixpkgs, ...} @ inputs: let
-    inherit (nixpkgs) lib;
+  outputs = args: let
+    inputs = import ./.tack {overrides = args.tackOverrides or {};};
+    inherit (inputs.nixpkgs) lib;
 
     systems = ["x86_64-linux" "aarch64-darwin"];
+    pkgsFor = system: inputs.nixpkgs.legacyPackages.${system};
+    perSystem = f: lib.genAttrs systems (system: f (pkgsFor system) system);
 
     import-tree = dir:
       builtins.concatMap (
@@ -157,23 +54,15 @@
   in {
     inherit (config) nixosConfigurations homeConfigurations;
 
-    formatter = lib.genAttrs systems (
-      system: inputs.nixpkgs.legacyPackages.${system}.alejandra
-    );
+    formatter = perSystem (pkgs: _: pkgs.alejandra);
 
-    checks = lib.genAttrs systems (
-      system:
+    checks = perSystem (
+      _: system:
         lib.mapAttrs' (
           name: _:
             lib.nameValuePair "${name}"
             config.nixosConfigurations.${name}.config.system.build.toplevel
-        ) (
-          lib.filterAttrs (
-            name: _:
-              config.nixosConfigurations.${name}.config.nixpkgs.hostPlatform.system == system
-          )
-          config.nixos
-        )
+        ) (lib.filterAttrs (name: _: config.nixosConfigurations.${name}.config.nixpkgs.hostPlatform.system == system) config.nixos)
         // lib.mapAttrs' (
           name: _:
             lib.nameValuePair "${name}"

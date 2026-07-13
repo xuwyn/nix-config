@@ -1,0 +1,120 @@
+# tack pins
+# edit by hand or with tack add / rm / alias
+# nix reads pins.lock.json
+# this file drives tack update
+
+# shorturl schemes
+# scheme rest expands rest into {path}
+[shorturls]
+# gh = "github:{path}"
+
+# all_follow maps input names to the top-level pin they follow
+# opt out per-input with exclude_follow
+[all_follow]
+nixpkgs = "nixpkgs"
+# nixpkgs = ["nixpkgs-stable", "nixpkgs-unstable"]
+
+# inputs.<name> fields
+#   url             required, shorturl ok, ?rev=<sha> pins an exact commit
+#   type            flake (default), fetch, or fixed
+#   flake           legacy false means type = "fetch"
+#   follows         { child = "pin" } override map
+#   exclude_follow  all_follow names to skip
+#   dir             subdir holding flake.nix
+#   submodules      fetch git submodules
+#   unpack          fixed-only tarball or file
+[inputs.nixpkgs]
+url = "github:nixos/nixpkgs/nixos-unstable"
+
+[inputs.nixpkgs-stable]
+url = "github:nixos/nixpkgs/a799d3e3886da994fa307f817a6bc705ae538eeb"
+exclude_follow = ["nixpkgs"]
+
+[inputs.home-manager]
+url = "github:nix-community/home-manager"
+
+[inputs.home-manager-stable]
+url = "github:nix-community/home-manager"
+exclude_follow = ["nixpkgs"]
+follows = { nixpkgs = "nixpkgs-stable" }
+
+[inputs.nix-flatpak]
+url = "github:gmodena/nix-flatpak/latest"
+
+[inputs.nix-cachyos-kernel]
+url = "github:xddxdd/nix-cachyos-kernel/release"
+exclude_follow = ["nixpkgs"]
+
+[inputs.nix-index-database]
+url = "github:nix-community/nix-index-database"
+
+[inputs.matugen]
+url = "github:InioX/Matugen"
+exclude_follow = ["nixpkgs"]
+
+[inputs.noctalia]
+url = "github:noctalia-dev/noctalia/cachix"
+exclude_follow = ["nixpkgs"]
+
+[inputs.dms]
+url = "github:AvengeMedia/DankMaterialShell/v1.5.0"
+
+[inputs.dms-plugin-registry]
+url = "github:AvengeMedia/dms-plugin-registry"
+
+[inputs.dgop]
+url = "github:AvengeMedia/dgop"
+
+[inputs.nixvim]
+url = "github:nix-community/nixvim"
+
+[inputs.hyprland]
+url = "github:hyprwm/Hyprland/v0.55.4"
+exclude_follow = ["nixpkgs"]
+
+[inputs.zed]
+url = "github:zed-industries/zed"
+exclude_follow = ["nixpkgs"]
+
+[inputs.sops-nix]
+url = "github:Mic92/sops-nix"
+
+[inputs.nix-ld]
+url = "github:Mic92/nix-ld"
+
+[inputs.nur]
+url = "github:nix-community/NUR"
+
+[inputs.nixcord]
+url = "github:FlameFlag/nixcord"
+exclude_follow = ["nixpkgs"]
+
+[inputs.spicetify-nix]
+url = "github:Gerg-L/spicetify-nix"
+exclude_follow = ["nixpkgs"]
+
+[inputs.silentSDDM]
+url = "github:uiriansan/SilentSDDM"
+
+[inputs.qylock]
+url = "github:Darkkal44/qylock"
+exclude_follow = ["nixpkgs"]
+
+[inputs.quickshell]
+url = "github:quickshell-mirror/quickshell"
+exclude_follow = ["nixpkgs"]
+follows = { nixpkgs = "nixpkgs-stable" }
+
+[inputs.umbrella-fetch]
+url = "github:ezequielgk/Umbrella-Fetch"
+type = "fetch"
+
+[inputs.mac-app-util]
+url = "github:hraban/mac-app-util"
+exclude_follow = ["nixpkgs"]
+
+[inputs.nixos-wsl]
+url = "github:nix-community/NixOS-WSL/main"
+
+[inputs.firefox-addons]
+url = "git+https://gitlab.com/rycee/nur-expressions"
