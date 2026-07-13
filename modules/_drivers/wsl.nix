@@ -1,7 +1,7 @@
 {
   lib,
   config,
-  username,
+  users,
   host,
   inputs,
   ...
@@ -18,7 +18,7 @@ in {
 
     wsl = {
       enable = true;
-      defaultUser = username;
+      defaultUser = lib.head users;
       useWindowsDriver = true;
       startMenuLaunchers = true;
 

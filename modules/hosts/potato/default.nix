@@ -8,7 +8,6 @@ in {
       ./_gpu.nix
       home
       sops
-      python
       cli
       apps
       editors

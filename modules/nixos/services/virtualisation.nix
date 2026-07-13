@@ -1,7 +1,7 @@
 {
   modules.nixos.services = {
     pkgs,
-    username,
+    users,
     config,
     lib,
     ...
@@ -12,9 +12,9 @@
       enable = lib.mkEnableOption "Enable virtualisation (docker, virtualbox, etc.)";
     };
     config = lib.mkIf cfg.enable {
-      users.users.${username} = {
+      users.users = lib.genAttrs users (name: {
         extraGroups = ["docker" "libvirtd" "vboxusers" "adbusers"];
-      };
+      });
 
       # Only enable either docker or podman -- Not both
       virtualisation = {

@@ -1,4 +1,4 @@
-config_version = 1
+config_version = 2
 
 [accessibility]
 ui_scale = 1.1000000089406967

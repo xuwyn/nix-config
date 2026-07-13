@@ -4,16 +4,15 @@ in {
   nixos.mango = {
     host = "mango";
     profile = "amd-nvidia-sync";
-    username = "wyn";
+    users = ["wyn"];
     modules = with config.modules.nixos; [
       ./_hardware.nix
       boot
       hardware
       network
-      nix-conf
       security
       system
-      user
+      users
       desktop
       apps
       services
@@ -32,6 +31,9 @@ in {
             displayManager = {
               enable = true;
               mode = "silent";
+              profileIcon = {
+                wyn = ../../home/face.jpg;
+              };
             };
             qylock.enable = true;
             hyprland.enable = true;
@@ -61,7 +63,6 @@ in {
       home
       cli
       sops
-      python
       quickshell
       terminals
       apps

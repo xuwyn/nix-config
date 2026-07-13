@@ -13,7 +13,7 @@ in {
           inputs.nixpkgs.lib.nixosSystem {
             specialArgs = {
               inherit inputs;
-              inherit (cfg) host username profile;
+              inherit (cfg) host users profile;
             };
             modules =
               cfg.modules
