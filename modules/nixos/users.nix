@@ -1,26 +1,26 @@
 {
-  modules.nixos.user = {
+  modules.nixos.users = {
     pkgs,
-    username,
+    users,
     lib,
     config,
     ...
   }: let
-    cfg = config.nixos.user;
+    cfg = config.nixos.users;
   in {
-    options.nixos.user = {
+    options.nixos.users = {
       shell = lib.mkOption {
-        type = lib.types.enum ["zsh" "bash" "fish"];
-        default = "zsh";
-        description = "Set user default shell";
+        type = lib.types.attrsOf (lib.types.enum ["zsh" "bash" "fish"]);
+        default = {};
+        description = "Per-user default shell";
       };
     };
 
     config = {
       users.mutableUsers = true;
-      users.users.${username} = {
+      users.users = lib.genAttrs users (name: {
         isNormalUser = true;
-        description = username;
+        description = name;
 
         extraGroups = [
           "wheel" # sudo access
@@ -32,9 +32,9 @@
         ];
 
         # Safe systemd-compliant way to assign the default shell
-        shell = pkgs.${cfg.shell};
+        shell = pkgs.${cfg.shell.${name} or "zsh"};
         ignoreShellProgramCheck = true;
-      };
+      });
     };
   };
 }

@@ -31,8 +31,6 @@
           "nix-command"
           "flakes"
         ];
-        allowed-users = ["root" username];
-        trusted-users = ["root" username];
       };
       extraOptions = ''
         !include ${config.sops.templates."nix-access-tokens.conf".path}

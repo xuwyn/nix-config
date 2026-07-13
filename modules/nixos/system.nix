@@ -3,6 +3,7 @@
     lib,
     config,
     pkgs,
+    users,
     ...
   }: let
     cfg = config.nixos.system;
@@ -21,6 +22,21 @@
     };
     config = {
       system.stateVersion = "23.11"; # Do not change!
+
+      # /etc/nix/nix.conf
+      nix = {
+        package = pkgs.nix;
+        settings = {
+          download-buffer-size = 200000000;
+          auto-optimise-store = true;
+          experimental-features = [
+            "nix-command"
+            "flakes"
+          ];
+          allowed-users = ["root"] ++ users;
+          trusted-users = ["root"] ++ users;
+        };
+      };
 
       # Localization
       time.timeZone = cfg.timeZone;

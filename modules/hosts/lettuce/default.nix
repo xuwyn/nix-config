@@ -4,13 +4,12 @@ in {
   nixos.lettuce = {
     host = "lettuce";
     profile = "wsl";
-    username = "wyn";
+    users = ["wyn"];
     modules = with config.modules.nixos; [
       network
-      nix-conf
       security
       system
-      user
+      users
     ];
   };
 
@@ -20,7 +19,6 @@ in {
     modules = with config.modules.homeManager; [
       home
       sops
-      python
       yazi
       cli
       editors

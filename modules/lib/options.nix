@@ -29,7 +29,7 @@ in {
             type = types.listOf types.deferredModule;
             default = [];
           };
-          username = mkOption {type = types.str;};
+          users = mkOption {type = types.listOf types.str;};
           profile = mkOption {type = types.str;};
         };
       }));

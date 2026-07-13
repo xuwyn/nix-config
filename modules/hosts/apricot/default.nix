@@ -13,7 +13,6 @@ in {
       home
       sops
       syncthing
-      python
       cli
       editors
       terminals

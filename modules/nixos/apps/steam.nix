@@ -2,7 +2,7 @@
   modules.nixos.apps = {
     pkgs,
     inputs,
-    username,
+    users,
     config,
     lib,
     ...
@@ -11,9 +11,9 @@
   in {
     options.nixos.apps.steam.enable = lib.mkEnableOption "Enable steam";
     config = lib.mkIf cfg.enable {
-      users.users.${username} = {
+      users.users = lib.genAttrs users (name: {
         extraGroups = ["gamemode"];
-      };
+      });
 
       programs = {
         steam = {

@@ -3,7 +3,7 @@
     config,
     lib,
     pkgs,
-    username,
+    users,
     inputs,
     ...
   }: let
@@ -15,6 +15,11 @@
         type = lib.types.enum ["tui" "silent" "qylock"];
         default = "tui";
         description = "Choose Login Display Manager";
+      };
+      profileIcon = lib.mkOption {
+        type = lib.types.attrsOf lib.types.path;
+        default = {};
+        description = "Per-user login icon";
       };
     };
 
@@ -65,9 +70,7 @@
               cyTus = ../../../wallpapers/cyTus.mp4;
               frame-1 = ../../../wallpapers/frame-1.png;
             };
-            profileIcons = {
-              ${username} = ../../home/face.jpg;
-            };
+            profileIcons = lib.genAttrs users (name: cfg.profileIcon.${name});
             settings = {
               "General" = {
                 scale = 1.0;

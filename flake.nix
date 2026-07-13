@@ -26,8 +26,7 @@
     inherit (inputs.nixpkgs) lib;
 
     systems = ["x86_64-linux" "aarch64-darwin"];
-    pkgsFor = system: inputs.nixpkgs.legacyPackages.${system};
-    perSystem = f: lib.genAttrs systems (system: f (pkgsFor system) system);
+    perSystem = f: lib.genAttrs systems (system: f inputs.nixpkgs.legacyPackages.${system} system);
 
     import-tree = dir:
       builtins.concatMap (
@@ -69,5 +68,24 @@
             config.homeConfigurations.${name}.activationPackage
         ) (lib.filterAttrs (name: cfg: cfg.system == system) config.home)
     );
+
+    devShells = perSystem (pkgs: _: {
+      python = pkgs.mkShell {
+        packages = with pkgs; [
+          python3
+          python3Packages.pip
+          python3Packages.virtualenv
+          python3Packages.setuptools
+          python3Packages.black
+          python3Packages.flake8
+          python3Packages.mypy
+          python3Packages.requests
+        ];
+
+        shellHook = ''
+          export PIP_USER=1
+        '';
+      };
+    });
   };
 }

@@ -1,7 +1,7 @@
 {
   modules.nixos.services = {
     pkgs,
-    username,
+    users,
     lib,
     config,
     ...
@@ -13,10 +13,9 @@
     };
 
     config = lib.mkIf cfg.enable {
-      users.users.${username} = {
+      users.users = lib.genAttrs users (name: {
         extraGroups = ["lp" "scanner"];
-      };
-
+      });
       services = {
         printing = {
           enable = true;
