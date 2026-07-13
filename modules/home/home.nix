@@ -2,6 +2,7 @@
   modules.homeManager.home = {
     username,
     pkgs,
+    config,
     ...
   }: {
     imports = [inputs.nix-index-database.homeModules.default];
@@ -14,6 +15,10 @@
         else "/home/${username}";
       stateVersion = "23.11"; # Do not change!
       sessionPath = ["$HOME/.local/bin"];
+      sessionVariables = {
+        TACK_NIX_CONF_TOKENS = "1";
+      };
+      packages = [pkgs.tack];
     };
 
     programs.home-manager.enable = true;
@@ -22,7 +27,6 @@
     nix = {
       package = pkgs.nix;
       settings = {
-        accept-flake-config = true;
         experimental-features = [
           "nix-command"
           "flakes"
@@ -30,6 +34,9 @@
         allowed-users = ["root" username];
         trusted-users = ["root" username];
       };
+      extraOptions = ''
+        !include ${config.sops.templates."nix-access-tokens.conf".path}
+      '';
     };
 
     programs = {

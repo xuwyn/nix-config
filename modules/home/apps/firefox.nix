@@ -9,7 +9,23 @@
   }: let
     cfg = config.homeManager.apps.firefox;
     isMatugenEnabled = config.programs.matugen.enable or false;
-    inherit (inputs.firefox-addons.lib.${pkgs.stdenv.hostPlatform.system}) buildFirefoxXpiAddon;
+
+    nurRepo = import inputs.firefox-addons {inherit pkgs;};
+    buildMozillaXpiAddon = nurRepo.lib.mozilla.mkBuildMozillaXpiAddon {
+      inherit (pkgs) fetchurl stdenv;
+    };
+
+    duckduckgo-no-ai-search = buildMozillaXpiAddon {
+      pname = "duckduckgo-no-ai-search";
+      version = "2026.6.5";
+      addonId = "noai@duckduckgo.com";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4838098/duckduckgo_no_ai_search-2026.6.5.xpi";
+      sha256 = "sha256-KEj36AcTlR/FTR5i5BiDW+ShlXBx2+04cCy6TqSp0Kg=";
+      meta = with lib; {
+        homepage = "https://noai.duckduckgo.com";
+        platforms = platforms.all;
+      };
+    };
   in {
     options.homeManager.apps.firefox = {
       enable = lib.mkEnableOption "Enable firefox user profile";
@@ -56,18 +72,22 @@
             isDefault = true;
 
             extensions.force = true; # enable overwrite
-            extensions.packages = with pkgs.nur.repos.rycee.firefox-addons; [
-              ublock-origin
-              old-reddit-redirect
-              reddit-enhancement-suite
-              tree-style-tab
-              don-t-fuck-with-paste
-              return-youtube-dislikes
-              youtube-nonstop
-              darkreader
-              ctrl-number-to-switch-tabs
-              pywalfox
-            ];
+            extensions.packages =
+              [
+                duckduckgo-no-ai-search
+              ]
+              ++ (with pkgs.nur.repos.rycee.firefox-addons; [
+                ublock-origin
+                old-reddit-redirect
+                reddit-enhancement-suite
+                tree-style-tab
+                don-t-fuck-with-paste
+                return-youtube-dislikes
+                youtube-nonstop
+                darkreader
+                ctrl-number-to-switch-tabs
+                pywalfox
+              ]);
 
             settings = {
               # Enable theming with userChrome.css

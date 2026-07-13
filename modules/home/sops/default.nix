@@ -23,6 +23,14 @@
         "private_ssh_key" = {};
         "public_ssh_key" = {};
         "syncthing_password" = {};
+        "github_token" = {};
+      };
+
+      # templates for files containing decrypted secrets
+      templates = {
+        "nix-access-tokens.conf".content = ''
+          access-tokens = github.com=${config.sops.placeholder.github_token}
+        '';
       };
     };
   };
