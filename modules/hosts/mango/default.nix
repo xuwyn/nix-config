@@ -16,6 +16,7 @@ in {
       desktop
       apps
       services
+      sops
 
       ({pkgs, ...}: {
         nixos = {
