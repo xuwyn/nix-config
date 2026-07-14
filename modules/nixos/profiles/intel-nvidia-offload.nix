@@ -18,8 +18,8 @@
     };
 
     imports = [
-      ../../_drivers/nvidia.nix
-      ../../_drivers/nvidia-intel-hybrid.nix
+      ../_drivers/nvidia.nix
+      ../_drivers/nvidia-intel-hybrid.nix
     ];
 
     config = {

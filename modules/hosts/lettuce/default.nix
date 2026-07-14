@@ -1,5 +1,5 @@
 {config, ...}: let
-  wallpaper = ../../../wallpapers/DaVinci.jpg;
+  wallpaper = ../../../assets/wallpapers/DaVinci.jpg;
 in {
   nixos.lettuce = {
     host = "lettuce";

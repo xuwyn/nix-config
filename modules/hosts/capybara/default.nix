@@ -1,5 +1,5 @@
 {config, ...}: let
-  wallpaper = ../../../wallpapers/interlude_RinLen_5.png;
+  wallpaper = ../../../assets/wallpapers/interlude_RinLen_5.png;
 in {
   home."wyn@capybara" = {
     system = "x86_64-linux";

@@ -285,10 +285,10 @@
 
         home.file = {
           "Pictures/Wallpapers" = {
-            source = ../../../wallpapers;
+            source = ../../../assets/wallpapers;
             force = true;
           };
-          ".face".source = ../face.jpg;
+          ".face".source = ../../../assets/face.jpg;
         };
 
         home.activation = lib.mkIf (config.homeManager.hyprland.enable or false) {

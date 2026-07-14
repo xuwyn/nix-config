@@ -67,8 +67,8 @@
             enable = true;
             theme = "silvia";
             backgrounds = {
-              cyTus = ../../../wallpapers/cyTus.mp4;
-              frame-1 = ../../../wallpapers/frame-1.png;
+              cyTus = ../../../assets/sddm/cyTus.mp4;
+              frame-1 = ../../../assets/sddm/frame-1.png;
             };
             profileIcons = lib.genAttrs users (name: cfg.profileIcon.${name});
             settings = {

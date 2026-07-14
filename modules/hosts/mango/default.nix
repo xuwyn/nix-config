@@ -1,5 +1,5 @@
 {config, ...}: let
-  wallpaper = ../../../wallpapers/IS-Mysterious_Banquet.png;
+  wallpaper = ../../../assets/wallpapers/IS-Mysterious_Banquet.png;
 in {
   nixos.mango = {
     host = "mango";
@@ -33,7 +33,7 @@ in {
               enable = true;
               mode = "silent";
               profileIcon = {
-                wyn = ../../home/face.jpg;
+                wyn = ../../../assets/face.jpg;
               };
             };
             qylock.enable = true;
