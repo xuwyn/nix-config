@@ -1,5 +1,5 @@
 {config, ...}: let
-  wallpaper = ../../../wallpapers/voyager.png;
+  wallpaper = ../../../assets/wallpapers/voyager.png;
 in {
   home."wyn@potato" = {
     system = "x86_64-linux";

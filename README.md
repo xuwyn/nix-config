@@ -8,16 +8,15 @@ so most features are in Home Manager for portability.
 
 ### Hyprland + Noctalia
 
-![Hyprland + Noctalia Screenshot](./previews/hyprland-noctalia.png)
+![Hyprland + Noctalia Screenshot](./assets/previews/hyprland-noctalia.png)
 
 ### i3 + Polybar
 
-![i3 + Polybar Screenshot](./previews/i3-polybar.png)
+![i3 + Polybar Screenshot](./assets/previews/i3-polybar.png)
 
 ## Overview
 
-This config uses [flake](https://nix.dev/concepts/flakes.html) and [flake-parts](https://flake.parts)
-to implement a half-baked [dendritic pattern](https://github.com/mightyiam/dendritic).
+This flake implements a half-baked [dendritic pattern](https://github.com/mightyiam/dendritic).
 Why half-baked? Because mixing different classes (i.e., `nixos`, `homeManager`, and `darwin`)
 into the same aspect doesn't feel right to me.
 From what I learned, there are two main ways of setting up dendritic pattern:
@@ -26,39 +25,37 @@ From what I learned, there are two main ways of setting up dendritic pattern:
 - **`<aspect>.<class>`** which can be achieved with [den](https://github.com/denful/den) or just [flake-aspects](https://github.com/denful/flake-aspects)
 
 I went with **`<class>.<aspect>`** since I like to separate classes explicitly but this may change in the future.
-Sure hope one day my brain will cooperate enough to refactor this mess into [denful](https://github.com/denful) ecosystem.
 
 ## Layout
 
 ```
 ./
+├── .tack/                 # flake inputs
+├── flake.nix              # flake outputs
 ├── modules/
-│   ├── _drivers/          # hardware drivers (see ./modules/nixos/profiles)
-│   ├── _overlays/         # overlays for nixpkgs (see ./modules/flake/builders.nix)
-│   ├── flake/
-│   │   ├── builders.nix   # nixos and homeManager configuration wrappers
-│   │   └── meta.nix       # flake outputs (e.g., formatter, check, etc.)
+│   ├── _overlays/         # overlays for nixpkgs (see ./modules/lib/builders.nix)
+│   ├── lib/
+│   │   ├── options.nix    # options declaration for dendritic structure
+│   │   └── builders.nix   # nixos and homeManager configuration wrappers
+│   ├── sops/              # secret management
 │   ├── hosts/             # host-specific configurations
 │   ├── nixos/             # nixos modules (e.g., boot, system, network, etc.)
 │   └── home/              # homeManager modules (e.g., cli, terminals, hyprland, etc.)
-├── wallpapers/            # symlinked to ~/Pictures/Wallpapers (see ./modules/home/dotfiles)
-├── previews/              # desktop screenshots
-├── flake.lock             # pining flake input versions
-└── flake.nix              # flake entry point, inputs, import-tree and binary caches
+└── assets/                # desktop screenshots, wallpapers, etc.
 ```
 
 > [!TIP]
 >
 > - Naming scheme: **`modules.<class>.<aspect>`** with **`options.<class>.<aspect>.<module>`**
 >   - **`<class>`**: `nixos` or `homeManager`
->   - **`<aspect>`**: Usually the same as the folder name. (The two exceptions are `./modules/nixos/profiles` and `./modules/home/extra`)
->   - **`<module>`**: Usually the same as the filename. (Some files has multiple modules in them)
+>   - **`<aspect>`**: Usually the same as the folder name
+>   - **`<module>`**: Usually the same as the filename (some files has multiple modules in them)
 >   - If a file does not belong to any aspect folder, its filename becomes the aspect, and there is no **`<module>`** level in its option path. These standalone aspects are also enabled by default.
 > - `nixpkgs-stable` is just a pinned commit of `nixpkgs` (which tracks `nixos-unstable`) from a
 >   previous flake update and is **NOT** the actual NixOS stable release (`26.05`).
-> - `aarch64-darwin` platform follows this `nixpkgs-stable` input. (See `./modules/flake/builders.nix`)
+> - `aarch64-darwin` platform follows this `nixpkgs-stable` input. (See `./modules/lib/builders.nix`)
 > - No need to import modules from `./modules/nixos/profiles/` in host configs because the
->   `nixosConfigurations` wrapper already does this. (See `./modules/flake/builders.nix`)
+>   `nixosConfigurations` wrapper already does this. (See `./modules/lib/builders.nix`)
 > - `import-tree` does not import files and folders with underscore `_` prefix, so none of those should
 >   contain flake module declaration.
 
@@ -153,19 +150,19 @@ touch modules/hosts/new-host/default.nix
 
 ```nix
 { config, ... }: let
-stylixImage = ../../../wallpapers/default.png;
+wallpaper = ../../../wallpapers/default.png;
 in {
   nixos.new-host = {
     host = "new-host";
     profile = "amd-nvidia-offload";
-    username = "new-user";
+    users = ["new-user"];
     modules = with config.flake.modules.nixos; [
       ./_hardware.nix
       nix-conf
       system
       boot
       network
-      user
+      users
       desktop
       ({ pkgs, ... }: {
         nixos = {
@@ -290,6 +287,21 @@ nh home switch --dry
 nh home switch
 ```
 
+### Flake Update
+
+This flake uses [tack](https://github.com/manic-systems/tack) to lazily fetch inputs
+
+```sh
+# add new input
+tack add <name> <url>
+
+# remove an input
+tack rm <name>
+
+# update inputs
+tack update [names...]
+```
+
 ### Garbage Collector
 
 ```sh
@@ -312,7 +324,7 @@ ncg
 
   ```nix
   # example for _gpu.nix
-  {...}: {
+  { lib, ... }: {
     nixpkgs.config.nvidia.acceptLicense = true;
     targets = {
       genericLinux = {
@@ -356,7 +368,9 @@ and contributors of open-source projects I used in my setup!
 ### References
 
 - **[ZaneyOS](https://gitlab.com/Zaney/zaneyos)**: Best starting point for beginner (especially for non-coders like me 🥲)
-- **[denful/den](https://github.com/denful/den)**: Best resource to learn den pattern
+- **[linusammon](https://github.com/linusammon/nixos-config)**: Thank you for the helpful tips migrating away from `flake-parts` and `import-tree`
+- **[dendritic-design-with-flake-parts](https://github.com/Doc-Steve/dendritic-design-with-flake-parts)**: Guide to setup dendritic pattern
+- **[denful/den](https://github.com/denful/den)**: A complex den framework
 - **[ryan4yin/nix-config](https://github.com/ryan4yin/nix-config)**: Server stuffs
 - **[Vortriz/dotfiles](https://github.com/Vortriz/dotfiles)**: Custom zed theme using stylix colors
 - **[AlexNabokikh/nix-config](https://github.com/AlexNabokikh/nix-config)**: Simple dendritic nix
