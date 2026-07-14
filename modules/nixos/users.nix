@@ -17,24 +17,28 @@
     };
 
     config = {
-      users.mutableUsers = true;
-      users.users = lib.genAttrs users (name: {
-        isNormalUser = true;
-        description = name;
+      users.mutableUsers = false;
+      users.users = lib.genAttrs users (name:
+        {
+          isNormalUser = true;
+          description = name;
 
-        extraGroups = [
-          "wheel" # sudo access
-          "networkmanager" # Network control
-          "video" # Core graphics
-          "render" # Core graphics acceleration
-          "input" # Basic input
-          "i2c" # brightnessctl ddcutil openrgb
-        ];
+          extraGroups = [
+            "wheel" # sudo access
+            "networkmanager" # Network control
+            "video" # Core graphics
+            "render" # Core graphics acceleration
+            "input" # Basic input
+            "i2c" # brightnessctl ddcutil openrgb
+          ];
 
-        # Safe systemd-compliant way to assign the default shell
-        shell = pkgs.${cfg.shell.${name} or "zsh"};
-        ignoreShellProgramCheck = true;
-      });
+          # Safe systemd-compliant way to assign the default shell
+          shell = pkgs.${cfg.shell.${name} or "zsh"};
+          ignoreShellProgramCheck = true;
+        }
+        // lib.optionalAttrs (config.sops.secrets ? "${name}_password") {
+          hashedPasswordFile = config.sops.secrets."${name}_password".path;
+        });
     };
   };
 }

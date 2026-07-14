@@ -1,0 +1,13 @@
+keys:
+  - &host_mango age1kv2kjdkk2glqxyw8gcxnps7py4gz48ml82pkewgzphay3m7ah92qlmqew0
+  - &user_wyn age12z60qwkhzjcgulfchhf574ra9gm6emtfd2hg07mantsh8ermnsmq8yzw4c
+
+creation_rules:
+  - path_regex: mango\.yaml$
+    key_groups:
+      - age:
+          - *host_mango
+  - path_regex: wyn\.yaml$
+    key_groups:
+      - age:
+          - *user_wyn
