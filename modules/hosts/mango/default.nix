@@ -4,11 +4,11 @@ in {
   nixos.mango = {
     host = "mango";
     system = "x86_64-linux";
-    profile = "amd-nvidia-sync";
     users = ["wyn"];
     modules = with config.modules.nixos; [
       ./_disko.nix
       impermanence
+      drivers
       boot
       hardware
       network
@@ -22,9 +22,14 @@ in {
 
       ({pkgs, ...}: {
         nixos = {
-          amd-nvidia-sync = {
-            nvidiaID = "PCI:1:0:0";
-            amdgpuID = "PCI:15:0:0";
+          drivers = {
+            nvidia.enable = true;
+            nvidia-amd-hybrid = {
+              enable = true;
+              mode = "sync";
+              nvidiaBusId = "PCI:1:0:0";
+              amdgpuBusId = "PCI:15:0:0";
+            };
           };
           impermanence = {
             home = {

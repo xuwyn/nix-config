@@ -30,7 +30,6 @@ in {
             default = [];
           };
           users = mkOption {type = types.listOf types.str;};
-          profile = mkOption {type = types.str;};
           system = mkOption {type = types.str;};
         };
       }));

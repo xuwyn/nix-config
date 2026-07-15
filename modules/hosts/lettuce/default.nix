@@ -4,12 +4,15 @@ in {
   nixos.lettuce = {
     host = "lettuce";
     system = "x86_64-linux";
-    profile = "wsl";
     users = ["wyn"];
     modules = with config.modules.nixos; [
+      drivers
       network
       security
       system
+      (_: {
+        nixos.drivers.wsl.enable = true;
+      })
     ];
   };
 

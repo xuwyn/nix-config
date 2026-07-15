@@ -13,12 +13,11 @@ in {
           inputs.nixpkgs.lib.nixosSystem {
             specialArgs = {
               inherit inputs;
-              inherit (cfg) host users profile;
+              inherit (cfg) host users;
             };
             modules =
               cfg.modules
               ++ [
-                config.modules.nixos.${cfg.profile}
                 (_: {
                   nixpkgs = {
                     inherit overlays;
