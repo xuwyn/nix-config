@@ -28,6 +28,18 @@
     systems = ["x86_64-linux" "aarch64-darwin"];
     perSystem = f: lib.genAttrs systems (system: f inputs.nixpkgs.legacyPackages.${system} system);
 
+    buildsPerSystem = system:
+      lib.mapAttrs' (
+        name: _:
+          lib.nameValuePair "${name}"
+          config.nixosConfigurations.${name}.config.system.build.toplevel
+      ) (lib.filterAttrs (name: _: config.nixosConfigurations.${name}.config.nixpkgs.hostPlatform.system == system) config.nixos)
+      // lib.mapAttrs' (
+        name: _:
+          lib.nameValuePair "${name}"
+          config.homeConfigurations.${name}.activationPackage
+      ) (lib.filterAttrs (name: cfg: cfg.system == system) config.home);
+
     import-tree = dir:
       builtins.concatMap (
         elem: let
@@ -54,20 +66,8 @@
     inherit (config) nixosConfigurations homeConfigurations;
 
     formatter = perSystem (pkgs: _: pkgs.alejandra);
-
-    checks = perSystem (
-      _: system:
-        lib.mapAttrs' (
-          name: _:
-            lib.nameValuePair "${name}"
-            config.nixosConfigurations.${name}.config.system.build.toplevel
-        ) (lib.filterAttrs (name: _: config.nixosConfigurations.${name}.config.nixpkgs.hostPlatform.system == system) config.nixos)
-        // lib.mapAttrs' (
-          name: _:
-            lib.nameValuePair "${name}"
-            config.homeConfigurations.${name}.activationPackage
-        ) (lib.filterAttrs (name: cfg: cfg.system == system) config.home)
-    );
+    checks = perSystem (_: system: buildsPerSystem system);
+    packages = perSystem (_: system: buildsPerSystem system);
 
     devShells = perSystem (pkgs: _: {
       python = pkgs.mkShell {

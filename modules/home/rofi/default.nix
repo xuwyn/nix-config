@@ -41,7 +41,6 @@
     options.homeManager.rofi = {
       background = lib.mkOption {
         type = lib.types.path;
-        default = ../../../wallpapers/voyager.png;
         description = "Choose background";
       };
     };

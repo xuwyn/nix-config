@@ -3,13 +3,13 @@
 in {
   nixos.lettuce = {
     host = "lettuce";
+    system = "x86_64-linux";
     profile = "wsl";
     users = ["wyn"];
     modules = with config.modules.nixos; [
       network
       security
       system
-      users
     ];
   };
 

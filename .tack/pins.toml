@@ -118,3 +118,11 @@ url = "github:nix-community/NixOS-WSL/main"
 
 [inputs.firefox-addons]
 url = "git+https://gitlab.com/rycee/nur-expressions"
+
+[inputs.disko]
+url = "github:nix-community/disko"
+exclude_follow = ["nixpkgs"]
+
+[inputs.impermanence]
+url = "github:nix-community/impermanence"
+exclude_follow = ["nixpkgs"]

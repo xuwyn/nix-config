@@ -22,6 +22,7 @@ in {
                 (_: {
                   nixpkgs = {
                     inherit overlays;
+                    hostPlatform = cfg.system;
                     config.allowUnfree = true;
                   };
                 })
@@ -53,7 +54,7 @@ in {
               inherit inputs;
               inherit (cfg) system username;
             };
-            modules = cfg.modules;
+            modules = cfg.modules ++ [(_: {nixpkgs.config.allowUnfree = true;})];
           }
       )
       config.home;
