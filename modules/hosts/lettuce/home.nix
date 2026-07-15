@@ -1,21 +1,6 @@
 {config, ...}: let
   wallpaper = ../../../assets/wallpapers/DaVinci.jpg;
 in {
-  nixos.lettuce = {
-    host = "lettuce";
-    system = "x86_64-linux";
-    users = ["wyn"];
-    modules = with config.modules.nixos; [
-      drivers
-      network
-      security
-      system
-      (_: {
-        nixos.drivers.wsl.enable = true;
-      })
-    ];
-  };
-
   home."wyn@lettuce" = {
     system = "x86_64-linux";
     username = "wyn";

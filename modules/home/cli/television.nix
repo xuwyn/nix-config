@@ -10,6 +10,7 @@
       enable = lib.mkEnableOption "Enable television";
     };
     config = lib.mkIf cfg.enable {
+      homeManager.cli.search.enable = lib.mkDefault true;
       programs.television = {
         enable = true;
         enableBashIntegration = true;
