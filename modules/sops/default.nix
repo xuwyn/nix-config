@@ -10,10 +10,8 @@
     imports = [inputs.sops-nix.nixosModules.sops];
     environment.systemPackages = with pkgs; [age sops];
 
-    # fileSystems."/etc/ssh".neededForBoot = true;
-
     sops = {
-      age.sshKeyPaths = ["/etc/ssh/ssh_host_ed25519_key"];
+      age.keyFile = "/etc/sops/age/key.txt";
 
       defaultSopsFile = ./${config.networking.hostName}.yaml;
       defaultSopsFormat = "yaml";
