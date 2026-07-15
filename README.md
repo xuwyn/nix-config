@@ -54,20 +54,18 @@ I went with **`<class>.<aspect>`** since I like to separate classes explicitly b
 > - `nixpkgs-stable` is just a pinned commit of `nixpkgs` (which tracks `nixos-unstable`) from a
 >   previous flake update and is **NOT** the actual NixOS stable release (`26.05`).
 > - `aarch64-darwin` platform follows this `nixpkgs-stable` input. (See `./modules/lib/builders.nix`)
-> - No need to import modules from `./modules/nixos/profiles/` in host configs because the
->   `nixosConfigurations` wrapper already does this. (See `./modules/lib/builders.nix`)
 > - `import-tree` does not import files and folders with underscore `_` prefix, so none of those should
 >   contain flake module declaration.
 
 ## Hosts
 
-| Host       | Platform         | Hardware Profile  | Modules               | WM + Bar            |
-| ---------- | ---------------- | ----------------- | --------------------- | ------------------- |
-| `apricot`  | `aarch64-darwin` |                   | `homeManager`         | Aerospace           |
-| `capybara` | `x86_64-linux`   |                   | `homeManager`         |
-| `lettuce`  | `x86_64-linux`   | `wsl`             | `nixos`+`homeManager` |
-| `mango`    | `x86_64-linux`   | `amd-nvidia-sync` | `nixos`+`homeManager` | Hyprland + Noctalia |
-| `potato`   | `x86_64-linux`   |                   | `homeManager`         | i3 + Polybar        |
+| Host       | Platform         | Modules               | WM + Bar            |
+| ---------- | ---------------- | --------------------- | ------------------- |
+| `apricot`  | `aarch64-darwin` | `homeManager`         | Aerospace           |
+| `capybara` | `x86_64-linux`   | `homeManager`         |
+| `lettuce`  | `x86_64-linux`   | `nixos`+`homeManager` |
+| `mango`    | `x86_64-linux`   | `nixos`+`homeManager` | Hyprland + Noctalia |
+| `potato`   | `x86_64-linux`   | `homeManager`         | i3 + Polybar        |
 
 ## Installation
 
@@ -122,7 +120,7 @@ Assuming fresh install, use `nix-shell` to get `git`
 ```sh
 nix-shell -p git --run "git clone https://github.com/xuwyn/nix-config.git ~/nix-config"
 
-# Or use this to skip downloading wallpapers/ (~150MB)
+# Or use this to skip downloading assets/ (~160MB)
 nix-shell -p git git-lfs --run "GIT_LFS_SKIP_SMUDGE=1 git clone https://github.com/xuwyn/nix-config.git ~/nix-config"
 ```
 
@@ -131,7 +129,7 @@ If `git` is already installed, clone as usual
 ```sh
 git clone https://github.com/xuwyn/nix-config.git ~/nix-config
 
-# Or skip cloning wallpapers/ if git-lfs is installed
+# Or skip cloning assets/ if git-lfs is installed
 GIT_LFS_SKIP_SMUDGE=1 git clone https://github.com/xuwyn/nix-config.git ~/nix-config
 ```
 
@@ -154,11 +152,10 @@ wallpaper = ../../../wallpapers/default.png;
 in {
   nixos.new-host = {
     host = "new-host";
-    profile = "amd-nvidia-offload";
     users = ["new-user"];
     modules = with config.flake.modules.nixos; [
-      ./_hardware.nix
-      nix-conf
+      ./_disko.nix
+      drivers
       system
       boot
       network
@@ -317,8 +314,8 @@ ncg
 ### NVIDIA Shenanigans
 
 - Use open-sourced driver for RTX 50xx (see `./modules/_drivers/nvidia.nix`)
-- Use `nvidia-offload` profile for laptop with NVIDIA GPU
-- Use `nvidia-sync` profile for desktop with NVIDIA GPU
+- Use `offload` mode for laptop with NVIDIA GPU
+- Use `sync` mode for desktop with NVIDIA GPU
 - Standalone Home Manager running on non-NixOS Linux hosts with NVIDIA GPU
   should enable `targets.genericLinux.gpu.nvidia`
 

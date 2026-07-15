@@ -1,7 +1,7 @@
 {
   modules.nixos.network = {
     pkgs,
-    profile,
+    config,
     lib,
     host,
     options,
@@ -25,8 +25,14 @@
           59011
         ];
       };
-      networkmanager.enable = lib.mkIf (profile != "wsl") true;
-      timeServers = lib.mkIf (profile != "wsl") (options.networking.timeServers.default ++ ["pool.ntp.org"]);
+      networkmanager.enable =
+        if (config ? nixos.drivers.wsl.enable)
+        then !config.nixos.drivers.wsl.enable
+        else true;
+      timeServers =
+        if (config ? nixos.drivers.wsl.enable) && config.nixos.drivers.wsl.enable
+        then options.networking.timeServers.default
+        else options.networking.timeServers.default ++ ["pool.ntp.org"];
     };
   };
 }

@@ -1,6 +1,5 @@
 {
   modules.nixos.desktop = {
-    profile,
     pkgs,
     config,
     lib,
@@ -33,8 +32,8 @@
         gnome.gnome-keyring.enable = true;
         smartd = {
           enable =
-            if profile == "vm"
-            then false
+            if config ? nixos.drivers.vm.enable
+            then !(config.nixos.drivers.vm.enable)
             else true;
           autodetect = true;
         };
