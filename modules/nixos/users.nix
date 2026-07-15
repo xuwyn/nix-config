@@ -17,7 +17,7 @@
     };
 
     config = {
-      users.mutableUsers = false;
+      users.mutableUsers = !(config ? sops);
       users.users = lib.genAttrs users (name:
         {
           isNormalUser = true;
@@ -36,7 +36,7 @@
           shell = pkgs.${cfg.shell.${name} or "zsh"};
           ignoreShellProgramCheck = true;
         }
-        // lib.optionalAttrs (config.sops.secrets ? "${name}_password") {
+        // lib.optionalAttrs (config ? sops && config.sops.secrets ? "${name}_password") {
           hashedPasswordFile = config.sops.secrets."${name}_password".path;
         });
     };

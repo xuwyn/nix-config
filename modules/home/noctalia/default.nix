@@ -13,7 +13,6 @@
     # Install the Noctalia package
     home.packages = [
       noctaliaPkg
-      pkgs.matugen # color palette generator
       pkgs.evtest # read kb input for bongo cat
     ];
 

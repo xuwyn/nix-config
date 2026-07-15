@@ -3,10 +3,12 @@
 in {
   nixos.mango = {
     host = "mango";
+    system = "x86_64-linux";
     profile = "amd-nvidia-sync";
     users = ["wyn"];
     modules = with config.modules.nixos; [
-      ./_hardware.nix
+      ./_disko.nix
+      impermanence
       boot
       hardware
       network
@@ -23,6 +25,25 @@ in {
           amd-nvidia-sync = {
             nvidiaID = "PCI:1:0:0";
             amdgpuID = "PCI:15:0:0";
+          };
+          impermanence = {
+            home = {
+              wyn = {
+                directories = [
+                  "Documents"
+                  "Downloads"
+                  "Pictures"
+                  "Videos"
+                  "Shared"
+                  "nix-config"
+                  ".mozilla"
+                  ".config/sops"
+                  ".config/mozilla"
+                  ".config/xfce4"
+                  ".local/share/Steam"
+                ];
+              };
+            };
           };
           boot.cachyOSKernel = {
             enable = true;

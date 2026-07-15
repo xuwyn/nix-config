@@ -7,6 +7,14 @@
     "narHash": "sha256-Ra65IQsez9QqXcFLp0PJ2f2y4+4X4CAkzmH/x/OXkY8=",
     "lastModified": 1783265113
   },
+  "disko": {
+    "type": "github",
+    "owner": "nix-community",
+    "repo": "disko",
+    "rev": "ff8702b4de27f72b4c78573dfb89ec74e36abdf1",
+    "narHash": "sha256-RxWs5ND31KzTG7wvMM+PMfUjyNpmIEr999lqNARaM5o=",
+    "lastModified": 1781152676
+  },
   "dms": {
     "type": "github",
     "owner": "AvengeMedia",
@@ -43,9 +51,9 @@
     "type": "github",
     "owner": "nix-community",
     "repo": "home-manager",
-    "rev": "7566825d4652a1b885bd4ce65bd9e8def432fec9",
-    "narHash": "sha256-OI4IkRjRXa1e7hYmCGJDPDq5H/kPwhsyoS80cNUF9fI=",
-    "lastModified": 1783823409
+    "rev": "a45a7c451455a51ae740ec3bce4024b312809c29",
+    "narHash": "sha256-r376E2XpakiXwModDHIxlvB6qLq4iFVEq730vxOO4JY=",
+    "lastModified": 1783963347
   },
   "hyprland": {
     "type": "github",
@@ -54,6 +62,14 @@
     "rev": "a0136d8c04687bb36eb8a28eb9d1ff92aea99704",
     "narHash": "sha256-JbXqVzLlFp4hVD8AMl9vk3vJRN40o2DVOcZLPqGvBOk=",
     "lastModified": 1781197804
+  },
+  "impermanence": {
+    "type": "github",
+    "owner": "nix-community",
+    "repo": "impermanence",
+    "rev": "7b1d382faf603b6d264f58627330f9faa5cba149",
+    "narHash": "sha256-03+JxvzmfwRu+5JafM0DLbxgHttOQZkUtDWBmeUkN8Y=",
+    "lastModified": 1769548169
   },
   "mac-app-util": {
     "type": "github",
