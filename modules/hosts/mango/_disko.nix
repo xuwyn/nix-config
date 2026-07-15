@@ -64,7 +64,7 @@
                         "nodatacow"
                         "compress=no"
                       ];
-                      swap.swapfile.size = "16.2G";
+                      swap.swapfile.size = "16G";
                     };
                   };
                 };
