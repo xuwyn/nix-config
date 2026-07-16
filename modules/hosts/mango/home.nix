@@ -97,7 +97,6 @@ in {
             };
           };
           hyprland = {
-            enable = true;
             extraMonitorSettings = ''
               hl.monitor({
                 output = "DP-5",
@@ -119,6 +118,7 @@ in {
           theme = {
             matugen = {
               enable = true;
+              type = "scheme-fidelity";
               inherit wallpaper;
             };
             cursor.enable = true;

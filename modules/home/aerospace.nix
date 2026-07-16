@@ -9,17 +9,13 @@
       enable = true;
       package = pkgs.aerospace;
 
-      # Let home-manager/launchd own the process lifecycle instead of
-      # AeroSpace's own login-item mechanism. This is required if you
-      # want to set start-at-login-style behavior declaratively.
       launchd = {
         enable = true;
         keepAlive = true;
       };
 
       settings = {
-        # See https://nikitabobko.github.io/AeroSpace/guide for all keys.
-        # This mirrors default-config.toml, translated to Nix attrs.
+        # See https://nikitabobko.github.io/AeroSpace/guide for all keys
 
         key-mapping.preset = "qwerty";
 
