@@ -1,5 +1,5 @@
 keys:
-  - &host_mango age1kv2kjdkk2glqxyw8gcxnps7py4gz48ml82pkewgzphay3m7ah92qlmqew0
+  - &host_mango age1wjsjkh0nsq9qmuuag8adagatxp6vcd7pjmf3xh0xxr699k4d449q4nlfn2
   - &user_wyn age12z60qwkhzjcgulfchhf574ra9gm6emtfd2hg07mantsh8ermnsmq8yzw4c
 
 creation_rules:

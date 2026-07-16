@@ -11,7 +11,7 @@
 
     options.nixos.impermanence = let
       inherit (lib) types mkOption;
-      inherit (types) listOf str attrsOf submodule;
+      inherit (types) listOf str;
     in {
       root = {
         directories = mkOption {
@@ -21,27 +21,6 @@
         files = mkOption {
           type = listOf str;
           default = [];
-        };
-      };
-      home = mkOption {
-        type = attrsOf (submodule {
-          options = {
-            directories = mkOption {
-              type = listOf str;
-              default = [];
-            };
-            files = mkOption {
-              type = listOf str;
-              default = [];
-            };
-          };
-        });
-        default = {};
-        example = {
-          username = {
-            directories = ["Downloads" ".config/nvim" ".ssh" ".gnupg"];
-            files = [".config/sops/age/keys.txt"];
-          };
         };
       };
     };
@@ -57,7 +36,6 @@
             ++ cfg.root.directories;
           inherit (cfg.root) files;
         };
-        "/persist/users".users = cfg.home;
       };
 
       boot.initrd.systemd.services.btrfs-root-rotate = {
