@@ -17,14 +17,16 @@
       match = {
         namespace = "dms:control-center",
       },
-      animation = "slide right",
+      -- animation = "slide right",
+      no_anim = true
     })
 
     hl.layer_rule({
       match = {
         namespace = "dms:dash",
       },
-      animation = "slide right",
+      -- animation = "slide right",
+      no_anim = true
     })
 
     -- DankMaterialShell Blur
