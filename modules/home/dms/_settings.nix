@@ -6,11 +6,13 @@ in {
   customThemeFile = "";
   registryThemeVariants = {};
   matugenScheme = "scheme-content";
+  matugenContrast = 0;
   runUserMatugenTemplates = true;
   matugenTargetMonitor = "";
   popupTransparency = 0.75;
   dockTransparency = 0.6;
   widgetBackgroundColor = "sch";
+  widgetBackgroundCustomStrength = 0.5;
   widgetColorMode = "default";
   controlCenterTileColorMode = "primary";
   buttonColorMode = "primary";
@@ -19,12 +21,19 @@ in {
   niriLayoutRadiusOverride = -1;
   niriLayoutBorderSize = -1;
   hyprlandLayoutGapsOverride = -1;
+  hyprlandLayoutGapsOutOverride = -1;
   hyprlandLayoutRadiusOverride = -1;
   hyprlandLayoutBorderSize = -1;
+  hyprlandResizeOnBorder = false;
   mangoLayoutGapsOverride = -1;
+  mangoLayoutGapsOutOverride = -1;
   mangoLayoutRadiusOverride = -1;
   mangoLayoutBorderSize = -1;
-  use24HourClock = true;
+  mangoTrackpadNaturalScrolling = true;
+  firstDayOfWeek = -1;
+  showWeekNumber = false;
+  calendarBackend = "auto";
+  clockFormat = "24h";
   showSeconds = false;
   padHours12Hour = false;
   useFahrenheit = false;
@@ -38,6 +47,17 @@ in {
   modalAnimationSpeed = 1;
   modalCustomAnimationDuration = 150;
   enableRippleEffects = true;
+  animationVariant = 0;
+  motionEffect = 0;
+  m3ElevationEnabled = true;
+  m3ElevationIntensity = 12;
+  m3ElevationOpacity = 30;
+  m3ElevationColorMode = "default";
+  m3ElevationLightDirection = "top";
+  m3ElevationCustomColor = "#000000";
+  modalElevationEnabled = true;
+  popoutElevationEnabled = true;
+  barElevationEnabled = false;
   blurEnabled = true;
   blurForegroundLayers = true;
   blurLayerOutlineOpacity = 0.12;
@@ -47,6 +67,8 @@ in {
   wallpaperFillMode = "Fill";
   blurredWallpaperLayer = true;
   blurWallpaperOnOverview = true;
+  wallpaperBackgroundColorMode = "black";
+  wallpaperBackgroundCustomColor = "#000000";
   showLauncherButton = true;
   showWorkspaceSwitcher = true;
   showFocusedWindow = true;
@@ -66,6 +88,12 @@ in {
   showClock = true;
   showNotificationButton = true;
   showBattery = true;
+  showBatteryPercent = true;
+  showBatteryPercentOnlyOnBattery = false;
+  showBatteryTime = false;
+  showBatteryTimeOnlyOnBattery = false;
+  batteryPillStyle = false;
+  batteryPillPercentSign = false;
   showControlCenterButton = true;
   showCapsLockIndicator = true;
   controlCenterShowNetworkIcon = true;
@@ -80,6 +108,8 @@ in {
   controlCenterShowBatteryIcon = false;
   controlCenterShowPrinterIcon = false;
   controlCenterShowScreenSharingIcon = true;
+  controlCenterShowIdleInhibitorIcon = false;
+  controlCenterShowDoNotDisturbIcon = false;
   showPrivacyButton = true;
   privacyShowMicIcon = false;
   privacyShowCameraIcon = false;
@@ -134,11 +164,13 @@ in {
   workspaceDragReorder = true;
   maxWorkspaceIcons = 3;
   workspaceAppIconSizeOffset = 0;
-  groupWorkspaceApps = true;
+  groupWorkspaceApps = false;
+  groupActiveWorkspaceApps = false;
   workspaceFollowFocus = false;
   showOccupiedWorkspacesOnly = false;
   reverseScrolling = false;
   dwlShowAllTags = false;
+  workspaceActiveAppHighlightEnabled = false;
   workspaceColorMode = "default";
   workspaceOccupiedColorMode = "none";
   workspaceUnfocusedColorMode = "default";
@@ -146,18 +178,35 @@ in {
   workspaceFocusedBorderEnabled = false;
   workspaceFocusedBorderColor = "primary";
   workspaceFocusedBorderThickness = 2;
+  workspaceUnfocusedMonitorSeparateAppearance = false;
+  workspaceUnfocusedMonitorColorMode = "default";
+  workspaceUnfocusedMonitorOccupiedColorMode = "none";
+  workspaceUnfocusedMonitorUnfocusedColorMode = "default";
+  workspaceUnfocusedMonitorUrgentColorMode = "default";
+  workspaceUnfocusedMonitorBorderEnabled = false;
+  workspaceUnfocusedMonitorBorderColor = "primary";
+  workspaceUnfocusedMonitorBorderThickness = 2;
   workspaceNameIcons = {};
   waveProgressEnabled = true;
   scrollTitleEnabled = true;
+  mediaAdaptiveWidthEnabled = true;
   audioVisualizerEnabled = true;
+  mediaUseAlbumArtAccent = false;
   audioScrollMode = "volume";
   audioWheelScrollAmount = 5;
+  audioDeviceScrollVolumeEnabled = false;
+  mediaExcludePlayers = [];
   clockCompactMode = false;
   focusedWindowCompactMode = false;
+  focusedWindowSize = 1;
+  focusedWindowShowIcon = true;
   runningAppsCompactMode = true;
   barMaxVisibleApps = 0;
   barMaxVisibleRunningApps = 0;
   barShowOverflowBadge = true;
+  trayAutoOverflow = true;
+  trayPopupSingleLine = true;
+  trayMaxVisibleItems = 0;
   appsDockHideIndicators = false;
   appsDockColorizeActive = false;
   appsDockActiveColorMode = "primary";
@@ -165,6 +214,7 @@ in {
   appsDockEnlargePercentage = 125;
   appsDockIconSizePercentage = 100;
   keyboardLayoutNameCompactMode = false;
+  keyboardLayoutNameShowIcon = false;
   runningAppsCurrentWorkspace = true;
   runningAppsGroupByApp = false;
   runningAppsCurrentMonitor = false;
@@ -190,7 +240,7 @@ in {
       type = "contains";
     }
     {
-      pattern = "^steam_app_(\\d+)$";
+      pattern = "^steam_app_(\d+)$";
       replacement = "steam_icon_$1";
       type = "regex";
     }
@@ -200,9 +250,16 @@ in {
   lockDateFormat = "";
   greeterRememberLastSession = true;
   greeterRememberLastUser = true;
+  greeterAutoLogin = false;
   greeterEnableFprint = false;
   greeterEnableU2f = false;
   greeterWallpaperPath = "";
+  greeterLockDateFormat = "";
+  greeterFontFamily = "";
+  greeterWallpaperFillMode = "";
+  greeterPamExternallyManaged = false;
+  greeterSyncPending = false;
+  greeterSyncBaseline = {};
   mediaSize = 1;
   appLauncherViewMode = "list";
   spotlightModalViewMode = "list";
@@ -213,19 +270,54 @@ in {
   sortAppsAlphabetically = false;
   appLauncherGridColumns = 4;
   spotlightCloseNiriOverview = true;
+  rememberLastQuery = false;
+  rememberLastMode = true;
   spotlightSectionViewModes = {};
   appDrawerSectionViewModes = {};
   niriOverviewOverlayEnabled = true;
+  niriOverviewLauncherStyle = "full";
   dankLauncherV2Size = "compact";
+  dankLauncherV2ShowSourceBadges = true;
   dankLauncherV2BorderEnabled = false;
   dankLauncherV2BorderThickness = 2;
   dankLauncherV2BorderColor = "primary";
   dankLauncherV2ShowFooter = true;
   dankLauncherV2UnloadOnClose = false;
+  dankLauncherV2IncludeFilesInAll = false;
+  dankLauncherV2IncludeFoldersInAll = false;
+  launcherUseOverlayLayer = false;
+  launcherStyle = "full";
+  spotlightBarShowModeChips = false;
+  keybindsFloatingWindow = false;
   useAutoLocation = true;
   weatherEnabled = true;
+  dashTabs = [
+    {
+      id = "overview";
+      enabled = true;
+    }
+    {
+      id = "media";
+      enabled = true;
+    }
+    {
+      id = "wallpaper";
+      enabled = true;
+    }
+    {
+      id = "weather";
+      enabled = true;
+    }
+    {
+      id = "settings";
+      enabled = true;
+    }
+  ];
   networkPreference = "auto";
-  iconTheme = "System Default";
+  iconThemeDark = "System Default";
+  iconThemeLight = "System Default";
+  iconThemePerMode = false;
+  lastAppliedIconTheme = "";
   cursorSettings = {
     dwl = {
       cursorHideTimeout = 0;
@@ -253,30 +345,52 @@ in {
   monoFontFamily = "Maple Mono NF Light";
   fontWeight = 400;
   fontScale = 1;
+  textRenderType = 0;
+  textRenderQuality = 0;
   notepadUseMonospace = true;
   notepadFontFamily = "";
   notepadFontSize = 14;
+  notificationSummaryFontSize = 0;
+  notificationBodyFontSize = 0;
   notepadShowLineNumbers = false;
+  notepadAutoSave = false;
+  notepadSlideoutSide = "right";
+  notepadDefaultMode = "slideout";
   notepadTransparencyOverride = -1;
   notepadLastCustomTransparency = 0.7;
+  notepadUseCompositorGap = false;
+  notepadEdgeGap = 0;
   soundsEnabled = true;
   useSystemSoundTheme = false;
+  soundLogin = false;
   soundNewNotification = true;
   soundVolumeChanged = true;
   soundPluggedIn = true;
+  muteSoundsWhenMediaPlaying = true;
   acMonitorTimeout = 0;
   acLockTimeout = 0;
   acSuspendTimeout = 0;
   acSuspendBehavior = 0;
   acProfileName = "";
+  acPostLockMonitorTimeout = 0;
   batteryMonitorTimeout = 0;
   batteryLockTimeout = 0;
   batterySuspendTimeout = 0;
   batterySuspendBehavior = 0;
   batteryProfileName = "";
+  batteryPostLockMonitorTimeout = 0;
   batteryChargeLimit = 100;
+  batteryNotifyChargeLimit = false;
+  batteryCriticalThreshold = 10;
+  batteryNotifyCritical = true;
+  batteryLowThreshold = 20;
+  batteryNotifyLow = false;
+  batteryChargeLimitNotificationType = 0;
+  batteryLowNotificationType = 0;
+  batteryCriticalNotificationType = 1;
+  batteryAutoPowerSaver = false;
   lockBeforeSuspend = false;
-  loginctlLockIntegration = !qylockEnable;
+  loginctlLockIntegration = false;
   fadeToLockEnabled = true;
   fadeToLockGracePeriod = 5;
   fadeToDpmsEnabled = true;
@@ -306,6 +420,7 @@ in {
   matugenTemplatePywalfox = true;
   matugenTemplateZenBrowser = true;
   matugenTemplateVesktop = true;
+  matugenTemplateVencord = true;
   matugenTemplateEquibop = true;
   matugenTemplateGhostty = true;
   matugenTemplateKitty = true;
@@ -318,10 +433,23 @@ in {
   matugenTemplateVscode = true;
   matugenTemplateEmacs = true;
   matugenTemplateZed = true;
+  matugenTemplateNeovimSettings = {
+    dark = {
+      baseTheme = "github_dark";
+      harmony = 0.5;
+    };
+    light = {
+      baseTheme = "github_light";
+      harmony = 0.5;
+    };
+  };
+  matugenTemplateNeovimSetBackground = true;
   showDock = true;
   dockAutoHide = true;
   dockSmartAutoHide = false;
+  dockUseOverlayLayer = false;
   dockGroupByApp = false;
+  dockRestoreSpecialWorkspaceOnClick = false;
   dockOpenOnOverview = false;
   dockPosition = 1;
   dockSpacing = 4;
@@ -344,6 +472,9 @@ in {
   dockMaxVisibleApps = 0;
   dockMaxVisibleRunningApps = 0;
   dockShowOverflowBadge = true;
+  dockShowTrash = false;
+  dockTrashFileManager = "default";
+  dockTrashCustomCommand = "";
   notificationOverlayEnabled = false;
   notificationPopupShadowEnabled = true;
   notificationPopupPrivacyMode = false;
@@ -361,14 +492,24 @@ in {
   maxFprintTries = 15;
   enableU2f = false;
   u2fMode = "or";
-  lockScreenActiveMonitor = "all";
+  lockPamPath = "";
+  lockPamInlineFprint = false;
+  lockPamInlineU2f = false;
   lockScreenInactiveColor = "#000000";
   lockScreenNotificationMode = 0;
+  lockScreenVideoEnabled = false;
+  lockScreenVideoPath = "";
+  lockScreenVideoCycling = false;
+  lockScreenWallpaperPath = "";
+  lockScreenWallpaperFillMode = "";
+  lockScreenFontFamily = "";
   hideBrightnessSlider = false;
   notificationTimeoutLow = 5000;
   notificationTimeoutNormal = 5000;
   notificationTimeoutCritical = 0;
   notificationCompactMode = false;
+  notificationShowTimeoutBar = false;
+  notificationDedupeEnabled = true;
   notificationPopupPosition = 0;
   notificationAnimationSpeed = 1;
   notificationCustomAnimationDuration = 400;
@@ -379,6 +520,7 @@ in {
   notificationHistorySaveNormal = true;
   notificationHistorySaveCritical = true;
   notificationRules = [];
+  notificationFocusedMonitor = false;
   osdAlwaysShowValue = false;
   osdPosition = 5;
   osdVolumeEnabled = true;
@@ -417,9 +559,14 @@ in {
   customPowerActionReboot = "";
   customPowerActionPowerOff = "";
   updaterHideWidget = false;
+  updaterCheckOnStart = false;
   updaterUseCustomCommand = false;
   updaterCustomCommand = "";
   updaterTerminalAdditionalParams = "";
+  updaterIntervalSeconds = 1800;
+  updaterIncludeFlatpak = true;
+  updaterAllowAUR = true;
+  updaterIgnoredPackages = [];
   displayNameMode = "system";
   screenPreferences = {};
   showOnLastDisplay = {};
@@ -430,6 +577,14 @@ in {
   displayProfileAutoSelect = false;
   displayShowDisconnected = false;
   displaySnapToEdge = true;
+  connectedFrameBarStyleBackups = {
+    default = {
+      shadowIntensity = 0;
+      squareCorners = true;
+      gothCornersEnabled = true;
+      borderEnabled = false;
+    };
+  };
   barConfigs = [
     {
       autoHide = false;
@@ -453,7 +608,7 @@ in {
       fontScale = 1.1;
       gothCornerRadiusOverride = true;
       gothCornerRadiusValue = 20;
-      gothCornersEnabled = true;
+      gothCornersEnabled = false;
       iconScale = 1.1;
       id = "default";
       innerPadding = 10;
@@ -493,7 +648,7 @@ in {
       ];
       showOnLastDisplay = true;
       spacing = 0;
-      squareCorners = true;
+      squareCorners = false;
       transparency = 1;
       visible = true;
       widgetOutlineEnabled = true;
@@ -573,9 +728,43 @@ in {
   desktopWidgetGridSettings = {};
   desktopWidgetInstances = [];
   desktopWidgetGroups = [];
-  builtInPluginSettings = {};
+  builtInPluginSettings = {
+    dms_settings_search = {
+      trigger = "?";
+    };
+    dms_clipboard_search = {
+      trigger = "cb";
+    };
+  };
+  clipboardClickToPaste = false;
   clipboardEnterToPaste = false;
+  clipboardRememberTypeFilter = false;
+  clipboardTypeFilter = "all";
+  clipboardVisibleEntryActions = [
+    "pin"
+    "edit"
+    "delete"
+  ];
   launcherPluginVisibility = {};
   launcherPluginOrder = [];
-  configVersion = 5;
+  frameEnabled = true;
+  frameThickness = 11;
+  frameRounding = 23;
+  frameColor = "";
+  frameOpacity = 1;
+  frameScreenPreferences = [
+    "all"
+  ];
+  frameBarSize = 50;
+  frameShowOnOverview = false;
+  frameBlurEnabled = true;
+  frameCloseGaps = true;
+  frameLauncherEmergeSide = "bottom";
+  frameLauncherArcExtender = false;
+  frameLauncherEdgeHover = false;
+  frameMode = "connected";
+  barInsetPaddingShared = -1;
+  barInsetPaddingSyncAll = false;
+  frameBarInsetPadding = 11;
+  configVersion = 12;
 }

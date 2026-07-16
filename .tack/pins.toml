@@ -57,7 +57,7 @@ url = "github:noctalia-dev/noctalia/cachix"
 exclude_follow = ["nixpkgs"]
 
 [inputs.dms]
-url = "github:AvengeMedia/DankMaterialShell/v1.5.0"
+url = "github:AvengeMedia/DankMaterialShell/v1.5.1"
 
 [inputs.dms-plugin-registry]
 url = "github:AvengeMedia/dms-plugin-registry"
