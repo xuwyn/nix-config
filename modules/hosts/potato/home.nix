@@ -29,7 +29,6 @@ in {
       ({pkgs, ...}: {
         homeManager = {
           i3 = {
-            enable = true;
             picom.enable = true;
             dunst.enable = true;
             polybar.enable = true;

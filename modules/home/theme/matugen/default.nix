@@ -6,7 +6,6 @@
     ...
   }: let
     cfg = config.homeManager.theme.matugen;
-    matugenDir = "${config.programs.matugen.theme.files}";
   in {
     options.homeManager.theme.matugen = {
       enable = lib.mkEnableOption "Enable matugen color";
@@ -14,14 +13,33 @@
         type = lib.types.path;
         description = "Set matugen wallpaper";
       };
+      variant = lib.mkOption {
+        description = "Colorscheme variant.";
+        type = lib.types.enum ["light" "dark" "smart"];
+        default = "dark";
+      };
+      type = lib.mkOption {
+        description = "Palette used when generating the colorschemes.";
+        type = lib.types.enum [
+          "scheme-content"
+          "scheme-expressive"
+          "scheme-fidelity"
+          "scheme-fruit-salad"
+          "scheme-monochrome"
+          "scheme-neutral"
+          "scheme-rainbow"
+          "scheme-tonal-spot"
+          "scheme-vibrant"
+          "scheme-smart"
+        ];
+        default = "scheme-tonal-spot";
+      };
     };
     imports = [inputs.matugen.nixosModules.default];
     config = lib.mkIf cfg.enable {
       programs.matugen = {
         enable = true;
-        variant = "dark";
-        type = "scheme-fidelity";
-        wallpaper = cfg.wallpaper;
+        inherit (cfg) wallpaper variant type;
         templates = {
           kitty = {
             input_path = ./templates/kitty-colors.conf;
@@ -79,21 +97,53 @@
           };
         };
       };
-      home.file = {
-        ".config/kitty/matugen-colors.conf".source = "${matugenDir}/.config/kitty/matugen-colors.conf";
-        ".config/ghostty/themes/matugen".source = "${matugenDir}/.config/ghostty/themes/matugen";
-        ".config/btop/themes/matugen.theme".source = "${matugenDir}/.config/btop/themes/matugen.theme";
-        ".config/cava/themes/matugen".source = "${matugenDir}/.config/cava/themes/matugen";
-        ".config/zed/themes/matugen-colors.json".source = "${matugenDir}/.config/zed/themes/matugen-colors.json";
-        ".config/nvim/lua/matugen-colors.lua".source = "${matugenDir}/.config/nvim/lua/matugen-colors.lua";
-        ".config/hypr/matugen.lua".source = "${matugenDir}/.config/hypr/matugen.lua";
-        ".config/gtk-3.0/matugen-colors.css".source = "${matugenDir}/.config/gtk-3.0/matugen-colors.css";
-        ".config/gtk-4.0/matugen-colors.css".source = "${matugenDir}/.config/gtk-4.0/matugen-colors.css";
-        ".config/qt5ct/colors/matugen-colors.conf".source = "${matugenDir}/.config/qt5ct/colors/matugen-colors.conf";
-        ".config/qt6ct/colors/matugen-colors.conf".source = "${matugenDir}/.config/qt6ct/colors/matugen-colors.conf";
-        ".cache/wal/matugen-colors.json".source = "${matugenDir}/.cache/wal/matugen-colors.json";
-        ".config/Equicord/themes/midnight-discord.css".source = "${matugenDir}/.config/Equicord/themes/midnight-discord.css";
-        ".config/spicetify/Themes/matugen/color.ini".source = "${matugenDir}/.config/spicetify/Themes/matugen/color.ini";
+
+      home.file = let
+        matugenDir = "${config.programs.matugen.theme.files}";
+        homeModules = config.homeManager;
+      in {
+        ".config/kitty/matugen-colors.conf" = lib.mkIf homeModules.terminals.kitty.enable {
+          source = "${matugenDir}/.config/kitty/matugen-colors.conf";
+        };
+        ".config/ghostty/themes/matugen" = lib.mkIf homeModules.terminals.ghostty.enable {
+          source = "${matugenDir}/.config/ghostty/themes/matugen";
+        };
+        ".config/btop/themes/matugen.theme" = lib.mkIf homeModules.cli.btop.enable {
+          source = "${matugenDir}/.config/btop/themes/matugen.theme";
+        };
+        ".config/cava/themes/matugen" = lib.mkIf homeModules.cli.cava.enable {
+          source = "${matugenDir}/.config/cava/themes/matugen";
+        };
+        ".config/zed/themes/matugen-colors.json" = lib.mkIf homeModules.editors.zed.enable {
+          source = "${matugenDir}/.config/zed/themes/matugen-colors.json";
+        };
+        ".config/nvim/lua/matugen-colors.lua" = lib.mkIf homeModules.editors.nixvim.enable {
+          source = "${matugenDir}/.config/nvim/lua/matugen-colors.lua";
+        };
+        ".config/hypr/matugen.lua" = lib.mkIf (homeModules ? hyprland) {
+          source = "${matugenDir}/.config/hypr/matugen.lua";
+        };
+        ".config/gtk-3.0/matugen-colors.css" = lib.mkIf homeModules.theme.gtk.enable {
+          source = "${matugenDir}/.config/gtk-3.0/matugen-colors.css";
+        };
+        ".config/gtk-4.0/matugen-colors.css" = lib.mkIf homeModules.theme.gtk.enable {
+          source = "${matugenDir}/.config/gtk-4.0/matugen-colors.css";
+        };
+        ".config/qt5ct/colors/matugen-colors.conf" = lib.mkIf homeModules.theme.qt.enable {
+          source = "${matugenDir}/.config/qt5ct/colors/matugen-colors.conf";
+        };
+        ".config/qt6ct/colors/matugen-colors.conf" = lib.mkIf homeModules.theme.qt.enable {
+          source = "${matugenDir}/.config/qt6ct/colors/matugen-colors.conf";
+        };
+        ".cache/wal/matugen-colors.json" = lib.mkIf homeModules.apps.firefox.enable {
+          source = "${matugenDir}/.cache/wal/matugen-colors.json";
+        };
+        ".config/Equicord/themes/midnight-discord.css" = lib.mkIf homeModules.apps.nixcord.enable {
+          source = "${matugenDir}/.config/Equicord/themes/midnight-discord.css";
+        };
+        ".config/spicetify/Themes/matugen/color.ini" = lib.mkIf homeModules.apps.spicetify.enable {
+          source = "${matugenDir}/.config/spicetify/Themes/matugen/color.ini";
+        };
       };
     };
   };

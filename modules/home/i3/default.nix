@@ -8,7 +8,6 @@
     cfg = config.homeManager.i3;
   in {
     options.homeManager.i3 = {
-      enable = lib.mkEnableOption "Enable i3";
       monitors = lib.mkOption {
         type = lib.types.listOf (lib.types.submodule {
           options = {
@@ -64,41 +63,40 @@
           m.workspaces)
         cfg.monitors
       );
-    in
-      lib.mkIf cfg.enable {
-        xsession.windowManager.i3 = {
-          enable = true;
-          package = pkgs.i3;
+    in {
+      xsession.windowManager.i3 = {
+        enable = true;
+        package = pkgs.i3;
 
-          config = {
-            bars = [];
+        config = {
+          bars = [];
 
-            # Remove title bars for all windows
-            window = {
-              border = 1;
-              titlebar = false;
-            };
-
-            floating = {
-              border = 1;
-              titlebar = false;
-            };
-
-            gaps = {
-              inner = 5;
-              outer = 5;
-            };
-
-            # Assign workspaces to specific monitor
-            workspaceOutputAssign = workspaceAssignments;
+          # Remove title bars for all windows
+          window = {
+            border = 1;
+            titlebar = false;
           };
 
-          extraConfig = ''
-            default_border pixel 1
-            for_window [class=".*"] border pixel 1
-            title_align center
-          '';
+          floating = {
+            border = 1;
+            titlebar = false;
+          };
+
+          gaps = {
+            inner = 5;
+            outer = 5;
+          };
+
+          # Assign workspaces to specific monitor
+          workspaceOutputAssign = workspaceAssignments;
         };
+
+        extraConfig = ''
+          default_border pixel 1
+          for_window [class=".*"] border pixel 1
+          title_align center
+        '';
       };
+    };
   };
 }
