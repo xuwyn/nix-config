@@ -34,13 +34,11 @@
             enable = true;
             package = pkgs.cachyosKernels.linuxPackages-cachyos-bore-lto-zen4;
           };
+          users.admins = ["wyn"];
           desktop = {
             displayManager = {
               enable = true;
               mode = "silent";
-              profileIcon = {
-                wyn = ../../../assets/face.jpg;
-              };
             };
             qylock.enable = true;
             hyprland.enable = true;

@@ -119,7 +119,7 @@ in {
           theme = {
             matugen = {
               enable = true;
-              wallpaper = wallpaper;
+              inherit wallpaper;
             };
             cursor.enable = true;
             qt = {

@@ -36,6 +36,7 @@ in {
           hl.bind("SUPER + E", hl.dsp.exec_cmd("noctalia msg panel-toggle launcher \"/emo\""))
           hl.bind("SUPER + SHIFT + E", hl.dsp.exec_cmd("noctalia msg panel-toggle launcher \"/kao\""))
           hl.bind("SUPER + SHIFT + T", hl.dsp.exec_cmd("noctalia msg panel-toggle launcher \"/tr\""))
+          hl.bind("SUPER + CTRL + T", hl.dsp.exec_cmd("noctalia msg panel-toggle nightwatch75/todo:panel"))
           hl.bind("SUPER + CTRL + S", hl.dsp.exec_cmd("noctalia msg screenshot-fullscreen"))
           hl.bind("SUPER + SHIFT + S", hl.dsp.exec_cmd("noctalia msg screenshot-region"))
           hl.bind("SUPER + R", hl.dsp.exec_cmd("noctalia msg plugin noctalia/screen_recorder:service all toggle"))

@@ -33,8 +33,8 @@
             "nix-command"
             "flakes"
           ];
-          allowed-users = ["root"] ++ users;
-          trusted-users = ["root"] ++ users;
+          allowed-users = users;
+          trusted-users = users;
         };
       };
 
