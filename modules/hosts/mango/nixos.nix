@@ -30,30 +30,6 @@
               amdgpuBusId = "PCI:15:0:0";
             };
           };
-          impermanence = {
-            home = {
-              wyn = {
-                directories = [
-                  "Documents"
-                  "Downloads"
-                  "Music"
-                  "Pictures"
-                  "Videos"
-                  "Shared"
-                  "nix-config"
-                  ".local"
-                  ".config"
-                  ".mozilla"
-                  ".cache/nix"
-                  ".nix-profile"
-                  ".nix-defexpr"
-                ];
-                files = [
-                  ".nix-channels"
-                ];
-              };
-            };
-          };
           boot.cachyOSKernel = {
             enable = true;
             package = pkgs.cachyosKernels.linuxPackages-cachyos-bore-lto-zen4;
