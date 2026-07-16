@@ -70,7 +70,7 @@
               cyTus = ../../../assets/sddm/cyTus.mp4;
               frame-1 = ../../../assets/sddm/frame-1.png;
             };
-            profileIcons = lib.genAttrs users (name: cfg.profileIcon.${name});
+            profileIcons = lib.genAttrs users (name: cfg.profileIcon.${name} or ../../../assets/face.jpg);
             settings = {
               "General" = {
                 scale = 1.0;

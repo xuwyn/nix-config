@@ -9,7 +9,7 @@ capsule = true
 capsule_border = "primary"
 capsule_foreground = "primary"
 center = [ "group:g3" ]
-end = [ "recorder", "group:g1", "group:g2" ]
+end = [ "recorder", "todo", "nix-monitor", "group:g1", "group:g2" ]
 font_family = "Maple Mono NF"
 margin_edge = 0
 margin_ends = 20
@@ -246,7 +246,9 @@ enabled = [
     "noctalia/bongocat",
     "noctalia/notes",
     "noctalia/kaomoji",
-    "noctalia/translator"
+    "noctalia/translator",
+    "avivbintangaringga/nix-monitor",
+    "nightwatch75/todo"
 ]
 
     [[plugins.source]]
@@ -391,11 +393,18 @@ title_scroll = "always"
 [widget.network]
 show_label = false
 
+[widget.nix-monitor]
+show_text = false
+type = "avivbintangaringga/nix-monitor:nix-monitor"
+
 [widget.recorder]
 type = "noctalia/screen_recorder:recorder"
 
 [widget.sysmon]
 stat = "disk_pct"
+
+[widget.todo]
+type = "nightwatch75/todo:todo"
 
 [widget.tray]
 drawer = true

@@ -18,6 +18,7 @@
       programs.spicetify =
         {
           enable = true;
+          spicetifyPackage = pkgs.spicetify-cli;
           enabledExtensions = with spicePkgs.extensions; [
             adblockify
             hidePodcasts

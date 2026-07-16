@@ -11,7 +11,7 @@
     environment.systemPackages = with pkgs; [age sops];
 
     sops = {
-      age.keyFile = "/etc/sops/age/key.txt";
+      age.keyFile = "/etc/sops/age/keys.txt";
 
       defaultSopsFile = ./${config.networking.hostName}.yaml;
       defaultSopsFormat = "yaml";

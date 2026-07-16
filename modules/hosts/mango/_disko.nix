@@ -30,25 +30,15 @@
                 settings = {allowDiscards = true;};
                 content = {
                   type = "btrfs";
-                  extraArgs = [
-                    "-L"
-                    "nixos"
-                    "-f"
-                  ];
+                  extraArgs = ["-L" "nixos" "-f"];
                   subvolumes = {
                     "/root" = {
                       mountpoint = "/";
-                      mountOptions = [
-                        "compress=zstd"
-                        "noatime"
-                      ];
+                      mountOptions = ["compress=zstd" "noatime"];
                     };
                     "/nix" = {
                       mountpoint = "/nix";
-                      mountOptions = [
-                        "compress=zstd"
-                        "noatime"
-                      ];
+                      mountOptions = ["compress=zstd" "noatime"];
                     };
                     # exclude /home from impermanence cause home-manager is standalone
                     "/home" = {
@@ -57,18 +47,11 @@
                     };
                     "/persist" = {
                       mountpoint = "/persist";
-                      mountOptions = [
-                        "compress=zstd"
-                        "noatime"
-                      ];
+                      mountOptions = ["compress=zstd" "noatime"];
                     };
                     "/swap" = {
                       mountpoint = "/swap";
-                      mountOptions = [
-                        "noatime"
-                        "nodatacow"
-                        "compress=no"
-                      ];
+                      mountOptions = ["noatime" "nodatacow" "compress=no"];
                       swap.swapfile.size = "16G";
                     };
                   };

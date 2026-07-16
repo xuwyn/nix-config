@@ -1,6 +1,6 @@
 <h2 align="center">Half-baked Dendritic Nix Config</h2>
 
-My personal config for NixOS and Home Manager running on `x86_64-linux` and `aarch64-darwin`.
+My personal config for NixOS and Home Manager (standalone) running on `x86_64-linux` and `aarch64-darwin`.
 Currently, I have no desire to fully transform every hosts I have into NixOS,
 so most features are in Home Manager for portability.
 
@@ -24,7 +24,7 @@ From what I learned, there are two main ways of setting up dendritic pattern:
 - **`<class>.<aspect>`** which is the standard [flake-parts](https://flake.parts)
 - **`<aspect>.<class>`** which can be achieved with [den](https://github.com/denful/den) or just [flake-aspects](https://github.com/denful/flake-aspects)
 
-I went with **`<class>.<aspect>`** since I like to separate classes explicitly but this may change in the future.
+I went with **`<class>.<aspect>`** since it's easier to separate aspects by class this way.
 
 ## Layout
 
@@ -32,16 +32,16 @@ I went with **`<class>.<aspect>`** since I like to separate classes explicitly b
 ./
 ├── .tack/                 # flake inputs
 ├── flake.nix              # flake outputs
-├── modules/
-│   ├── _overlays/         # overlays for nixpkgs (see ./modules/lib/builders.nix)
-│   ├── lib/
-│   │   ├── options.nix    # options declaration for dendritic structure
-│   │   └── builders.nix   # nixos and homeManager configuration wrappers
-│   ├── sops/              # secret management
-│   ├── hosts/             # host-specific configurations
-│   ├── nixos/             # nixos modules (e.g., boot, system, network, etc.)
-│   └── home/              # homeManager modules (e.g., cli, terminals, hyprland, etc.)
-└── assets/                # desktop screenshots, wallpapers, etc.
+├── assets/                # desktop screenshots, wallpapers, etc.
+└── modules/
+    ├── _overlays/         # overlays for nixpkgs
+    ├── lib/
+    │   ├── options.nix    # options declaration for dendritic structure
+    │   └── builders.nix   # nixos and homeManager configuration wrappers
+    ├── sops/              # secret management
+    ├── hosts/             # host-specific configurations
+    ├── nixos/             # nixos modules (e.g., boot, system, network, etc.)
+    └── home/              # homeManager modules (e.g., cli, terminals, hyprland, etc.)
 ```
 
 > [!TIP]
@@ -52,32 +52,169 @@ I went with **`<class>.<aspect>`** since I like to separate classes explicitly b
 >   - **`<module>`**: Usually the same as the filename (some files has multiple modules in them)
 >   - If a file does not belong to any aspect folder, its filename becomes the aspect, and there is no **`<module>`** level in its option path. These standalone aspects are also enabled by default.
 > - `nixpkgs-stable` is just a pinned commit of `nixpkgs` (which tracks `nixos-unstable`) from a
->   previous flake update and is **NOT** the actual NixOS stable release (`26.05`).
-> - `aarch64-darwin` platform follows this `nixpkgs-stable` input. (See `./modules/lib/builders.nix`)
+>   previous flake update and is **NOT** the actual NixOS stable release (`26.05`)
+> - `aarch64-darwin` platform follows this `nixpkgs-stable` input (see `./modules/lib/builders.nix`)
 > - `import-tree` does not import files and folders with underscore `_` prefix, so none of those should
 >   contain flake module declaration.
 
 ## Hosts
 
-| Host       | Platform         | Modules               | WM + Bar            |
-| ---------- | ---------------- | --------------------- | ------------------- |
-| `apricot`  | `aarch64-darwin` | `homeManager`         | Aerospace           |
-| `capybara` | `x86_64-linux`   | `homeManager`         |
-| `lettuce`  | `x86_64-linux`   | `nixos`+`homeManager` |
-| `mango`    | `x86_64-linux`   | `nixos`+`homeManager` | Hyprland + Noctalia |
-| `potato`   | `x86_64-linux`   | `homeManager`         | i3 + Polybar        |
+| Host       | Platform         | OS            | Modules               | WM + Bar            |
+| ---------- | ---------------- | ------------- | --------------------- | ------------------- |
+| `apricot`  | `aarch64-darwin` | MacOS         | `homeManager`         | Aerospace           |
+| `capybara` | `x86_64-linux`   | CachyOS       | `homeManager`         |
+| `lettuce`  | `x86_64-linux`   | WSL           | `nixos`+`homeManager` |
+| `mango`    | `x86_64-linux`   | NixOS         | `nixos`+`homeManager` | Hyprland + Noctalia |
+| `potato`   | `x86_64-linux`   | Debian Trixie | `homeManager`         | i3 + Polybar        |
 
 ## Installation
 
 This section is mainly for my poor memory.
 
+### Add New Host
+
+Create host-specific config file
+
+```sh
+cd ~/nix-config
+mkdir -p modules/hosts/new-host
+touch modules/hosts/new-host/configuration.nix
+```
+
+<details>
+  <summary>Example of host configuration</summary>
+
+```nix
+{ config, ... }: let
+wallpaper = ../../../wallpapers/default.png;
+in {
+  nixos.new-host = {
+    system = "x86_64-linux";
+    host = "new-host";
+    users = ["new-user"];
+    modules = with config.modules.nixos; [
+      ./_disko.nix
+      drivers
+      sops
+      system
+      boot
+      network
+      users
+      desktop
+      (_: {
+        nixos = {
+          drivers = {
+            amdcpu.enable = true;
+            nvidia.enable = true;
+            nvidia-amd-hybrid = {
+                enable = true;
+                mode = "offload";
+                nvidiaBusID = "PCI:1:0:0";
+                amdgpuBusID = "PCI:15:0:0";
+            };
+          };
+          desktop.hyprland.enable = true;
+        };
+      })
+    ];
+  };
+
+  home."new-user@new-host" = {
+    system = "x86_64-linux";
+    username = "new-user";
+    modules = with config.modules.homeManager; [
+      home
+      sops
+      cli
+      terminals
+      hyprland
+      theme
+      (_: {
+        homeManager = {
+          cli = {
+            zsh.enable = true;
+            git = {
+              enable = true;
+              username = "git-username";
+              email = "email@example.com";
+            };
+          };
+          terminals.kitty.enable = true;
+          hyprland.enable = true;
+          theme = { matugen = { enable = true; inherit wallpaper; }; };
+        };
+      })
+    ];
+  };
+}
+```
+
+</details>
+
 ### Install Nix
 
 #### NixOS
 
-> **TODO:** Use [disko](https://github.com/nix-community/disko) to skip this step
+**Create [disko](https://github.com/nix-community/disko/tree/master) configuration**
 
-Install NixOS according to the [NixOS Manual](https://nixos.org/manual/nixos/stable/).
+> [!NOTE]
+> [Impermanence](https://github.com/nix-community/impermanence#home-manager) only supports `home-manager` as a NixOS module so create a subvolume for `/home` to exclude it from impermanence
+
+1. Follow the [quickstart.md](https://github.com/nix-community/disko/blob/master/docs/quickstart.md) to get a disko template
+2. Replace `device` with disk name or id, obtains by
+
+   ```sh
+   lsblk -f
+   ls -la /dev/disk/by-id
+   ```
+
+3. Edit partition values to match hardware and personal preferences
+
+**Install NixOS with disko from a flash drive**
+
+1. Get an ISO image from [NixOS](https://nixos.org/download/) onto a flash drive and boot into it
+2. Step-by-step commands to format disk with disko and install NixOS
+
+   ```sh
+   # Use nix-shell to get all required tools
+   nix-shell -p git age sops
+
+   # Clone repo
+   git clone https://github.com/xuwyn/nix-config.git ~/nix-config
+
+   # Create age key for host
+   age-keygen -o keys.txt
+
+   # Copy host public age key to .sops.yaml
+   age-keygen -y keys.txt
+   vi nix-config/modules/sops/.sops.yaml
+
+   # Create user password in hash
+   mkpasswd -m yescrypt
+
+   # Add the hashed password to new-host.yaml
+   sops nix-config/modules/sops/new-host.yaml
+
+   # Format disk with disko
+   sudo nix --experimental-features "nix-command flakes" run github:nix-community/disko -- --mode disko --flake nix-config#new-host
+
+   # Copy host keys to newly formatted disk
+   sudo mkdir -p /mnt/etc/sops/age
+   sudo cp keys.txt /mnt/etc/sops/age
+
+   # Install NixOS
+   sudo nixos-install --root /mnt --flake nix-config#new-host
+
+   # Copy host keys to /persist (just in case)
+   sudo cp -r /mnt/etc/sops /mnt/persist/root/etc
+
+   # Copy current repo to new-user's home
+   sudo cp -r nix-config /mnt/home/new-user
+   sudo chown -R new-user:new-user /mnt/home/new-user/nix-config
+
+   # Reboot into UEFI
+   systemctl reboot --firmware-setup
+   ```
 
 #### Other Distros
 
@@ -113,112 +250,9 @@ nix-channel --update
 nix-shell '<home-manager>' -A install
 ```
 
-### Clone This Repository
-
-Assuming fresh install, use `nix-shell` to get `git`
-
-```sh
-nix-shell -p git --run "git clone https://github.com/xuwyn/nix-config.git ~/nix-config"
-
-# Or use this to skip downloading assets/ (~160MB)
-nix-shell -p git git-lfs --run "GIT_LFS_SKIP_SMUDGE=1 git clone https://github.com/xuwyn/nix-config.git ~/nix-config"
-```
-
-If `git` is already installed, clone as usual
-
-```sh
-git clone https://github.com/xuwyn/nix-config.git ~/nix-config
-
-# Or skip cloning assets/ if git-lfs is installed
-GIT_LFS_SKIP_SMUDGE=1 git clone https://github.com/xuwyn/nix-config.git ~/nix-config
-```
-
-### Add New Host
-
-Create host-specific config file
-
-```sh
-cd ~/nix-config
-mkdir -p modules/hosts/new-host
-touch modules/hosts/new-host/default.nix
-```
-
-<details>
-  <summary>Example modules/hosts/new-host/default.nix</summary>
-
-```nix
-{ config, ... }: let
-wallpaper = ../../../wallpapers/default.png;
-in {
-  nixos.new-host = {
-    host = "new-host";
-    users = ["new-user"];
-    modules = with config.flake.modules.nixos; [
-      ./_disko.nix
-      drivers
-      system
-      boot
-      network
-      users
-      desktop
-      ({ pkgs, ... }: {
-        nixos = {
-          amd-nvidia-sync = {
-            nvidiaID = "PCI:1:0:0";
-            amdgpuID = "PCI:15:0:0";
-          };
-          desktop.hyprland.enable = true;
-        };
-      })
-    ];
-  };
-  home."new-user@new-host" = {
-    system = "x86_64-linux";
-    username = "new-user";
-    modules = with config.modules.homeManager; [
-      home
-      cli
-      terminals
-      hyprland
-      theme
-      (_: {
-        homeManager = {
-          cli = {
-            zsh.enable = true;
-            git = {
-              enable = true;
-              username = "git-username";
-              email = "email@example.com";
-            };
-          };
-          terminals.kitty.enable = true;
-          hyprland.enable = true;
-          theme = { stylix  = { enable = true; image = stylixImage; }; };
-        };
-      })
-    ];
-  };
-}
-```
-
-</details>
-
-### Add Hardware Configuration (NixOS Only)
-
-> [!WARNING]
-> Skip this step for hosts running on WSL/VMs, as well as hosts that only use Home Manager
-
-```sh
-# Create hardware configuration
-nixos-generate-config --show-hardware-config > ~/nix-config/modules/hosts/new-host/_hardware.nix
-
-# Or copy existing one (assuming default NixOS installation)
-cp /etc/nixos/hardware-configuration.nix ~/nix-config/modules/hosts/new-host/_hardware.nix
-```
-
 ### Enable Flake
 
-If not using Determinate, enable flake before running `nixos-rebuild` and `home-manager switch`
+If not using Determinate, enable flake before running `nixos-rebuild` and/or `home-manager switch`
 
 ```sh
 mkdir -p ~/.config/nix
@@ -234,6 +268,12 @@ Run initial build with `nixos-rebuild`
 
 ```sh
 cd ~/nix-config
+
+# (Optional) fetch assets/ on fresh install (no git-lfs)
+nix-shell -p git git-lfs
+git lfs install
+git lfs fetch
+git lfs checkout
 
 # use `dry-activate` to preview changes without applying them
 sudo nixos-rebuild dry-activate --flake .#new-host
@@ -313,7 +353,7 @@ ncg
 
 ### NVIDIA Shenanigans
 
-- Use open-sourced driver for RTX 50xx (see `./modules/_drivers/nvidia.nix`)
+- Use open-sourced driver for RTX 50xx (see `./modules/nixos/drivers/nvidia.nix`)
 - Use `offload` mode for laptop with NVIDIA GPU
 - Use `sync` mode for desktop with NVIDIA GPU
 - Standalone Home Manager running on non-NixOS Linux hosts with NVIDIA GPU
