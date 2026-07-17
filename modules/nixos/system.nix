@@ -3,7 +3,6 @@
     lib,
     config,
     pkgs,
-    users,
     ...
   }: let
     cfg = config.nixos.system;
@@ -33,9 +32,12 @@
             "nix-command"
             "flakes"
           ];
-          allowed-users = users;
-          trusted-users = users;
+          allowed-users = ["@wheel"];
+          trusted-users = ["@wheel"];
         };
+        extraOptions = ''
+          !include ${config.sops.templates."nix-access-tokens.conf".path}
+        '';
       };
 
       # Localization

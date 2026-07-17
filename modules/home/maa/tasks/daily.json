@@ -1,0 +1,86 @@
+{
+  "$schema": "../../schemas/task.schema.json",
+  "tasks": [
+    {
+      "type": "StartUp",
+      "params": {
+        "enable": true,
+        "client_type": "YoStarEN",
+        "start_game_enabled": true
+      }
+    },
+    {
+      "type": "Recruit",
+      "params": {
+        "enable": true,
+        "refresh": true,
+        "select": [5, 4],
+        "confirm": [5, 4, 3],
+        "first_tags": [],
+        "extra_tags_mode": 0,
+        "times": 4,
+        "set_time": true,
+        "expedite": false,
+        "expedite_times": 0,
+        "preserve_tags": ["支援机械", "高级资深干员"],
+        "recruitment_time": {
+          "3": 540,
+          "4": 540,
+          "5": 540
+        },
+        "report_to_penguin": false,
+        "report_to_yituliu": false
+      }
+    },
+    {
+      "type": "Infrast",
+      "params": {
+        "enable": true,
+        "mode": 0,
+        "facility": ["Mfg", "Trade", "Power", "Control", "Reception", "Office", "Dorm"],
+        "drones": "Money",
+        "threshold": 0.3,
+        "replenish": true,
+        "dorm_notstationed_enabled": false,
+        "dorm_trust_enabled": true,
+        "reception_message_board": true,
+        "reception_clue_exchange": true,
+        "reception_send_clue": true
+      }
+    },
+    {
+      "type": "Mall",
+      "params": {
+        "enable": true,
+        "visit_friends": true,
+        "shopping": true,
+        "buy_first": ["招聘许可", "龙门币"],
+        "blacklist": ["家具零件"],
+        "force_shopping_if_credit_full": false,
+        "only_buy_discount": false,
+        "reserve_max_credit": false,
+        "credit_fight": false,
+        "formation_index": 0
+      }
+    },
+    {
+      "type": "Award",
+      "params": {
+        "enable": true,
+        "award": true,
+        "mail": true,
+        "recruit": true,
+        "orundum": false,
+        "mining": false,
+        "specialaccess": false
+      }
+    },
+    {
+      "type": "CloseDown",
+      "params":{
+        "enable": true,
+        "client_type": "YoStarEN"
+      }
+    }
+  ]
+}
