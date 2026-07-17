@@ -102,46 +102,59 @@
         matugenDir = "${config.programs.matugen.theme.files}";
         homeModules = config.homeManager;
       in {
-        ".config/kitty/matugen-colors.conf" = lib.mkIf homeModules.terminals.kitty.enable {
+        ".config/kitty/matugen-colors.conf" = lib.mkIf (homeModules ? terminals
+          && homeModules.terminals.kitty.enable) {
           source = "${matugenDir}/.config/kitty/matugen-colors.conf";
         };
-        ".config/ghostty/themes/matugen" = lib.mkIf homeModules.terminals.ghostty.enable {
+        ".config/ghostty/themes/matugen" = lib.mkIf (homeModules ? terminals
+          && homeModules.terminals.ghostty.enable) {
           source = "${matugenDir}/.config/ghostty/themes/matugen";
         };
-        ".config/btop/themes/matugen.theme" = lib.mkIf homeModules.cli.btop.enable {
+        ".config/btop/themes/matugen.theme" = lib.mkIf (homeModules ? cli
+          && homeModules.cli.btop.enable) {
           source = "${matugenDir}/.config/btop/themes/matugen.theme";
         };
-        ".config/cava/themes/matugen" = lib.mkIf homeModules.cli.cava.enable {
+        ".config/cava/themes/matugen" = lib.mkIf (homeModules ? cli
+          && homeModules.cli.cava.enable) {
           source = "${matugenDir}/.config/cava/themes/matugen";
         };
-        ".config/zed/themes/matugen-colors.json" = lib.mkIf homeModules.editors.zed.enable {
+        ".config/zed/themes/matugen-colors.json" = lib.mkIf (homeModules ? editors
+          && homeModules.editors.zed.enable) {
           source = "${matugenDir}/.config/zed/themes/matugen-colors.json";
         };
-        ".config/nvim/lua/matugen-colors.lua" = lib.mkIf homeModules.editors.nixvim.enable {
+        ".config/nvim/lua/matugen-colors.lua" = lib.mkIf (homeModules ? editors
+          && homeModules.editors.nixvim.enable) {
           source = "${matugenDir}/.config/nvim/lua/matugen-colors.lua";
         };
         ".config/hypr/matugen.lua" = lib.mkIf (homeModules ? hyprland) {
           source = "${matugenDir}/.config/hypr/matugen.lua";
         };
-        ".config/gtk-3.0/matugen-colors.css" = lib.mkIf homeModules.theme.gtk.enable {
+        ".config/gtk-3.0/matugen-colors.css" = lib.mkIf (homeModules ? theme
+          && homeModules.theme.gtk.enable) {
           source = "${matugenDir}/.config/gtk-3.0/matugen-colors.css";
         };
-        ".config/gtk-4.0/matugen-colors.css" = lib.mkIf homeModules.theme.gtk.enable {
+        ".config/gtk-4.0/matugen-colors.css" = lib.mkIf (homeModules ? theme
+          && homeModules.theme.gtk.enable) {
           source = "${matugenDir}/.config/gtk-4.0/matugen-colors.css";
         };
-        ".config/qt5ct/colors/matugen-colors.conf" = lib.mkIf homeModules.theme.qt.enable {
+        ".config/qt5ct/colors/matugen-colors.conf" = lib.mkIf (homeModules ? theme
+          && homeModules.theme.qt.enable) {
           source = "${matugenDir}/.config/qt5ct/colors/matugen-colors.conf";
         };
-        ".config/qt6ct/colors/matugen-colors.conf" = lib.mkIf homeModules.theme.qt.enable {
+        ".config/qt6ct/colors/matugen-colors.conf" = lib.mkIf (homeModules ? theme
+          && homeModules.theme.qt.enable) {
           source = "${matugenDir}/.config/qt6ct/colors/matugen-colors.conf";
         };
-        ".cache/wal/matugen-colors.json" = lib.mkIf homeModules.apps.firefox.enable {
+        ".cache/wal/matugen-colors.json" = lib.mkIf (homeModules ? apps
+          && homeModules.apps.firefox.enable) {
           source = "${matugenDir}/.cache/wal/matugen-colors.json";
         };
-        ".config/Equicord/themes/midnight-discord.css" = lib.mkIf homeModules.apps.nixcord.enable {
+        ".config/Equicord/themes/midnight-discord.css" = lib.mkIf (homeModules ? apps
+          && homeModules.apps.nixcord.enable) {
           source = "${matugenDir}/.config/Equicord/themes/midnight-discord.css";
         };
-        ".config/spicetify/Themes/matugen/color.ini" = lib.mkIf homeModules.apps.spicetify.enable {
+        ".config/spicetify/Themes/matugen/color.ini" = lib.mkIf (homeModules ? apps
+          && homeModules.apps.spicetify.enable) {
           source = "${matugenDir}/.config/spicetify/Themes/matugen/color.ini";
         };
       };
