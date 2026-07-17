@@ -79,9 +79,6 @@ exclude_follow = ["nixpkgs"]
 [inputs.sops-nix]
 url = "github:Mic92/sops-nix"
 
-[inputs.nix-ld]
-url = "github:Mic92/nix-ld"
-
 [inputs.nur]
 url = "github:nix-community/NUR"
 
@@ -126,3 +123,7 @@ exclude_follow = ["nixpkgs"]
 [inputs.impermanence]
 url = "github:nix-community/impermanence"
 exclude_follow = ["nixpkgs"]
+
+[inputs.maa-cli]
+url = "github:MaaAssistantArknights/maa-cli"
+type = "fetch"

@@ -16,11 +16,21 @@
       defaultSopsFile = ./${config.networking.hostName}.yaml;
       defaultSopsFormat = "yaml";
 
-      secrets = lib.listToAttrs (map (u: {
-          name = "${u}_password";
-          value = {neededForUsers = true;};
-        })
-        users);
+      secrets =
+        lib.listToAttrs (map (u: {
+            name = "${u}_password";
+            value = {neededForUsers = true;};
+          })
+          users)
+        // {
+          github_token = {};
+        };
+
+      templates = {
+        "nix-access-tokens.conf".content = ''
+          access-tokens = github.com=${config.sops.placeholder.github_token}
+        '';
+      };
     };
   };
 

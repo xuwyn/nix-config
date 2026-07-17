@@ -9,6 +9,30 @@ _: {
     })
 
     hl.window_rule({
+      name = "Waydroid",
+      match = {
+        class = "^(Waydroid)$",
+      },
+      float = true,
+    })
+
+    hl.window_rule({
+      name = "WaydroidHelper",
+      match = {
+        class = "^(com\\.jaoushingan\\.WaydroidHelper)$",
+      },
+      float = true,
+    })
+
+    hl.window_rule({
+      name = "Arknights",
+      match = {
+        class = "^(waydroid\\.com\\.YoStarEN\\.Arknights)$",
+      },
+      float = true,
+    })
+
+    hl.window_rule({
       name = "Terminals",
       match = {
         class = "^(com.mitchellh.ghostty|org.wezfurlong.wezterm|Alacritty|kitty)$",

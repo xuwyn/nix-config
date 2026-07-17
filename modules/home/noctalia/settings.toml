@@ -241,7 +241,11 @@ widget_order = [
 
 [plugin_settings."avivbintangaringga/nix-monitor"]
 clean_command = "nh clean all"
+panel_placement = "floating"
 update_command = "tack update"
+
+[plugin_settings."nightwatch75/todo"]
+panel_placement = "floating"
 
 [plugins]
 enabled = [

@@ -26,6 +26,7 @@ in {
       # extra
       utils
       eyecandy
+      maa
 
       (_: {
         homeManager = {

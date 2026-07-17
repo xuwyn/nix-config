@@ -71,6 +71,14 @@
     "narHash": "sha256-03+JxvzmfwRu+5JafM0DLbxgHttOQZkUtDWBmeUkN8Y=",
     "lastModified": 1769548169
   },
+  "maa-cli": {
+    "type": "github",
+    "owner": "MaaAssistantArknights",
+    "repo": "maa-cli",
+    "rev": "503d6ce3248a5cd6b90c56299bcdd9bb463d81f0",
+    "narHash": "sha256-jxXIyXrLPGO6iNhABH8SQpZOfLYsdmRtvHMRoqOoa0o=",
+    "lastModified": 1781097221
+  },
   "mac-app-util": {
     "type": "github",
     "owner": "hraban",
@@ -110,14 +118,6 @@
     "rev": "1111b9bc836afb7e31a7014e8d1272de9b1c917d",
     "narHash": "sha256-BQxN5UMg9FOevAsgBRwPxfxlh51Puj+dNn/8Dsi3sPM=",
     "lastModified": 1783864904
-  },
-  "nix-ld": {
-    "type": "github",
-    "owner": "Mic92",
-    "repo": "nix-ld",
-    "rev": "275dcc1ba29a6fd857bdcd5696b1d53d1de75ce0",
-    "narHash": "sha256-pw64WiTpRFTZCqBaAGOe/vCsiKu7cocAmDluLetweiw=",
-    "lastModified": 1783932318
   },
   "nixcord": {
     "type": "github",
