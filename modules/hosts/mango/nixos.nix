@@ -54,7 +54,7 @@
           };
           services = {
             printing.enable = true;
-            nix-ld.enable = true;
+            waydroid.enable = true;
           };
         };
       })
