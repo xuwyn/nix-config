@@ -3,7 +3,7 @@
   config,
   ...
 }: let
-  inherit (config.homeManager.i3) background;
+  inherit (config.homeManager.desktop) wallpaper;
 in {
   xsession.windowManager.i3 = {
     config = {
@@ -59,7 +59,7 @@ in {
           notification = false;
         }
         {
-          command = "${pkgs.feh}/bin/feh --bg-scale ${background}";
+          command = "${pkgs.feh}/bin/feh --bg-scale ${wallpaper}";
           always = true;
           notification = false;
         }

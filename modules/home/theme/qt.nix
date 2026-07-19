@@ -5,7 +5,8 @@
     ...
   }: let
     cfg = config.homeManager.theme.qt;
-    isMatugenEnabled = config.programs.matugen.enable or false;
+    matugenEnabled = config.programs.matugen.enable or false;
+    bar = config.homeManager.desktop.bar or null;
     barThemes = {
       "noctalia" = "noctalia.conf";
       "dms" = "matugen.conf";
@@ -13,12 +14,10 @@
   in {
     options.homeManager.theme.qt = {
       enable = lib.mkEnableOption "Enable theming for qt apps";
-      barName = lib.mkOption {
-        type = lib.types.str;
-        default = config.homeManager.hyprland.barName or "";
-        description = "Set bar generated theme";
+      barThemeEnabled = lib.mkOption {
+        type = lib.types.bool;
+        default = config.homeManager.desktop.barThemeEnabled or false;
       };
-      barTheme.enable = lib.mkEnableOption "Whether to use bar-generated theme";
     };
     config = lib.mkIf cfg.enable {
       qt = {
@@ -30,11 +29,11 @@
           text = ''
             [Appearance]
             ${
-              if cfg.barTheme.enable
+              if cfg.barThemeEnabled
               then ''
-                color_scheme_path="$HOME/.config/qt5ct/colors/${barThemes.${cfg.barName}}"
+                color_scheme_path="$HOME/.config/qt5ct/colors/${barThemes.${bar}}"
               ''
-              else if isMatugenEnabled
+              else if matugenEnabled
               then ''
                 color_scheme_path="$HOME/.config/qt5ct/colors/matugen-colors.conf"
               ''
@@ -50,11 +49,11 @@
           text = ''
             [Appearance]
             ${
-              if cfg.barTheme.enable
+              if cfg.barThemeEnabled
               then ''
-                color_scheme_path="$HOME/.config/qt6ct/colors/${barThemes.${cfg.barName}}"
+                color_scheme_path="$HOME/.config/qt6ct/colors/${barThemes.${bar}}"
               ''
-              else if isMatugenEnabled
+              else if matugenEnabled
               then ''
                 color_scheme_path="$HOME/.config/qt6ct/colors/matugen-colors.conf"
               ''

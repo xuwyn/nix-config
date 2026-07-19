@@ -1,11 +1,11 @@
 {
   pkgs,
-  background,
+  wallpaper,
   config,
 }: let
-  isMatugenEnabled = config.programs.matugen.enable or false;
+  matugenEnabled = config.programs.matugen.enable or false;
   colors =
-    if isMatugenEnabled
+    if matugenEnabled
     then {
       base00 = config.programs.matugen.theme.colors.surface.default.color;
       base05 = config.programs.matugen.theme.colors.on_surface.default.color;
@@ -28,7 +28,7 @@ in
   pkgs.writeShellScriptBin "i3-lock" ''
     #!/bin/bash
 
-    WALLPAPER=${background}
+    WALLPAPER=${wallpaper}
     LOCK_IMG="/tmp/lockscreen.png"
 
     # Darken and blur wallpaper using ImageMagick

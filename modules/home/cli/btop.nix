@@ -6,7 +6,7 @@
     ...
   }: let
     cfg = config.homeManager.cli.btop;
-    isMatugenEnabled = config.programs.matugen.enable or false;
+    matugenEnabled = config.programs.matugen.enable or false;
   in {
     options.homeManager.cli.btop = {
       enable = lib.mkEnableOption "Enable btop";
@@ -47,7 +47,7 @@
           // (
             if cfg.theme != ""
             then {color_theme = cfg.theme;}
-            else if isMatugenEnabled
+            else if matugenEnabled
             then {color_theme = "matugen";}
             else {color_theme = "dracula";}
           );

@@ -10,7 +10,8 @@
     options.homeManager.theme.matugen = {
       enable = lib.mkEnableOption "Enable matugen color";
       wallpaper = lib.mkOption {
-        type = lib.types.path;
+        type = lib.types.nullOr lib.types.path;
+        default = config.homeManager.desktop.wallpaper or null;
         description = "Set matugen wallpaper";
       };
       variant = lib.mkOption {

@@ -1,6 +1,5 @@
 {config, ...}: let
-  inherit (config.homeManager.hyprland) browser terminal barName qylock;
-  inherit (config.homeManager.theme.matugen) wallpaper;
+  inherit (config.homeManager.desktop) browser terminal bar qylockEnabled wallpaper;
   wallpaperName = builtins.baseNameOf (toString wallpaper);
 in {
   wayland.windowManager.hyprland.extraConfig = ''
@@ -20,7 +19,7 @@ in {
     hl.bind("SUPER + mouse:273", hl.dsp.window.resize())
 
     ${
-      if barName == "noctalia"
+      if bar == "noctalia"
       then
         ''
           -- NOCTALIA
@@ -46,7 +45,7 @@ in {
           hl.bind("XF86MonBrightnessUp", hl.dsp.exec_cmd("noctalia msg brightness-up"))
         ''
         + (
-          if !qylock.enable
+          if !qylockEnabled
           then ''
             hl.bind("SUPER + L", hl.dsp.exec_cmd("noctalia msg session lock"))
           ''
@@ -54,7 +53,7 @@ in {
             hl.bind("SUPER + L", hl.dsp.exec_cmd("qylock-lock"))
           ''
         )
-      else if barName == "dms"
+      else if bar == "dms"
       then
         ''
           -- DankMaterialShell
@@ -81,7 +80,7 @@ in {
           hl.bind("SUPER + E", hl.dsp.exec_cmd("dms ipc call plugins enable emojiLauncher && dms ipc call spotlight toggleQuery \":e\""))
         ''
         + (
-          if !qylock.enable
+          if !qylockEnabled
           then ''
             hl.bind("SUPER + L", hl.dsp.exec_cmd("dms ipc call lock lock"))
           ''

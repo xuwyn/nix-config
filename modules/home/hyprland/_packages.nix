@@ -1,14 +1,5 @@
 {pkgs, ...}: {
   home.packages = with pkgs; [
-    # --- Desktop Apps ---
-    gimp # Photo editor
-    mpv # Video player
-    picard # Music tagger GUI
-    rhythmbox # Music player GUI
-    eog # GNOME Image viewer (GTK based)
-    file-roller # GNOME Archive manager interface
-    pavucontrol # PulseAudio/PipeWire volume panel
-
     # --- Hyprland Helpers ---
     app2unit # Launches Linux desktop entries as systemd user units
     libnotify # Linux notification tool (provides notify-send)

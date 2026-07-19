@@ -6,9 +6,9 @@
     ...
   }: let
     cfg = config.homeManager.rofi;
-    isMatugenEnabled = config.programs.matugen.enable or false;
+    matugenEnabled = config.programs.matugen.enable or false;
     colors =
-      if isMatugenEnabled
+      if matugenEnabled
       then {
         base00 = "#" + config.programs.matugen.theme.colors.surface.default.color;
         base01 = "#" + config.programs.matugen.theme.colors.surface_container_low.default.color;

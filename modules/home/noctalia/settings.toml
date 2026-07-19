@@ -242,7 +242,7 @@ widget_order = [
 [plugin_settings."avivbintangaringga/nix-monitor"]
 clean_command = "nh clean all"
 panel_placement = "floating"
-update_command = "tack update"
+update_command = "cd ~/nix-config && tack update"
 
 [plugin_settings."nightwatch75/todo"]
 panel_placement = "floating"
@@ -346,7 +346,7 @@ directory = "/home/wyn/Pictures/Wallpapers"
     palette_source = "wallpaper"
     path = "/home/wyn/Pictures/Wallpapers/Frankenstein.jpg"
     theme_mode = "dark"
-    wallpaper_scheme = "m3-rainbow"
+    wallpaper_scheme = "dysfunctional"
 
     [[wallpaper.favorite]]
     palette_source = "wallpaper"

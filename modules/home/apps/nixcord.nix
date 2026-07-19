@@ -6,7 +6,7 @@
     ...
   }: let
     cfg = config.homeManager.apps.nixcord;
-    isMatugenEnabled = config.programs.matugen.enable or false;
+    matugenEnabled = config.programs.matugen.enable or false;
   in {
     options.homeManager.apps.nixcord = {
       enable = lib.mkEnableOption "Enble Nixcord";
@@ -43,7 +43,7 @@
             enabledThemes =
               if cfg.themes != []
               then cfg.themes
-              else if isMatugenEnabled
+              else if matugenEnabled
               then ["midnight-discord.css"]
               else [];
             plugins = {

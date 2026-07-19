@@ -7,7 +7,7 @@
     ...
   }: let
     cfg = config.homeManager.apps.spicetify;
-    isMatugenEnabled = config.programs.matugen.enable or false;
+    matugenEnabled = config.programs.matugen.enable or false;
     spicePkgs = inputs.spicetify-nix.legacyPackages.${pkgs.stdenv.hostPlatform.system};
   in {
     options.homeManager.apps.spicetify = {
@@ -26,7 +26,7 @@
           ];
         }
         // (
-          if isMatugenEnabled
+          if matugenEnabled
           then {
             theme = {
               name = "matugen";
