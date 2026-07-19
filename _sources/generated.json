@@ -1,0 +1,65 @@
+{
+    "base46": {
+        "cargoLock": null,
+        "date": "2026-06-07",
+        "extract": null,
+        "name": "base46",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "AvengeMedia",
+            "repo": "base46",
+            "rev": "cb8a1257bbc2640f6e7415a01219b34d3efd1494",
+            "sha256": "sha256-6kK8q2dmmW3RO9FQmlcYN6Yyhl6fXE5ey1l8PWRVCfc=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "cb8a1257bbc2640f6e7415a01219b34d3efd1494"
+    },
+    "maa-cli": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "maa-cli",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "MaaAssistantArknights",
+            "repo": "maa-cli",
+            "rev": "v0.7.5",
+            "sha256": "sha256-rvFjtmsOC25t/vKgZGO6WmwtC+yxXoZKXvwd3jpoKvY=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v0.7.5"
+    },
+    "umbrella-fetch": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "umbrella-fetch",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "ezequielgk",
+            "repo": "Umbrella-Fetch",
+            "rev": "v0.1.6",
+            "sha256": "sha256-U+gANbRoYVmLz7AMog55eHl9+Sm9/EJuuAAimr8psQY=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v0.1.6"
+    }
+}

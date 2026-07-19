@@ -102,10 +102,6 @@ url = "github:quickshell-mirror/quickshell"
 exclude_follow = ["nixpkgs"]
 follows = { nixpkgs = "nixpkgs-stable" }
 
-[inputs.umbrella-fetch]
-url = "github:ezequielgk/Umbrella-Fetch"
-type = "fetch"
-
 [inputs.mac-app-util]
 url = "github:hraban/mac-app-util"
 exclude_follow = ["nixpkgs"]
@@ -113,7 +109,7 @@ exclude_follow = ["nixpkgs"]
 [inputs.nixos-wsl]
 url = "github:nix-community/NixOS-WSL/main"
 
-[inputs.firefox-addons]
+[inputs.nur-expressions]
 url = "git+https://gitlab.com/rycee/nur-expressions"
 
 [inputs.disko]
@@ -123,7 +119,3 @@ exclude_follow = ["nixpkgs"]
 [inputs.impermanence]
 url = "github:nix-community/impermanence"
 exclude_follow = ["nixpkgs"]
-
-[inputs.maa-cli]
-url = "github:MaaAssistantArknights/maa-cli"
-type = "fetch"
