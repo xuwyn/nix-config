@@ -19,6 +19,20 @@
       i2c.enable = true;
     };
 
+    zramSwap = {
+      enable = true;
+      algorithm = "zstd";
+      memoryPercent = 50; # % of RAM
+      priority = 100; # higher than disk swap
+    };
+
+    systemd.oomd = {
+      enable = true;
+      enableSystemSlice = true;
+      enableRootSlice = true;
+      enableUserSlices = true;
+    };
+
     environment.systemPackages = with pkgs; [
       brightnessctl # Needs hardware permissions to alter laptop backlight
       ddcutil # Needs direct access to monitor I2C buses for brightness
