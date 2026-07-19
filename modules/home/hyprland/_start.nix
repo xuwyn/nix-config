@@ -3,15 +3,14 @@
   lib,
   ...
 }: let
-  inherit (config.homeManager.hyprland) barName;
-  inherit (config.homeManager.theme.matugen) wallpaper;
+  inherit (config.homeManager.desktop) bar wallpaper;
   wallpaperName = builtins.baseNameOf (toString wallpaper);
 
   barExec =
-    if barName == "noctalia"
+    if bar == "noctalia"
     then ''
       hl.exec_cmd("noctalia &")''
-    else if barName == "dms"
+    else if bar == "dms"
     then ''
       hl.exec_cmd("dms run -d && sleep 2 && dms ipc call wallpaper set $HOME/Pictures/Wallpapers/${wallpaperName}")''
     else '''';

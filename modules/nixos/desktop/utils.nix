@@ -24,6 +24,12 @@
         };
       };
 
+      # Extra software
+      programs = {
+        seahorse.enable = true;
+        localsend.enable = true;
+      };
+
       # Services to start
       services = {
         upower.enable = true; # noctalia shell battery

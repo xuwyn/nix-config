@@ -3,7 +3,6 @@
     ddcutil # Monitor brightness
     i3-volume # audio control with notifications
     playerctl # Media player for polybar
-    pavucontrol # volume control
     pulseaudio # sound server
     libnotify # Linux notification tool (provides notify-send)
     app2unit # systemd user app launcher
@@ -16,6 +15,5 @@
     maim # cli screenshot utility
     slop # region selection for screenshot
     xclip # access X clipboard for screenshot
-    eog # GNOME Image viewer (GTK based)
   ];
 }

@@ -4,7 +4,7 @@
   config,
   ...
 }: let
-  inherit (config.homeManager.i3) terminal browser;
+  inherit (config.homeManager.desktop) terminal browser;
 in {
   xsession.windowManager.i3 = {
     config = rec {

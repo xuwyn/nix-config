@@ -6,17 +6,17 @@
     ...
   }: let
     cfg = config.homeManager.cli.search;
-    isMatugenEnabled = config.programs.matugen.enable or false;
+    matugenEnabled = config.programs.matugen.enable or false;
     accent =
-      if isMatugenEnabled
+      if matugenEnabled
       then "#" + config.programs.matugen.theme.colors.primary.default.color
       else "#89b4fa";
     foreground =
-      if isMatugenEnabled
+      if matugenEnabled
       then "#" + config.programs.matugen.theme.colors.on_surface.default.color
       else "#cdd6f4";
     muted =
-      if isMatugenEnabled
+      if matugenEnabled
       then "#" + config.programs.matugen.theme.colors.surface_variant.default.color
       else "#585b70";
   in {

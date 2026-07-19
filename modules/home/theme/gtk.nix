@@ -6,7 +6,8 @@
     ...
   }: let
     cfg = config.homeManager.theme.gtk;
-    isMatugenEnabled = config.programs.matugen.enable or false;
+    matugenEnabled = config.programs.matugen.enable or false;
+    bar = config.homeManager.desktop.bar or null;
     barThemes = {
       dms = "dank-colors.css";
       noctalia = "noctalia.css";
@@ -14,15 +15,13 @@
   in {
     options.homeManager.theme.gtk = {
       enable = lib.mkEnableOption "Enable theming for gtk apps";
-      barName = lib.mkOption {
-        type = lib.types.str;
-        default = config.homeManager.hyprland.barName or "";
-        description = "Set bar generated theme";
+      barThemeEnabled = lib.mkOption {
+        type = lib.types.bool;
+        default = config.homeManager.desktop.barThemeEnabled or false;
       };
-      barTheme.enable = lib.mkEnableOption "Whether to use bar-generated theme";
     };
     config = lib.mkIf cfg.enable (lib.mkMerge [
-      (lib.mkIf (cfg.barName == "dms" && cfg.barTheme.enable) {
+      (lib.mkIf (bar == "dms" && cfg.barThemeEnabled) {
         xdg.configFile = {
           "gtk-3.0/gtk.css".force = true;
           "gtk-4.0/gtk.css".force = true;
@@ -47,16 +46,16 @@
             };
           }
           // (
-            if cfg.barTheme.enable
+            if cfg.barThemeEnabled
             then {
               gtk3.extraCss = ''
-                @import url("${barThemes.${cfg.barName}}");
+                @import url("${barThemes.${bar}}");
               '';
               gtk4.extraCss = ''
-                @import url("${barThemes.${cfg.barName}}");
+                @import url("${barThemes.${bar}}");
               '';
             }
-            else if isMatugenEnabled
+            else if matugenEnabled
             then {
               gtk3.extraCss = ''
                 @import url("matugen-colors.css");

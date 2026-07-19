@@ -14,27 +14,41 @@ in {
       editors
       theme
       syncthing
-
-      # desktop
+      desktop
       hyprland
-      # dms
       noctalia
       xdg
       thunar
       yazi
-
-      # extra
       utils
       eyecandy
       maa
 
       (_: {
         homeManager = {
+          desktop = {
+            inherit wallpaper;
+            qylockEnabled = true;
+            barThemeEnabled = true;
+          };
+          hyprland = {
+            extraMonitorSettings = ''
+              hl.monitor({
+                output = "DP-5",
+                mode = "1920x1080@165",
+                position = "0x0",
+                scale = 1,
+              })
+              hl.monitor({
+                output = "DP-2",
+                mode = "1920x1080@165",
+                position = "0x0",
+                scale = 1,
+              })
+            '';
+          };
           apps = {
-            firefox = {
-              enable = true;
-              barTheme.enable = true;
-            };
+            firefox.enable = true;
             mangohud = {
               enable = true;
               fpsLimit = 165;
@@ -48,14 +62,8 @@ in {
             spicetify.enable = true;
           };
           terminals = {
-            kitty = {
-              enable = true;
-              barTheme.enable = true;
-            };
-            # ghostty = {
-            #   enable = true;
-            #   barTheme.enable = true;
-            # };
+            kitty.enable = true;
+            # ghostty.enable = true;
           };
           cli = {
             zsh.enable = true;
@@ -77,8 +85,6 @@ in {
               enable = true;
               logo = "png";
             };
-            bottom.enable = true;
-            htop.enable = true;
             nh.enable = true;
             tealdeer.enable = true;
             nix-search-tv.enable = true;
@@ -87,50 +93,18 @@ in {
             styling.enable = true;
           };
           editors = {
-            zed = {
-              enable = true;
-              barTheme.enable = true;
-            };
+            zed.enable = true;
             nano.enable = true;
-            nixvim = {
-              enable = true;
-              barTheme.enable = true;
-            };
-          };
-          hyprland = {
-            extraMonitorSettings = ''
-              hl.monitor({
-                output = "DP-5",
-                mode = "1920x1080@165",
-                position = "0x0",
-                scale = 1,
-              })
-              hl.monitor({
-                output = "DP-2",
-                mode = "1920x1080@165",
-                position = "0x0",
-                scale = 1,
-              })
-            '';
-            barName = "noctalia";
-            barTheme.enable = true;
-            qylock.enable = true;
+            nixvim.enable = true;
           };
           theme = {
             matugen = {
               enable = true;
               type = "scheme-fidelity";
-              inherit wallpaper;
             };
             cursor.enable = true;
-            qt = {
-              enable = true;
-              barTheme.enable = true;
-            };
-            gtk = {
-              enable = true;
-              barTheme.enable = true;
-            };
+            qt.enable = true;
+            gtk.enable = true;
           };
         };
       })

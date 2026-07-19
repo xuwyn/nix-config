@@ -8,6 +8,14 @@
     cfg = config.homeManager.i3;
   in {
     options.homeManager.i3 = {
+      _module_marker = lib.mkOption {
+        type = lib.types.bool;
+        default = true;
+        readOnly = true;
+        internal = true;
+        visible = false;
+        description = "Internal: marks that this module was imported. Do not set manually.";
+      };
       monitors = lib.mkOption {
         type = lib.types.listOf (lib.types.submodule {
           options = {
@@ -30,21 +38,6 @@
         default = [];
         description = "List of monitor configurations.";
       };
-      terminal = lib.mkOption {
-        type = lib.types.str;
-        default = "kitty";
-        description = "Choose default terminal";
-      };
-      browser = lib.mkOption {
-        type = lib.types.str;
-        default = "firefox";
-        description = "Choose default browser";
-      };
-      background = lib.mkOption {
-        type = lib.types.path;
-        default = ../../../wallpapers/voyager.png;
-        description = "Choose background";
-      };
     };
     imports = [
       ./_binds.nix
@@ -52,6 +45,9 @@
       ./_startup.nix
       ./_packages.nix
       ./_scripts
+      ./_picom.nix
+      ./_dunst.nix
+      ./_polybar.nix
     ];
     config = let
       workspaceAssignments = builtins.concatLists (

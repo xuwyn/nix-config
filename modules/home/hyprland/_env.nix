@@ -1,11 +1,11 @@
 {config, ...}: let
-  inherit (config.homeManager.hyprland) terminal barName;
+  inherit (config.homeManager.desktop) terminal bar;
 in {
   wayland.windowManager.hyprland.extraConfig = ''
     ${
-      if barName == "noctalia"
+      if bar == "noctalia"
       then ''''
-      else if barName == "dms"
+      else if bar == "dms"
       then ''''
       else ''''
     }

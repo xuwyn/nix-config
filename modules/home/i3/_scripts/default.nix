@@ -3,7 +3,7 @@
   config,
   ...
 }: let
-  background = config.homeManager.i3.background;
+  inherit (config.homeManager.desktop) wallpaper;
 in {
   home.packages = [
     (import ./media-status.nix {inherit pkgs;})
@@ -11,6 +11,6 @@ in {
     (import ./tap-to-click.nix {inherit pkgs;})
     (import ./natural-scroll.nix {inherit pkgs;})
     (import ./set-refresh-rates.nix {inherit pkgs config;})
-    (import ./i3-lock.nix {inherit pkgs background config;})
+    (import ./i3-lock.nix {inherit pkgs wallpaper config;})
   ];
 }

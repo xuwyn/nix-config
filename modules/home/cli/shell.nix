@@ -2,6 +2,7 @@
   modules.homeManager.cli = {
     config,
     lib,
+    pkgs,
     ...
   }: let
     cfg = config.homeManager.cli;
@@ -13,11 +14,12 @@
 
     config = lib.mkMerge [
       (lib.mkIf cfg.bash.enable {
+        home.packages = [pkgs.microfetch];
         programs.bash = {
           enable = true;
           enableCompletion = true;
           initExtra = ''
-            fastfetch
+            microfetch
           '';
 
           shellAliases = {

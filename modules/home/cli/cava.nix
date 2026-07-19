@@ -6,7 +6,7 @@
     ...
   }: let
     cfg = config.homeManager.cli.cava;
-    isMatugenEnabled = config.programs.matugen.enable or false;
+    matugenEnabled = config.programs.matugen.enable or false;
   in {
     options.homeManager.cli.cava = {
       enable = lib.mkEnableOption "Enable cava";
@@ -38,7 +38,7 @@
           color =
             if cfg.theme != ""
             then {theme = cfg.theme;}
-            else if isMatugenEnabled
+            else if matugenEnabled
             then {theme = "matugen";}
             else {
               # Catppuccin Macchiato default

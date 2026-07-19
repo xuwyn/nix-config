@@ -1,5 +1,5 @@
 {config, ...}: let
-  qylockEnable = config.homeManager.hyprland.qylock.enable or false;
+  qylockEnabled = config.homeManager.desktop.qylockEnabled or false;
 in {
   currentThemeName = "dynamic";
   currentThemeCategory = "dynamic";
@@ -544,16 +544,16 @@ in {
   powerMenuDefaultAction = "logout";
   powerMenuGridLayout = false;
   customPowerActionLock =
-    if qylockEnable
+    if qylockEnabled
     then "systemd-run --user -- qylock-lock"
     else "";
   customPowerActionLogout = "hyprctl dispatch 'hl.dsp.exit()'";
   customPowerActionSuspend =
-    if qylockEnable
+    if qylockEnabled
     then "dms ipc call lock lock & sleep 2 && systemctl suspend"
     else "";
   customPowerActionHibernate =
-    if qylockEnable
+    if qylockEnabled
     then "dms ipc call lock lock & sleep 2 && systemctl hibernate"
     else "";
   customPowerActionReboot = "";

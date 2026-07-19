@@ -1,5 +1,6 @@
-{inputs, ...}: {
+{
   modules.homeManager.home = {
+    inputs,
     username,
     pkgs,
     config,

@@ -3,8 +3,9 @@
   lib,
   ...
 }: let
-  cfg = config.homeManager.hyprland;
-  isMatugenEnabled = config.programs.matugen.enable or false;
+  cfg = config.homeManager;
+  inherit (cfg.desktop) bar;
+  matugenEnabled = config.programs.matugen.enable or false;
   barThemes = {
     noctalia = ''
       local ok, noctalia_theme = pcall(require, "noctalia")
@@ -19,9 +20,9 @@
 in {
   wayland.windowManager.hyprland.extraConfig =
     ''
-      ${lib.optionalString cfg.barTheme.enable (barThemes.${cfg.barName} or "")}
+      ${lib.optionalString cfg.hyprland.barThemeEnabled (barThemes.${bar} or "")}
     ''
-    + lib.optionalString (isMatugenEnabled && !cfg.barTheme.enable) ''
+    + lib.optionalString (matugenEnabled && !cfg.hyprland.barThemeEnabled) ''
       local colors_path = os.getenv("HOME") .. "/.config/hypr/matugen.lua"
       local ok, colors = pcall(dofile, colors_path)
       if not ok then colors = nil end
