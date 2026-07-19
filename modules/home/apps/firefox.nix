@@ -11,8 +11,8 @@
     bar = config.homeManager.desktop.bar or null;
     matugenEnabled = config.programs.matugen.enable or false;
 
-    nurRepo = import inputs.firefox-addons {inherit pkgs;};
-    buildMozillaXpiAddon = nurRepo.lib.mozilla.mkBuildMozillaXpiAddon {
+    nurExpressions = import inputs.nur-expressions {inherit pkgs;};
+    buildMozillaXpiAddon = nurExpressions.lib.mozilla.mkBuildMozillaXpiAddon {
       inherit (pkgs) fetchurl stdenv;
     };
 

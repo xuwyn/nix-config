@@ -1,9 +1,14 @@
-{inputs, ...}: {
-  modules.homeManager.eyecandy = {pkgs, ...}: let
+{
+  modules.homeManager.eyecandy = {
+    inputs,
+    pkgs,
+    ...
+  }: let
     umbrella-fetch = pkgs.rustPlatform.buildRustPackage {
-      name = "umbrella-fetch";
-      src = inputs.umbrella-fetch;
-      cargoHash = "sha256-97dIyzOR06eJxqaEUR1d4IOaIOEcqG6RWd9YqcGIt/A=";
+      pname = pkgs.sources.umbrella-fetch.pname;
+      version = pkgs.sources.umbrella-fetch.version;
+      src = pkgs.sources.umbrella-fetch.src;
+      cargoLock.lockFile = "${pkgs.sources.umbrella-fetch.src}/Cargo.lock";
     };
   in {
     home.packages = with pkgs; [

@@ -31,14 +31,6 @@
     "narHash": "sha256-r/kUyPrtqYwS3JxJXQKUxeqiguUm1kHnzjK9Y9L7Ttc=",
     "lastModified": 1784338290
   },
-  "firefox-addons": {
-    "type": "git",
-    "url": "https://gitlab.com/rycee/nur-expressions",
-    "ref": "HEAD",
-    "rev": "2e2eb0656979f276904506839505f3d8fc2cdba0",
-    "narHash": "sha256-IMXGG7aDpVutpujfNZncXcmW3x6ghuplk9+a+NUacBg=",
-    "lastModified": 1784260973
-  },
   "home-manager": {
     "type": "github",
     "owner": "nix-community",
@@ -70,14 +62,6 @@
     "rev": "7b1d382faf603b6d264f58627330f9faa5cba149",
     "narHash": "sha256-03+JxvzmfwRu+5JafM0DLbxgHttOQZkUtDWBmeUkN8Y=",
     "lastModified": 1769548169
-  },
-  "maa-cli": {
-    "type": "github",
-    "owner": "MaaAssistantArknights",
-    "repo": "maa-cli",
-    "rev": "503d6ce3248a5cd6b90c56299bcdd9bb463d81f0",
-    "narHash": "sha256-jxXIyXrLPGO6iNhABH8SQpZOfLYsdmRtvHMRoqOoa0o=",
-    "lastModified": 1781097221
   },
   "mac-app-util": {
     "type": "github",
@@ -175,6 +159,14 @@
     "narHash": "sha256-Wo/mUDwpID1KMqB0jCo+gljZMCDw3qZ40X5F+wERDNs=",
     "lastModified": 1784336151
   },
+  "nur-expressions": {
+    "type": "git",
+    "url": "https://gitlab.com/rycee/nur-expressions",
+    "ref": "HEAD",
+    "rev": "775bd8e526823ab58efe5d1fc269f2a60c3de2c1",
+    "narHash": "sha256-NKjHErNuyO2x+YBUNOJy/8uKXfuMX60SLFuvZiMYdA8=",
+    "lastModified": 1784402804
+  },
   "quickshell": {
     "type": "github",
     "owner": "quickshell-mirror",
@@ -214,14 +206,6 @@
     "rev": "c6ab7371e40abd405313af9bddafd5f37cc94f83",
     "narHash": "sha256-Zb8+v76qSPYDlUea1y30YzgdEoDjA97vRmeqfPAqwZs=",
     "lastModified": 1783838433
-  },
-  "umbrella-fetch": {
-    "type": "github",
-    "owner": "ezequielgk",
-    "repo": "Umbrella-Fetch",
-    "rev": "b54ea6a19f035f88f98fb0e8e806854664da3256",
-    "narHash": "sha256-VIBP2PevkooJ9QQ/t6STVXbQwPl5j0hoQBmOwNPUAwg=",
-    "lastModified": 1780864269
   },
   "zed": {
     "type": "github",

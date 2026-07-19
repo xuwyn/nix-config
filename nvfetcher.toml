@@ -1,0 +1,12 @@
+[umbrella-fetch]
+src.github = "ezequielgk/Umbrella-Fetch"
+fetch.github = "ezequielgk/Umbrella-Fetch"
+
+[maa-cli]
+src.github = "MaaAssistantArknights/maa-cli"
+fetch.github = "MaaAssistantArknights/maa-cli"
+
+[base46]
+src.git = "https://github.com/AvengeMedia/base46.git"
+src.git_branch = "v3.0"
+fetch.github = "AvengeMedia/base46"

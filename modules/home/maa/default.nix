@@ -8,9 +8,11 @@
   }: let
     mkOutOfStoreSymlink = path: config.lib.file.mkOutOfStoreSymlink path;
     maa-cli = pkgs.rustPlatform.buildRustPackage {
-      name = "maa-cli";
-      src = inputs.maa-cli;
-      cargoHash = "sha256-HQTur+MJLu25auR7+EiFfHoqWOlmDN+EDKI4PJe7wnE=";
+      pname = pkgs.sources.maa-cli.pname;
+      version = pkgs.sources.maa-cli.version;
+      src = pkgs.sources.maa-cli.src;
+      cargoLock.lockFile = "${pkgs.sources.maa-cli.src}/Cargo.lock";
+
       nativeBuildInputs = [pkgs.pkg-config pkgs.makeWrapper];
       buildInputs = [pkgs.openssl];
       doCheck = false;

@@ -19,7 +19,7 @@ so most features are in Home Manager for portability.
 This flake implements a half-baked [dendritic pattern](https://github.com/mightyiam/dendritic).
 Why half-baked? Because mixing different classes (i.e., `nixos`, `homeManager`, and `darwin`)
 into the same aspect doesn't feel right to me.
-From what I learned, there are two main ways of setting up dendritic pattern:
+From what I learned, there are two main ways to set up dendritic pattern:
 
 - **`<class>.<aspect>`** which is the standard [flake-parts](https://flake.parts)
 - **`<aspect>.<class>`** which can be achieved with [den](https://github.com/denful/den) or just [flake-aspects](https://github.com/denful/flake-aspects)
@@ -32,6 +32,8 @@ I went with **`<class>.<aspect>`** since it's easier to separate aspects by clas
 ./
 ├── .tack/                 # flake inputs
 ├── flake.nix              # flake outputs
+├── nvfetcher.toml         # nvfetcher inputs (build-from-source pkgs)
+├── _sources/              # nvfetcher outputs
 ├── assets/                # desktop screenshots, wallpapers, etc.
 └── modules/
     ├── _overlays/         # overlays for nixpkgs
@@ -404,9 +406,10 @@ and contributors of open-source projects I used in my setup!
 
 ### References
 
-- **[ZaneyOS](https://gitlab.com/Zaney/zaneyos)**: Best starting point for beginner (especially for non-coders like me 🥲)
-- **[linusammon](https://github.com/linusammon/nixos-config)**: Thank you for the helpful tips migrating away from `flake-parts` and `import-tree`
-- **[dendritic-design-with-flake-parts](https://github.com/Doc-Steve/dendritic-design-with-flake-parts)**: Guide to setup dendritic pattern
+- **[Zaney/zaneyos](https://gitlab.com/Zaney/zaneyos)**: Best starting point for beginner (especially for non-coders like me 🥲)
+- **[linusammon/nixos-config](https://github.com/linusammon/nixos-config)**: Tips to migrate away from `flake-parts` and `import-tree`
+- **[iynaix/dotfiles](https://github.com/iynaix/dotfiles)**: where I learned about cool stuffs like `tack`, `nvfetcher`, `nix repl`
+- **[Doc-Steve/dendritic-design-with-flake-parts](https://github.com/Doc-Steve/dendritic-design-with-flake-parts)**: Guide to setup dendritic pattern
 - **[denful/den](https://github.com/denful/den)**: A complex den framework
 - **[ryan4yin/nix-config](https://github.com/ryan4yin/nix-config)**: Server stuffs
 - **[Vortriz/dotfiles](https://github.com/Vortriz/dotfiles)**: Custom zed theme using stylix colors
