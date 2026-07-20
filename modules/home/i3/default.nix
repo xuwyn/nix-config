@@ -4,9 +4,7 @@
     config,
     lib,
     ...
-  }: let
-    cfg = config.homeManager.i3;
-  in {
+  }: {
     options.homeManager.i3 = {
       _module_marker = lib.mkOption {
         type = lib.types.bool;
@@ -16,29 +14,8 @@
         visible = false;
         description = "Internal: marks that this module was imported. Do not set manually.";
       };
-      monitors = lib.mkOption {
-        type = lib.types.listOf (lib.types.submodule {
-          options = {
-            name = lib.mkOption {
-              type = lib.types.str;
-              description = "The output name of the monitor (e.g., DP-2, HDMI-A-1).";
-            };
-            refreshRate = lib.mkOption {
-              type = lib.types.str;
-              default = "60";
-              description = "The refresh rate as a string.";
-            };
-            workspaces = lib.mkOption {
-              type = lib.types.listOf lib.types.str;
-              default = [];
-              description = "List of workspace IDs assigned to this monitor.";
-            };
-          };
-        });
-        default = [];
-        description = "List of monitor configurations.";
-      };
     };
+
     imports = [
       ./_binds.nix
       ./_windowcommands.nix
@@ -49,17 +26,8 @@
       ./_dunst.nix
       ./_polybar.nix
     ];
-    config = let
-      workspaceAssignments = builtins.concatLists (
-        builtins.map (m:
-          builtins.map (ws: {
-            workspace = ws;
-            output = m.name;
-          })
-          m.workspaces)
-        cfg.monitors
-      );
-    in {
+
+    config = {
       xsession.windowManager.i3 = {
         enable = true;
         package = pkgs.i3;
@@ -82,9 +50,6 @@
             inner = 5;
             outer = 5;
           };
-
-          # Assign workspaces to specific monitor
-          workspaceOutputAssign = workspaceAssignments;
         };
 
         extraConfig = ''

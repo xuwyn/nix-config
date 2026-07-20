@@ -23,6 +23,32 @@
         readOnly = true;
         description = "Currently active wayland bar, derived from which bar module is imported.";
       };
+      monitors = lib.mkOption {
+        type = lib.types.listOf (lib.types.submodule {
+          options = {
+            name = lib.mkOption {
+              type = lib.types.str;
+              example = "DP-0";
+            };
+            width = lib.mkOption {type = lib.types.int;};
+            height = lib.mkOption {type = lib.types.int;};
+            refresh = lib.mkOption {
+              type = lib.types.int;
+              default = 60;
+            };
+            x = lib.mkOption {
+              type = lib.types.int;
+              default = 0;
+            };
+            y = lib.mkOption {
+              type = lib.types.int;
+              default = 0;
+            };
+          };
+        });
+        default = [];
+        description = "Monitor settings for WMs";
+      };
       wallpaper = lib.mkOption {
         type = lib.types.path;
         description = "Set desktop wallpaper";
