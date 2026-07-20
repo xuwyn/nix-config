@@ -18,10 +18,6 @@ in {
       yazi
       syncthing
 
-      # extra
-      utils
-      eyecandy
-
       (_: {
         homeManager = {
           cli = {
@@ -34,13 +30,14 @@ in {
             };
             fastfetch.enable = true;
             bottom.enable = true;
-            htop.enable = true;
             nh.enable = true;
             tealdeer.enable = true;
             nix-search-tv.enable = true;
             television.enable = true;
             search.enable = true;
             styling.enable = true;
+            utils.enable = true;
+            eyecandy.enable = true;
           };
           editors = {
             zed.enable = true;
@@ -53,7 +50,7 @@ in {
             fonts.enable = true;
             matugen = {
               enable = true;
-              wallpaper = wallpaper;
+              inherit wallpaper;
             };
           };
         };
