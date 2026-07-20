@@ -1,399 +1,318 @@
-_: {
-  wayland.windowManager.hyprland.extraConfig = ''
-    hl.window_rule({
-      name = "Thunar",
+{
+  wayland.windowManager.hyprland.settings.window_rule = [
+    {
+      name = "Settings-Tag";
       match = {
-        class = "^([Tt]hunar|org.gnome.Nautilus|[Pp]cmanfm-qt)$",
-      },
-      tag = "+file-manager",
-    })
+        tag = "settings*";
+      };
+      float = true;
+      opacity = "0.95 0.85";
+      size = "70% = 70%";
+      no_blur = false;
+    }
 
-    hl.window_rule({
-      name = "Waydroid",
+    {
+      name = "Browsers-Tag";
       match = {
-        class = "^(Waydroid)$",
-      },
-      float = true,
-    })
+        tag = "browser*";
+      };
+      opacity = "1.0 0.9";
+      no_blur = false;
+    }
 
-    hl.window_rule({
-      name = "WaydroidHelper",
+    {
+      name = "Projects-Tag";
       match = {
-        class = "^(com\\.jaoushingan\\.WaydroidHelper)$",
-      },
-      float = true,
-    })
+        tag = "projects*";
+      };
+      opacity = "0.98 0.93";
+      no_blur = false;
+    }
 
-    hl.window_rule({
-      name = "Arknights",
+    {
+      name = "Instant-Messaging-Tag";
       match = {
-        class = "^(waydroid\\.com\\.YoStarEN\\.Arknights)$",
-      },
-      float = true,
-    })
+        tag = "im*";
+      };
+      opacity = "0.94 0.86";
+    }
 
-    hl.window_rule({
-      name = "Terminals",
+    {
+      name = "File-Managers-Tag";
       match = {
-        class = "^(com.mitchellh.ghostty|org.wezfurlong.wezterm|Alacritty|kitty)$",
-      },
-      tag = "+terminal",
-    })
+        tag = "file-manager*";
+      };
+      opacity = "0.95 0.85";
+      no_blur = false;
+    }
 
-    hl.window_rule({
-      name = "Firefox",
+    {
+      name = "Terminals-Tag";
       match = {
-        class = "^([Ff]irefox|org.mozilla.firefox|[Ff]irefox-esr)$",
-      },
-      tag = "+browser",
-    })
+        tag = "terminal*";
+      };
+      opacity = "0.90 0.80";
+      no_blur = false;
+    }
 
-    hl.window_rule({
-      name = "Google-chrome",
+    {
+      name = "Games-Tag";
       match = {
-        class = "^([Gg]oogle-chrome(-beta|-dev|-unstable)?)$",
-      },
-      tag = "+browser",
-    })
+        tag = "games*";
+      };
+      no_blur = true;
+      fullscreen = true;
+    }
 
-    hl.window_rule({
-      name = "zed",
+    {
+      name = "Thunar";
       match = {
-        class = "^(zed|dev\\.zed\\.Zed|Zed)$",
-      },
-      tag = "+projects",
-    })
+        class = "^([Tt]hunar|org.gnome.Nautilus|[Pp]cmanfm-qt)$";
+      };
+      tag = "+file-manager";
+    }
 
-    hl.window_rule({
-      name = "vscodium",
+    {
+      name = "Waydroid";
       match = {
-        class = "^(codium|codium-url-handler|VSCodium)$",
-      },
-      tag = "+projects",
-    })
+        class = "^(Waydroid)$";
+      };
+      float = true;
+    }
 
-    hl.window_rule({
-      name = "vscode",
+    {
+      name = "WaydroidHelper";
       match = {
-        class = "^(VSCode|code-url-handler)$",
-      },
-      tag = "+projects",
-    })
+        class = "^(com\\.jaoushingan\\.WaydroidHelper)$";
+      };
+      float = true;
+    }
 
-    hl.window_rule({
-      name = "Discord",
+    {
+      name = "Arknights";
       match = {
-        class = "^([Dd]iscord|[Ww]ebCord|[Vv]esktop)$",
-      },
-      tag = "+im",
-    })
+        class = "^(waydroid\\.com\\.YoStarEN\\.Arknights)$";
+      };
+      float = true;
+    }
 
-    hl.window_rule({
-      name = "teams-for-linux",
+    {
+      name = "Terminals";
       match = {
-        class = "^(teams-for-linux)$",
-      },
-      tag = "+im",
-    })
+        class = "^(com.mitchellh.ghostty|org.wezfurlong.wezterm|Alacritty|kitty)$";
+      };
+      tag = "+terminal";
+    }
 
-    hl.window_rule({
-      name = "gamescope",
+    {
+      name = "Firefox";
       match = {
-        class = "^(gamescope)$",
-      },
-      tag = "+games",
-    })
+        class = "^([Ff]irefox|org.mozilla.firefox|[Ff]irefox-esr)$";
+      };
+      tag = "+browser";
+    }
 
-    hl.window_rule({
-      name = "steam-app",
+    {
+      name = "Google-chrome";
       match = {
-        class = "^(steam_app\\d+)$",
-      },
-      tag = "+games",
-    })
+        class = "^([Gg]oogle-chrome(-beta|-dev|-unstable)?)$";
+      };
+      tag = "+browser";
+    }
 
-    hl.window_rule({
-      name = "Steam",
+    {
+      name = "zed";
       match = {
-        class = "^([Ss]team)$",
-      },
-      tag = "+gamestore",
-    })
+        class = "^(zed|dev\\.zed\\.Zed|Zed)$";
+      };
+      tag = "+projects";
+    }
 
-    hl.window_rule({
-      name = "Lutris",
+    {
+      name = "Discord";
       match = {
-        title = "^([Ll]utris)$",
-      },
-      tag = "+gamestore",
-    })
+        class = "^([Dd]iscord|[Ww]ebCord|[Vv]esktop)$";
+      };
+      tag = "+im";
+    }
 
-    hl.window_rule({
-      name = "heroicgameslauncher",
+    {
+      name = "teams-for-linux";
       match = {
-        class = "^(com.heroicgameslauncher.hgl)$",
-      },
-      tag = "+gamestore",
-    })
+        class = "^(teams-for-linux)$";
+      };
+      tag = "+im";
+    }
 
-    hl.window_rule({
-      name = "gnome-disks",
+    {
+      name = "gamescope";
       match = {
-        class = "^(gnome-disks|wihotspot(-gui)?)$",
-      },
-      tag = "+settings",
-    })
+        class = "^(gamescope)$";
+      };
+      tag = "+games";
+    }
 
-    hl.window_rule({
-      name = "rofi",
+    {
+      name = "steam-app";
       match = {
-        class = "^([Rr]ofi)$",
-      },
-      tag = "+settings",
-    })
+        class = "^(steam_app\\d+)$";
+      };
+      tag = "+games";
+    }
 
-    hl.window_rule({
-      name = "FileRoller",
+    {
+      name = "Steam";
       match = {
-        class = "^(file-roller|org.gnome.FileRoller)$",
-      },
-      tag = "+settings",
-    })
+        class = "^([Ss]team)$";
+      };
+      tag = "+gamestore";
+      float = true;
+    }
 
-    hl.window_rule({
-      name = "NetworkManger",
+    {
+      name = "rofi";
       match = {
-        class = "^(nm-applet|nm-connection-editor|blueman-manager)$",
-      },
-      tag = "+settings",
-    })
+        class = "^([Rr]ofi)$";
+      };
+      tag = "+settings";
+    }
 
-    hl.window_rule({
-      name = "PlusAudio",
+    {
+      name = "FileRoller";
       match = {
-        class = "^(pavucontrol|org.pulseaudio.pavucontrol|com.saivert.pwvucontrol)$",
-      },
-      center = true,
-      tag = "+settings",
-    })
+        class = "^(file-roller|org.gnome.FileRoller)$";
+      };
+      tag = "+settings";
+    }
 
-    hl.window_rule({
-      name = "xdg-desktop-portal-gtk",
+    {
+      name = "NetworkManger";
       match = {
-        class = "(xdg-desktop-portal-gtk)",
-      },
-      tag = "+settings",
-    })
+        class = "^(nm-applet|nm-connection-editor|blueman-manager)$";
+      };
+      tag = "+settings";
+    }
 
-    hl.window_rule({
-      name = "blueman",
+    {
+      name = "PlusAudio";
       match = {
-        class = "(.blueman-manager-wrapped)",
-      },
-      tag = "+settings",
-    })
+        class = "^(pavucontrol|org.pulseaudio.pavucontrol|com.saivert.pwvucontrol)$";
+      };
+      center = true;
+      tag = "+settings";
+    }
 
-    hl.window_rule({
-      name = "Picture-in-Picture",
+    {
+      name = "xdg-desktop-portal-gtk";
       match = {
-          title = "^(Picture-in-Picture)$",
-      },
-      float = true,
-      move = "72% = 7%",
-      opacity = "0.95 0.75",
-      pin = false,
-      keep_aspect_ratio = true,
-    })
+        class = "(xdg-desktop-portal-gtk)";
+      };
+      tag = "+settings";
+    }
 
-    hl.window_rule({
-      name = "ThunarFileMgr",
+    {
+      name = "blueman";
       match = {
-        class = "([Tt]hunar)",
-        title = "negative:(.*[Tt]hunar.*)",
-      },
-      center = true,
-      float = true,
-    })
+        class = "(.blueman-manager-wrapped)";
+      };
+      tag = "+settings";
+    }
 
-    hl.window_rule({
-      name = "Authentication-Required",
+    {
+      name = "Picture-in-Picture";
       match = {
-        title = "^(Authentication Required)$",
-      },
-      center = true,
-      float = true,
-    })
+        title = "^(Picture-in-Picture)$";
+      };
+      float = true;
+      move = "72% = 7%";
+      opacity = "0.95 0.75";
+      pin = false;
+      keep_aspect_ratio = true;
+    }
 
-    hl.window_rule({
-      name = "IdleInhibit-fullscreen-1",
+    {
+      name = "ThunarFileMgr";
       match = {
-        class = "^(*)$",
-      },
-      idle_inhibit = "fullscreen",
-    })
+        class = "([Tt]hunar)";
+        title = "negative:(.*[Tt]hunar.*)";
+      };
+      center = true;
+      float = true;
+    }
 
-    hl.window_rule({
-      name = "IdleInhibit-fullscreen-2",
+    {
+      name = "Authentication-Required";
       match = {
-        title = "^(*)$",
-      },
-      idle_inhibit = "fullscreen",
-    })
+        title = "^(Authentication Required)$";
+      };
+      center = true;
+      float = true;
+    }
 
-    hl.window_rule({
-      name = "IdleInhibit-fullscreen-3",
+    {
+      name = "IdleInhibit-fullscreen-1";
       match = {
-        fullscreen = 1,
-      },
-      idle_inhibit = "fullscreen",
-    })
+        class = "^(*)$";
+      };
+      idle_inhibit = "fullscreen";
+    }
 
-    hl.window_rule({
-      name = "Settings-Tag",
+    {
+      name = "IdleInhibit-fullscreen-2";
       match = {
-        tag = "settings*",
-      },
-      float = true,
-      opacity = "0.95 0.85",
-      size = "70% = 70%",
-      no_blur = false,
-    })
+        title = "^(*)$";
+      };
+      idle_inhibit = "fullscreen";
+    }
 
-    hl.window_rule({
-      name = "mpv-or-clapper",
+    {
+      name = "IdleInhibit-fullscreen-3";
       match = {
-        class = "^(mpv|com.github.rafostar.Clapper)$",
-      },
-      float = true,
-    })
+        fullscreen = 1;
+      };
+      idle_inhibit = "fullscreen";
+    }
 
-    hl.window_rule({
-      name = "codium-url-handler",
+    {
+      name = "mpv-or-clapper";
       match = {
-        class = "(codium|codium-url-handler|VSCodium)",
-        title = "negative:(.*codium.*|.*VSCodium.*)",
-      },
-      float = true,
-    })
+        class = "^(mpv|com.github.rafostar.Clapper)$";
+      };
+      float = true;
+    }
 
-    hl.window_rule({
-      name = "heroicgameslauncher-1",
+    {
+      name = "Add-Folder";
       match = {
-        class = "^(com.heroicgameslauncher.hgl)$",
-        title = "negative:(Heroic Games Launcher)",
-      },
-      float = true,
-    })
+        initial_title = "(Add Folder to Workspace)";
+      };
+      float = true;
+      size = "70% = 60%";
+    }
 
-    hl.window_rule({
-      name = "Steam",
+    {
+      name = "Open-File";
       match = {
-        class = "^([Ss]team)$",
-        title = "negative:^([Ss]team)$",
-      },
-      float = true,
-    })
+        initial_title = "(Open Files)";
+      };
+      float = true;
+      size = "70% = 60%";
+    }
 
-    hl.window_rule({
-      name = "Add-Folder",
+    {
+      name = "Wants-to-Save";
       match = {
-        initial_title = "(Add Folder to Workspace)",
-      },
-      float = true,
-      size = "70% = 60%",
-    })
+        initial_title = "(wants to save)";
+      };
+      float = true;
+    }
 
-    hl.window_rule({
-      name = "Open-File",
+    {
+      name = "seahorse";
       match = {
-        initial_title = "(Open Files)",
-      },
-      float = true,
-      size = "70% = 60%",
-    })
-
-    hl.window_rule({
-      name = "Wants-to-Save",
-      match = {
-        initial_title = "(wants to save)",
-      },
-      float = true,
-    })
-
-    hl.window_rule({
-      name = "Browsers",
-      match = {
-        tag = "browser*",
-      },
-      opacity = "1.0 0.9",
-      no_blur = false,
-    })
-
-    hl.window_rule({
-      name = "Projects",
-      match = {
-        tag = "projects*",
-      },
-      opacity = "0.98 0.93",
-      no_blur = false,
-    })
-
-    hl.window_rule({
-      name = "Instant-Messaging",
-      match = {
-        tag = "im*",
-      },
-      opacity = "0.94 0.86",
-    })
-
-    hl.window_rule({
-      name = "File-Managers",
-      match = {
-        tag = "file-manager*",
-      },
-      opacity = "0.95 0.85",
-      no_blur = false,
-    })
-
-    hl.window_rule({
-      name = "Terminals-opacity",
-      match = {
-        tag = "terminal*",
-      },
-      opacity = "0.90 0.80",
-      no_blur = false,
-    })
-
-    hl.window_rule({
-      name = "windowrule-77",
-      match = {
-        class = "^(gedit|org.gnome.TextEditor|mousepad)$",
-      },
-      opacity = "0.8 0.7",
-    })
-
-    hl.window_rule({
-      name = "windowrule-78",
-      match = {
-        class = "^(seahorse)$",
-      },
-      opacity = "0.9 0.8",
-    })
-
-    hl.window_rule({
-      name = "windowrule-79",
-      match = {
-        tag = "games*",
-      },
-      no_blur = true,
-    })
-
-    hl.window_rule({
-      name = "windowrule-80",
-      match = {
-        tag = "games*",
-      },
-      fullscreen = true,
-    })
-  '';
+        class = "^(seahorse)$";
+      };
+      opacity = "0.9 0.8";
+    }
+  ];
 }

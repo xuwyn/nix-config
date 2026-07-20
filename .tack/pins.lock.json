@@ -79,6 +79,14 @@
     "narHash": "sha256-msVlanBvdLsMeLdXnBQ6f9nRHKmDf7vhKoQMtyYbS8c=",
     "lastModified": 1783421544
   },
+  "niri-nix": {
+    "type": "git",
+    "url": "https://codeberg.org/BANanaD3V/niri-nix",
+    "ref": "HEAD",
+    "rev": "fedf5d937fc4a7c3008a1419d32fd0c537f829a8",
+    "narHash": "sha256-UQjrOfWx73M3xe+2xevAZz61K0llZN+qtV8wAdXmnQE=",
+    "lastModified": 1784429437
+  },
   "nix-cachyos-kernel": {
     "type": "github",
     "owner": "xddxdd",

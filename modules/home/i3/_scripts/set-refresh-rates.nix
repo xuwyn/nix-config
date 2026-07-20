@@ -3,8 +3,8 @@
   config,
   ...
 }: let
-  inherit (config.homeManager.i3) monitors;
-  genBashArray = builtins.map (m: "REFRESH_RATES[\"${m.name}\"]=\"${m.refreshRate}\"") monitors;
+  inherit (config.homeManager.desktop) monitors;
+  genBashArray = builtins.map (m: "REFRESH_RATES[\"${m.name}\"]=\"${toString m.refresh}\"") monitors;
   bashArrayLines = builtins.concatStringsSep "\n" genBashArray;
 in
   pkgs.writeShellScriptBin "set-refresh-rates" ''

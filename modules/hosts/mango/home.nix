@@ -1,5 +1,5 @@
 {config, ...}: let
-  wallpaper = ../../../assets/wallpapers/IS-Mysterious_Banquet.png;
+  wallpaper = ../../../assets/wallpapers/summertime-rendering.png;
 in {
   home."wyn@mango" = {
     system = "x86_64-linux";
@@ -30,22 +30,24 @@ in {
             inherit wallpaper;
             qylockEnabled = true;
             barThemeEnabled = true;
-          };
-          hyprland = {
-            extraMonitorSettings = ''
-              hl.monitor({
-                output = "DP-5",
-                mode = "1920x1080@165",
-                position = "0x0",
-                scale = 1,
-              })
-              hl.monitor({
-                output = "DP-2",
-                mode = "1920x1080@165",
-                position = "0x0",
-                scale = 1,
-              })
-            '';
+            monitors = [
+              {
+                name = "DP-5";
+                width = 1920;
+                height = 1080;
+                x = 0;
+                y = 0;
+                refresh = 165;
+              }
+              {
+                name = "DP-2";
+                width = 1920;
+                height = 1080;
+                x = 0;
+                y = 0;
+                refresh = 165;
+              }
+            ];
           };
           apps = {
             firefox.enable = true;

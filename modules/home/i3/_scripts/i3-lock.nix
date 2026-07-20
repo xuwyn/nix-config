@@ -1,8 +1,9 @@
 {
   pkgs,
-  wallpaper,
   config,
+  ...
 }: let
+  inherit (config.homeManager.desktop) wallpaper;
   matugenEnabled = config.programs.matugen.enable or false;
   colors =
     if matugenEnabled

@@ -247,6 +247,16 @@ update_command = "cd ~/nix-config && tack update"
 [plugin_settings."nightwatch75/todo"]
 panel_placement = "floating"
 
+[plugin_settings."yocraft/web-launcher"]
+icon_provider = "duckduckgo"
+links = [
+    "Noctalia|https://docs.noctalia.dev/v5/",
+    "GitHub|https://github.com",
+    "GitLab|https://gitlab.com",
+    "Codeberg|https://codeberg.org",
+    "YouTube|https://youtube.com"
+]
+
 [plugins]
 enabled = [
     "noctalia/screen_recorder",
@@ -256,7 +266,8 @@ enabled = [
     "noctalia/kaomoji",
     "noctalia/translator",
     "avivbintangaringga/nix-monitor",
-    "nightwatch75/todo"
+    "nightwatch75/todo",
+    "yocraft/web-launcher"
 ]
 
     [[plugins.source]]
@@ -295,16 +306,16 @@ wallpaper_scheme = "m3-content"
 directory = "/home/wyn/Pictures/Wallpapers"
 
     [wallpaper.default]
-    path = "/home/wyn/Pictures/Wallpapers/IS-Mysterious_Banquet.png"
+    path = "/home/wyn/Pictures/Wallpapers/summertime-rendering.png"
 
     [wallpaper.last]
-    path = "/home/wyn/Pictures/Wallpapers/IS-Mysterious_Banquet.png"
+    path = "/home/wyn/Pictures/Wallpapers/summertime-rendering.png"
 
     [wallpaper.monitors.DP-2]
     path = "/home/wyn/Pictures/Wallpapers/IS-Mysterious_Banquet.png"
 
     [wallpaper.monitors.DP-5]
-    path = "/home/wyn/Pictures/Wallpapers/IS-Mysterious_Banquet.png"
+    path = "/home/wyn/Pictures/Wallpapers/summertime-rendering.png"
 
     [[wallpaper.favorite]]
     palette_source = "wallpaper"
@@ -383,6 +394,12 @@ directory = "/home/wyn/Pictures/Wallpapers"
     path = "/home/wyn/Pictures/Wallpapers/AprilFool2026.png"
     theme_mode = "dark"
     wallpaper_scheme = "faithful"
+
+    [[wallpaper.favorite]]
+    palette_source = "wallpaper"
+    path = "/home/wyn/Pictures/Wallpapers/summertime-rendering.png"
+    theme_mode = "dark"
+    wallpaper_scheme = "m3-content"
 
 [widget.audio_visualizer]
 centered = false

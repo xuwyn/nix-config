@@ -15,7 +15,7 @@ in {
       theme
       syncthing
 
-      # desktop/i3
+      desktop
       i3
       rofi
       xdg
@@ -28,18 +28,16 @@ in {
 
       ({pkgs, ...}: {
         homeManager = {
-          i3 = {
-            picom.enable = true;
-            dunst.enable = true;
-            polybar.enable = true;
+          desktop = {
+            inherit wallpaper;
             monitors = [
               {
                 name = "DP-2";
-                refreshRate = "164.96";
-                workspaces = ["1" "2" "3" "4" "5"];
+                refresh = "165";
+                width = 1920;
+                height = 1080;
               }
             ];
-            background = wallpaper;
           };
           rofi.background = wallpaper;
           cli = {

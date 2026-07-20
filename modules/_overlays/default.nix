@@ -6,6 +6,9 @@
     };
   })
 
+  # niri-nix overlays (for cache hit)
+  inputs.niri-nix.overlays.niri-nix
+
   # Firefox addons
   inputs.nur.overlays.default
 

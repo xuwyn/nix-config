@@ -72,6 +72,10 @@ url = "github:nix-community/nixvim"
 url = "github:hyprwm/Hyprland/v0.55.4"
 exclude_follow = ["nixpkgs"]
 
+[inputs.niri-nix]
+url = "git+https://codeberg.org/BANanaD3V/niri-nix"
+exclude_follow = ["nixpkgs"]
+
 [inputs.zed]
 url = "github:zed-industries/zed"
 exclude_follow = ["nixpkgs"]

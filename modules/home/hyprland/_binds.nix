@@ -33,6 +33,8 @@ in {
           hl.bind("SUPER + SHIFT + N", hl.dsp.exec_cmd("noctalia msg notification-clear-history"))
           hl.bind("SUPER + CTRL + N", hl.dsp.exec_cmd("noctalia msg panel-toggle noctalia/notes:panel"))
           hl.bind("SUPER + E", hl.dsp.exec_cmd("noctalia msg panel-toggle launcher \"/emo\""))
+          hl.bind("SUPER + ALT + W", hl.dsp.exec_cmd("noctalia msg panel-toggle launcher \"/web\""))
+          hl.bind("SUPER + SHIFT + A", hl.dsp.exec_cmd("noctalia msg panel-toggle launcher \"/win\""))
           hl.bind("SUPER + SHIFT + E", hl.dsp.exec_cmd("noctalia msg panel-toggle launcher \"/kao\""))
           hl.bind("SUPER + SHIFT + T", hl.dsp.exec_cmd("noctalia msg panel-toggle launcher \"/tr\""))
           hl.bind("SUPER + CTRL + T", hl.dsp.exec_cmd("noctalia msg panel-toggle nightwatch75/todo:panel"))

@@ -42,6 +42,7 @@
             };
             qylock.enable = true;
             hyprland.enable = true;
+            niri.enable = false;
             fonts.enable = true;
             thunar.enable = true;
             xserver.enable = true;
