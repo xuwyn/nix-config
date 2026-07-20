@@ -12,33 +12,23 @@ in {
       editors
       theme
 
-      # extra
-      utils
-      eyecandy
-
       (_: {
         homeManager = {
           cli = {
-            zsh.enable = true;
             bash.enable = true;
             git = {
               enable = true;
               username = "wyn";
               email = "173407133+xuwyn@users.noreply.github.com";
             };
-            fastfetch = {
-              enable = true;
-              terminal = "wezterm";
-            };
             btop.enable = true;
-            bottom.enable = true;
-            htop.enable = true;
             nh.enable = true;
             tealdeer.enable = true;
             nix-search-tv.enable = true;
             television.enable = true;
             search.enable = true;
             styling.enable = true;
+            utils.enable = true;
           };
           editors = {
             nano.enable = true;
@@ -47,7 +37,7 @@ in {
           theme = {
             matugen = {
               enable = true;
-              wallpaper = wallpaper;
+              inherit wallpaper;
             };
           };
         };

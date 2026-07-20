@@ -20,8 +20,6 @@ in {
       xdg
       thunar
       yazi
-      utils
-      eyecandy
       maa
 
       (_: {
@@ -93,6 +91,8 @@ in {
             television.enable = true;
             search.enable = true;
             styling.enable = true;
+            utils.enable = true;
+            eyecandy.enable = true;
           };
           editors = {
             zed.enable = true;
