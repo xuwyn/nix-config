@@ -5,9 +5,7 @@
     lib,
     inputs,
     ...
-  }: let
-    cfg = config.homeManager.hyprland;
-  in {
+  }: {
     options.homeManager.hyprland = {
       _module_marker = lib.mkOption {
         type = lib.types.bool;
@@ -16,16 +14,6 @@
         internal = true;
         visible = false;
         description = "Internal: marks that this module was imported. Do not set manually.";
-      };
-      keyboardLayout = lib.mkOption {
-        type = lib.types.str;
-        default = "us";
-        description = "Primary keyboard layout.";
-      };
-      keyboardVariant = lib.mkOption {
-        type = lib.types.str;
-        default = "";
-        description = "Keyboard variant layout.";
       };
       barThemeEnabled = lib.mkOption {
         type = lib.types.bool;
@@ -50,26 +38,6 @@
           ${pkgs.hyprland}/bin/hyprctl reload
         fi
       '';
-
-      usVariants = ["dvorak" "colemak" "workman" "intl" "us-intl" "altgr-intl"];
-      normalize = v:
-        if v == "us-intl"
-        then "intl"
-        else v;
-
-      isUSVariant = builtins.elem cfg.keyboardLayout usVariants || builtins.elem cfg.keyboardVariant usVariants;
-
-      hyprKbLayout =
-        if isUSVariant
-        then "us"
-        else cfg.keyboardLayout;
-
-      hyprKbVariant =
-        if builtins.elem cfg.keyboardVariant usVariants
-        then normalize cfg.keyboardVariant
-        else if builtins.elem cfg.keyboardLayout usVariants
-        then normalize cfg.keyboardLayout
-        else cfg.keyboardVariant;
     in {
       systemd.user.targets.hyprland-session.Unit.Wants = [
         "xdg-desktop-autostart.target"
@@ -93,23 +61,20 @@
         settings = {
           config = {
             animations.enabled = true;
-            input =
-              {
-                kb_layout = hyprKbLayout;
-                kb_options = "grp:alt_caps_toggle";
-                numlock_by_default = true;
-                repeat_delay = 300;
-                follow_mouse = 1;
-                float_switch_override_focus = 0;
-                sensitivity = 0;
-                touchpad = {
-                  natural_scroll = true;
-                  disable_while_typing = true;
-                  scroll_factor = 0.8;
-                };
+            input = {
+              kb_options = "grp:alt_caps_toggle";
+              numlock_by_default = true;
+              repeat_delay = 300;
+              follow_mouse = 1;
+              float_switch_override_focus = 0;
+              sensitivity = 0;
+              touchpad = {
                 natural_scroll = true;
-              }
-              // lib.optionalAttrs (hyprKbVariant != "") {kb_variant = hyprKbVariant;};
+                disable_while_typing = true;
+                scroll_factor = 0.8;
+              };
+              natural_scroll = true;
+            };
 
             cursor = {
               enable_hyprcursor = false;
