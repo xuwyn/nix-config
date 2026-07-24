@@ -6,7 +6,7 @@
     };
   })
 
-  # niri-nix overlays (for cache hit)
+  # niri-nix overlays (for unstable pkgs)
   inputs.niri-nix.overlays.niri-nix
 
   # Firefox addons

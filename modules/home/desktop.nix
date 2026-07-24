@@ -33,7 +33,7 @@
             width = lib.mkOption {type = lib.types.int;};
             height = lib.mkOption {type = lib.types.int;};
             refresh = lib.mkOption {
-              type = lib.types.int;
+              type = lib.types.number;
               default = 60;
             };
             x = lib.mkOption {
@@ -89,6 +89,7 @@
         picard # Music tagger GUI
         rhythmbox # Music player GUI
         eog # GNOME Image viewer (GTK based)
+        swappy # GUI to edit screenshots
         file-roller # GNOME Archive manager interface
         pavucontrol # PulseAudio/PipeWire volume panel
       ];

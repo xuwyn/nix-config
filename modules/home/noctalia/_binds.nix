@@ -38,23 +38,23 @@
     }
     {
       key = "SUPER + E";
-      command = "noctalia msg panel-toggle launcher \\\"/emo\\\"";
+      command = "noctalia msg panel-toggle launcher /emo";
     }
     {
       key = "SUPER + ALT + W";
-      command = "noctalia msg panel-toggle launcher \\\"/web\\\"";
+      command = "noctalia msg panel-toggle launcher /web";
     }
     {
       key = "SUPER + SHIFT + A";
-      command = "noctalia msg panel-toggle launcher \\\"/win\\\"";
+      command = "noctalia msg panel-toggle launcher /win";
     }
     {
       key = "SUPER + SHIFT + E";
-      command = "noctalia msg panel-toggle launcher \\\"/kao\\\"";
+      command = "noctalia msg panel-toggle launcher /kao";
     }
     {
       key = "SUPER + SHIFT + T";
-      command = "noctalia msg panel-toggle launcher \\\"/tr\\\"";
+      command = "noctalia msg panel-toggle launcher /tr";
     }
     {
       key = "SUPER + CTRL + T";

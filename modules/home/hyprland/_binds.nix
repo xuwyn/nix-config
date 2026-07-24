@@ -38,12 +38,6 @@ in {
       hl.bind("SUPER + mouse:272", hl.dsp.window.drag())
       hl.bind("SUPER + mouse:273", hl.dsp.window.resize())
 
-      -- ROFI
-      hl.bind("SUPER + A", hl.dsp.exec_cmd("rofi-launcher"))
-      hl.bind("SUPER + SHIFT + A", hl.dsp.exec_cmd("rofi -show window"))
-      hl.bind("SUPER + V", hl.dsp.exec_cmd("cliphist list | rofi -dmenu | cliphist decode | wl-copy"))
-      hl.bind("SUPER + ALT + W", hl.dsp.exec_cmd("web-search"))
-
       -- APPLICATIONS
       hl.bind("SUPER + Return", hl.dsp.exec_cmd("${terminal}"))
       hl.bind("SUPER + D", hl.dsp.exec_cmd("app2unit -- discord"))

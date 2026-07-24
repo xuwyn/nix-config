@@ -15,7 +15,8 @@ in {
       theme
       syncthing
       desktop
-      hyprland
+      # hyprland
+      niri
       noctalia
       xdg
       thunar
@@ -35,15 +36,7 @@ in {
                 height = 1080;
                 x = 0;
                 y = 0;
-                refresh = 165;
-              }
-              {
-                name = "DP-2";
-                width = 1920;
-                height = 1080;
-                x = 0;
-                y = 0;
-                refresh = 165;
+                refresh = 164.955;
               }
             ];
           };
@@ -85,6 +78,7 @@ in {
               enable = true;
               logo = "png";
             };
+            bottom.enable = true;
             nh.enable = true;
             tealdeer.enable = true;
             nix-search-tv.enable = true;

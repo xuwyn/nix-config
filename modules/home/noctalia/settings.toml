@@ -20,7 +20,7 @@ radius_top_left = 8
 radius_top_right = 8
 scale = 1.1000000000000001
 shadow = false
-start = [ "workspaces", "media", "audio_visualizer" ]
+start = [ "workspaces", "media", "audio_visualizer", "cat_2" ]
 
     [[bar.default.capsule_group]]
     border = "primary"
@@ -100,9 +100,6 @@ show_dots = true
 show_instance_count = false
 
 [hooks]
-logging_out = "hyprctl dispatch 'hl.dsp.exit()'"
-rebooting = "hyprctl dispatch 'hl.dsp.exit()'"
-shutting_down = "hyprctl dispatch 'hl.dsp.exit()'"
 started = ""
 
 [keybinds]
@@ -244,8 +241,8 @@ clean_command = "nh clean all"
 panel_placement = "floating"
 update_command = "cd ~/nix-config && tack update"
 
-[plugin_settings."nightwatch75/todo"]
-panel_placement = "floating"
+[plugin_settings."noctalia/notes"]
+panel_open_near_click = true
 
 [plugin_settings."yocraft/web-launcher"]
 icon_provider = "duckduckgo"
@@ -267,7 +264,8 @@ enabled = [
     "noctalia/translator",
     "avivbintangaringga/nix-monitor",
     "nightwatch75/todo",
-    "yocraft/web-launcher"
+    "yocraft/web-launcher",
+    "dotnetrob/cat"
 ]
 
     [[plugins.source]]
@@ -282,6 +280,13 @@ enabled = [
     location = "https://github.com/noctalia-dev/community-plugins"
     name = "community"
 
+[shell]
+niri_overview_type_to_launch_enabled = true
+
+    [shell.panel]
+    control_center_placement = "attached"
+    wallpaper_placement = "attached"
+
 [system.monitor]
 cpu_poll_seconds = 1
 network_poll_seconds = 1
@@ -294,7 +299,7 @@ source = "wallpaper"
 wallpaper_scheme = "m3-content"
 
     [theme.templates]
-    builtin_ids = [ "btop", "cava", "gtk3", "gtk4", "ghostty", "hyprland", "kitty", "qt" ]
+    builtin_ids = [ "btop", "cava", "gtk3", "gtk4", "ghostty", "hyprland", "kitty", "niri", "qt" ]
     community_ids = [ "pywalfox", "zed", "discord" ]
 
         [theme.templates.user.nvim-base16]
@@ -410,6 +415,10 @@ audio_spectrum = true
 scale = 1.45
 tappy_mode = true
 type = "noctalia/bongocat:cat"
+
+[widget.cat_2]
+cat_size = 30
+type = "dotnetrob/cat:cat"
 
 [widget.media]
 hide_when_no_media = true
