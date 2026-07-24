@@ -22,7 +22,7 @@
         niri = {
           enable = cfg.niri.enable;
           withUWSM = cfg.niri.enable;
-          package = pkgs.niri-unstable;
+          package = pkgs.niri;
         };
       };
     };

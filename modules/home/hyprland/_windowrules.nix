@@ -25,7 +25,7 @@
       match = {
         tag = "projects*";
       };
-      opacity = "0.98 0.93";
+      opacity = "0.90 0.80";
       no_blur = false;
     }
 

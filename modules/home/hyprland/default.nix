@@ -26,7 +26,7 @@
       ./_animation.nix
       ./_binds.nix
       ./_env.nix
-      ./_start.nix
+      ./_startup.nix
       ./_windowrules.nix
       ./_layerrules.nix
       ./_packages.nix

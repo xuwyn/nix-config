@@ -83,9 +83,9 @@
     "type": "git",
     "url": "https://codeberg.org/BANanaD3V/niri-nix",
     "ref": "HEAD",
-    "rev": "fedf5d937fc4a7c3008a1419d32fd0c537f829a8",
-    "narHash": "sha256-UQjrOfWx73M3xe+2xevAZz61K0llZN+qtV8wAdXmnQE=",
-    "lastModified": 1784429437
+    "rev": "5453dbd159ee958f5d98dc963b877d6c945c7b4a",
+    "narHash": "sha256-jrAo+NMWWtKulUqpGf3ybqwM7Iu59C4Xm/Z35PIoZ3Q=",
+    "lastModified": 1784765696
   },
   "nix-cachyos-kernel": {
     "type": "github",
