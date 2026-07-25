@@ -1,5 +1,7 @@
 {config, ...}: let
   qylockEnabled = config.homeManager.desktop.qylockEnabled or false;
+  hyprlandEnabled = config.homeManager ? hyprland;
+  niriEnabled = config.homeManager ? niri;
 in {
   currentThemeName = "dynamic";
   currentThemeCategory = "dynamic";
@@ -61,11 +63,12 @@ in {
   blurEnabled = true;
   blurForegroundLayers = true;
   blurLayerOutlineOpacity = 0.12;
+  blurBorderEnabled = true;
   blurBorderColor = "outline";
   blurBorderCustomColor = "#ffffff";
   blurBorderOpacity = 0.35;
   wallpaperFillMode = "Fill";
-  blurredWallpaperLayer = true;
+  blurredWallpaperLayer = false;
   blurWallpaperOnOverview = true;
   wallpaperBackgroundColorMode = "black";
   wallpaperBackgroundCustomColor = "#000000";
@@ -240,7 +243,7 @@ in {
       type = "contains";
     }
     {
-      pattern = "^steam_app_(\d+)$";
+      pattern = "^steam_app_(d+)$";
       replacement = "steam_icon_$1";
       type = "regex";
     }
@@ -293,24 +296,24 @@ in {
   weatherEnabled = true;
   dashTabs = [
     {
+      enabled = true;
       id = "overview";
-      enabled = true;
     }
     {
+      enabled = true;
       id = "media";
-      enabled = true;
     }
     {
+      enabled = true;
       id = "wallpaper";
-      enabled = true;
     }
     {
+      enabled = true;
       id = "weather";
-      enabled = true;
     }
     {
-      id = "settings";
       enabled = true;
+      id = "settings";
     }
   ];
   networkPreference = "auto";
@@ -478,6 +481,7 @@ in {
   notificationOverlayEnabled = false;
   notificationPopupShadowEnabled = true;
   notificationPopupPrivacyMode = false;
+  notificationForegroundLayers = true;
   modalDarkenBackground = true;
   lockScreenShowPowerActions = true;
   lockScreenShowSystemIcons = true;
@@ -495,6 +499,8 @@ in {
   lockPamPath = "";
   lockPamInlineFprint = false;
   lockPamInlineU2f = false;
+  lockPamExternallyManaged = false;
+  lockU2fPamPath = "";
   lockScreenInactiveColor = "#000000";
   lockScreenNotificationMode = 0;
   lockScreenVideoEnabled = false;
@@ -547,7 +553,12 @@ in {
     if qylockEnabled
     then "systemd-run --user -- qylock-lock"
     else "";
-  customPowerActionLogout = "hyprctl dispatch 'hl.dsp.exit()'";
+  customPowerActionLogout =
+    if hyprlandEnabled
+    then "hyprctl dispatch 'hl.dsp.exit()'"
+    else if niriEnabled
+    then "niri msg action quit"
+    else "";
   customPowerActionSuspend =
     if qylockEnabled
     then "dms ipc call lock lock & sleep 2 && systemctl suspend"
@@ -579,10 +590,10 @@ in {
   displaySnapToEdge = true;
   connectedFrameBarStyleBackups = {
     default = {
+      borderEnabled = false;
+      gothCornersEnabled = true;
       shadowIntensity = 0;
       squareCorners = true;
-      gothCornersEnabled = true;
-      borderEnabled = false;
     };
   };
   barConfigs = [
@@ -729,11 +740,11 @@ in {
   desktopWidgetInstances = [];
   desktopWidgetGroups = [];
   builtInPluginSettings = {
-    dms_settings_search = {
-      trigger = "?";
-    };
     dms_clipboard_search = {
       trigger = "cb";
+    };
+    dms_settings_search = {
+      trigger = "?";
     };
   };
   clipboardClickToPaste = false;
@@ -749,7 +760,7 @@ in {
   launcherPluginOrder = [];
   frameEnabled = true;
   frameThickness = 11;
-  frameRounding = 23;
+  frameRounding = 20;
   frameColor = "";
   frameOpacity = 1;
   frameScreenPreferences = [
@@ -765,6 +776,6 @@ in {
   frameMode = "connected";
   barInsetPaddingShared = -1;
   barInsetPaddingSyncAll = false;
-  frameBarInsetPadding = 11;
+  frameBarInsetPadding = 20;
   configVersion = 12;
 }

@@ -18,5 +18,13 @@
         xray = false;
       };
     }
+    {
+      match._props.namespace._raw = ''r#"^quickshell$"#'';
+      place-within-backdrop = true;
+    }
+    {
+      match._props.namespace._raw = ''r#"dms:blurwallpaper"#'';
+      place-within-backdrop = true;
+    }
   ];
 }

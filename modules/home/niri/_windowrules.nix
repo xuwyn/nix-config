@@ -17,6 +17,10 @@
       default-window-height.fixed = 920;
     }
     {
+      match._props.app-id._raw = ''r#"^org\.quickshell$"#'';
+      open-floating = true;
+    }
+    {
       match._props = {
         app-id._raw = ''r#"^(com.mitchellh.ghostty|org.wezfurlong.wezterm|Alacritty|kitty)$"#'';
         is-active = true;

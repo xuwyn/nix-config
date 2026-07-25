@@ -17,7 +17,8 @@ in {
       desktop
       # hyprland
       niri
-      noctalia
+      # noctalia
+      dms
       xdg
       thunar
       yazi

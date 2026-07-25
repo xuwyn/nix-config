@@ -19,9 +19,9 @@
     "type": "github",
     "owner": "AvengeMedia",
     "repo": "DankMaterialShell",
-    "rev": "6306bc7aa2cae7450ad0dc9fc9392ad61b860711",
-    "narHash": "sha256-4UyLqRVtDVQIn+Z1prs5gUUkp2quD1aZq2qNePKls2c=",
-    "lastModified": 1784143977
+    "rev": "74896fb87cb9e4bb866dbabcfd754e3e649ad0c7",
+    "narHash": "sha256-7VjoVZu+8PC41ZDQ3umi/EXsU3sCLNyRfxZrfJKHy+E=",
+    "lastModified": 1784341117
   },
   "dms-plugin-registry": {
     "type": "github",

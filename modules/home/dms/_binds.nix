@@ -5,11 +5,11 @@
   dmsBinds = [
     {
       key = "XF86MonBrightnessDown";
-      command = "dms ipc call brightness decrement 5 \\\"\\\"";
+      command = ''dms ipc call brightness decrement 5 ""'';
     }
     {
       key = "XF86MonBrightnessUp";
-      command = "dms ipc call brightness increment 5 \\\"\\\"";
+      command = ''dms ipc call brightness increment 5 ""'';
     }
     {
       key = "SUPER + A";
@@ -73,7 +73,7 @@
     }
     {
       key = "SUPER + E";
-      command = "dms ipc call plugins enable emojiLauncher && dms ipc call spotlight toggleQuery \\\":e\\\"";
+      command = "dms ipc call plugins enable emojiLauncher && dms ipc call spotlight toggleQuery :e";
     }
   ];
   lockBind =

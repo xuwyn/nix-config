@@ -11,6 +11,7 @@
       include optional=true "noctalia.kdl"
     '';
     dms = ''
+      include optional=true "dms/colors.kdl"
     '';
   };
 in {
