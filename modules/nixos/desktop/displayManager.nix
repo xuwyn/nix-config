@@ -62,6 +62,18 @@
           };
         })
 
+        (lib.mkIf (cfg.mode == "qylock") {
+          assertions = [
+            {
+              assertion = config.nixos.desktop.qylock.enable;
+              message = "nixos.desktop: qylock is not enabled!";
+            }
+          ];
+          services.displayManager.sddm.extraPackages = with pkgs; [
+            kdePackages.qt5compat
+          ];
+        })
+
         (lib.mkIf (cfg.mode == "silent") {
           programs.silentSDDM = {
             enable = true;

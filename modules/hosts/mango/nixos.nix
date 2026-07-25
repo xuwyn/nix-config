@@ -38,7 +38,7 @@
           desktop = {
             displayManager = {
               enable = true;
-              mode = "silent";
+              mode = "qylock";
             };
             qylock.enable = true;
             hyprland.enable = true;
