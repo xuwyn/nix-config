@@ -21,6 +21,28 @@
       open-floating = true;
     }
     {
+      match._props.title._raw = ''r#"^(Picture-in-Picture)$"#'';
+      open-floating = true;
+      default-column-width.fixed = 426;
+      default-window-height.fixed = 240;
+    }
+    {
+      match._props.title._raw = ''r#"^(Waydroid)$"#'';
+      open-floating = true;
+    }
+    {
+      match._props.app-id._raw = ''r#"^(com\.jaoushingan\.WaydroidHelper)$"#'';
+      open-floating = true;
+    }
+    {
+      match._props.app-id._raw = ''r#"^(waydroid\.com\.YoStarEN\.Arknights)$"#'';
+      open-floating = true;
+    }
+    {
+      match._props.app-id._raw = ''r#"^(pavucontrol|org.pulseaudio.pavucontrol|com.saivert.pwvucontrol)$"#'';
+      open-floating = true;
+    }
+    {
       match._props = {
         app-id._raw = ''r#"^(com.mitchellh.ghostty|org.wezfurlong.wezterm|Alacritty|kitty)$"#'';
         is-active = true;

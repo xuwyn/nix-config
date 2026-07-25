@@ -15,8 +15,8 @@ in {
       theme
       syncthing
       desktop
-      hyprland
-      # niri
+      # hyprland
+      niri
       noctalia
       # dms
       xdg
@@ -31,6 +31,14 @@ in {
             qylockEnabled = true;
             barThemeEnabled = true;
             monitors = [
+              {
+                name = "DP-2";
+                width = 1920;
+                height = 1080;
+                x = 0;
+                y = 0;
+                refresh = 164.955;
+              }
               {
                 name = "DP-5";
                 width = 1920;

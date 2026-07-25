@@ -20,7 +20,7 @@ radius_top_left = 8
 radius_top_right = 8
 scale = 1.1000000000000001
 shadow = false
-start = [ "workspaces", "media", "audio_visualizer", "cat_2" ]
+start = [ "workspaces", "media", "audio_visualizer" ]
 
     [[bar.default.capsule_group]]
     border = "primary"
@@ -238,7 +238,6 @@ widget_order = [
 
 [plugin_settings."avivbintangaringga/nix-monitor"]
 clean_command = "nh clean all"
-panel_placement = "floating"
 update_command = "cd ~/nix-config && tack update"
 
 [plugin_settings."noctalia/notes"]
@@ -264,18 +263,15 @@ enabled = [
     "noctalia/translator",
     "avivbintangaringga/nix-monitor",
     "nightwatch75/todo",
-    "yocraft/web-launcher",
-    "dotnetrob/cat"
+    "yocraft/web-launcher"
 ]
 
     [[plugins.source]]
-    auto_update = true
     kind = "git"
     location = "https://github.com/noctalia-dev/official-plugins"
     name = "official"
 
     [[plugins.source]]
-    auto_update = true
     kind = "git"
     location = "https://github.com/noctalia-dev/community-plugins"
     name = "community"
@@ -317,7 +313,7 @@ directory = "/home/wyn/Pictures/Wallpapers"
     path = "/home/wyn/Pictures/Wallpapers/summertime-rendering.png"
 
     [wallpaper.monitors.DP-2]
-    path = "/home/wyn/Pictures/Wallpapers/IS-Mysterious_Banquet.png"
+    path = "/home/wyn/Pictures/Wallpapers/summertime-rendering.png"
 
     [wallpaper.monitors.DP-5]
     path = "/home/wyn/Pictures/Wallpapers/summertime-rendering.png"
@@ -416,10 +412,6 @@ scale = 1.45
 tappy_mode = true
 type = "noctalia/bongocat:cat"
 
-[widget.cat_2]
-cat_size = 30
-type = "dotnetrob/cat:cat"
-
 [widget.media]
 hide_when_no_media = true
 title_scroll = "always"
@@ -435,7 +427,7 @@ type = "avivbintangaringga/nix-monitor:nix-monitor"
 type = "noctalia/screen_recorder:recorder"
 
 [widget.sysmon]
-stat = "disk_pct"
+stat = "disk_used_pct"
 
 [widget.todo]
 type = "nightwatch75/todo:todo"

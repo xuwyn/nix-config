@@ -32,6 +32,7 @@
     ];
 
     config = {
+      xdg.configFile."niri/config.kdl".force = true;
       wayland.windowManager.niri = {
         enable = true;
         package = null; # install via nixos
@@ -59,10 +60,10 @@
             lib.imap0 (
               i: m:
                 map (n: {
-                  _args = [(toString (i * 5 + n))];
+                  _args = [(toString (i * 2 + n))];
                   open-on-output = m.name;
                 })
-                (lib.range 1 5)
+                (lib.range 1 2)
             )
             config.homeManager.desktop.monitors
           );
