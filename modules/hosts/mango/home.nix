@@ -15,10 +15,10 @@ in {
       theme
       syncthing
       desktop
-      # hyprland
-      niri
-      # noctalia
-      dms
+      hyprland
+      # niri
+      noctalia
+      # dms
       xdg
       thunar
       yazi
