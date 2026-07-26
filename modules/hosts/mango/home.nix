@@ -15,10 +15,8 @@ in {
       theme
       syncthing
       desktop
-      # hyprland
       niri
       noctalia
-      # dms
       xdg
       thunar
       yazi
@@ -47,6 +45,10 @@ in {
                 y = 0;
                 refresh = 164.955;
               }
+            ];
+            startupCommands = [
+              "fcitx5 -d -r"
+              "pkill openrgb; sleep 1; openrgb --startminimized --profile purple;"
             ];
           };
           apps = {

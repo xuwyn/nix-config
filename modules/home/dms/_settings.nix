@@ -344,8 +344,8 @@ in {
   launcherLogoBrightness = 0.5;
   launcherLogoContrast = 1;
   launcherLogoSizeOffset = 0;
-  fontFamily = "Maple Mono NF Light";
-  monoFontFamily = "Maple Mono NF Light";
+  fontFamily = "Maple Mono NF";
+  monoFontFamily = "Maple Mono NF";
   fontWeight = 400;
   fontScale = 1;
   textRenderType = 0;
@@ -499,7 +499,7 @@ in {
   lockPamPath = "";
   lockPamInlineFprint = false;
   lockPamInlineU2f = false;
-  lockPamExternallyManaged = false;
+  lockPamExternallyManaged = true;
   lockU2fPamPath = "";
   lockScreenInactiveColor = "#000000";
   lockScreenNotificationMode = 0;
@@ -559,14 +559,8 @@ in {
     else if niriEnabled
     then "niri msg action quit"
     else "";
-  customPowerActionSuspend =
-    if qylockEnabled
-    then "dms ipc call lock lock & sleep 2 && systemctl suspend"
-    else "";
-  customPowerActionHibernate =
-    if qylockEnabled
-    then "dms ipc call lock lock & sleep 2 && systemctl hibernate"
-    else "";
+  customPowerActionSuspend = "dms ipc call lock lock & sleep 2 && systemctl suspend";
+  customPowerActionHibernate = "dms ipc call lock lock & sleep 2 && systemctl hibernate";
   customPowerActionReboot = "";
   customPowerActionPowerOff = "";
   updaterHideWidget = false;
@@ -588,14 +582,7 @@ in {
   displayProfileAutoSelect = false;
   displayShowDisconnected = false;
   displaySnapToEdge = true;
-  connectedFrameBarStyleBackups = {
-    default = {
-      borderEnabled = false;
-      gothCornersEnabled = true;
-      shadowIntensity = 0;
-      squareCorners = true;
-    };
-  };
+  connectedFrameBarStyleBackups = {};
   barConfigs = [
     {
       autoHide = false;
@@ -608,10 +595,6 @@ in {
       centerWidgets = [
         {
           enabled = true;
-          id = "weather";
-        }
-        {
-          enabled = true;
           id = "clock";
         }
       ];
@@ -619,7 +602,7 @@ in {
       fontScale = 1.1;
       gothCornerRadiusOverride = true;
       gothCornerRadiusValue = 20;
-      gothCornersEnabled = false;
+      gothCornersEnabled = true;
       iconScale = 1.1;
       id = "default";
       innerPadding = 10;
@@ -633,7 +616,7 @@ in {
       openOnOverview = false;
       popupGapsAuto = true;
       popupGapsManual = 4;
-      position = 3;
+      position = 2;
       removeWidgetPadding = false;
       rightWidgets = [
         {
@@ -659,13 +642,16 @@ in {
       ];
       showOnLastDisplay = true;
       spacing = 0;
-      squareCorners = false;
+      squareCorners = true;
       transparency = 1;
       visible = true;
       widgetOutlineEnabled = true;
       widgetOutlineThickness = 2;
       widgetPadding = 8;
       widgetTransparency = 1;
+      shadowIntensity = 0;
+      barInsetPadding = 15;
+      widgetOutlineColor = "secondary";
     }
   ];
   desktopClockEnabled = false;
@@ -758,7 +744,7 @@ in {
   ];
   launcherPluginVisibility = {};
   launcherPluginOrder = [];
-  frameEnabled = true;
+  frameEnabled = false;
   frameThickness = 11;
   frameRounding = 20;
   frameColor = "";

@@ -3,7 +3,7 @@
   lib,
   ...
 }: let
-  inherit (config.homeManager.desktop) bar wallpaper;
+  inherit (config.homeManager.desktop) bar wallpaper startupCommands;
   wallpaperName = builtins.baseNameOf (toString wallpaper);
 
   barExec =
@@ -26,9 +26,7 @@ in {
             hl.exec_cmd("wl-paste --type image --watch cliphist store")
             hl.exec_cmd("dbus-update-activation-environment --all --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP")
             hl.exec_cmd("systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP")
-            hl.exec_cmd("systemctl --user start hyprpolkitagent")
-            hl.exec_cmd("fcitx5 -d -r")
-            hl.exec_cmd("pkill openrgb; sleep 1; openrgb --startminimized --profile purple;")
+            ${lib.concatMapStringsSep "\n  " (cmd: ''hl.exec_cmd("${cmd}")'') startupCommands}
             ${barExec}
           end
         '')

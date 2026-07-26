@@ -23,6 +23,11 @@
         readOnly = true;
         description = "Currently active wayland bar, derived from which bar module is imported.";
       };
+      startupCommands = lib.mkOption {
+        type = lib.types.listOf lib.types.str;
+        default = [];
+        description = "Host-specific shell commands to run at WM startup";
+      };
       monitors = lib.mkOption {
         type = lib.types.listOf (lib.types.submodule {
           options = {

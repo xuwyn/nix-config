@@ -1,5 +1,5 @@
 {config, ...}: let
-  inherit (config.homeManager.desktop) bar wallpaper;
+  inherit (config.homeManager.desktop) bar wallpaper startupCommands;
   wallpaperName = builtins.baseNameOf (toString wallpaper);
 
   barExec =
@@ -16,8 +16,7 @@ in {
       ["wl-paste --type image --watch cliphist store"]
       ["dbus-update-activation-environment --all --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"]
       ["systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"]
-      ["fcitx5 -d -r"]
-      ["pkill openrgb; sleep 1; openrgb --startminimized --profile purple;"]
     ]
+    ++ (map (cmd: [cmd]) startupCommands)
     ++ barExec;
 }

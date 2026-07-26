@@ -12,6 +12,9 @@ in {
       terminals
       apps
       editors
+      desktop
+      hyprland
+      dms
       theme
       xdg
       thunar
@@ -20,6 +23,31 @@ in {
 
       (_: {
         homeManager = {
+          desktop = {
+            inherit wallpaper;
+            barThemeEnabled = true;
+            monitors = [
+              {
+                name = "DP-2";
+                width = 1920;
+                height = 1080;
+                x = 0;
+                y = 0;
+                refresh = 164.955;
+              }
+              {
+                name = "DP-5";
+                width = 1920;
+                height = 1080;
+                x = 0;
+                y = 0;
+                refresh = 164.955;
+              }
+            ];
+            startupCommands = [
+              "pkill openrgb; sleep 1; openrgb --startminimized --profile blue;"
+            ];
+          };
           cli = {
             zsh.enable = true;
             bash.enable = true;
@@ -47,11 +75,15 @@ in {
           apps.firefox.enable = true;
           terminals.kitty.enable = true;
           theme = {
-            fonts.enable = true;
             matugen = {
               enable = true;
+              type = "scheme-tonal-spot";
               inherit wallpaper;
             };
+            fonts.enable = true;
+            cursor.enable = true;
+            qt.enable = true;
+            gtk.enable = true;
           };
         };
       })
