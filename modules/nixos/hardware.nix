@@ -39,6 +39,7 @@
       power-profiles-daemon # System-level power management daemon
       upower # System daemon for battery tracking
       v4l-utils # Video4Linux utils; handles kernel-level webcam/OBS loops
+      smartmontools # smartctl for drive health
     ];
 
     # set hardware clock to local time (not needed)

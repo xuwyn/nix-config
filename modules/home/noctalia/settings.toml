@@ -247,6 +247,7 @@ panel_open_near_click = true
 icon_provider = "duckduckgo"
 links = [
     "Noctalia|https://docs.noctalia.dev/v5/",
+    "DankMaterialShell|https://danklinux.com/docs/",
     "GitHub|https://github.com",
     "GitLab|https://gitlab.com",
     "Codeberg|https://codeberg.org",
@@ -278,6 +279,7 @@ enabled = [
 
 [shell]
 niri_overview_type_to_launch_enabled = true
+polkit_agent = true
 
     [shell.panel]
     control_center_placement = "attached"

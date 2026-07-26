@@ -34,7 +34,7 @@
             enable = true;
             package = pkgs.cachyosKernels.linuxPackages-cachyos-bore-lto-zen4;
           };
-          users.admins = ["wyn"];
+          users.wyn = {isAdmin = true;};
           desktop = {
             displayManager = {
               enable = true;
