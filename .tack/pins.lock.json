@@ -215,6 +215,14 @@
     "narHash": "sha256-nC0QN+GPTnA5i+WBx8S2rG8+VFh+EeBnEe5mU3hlAcQ=",
     "lastModified": 1784481035
   },
+  "stylix": {
+    "type": "github",
+    "owner": "nix-community",
+    "repo": "stylix",
+    "rev": "66714e5ce44269ecc58c20d9196da8dbe1b27a31",
+    "narHash": "sha256-ndyanKzw90yX2nUVFmTuYqXidUNymtMfgmIHyNdhht0=",
+    "lastModified": 1784676123
+  },
   "zed": {
     "type": "github",
     "owner": "zed-industries",

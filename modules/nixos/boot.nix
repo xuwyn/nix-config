@@ -18,6 +18,7 @@
         };
       };
     };
+    imports = [inputs.stylix.nixosModules.stylix];
     config = {
       boot = {
         kernelPackages =
@@ -44,11 +45,16 @@
         };
 
         # splash screen
-        plymouth = {
-          enable = true;
-          theme = "nixos-bgrt";
-          themePackages = [pkgs.nixos-bgrt-plymouth];
-        };
+        plymouth.enable = true;
+      };
+
+      # stylix just for plymouth
+      stylix = {
+        enable = true;
+        autoEnable = false;
+        polarity = "dark";
+        base16Scheme = "${pkgs.base16-schemes}/share/themes/gruvbox-dark-hard.yaml";
+        targets.plymouth.enable = true;
       };
     };
   };
