@@ -20,7 +20,7 @@
       };
     };
     config = {
-      system.stateVersion = "23.11"; # Do not change!
+      system.stateVersion = "26.05";
 
       # /etc/nix/nix.conf
       nix = {

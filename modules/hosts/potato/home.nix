@@ -28,9 +28,7 @@ in {
             monitors = [
               {
                 name = "DP-2";
-                refresh = "165";
-                width = 1920;
-                height = 1080;
+                refresh = 164.955;
               }
             ];
           };

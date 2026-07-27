@@ -31,12 +31,7 @@
         gtk =
           {
             enable = true;
-            gtk4.theme = lib.mkForce null;
-            gtk2.theme = {
-              name = "adw-gtk3-dark";
-              package = pkgs.adw-gtk3;
-            };
-            gtk3.theme = {
+            theme = {
               name = "adw-gtk3-dark";
               package = pkgs.adw-gtk3;
             };

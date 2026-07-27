@@ -70,19 +70,21 @@
             input_path = ./templates/hyprland-colors.lua;
             output_path = "$HOME/.config/hypr/matugen.lua";
           };
-          gtk = {
+          gtk3 = {
             input_path = ./templates/gtk-colors.css;
-            output_path = [
-              "$HOME/.config/gtk-3.0/matugen-colors.css"
-              "$HOME/.config/gtk-4.0/matugen-colors.css"
-            ];
+            output_path = "$HOME/.config/gtk-3.0/matugen-colors.css";
           };
-          qt = {
+          gtk4 = {
+            input_path = ./templates/gtk-colors.css;
+            output_path = "$HOME/.config/gtk-4.0/matugen-colors.css";
+          };
+          qt5 = {
             input_path = ./templates/qtct-colors.conf;
-            output_path = [
-              "$HOME/.config/qt5ct/colors/matugen-colors.conf"
-              "$HOME/.config/qt6ct/colors/matugen-colors.conf"
-            ];
+            output_path = "$HOME/.config/qt5ct/colors/matugen-colors.conf";
+          };
+          qt6 = {
+            input_path = ./templates/qtct-colors.conf;
+            output_path = "$HOME/.config/qt6ct/colors/matugen-colors.conf";
           };
           pywalfox = {
             input_path = ./templates/pywalfox-colors.json;

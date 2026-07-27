@@ -91,7 +91,6 @@
       home.packages = with pkgs; [
         # --- Desktop Apps ---
         mpv # Video player
-        picard # Music tagger GUI
         rhythmbox # Music player GUI
         eog # GNOME Image viewer (GTK based)
         swappy # GUI to edit screenshots

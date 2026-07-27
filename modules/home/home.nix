@@ -14,7 +14,7 @@
         if pkgs.stdenv.hostPlatform.isDarwin
         then "/Users/${username}"
         else "/home/${username}";
-      stateVersion = "23.11"; # Do not change!
+      stateVersion = "26.05";
       sessionPath = ["$HOME/.local/bin"];
       sessionVariables = {
         TACK_NIX_CONF_TOKENS = "1";

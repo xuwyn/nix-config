@@ -5,8 +5,8 @@
     vSync = false;
 
     # Active/Inactive window transparency rules
-    activeOpacity = 1.0; # Active windows remain perfectly crisp and opaque
-    inactiveOpacity = 0.90; # Inactive windows dim down to 90% opacity
+    activeOpacity = 0.9; # Active windows remain perfectly crisp and opaque
+    inactiveOpacity = 0.8; # Inactive windows dim down to 90% opacity
 
     # Global visual features
     shadow = true;
@@ -31,6 +31,7 @@
         "window_type = 'desktop'"
         "class_g = 'Polybar'"
         "_GTK_FRAME_EXTENTS@:c"
+        "class_g = 'slop'"
       ];
 
       # Stop specific apps from dimming or blurring when unfocused
@@ -45,6 +46,10 @@
 
       rounded-corners-exclude = [
         "class_g = 'i3-frame'"
+      ];
+
+      opacity-rule = [
+        "100:class_g = 'firefox'"
       ];
     };
   };
