@@ -45,7 +45,7 @@
         };
 
         # splash screen
-        # plymouth.enable = true;
+        plymouth.enable = true;
       };
 
       # stylix just for plymouth
