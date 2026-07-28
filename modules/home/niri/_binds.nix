@@ -47,8 +47,11 @@ in {
         "Mod+BracketLeft".consume-or-expel-window-left = [];
         "Mod+BracketRight".consume-or-expel-window-right = [];
 
-        # RELOAD CONFIG
+        # RELOAD NIRI CONFIG
         "Mod+Alt+R".spawn-sh = ["niri msg action load-config-file"];
+
+        # EXIT NIRI
+        "Mod+Delete".spawn-sh = ["niri msg action quit"];
 
         # CLOSE WINDOW
         "Mod+Q" = {

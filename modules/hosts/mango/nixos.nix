@@ -5,7 +5,8 @@
     users = ["wyn"];
     modules = with config.modules.nixos; [
       ./_disko.nix
-      impermanence
+      # impermanence
+      preservation
       drivers
       boot
       hardware
@@ -34,14 +35,26 @@
             enable = true;
             package = pkgs.cachyosKernels.linuxPackages-cachyos-bore-lto-zen4;
           };
-          users.wyn = {isAdmin = true;};
+          users.wyn.isAdmin = true;
+          preservation.users.wyn = {
+            directories = [
+              "Shared"
+              ".android"
+              ".mozilla"
+              ".steam"
+            ];
+            files = [
+              ".gitconfig"
+              ".bash_history"
+              ".zsh_history"
+            ];
+          };
           desktop = {
             displayManager = {
               enable = true;
               mode = "silent";
             };
             qylock.enable = true;
-            hyprland.enable = true;
             niri.enable = true;
             fonts.enable = true;
             thunar.enable = true;

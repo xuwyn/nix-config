@@ -126,3 +126,6 @@ exclude_follow = ["nixpkgs"]
 [inputs.impermanence]
 url = "github:nix-community/impermanence"
 exclude_follow = ["nixpkgs"]
+
+[inputs.preservation]
+url = "github:nix-community/preservation"

@@ -3,6 +3,7 @@
     lib,
     config,
     pkgs,
+    inputs,
     ...
   }: let
     cfg = config.nixos.system;
@@ -19,6 +20,10 @@
         description = "Set Timezone";
       };
     };
+
+    # install here to avoid using nix-channel
+    imports = [inputs.home-manager.nixosModules.home-manager];
+
     config = {
       system.stateVersion = "26.05";
 
