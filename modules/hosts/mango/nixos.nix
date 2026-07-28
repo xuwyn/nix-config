@@ -32,7 +32,7 @@
             };
           };
           boot.cachyOSKernel = {
-            enable = true;
+            # enable = true;
             package = pkgs.cachyosKernels.linuxPackages-cachyos-bore-lto-zen4;
           };
           users.wyn.isAdmin = true;
@@ -52,24 +52,24 @@
           desktop = {
             displayManager = {
               enable = true;
-              mode = "silent";
+              mode = "tui";
             };
-            qylock.enable = true;
+            # qylock.enable = true;
             niri.enable = true;
             fonts.enable = true;
             thunar.enable = true;
             xserver.enable = true;
             utils.enable = true;
           };
-          apps = {
-            gpu-screen-recorder.enable = true;
-            openrgb.enable = true;
-            steam.enable = true;
-          };
-          services = {
-            printing.enable = true;
-            waydroid.enable = true;
-          };
+          # apps = {
+          #   gpu-screen-recorder.enable = true;
+          #   openrgb.enable = true;
+          #   steam.enable = true;
+          # };
+          # services = {
+          #   printing.enable = true;
+          #   waydroid.enable = true;
+          # };
         };
       })
     ];

@@ -40,21 +40,20 @@
     imports = [inputs.preservation.nixosModules.preservation];
 
     config = {
+      # fix user ownership in /home
+      systemd.tmpfiles.rules = map (userName: "d /home/${userName} 0700 ${userName} users -") users;
+      # Suppress machine-id commit service if not using the 'firstboot' pattern
+      systemd.suppressedSystemUnits = ["systemd-machine-id-commit.service"];
+
       preservation = {
         enable = true;
         preserveAt."/persist" = {
           directories =
             [
-              "/etc"
+              "/etc/sops"
+              "/etc/NetworkManager"
+              "/etc/ssh"
               "/var"
-              {
-                directory = "/var/lib/nixos";
-                inInitrd = true;
-              }
-              {
-                directory = "/etc/sops";
-                inInitrd = true;
-              }
             ]
             ++ cfg.directories;
           files =
@@ -81,12 +80,6 @@
               {
                 file = "/etc/ssh/ssh_host_ed25519_key.pub";
                 how = "symlink";
-                configureParent = true;
-              }
-              {
-                file = "/var/lib/systemd/random-seed";
-                how = "symlink";
-                inInitrd = true;
                 configureParent = true;
               }
             ]
@@ -117,7 +110,7 @@
         };
       };
 
-      # Make btrfs snapshots
+      # Btrfs snapshot and wipe root
       boot.initrd.systemd.services.btrfs-root-rotate = {
         wantedBy = ["initrd.target"];
         after = ["systemd-cryptsetup@cryptroot.service"];
@@ -127,6 +120,11 @@
         script = ''
           mkdir -p /btrfs_tmp
           mount -o subvol=/ /dev/mapper/cryptroot /btrfs_tmp
+          if [[ -e /btrfs_tmp/root ]]; then
+            mkdir -p /btrfs_tmp/old_roots
+            timestamp=$(date --date="@$(stat -c %Y /btrfs_tmp/root)" "+%Y-%m-%d_%H:%M:%S")
+            mv /btrfs_tmp/root "/btrfs_tmp/old_roots/$timestamp"
+          fi
 
           delete_subvolume_recursively() {
             IFS=$'\n'
@@ -136,27 +134,11 @@
             btrfs subvolume delete "$1"
           }
 
-          rotate_subvolume() {
-            local name="$1"
-            local archiveDir="/btrfs_tmp/old_''${name}s"
+          for i in $(find /btrfs_tmp/old_roots/ -maxdepth 1 -mtime +10); do
+            delete_subvolume_recursively "$i"
+          done
 
-            if [[ -e "/btrfs_tmp/$name" ]]; then
-              mkdir -p "$archiveDir"
-              local timestamp
-              timestamp=$(date --date="@$(stat -c %Y "/btrfs_tmp/$name")" "+%Y-%m-%d_%H:%M:%S")
-              mv "/btrfs_tmp/$name" "$archiveDir/$timestamp"
-            fi
-
-            for i in $(find "$archiveDir" -mindepth 1 -maxdepth 1 -mtime +10 2>/dev/null); do
-              delete_subvolume_recursively "$i"
-            done
-
-            btrfs subvolume create "/btrfs_tmp/$name"
-          }
-
-          rotate_subvolume root
-          rotate_subvolume home
-
+          btrfs subvolume create /btrfs_tmp/root
           umount /btrfs_tmp
         '';
       };

@@ -45,12 +45,12 @@
         };
 
         # splash screen
-        plymouth.enable = true;
+        # plymouth.enable = true;
       };
 
       # stylix just for plymouth
       stylix = {
-        enable = true;
+        enable = config.boot.plymouth.enable;
         autoEnable = false;
         polarity = "dark";
         base16Scheme = "${pkgs.base16-schemes}/share/themes/gruvbox-dark-hard.yaml";
