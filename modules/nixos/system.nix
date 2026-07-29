@@ -21,9 +21,6 @@
       };
     };
 
-    # install here to avoid using nix-channel
-    imports = [inputs.home-manager.nixosModules.home-manager];
-
     config = {
       system.stateVersion = "26.05";
 
@@ -102,6 +99,8 @@
         # --- Utilities ---
         killall
         wget
+        git
+        home-manager
       ];
     };
   };

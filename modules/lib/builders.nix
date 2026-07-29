@@ -14,6 +14,7 @@ in {
             specialArgs = {
               inherit inputs;
               inherit (cfg) host users;
+              inherit (config) flake;
             };
             modules =
               cfg.modules
@@ -52,6 +53,7 @@ in {
             extraSpecialArgs = {
               inherit inputs;
               inherit (cfg) system username;
+              inherit (config) flake;
             };
             modules = cfg.modules ++ [(_: {nixpkgs.config.allowUnfree = true;})];
           }

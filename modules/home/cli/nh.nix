@@ -3,6 +3,7 @@
     pkgs,
     config,
     lib,
+    flake,
     ...
   }: let
     cfg = config.homeManager.cli.nh;
@@ -18,18 +19,18 @@
           enable = true;
           extraArgs = "--keep-since 7d --keep 5";
         };
-        flake = "${config.home.homeDirectory}/nix-config";
+        flake = "${config.home.homeDirectory}/${flake.homeRelativePath}";
       };
 
       home.packages = with pkgs; [
-        nh
         nix-output-monitor
         nvd
       ];
 
+      # The above should have worked, but just in case
       home.sessionVariables = {
-        NH_FLAKE = "${config.home.homeDirectory}/nix-config";
-        NH_HOME_FLAKE = "${config.home.homeDirectory}/nix-config";
+        NH_FLAKE = "${config.home.homeDirectory}/${flake.homeRelativePath}";
+        NH_HOME_FLAKE = "${config.home.homeDirectory}/${flake.homeRelativePath}";
       };
     };
   };

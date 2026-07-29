@@ -236,10 +236,6 @@ widget_order = [
         hide_when_no_media = true
         layout = "horizontal"
 
-[plugin_settings."avivbintangaringga/nix-monitor"]
-clean_command = "nh clean all"
-update_command = "cd ~/nix-config && tack update"
-
 [plugin_settings."noctalia/notes"]
 panel_open_near_click = true
 

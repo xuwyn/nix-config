@@ -3,6 +3,7 @@
     pkgs,
     config,
     lib,
+    flake,
     inputs,
     ...
   }: let
@@ -30,12 +31,18 @@
 
       home.file.".local/state/noctalia/settings.toml".source =
         mkOutOfStoreSymlink
-        "${config.home.homeDirectory}/nix-config/modules/home/noctalia/settings.toml";
+        "${config.home.homeDirectory}/${flake.homeRelativePath}/modules/home/noctalia/settings.toml";
 
       programs.noctalia = {
         enable = true;
         systemd.enable = true;
         settings = {
+          plugin_settings = {
+            "avivbintangaringga/nix-monitor" = {
+              clean_command = "nh clean all";
+              update_command = "cd ~/${flake.homeRelativePath} && tack update";
+            };
+          };
           idle = {
             behavior_order = ["qylock" "idle-behavior" "idle-behavior-2"];
             pre_action_fade_seconds = 0;

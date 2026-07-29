@@ -2,6 +2,29 @@
   inherit (lib) mkOption types;
 in {
   options = {
+    flake = mkOption {
+      type = types.submodule ({config, ...}: {
+        options = {
+          homeRelativePath = mkOption {
+            type = types.str;
+            default = "nix-config";
+            description = ''
+              Path to flake dir relative to $HOME
+              e.g. "nix-config" or ".config/nix-config"
+            '';
+          };
+          dirName = mkOption {
+            type = types.str;
+            readOnly = true;
+            default = baseNameOf config.homeRelativePath;
+            description = "Flake directory name, derived from flake.homeRelativePath";
+          };
+        };
+      });
+      default = {};
+      description = "Global constants for nixos and homeManager";
+    };
+
     modules = mkOption {
       type = types.submodule {
         options = {

@@ -1,5 +1,6 @@
 {
   modules.nixos.preservation = {
+    flake,
     config,
     lib,
     inputs,
@@ -16,7 +17,6 @@
       };
       files = mkOption {
         type = types.listOf (types.either types.str (types.attrsOf types.anything));
-
         default = [];
       };
       users = mkOption {
@@ -28,7 +28,6 @@
             };
             files = mkOption {
               type = types.listOf (types.either types.str (types.attrsOf types.anything));
-
               default = [];
             };
           };
@@ -70,6 +69,7 @@
 
           users = let
             defaultUserDirectories = [
+              flake.homeRelativePath
               ".config"
               ".local"
               ".ssh"
@@ -80,7 +80,6 @@
               "Pictures"
               "Videos"
               "Music"
-              "nix-config" # TODO: mkOption for flakePath
             ];
             defaultUserFiles = [];
           in

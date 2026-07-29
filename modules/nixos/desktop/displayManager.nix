@@ -16,7 +16,7 @@
         default = "tui";
         description = "Choose Login Display Manager";
       };
-      profileIcon = lib.mkOption {
+      profileIcons = lib.mkOption {
         type = lib.types.attrsOf lib.types.path;
         default = {};
         description = "Per-user login icon";
@@ -82,7 +82,7 @@
               cyTus = ../../../assets/sddm/cyTus.mp4;
               frame-1 = ../../../assets/sddm/frame-1.png;
             };
-            profileIcons = lib.genAttrs users (name: cfg.profileIcon.${name} or ../../../assets/face.jpg);
+            profileIcons = lib.genAttrs users (name: cfg.profileIcons.${name} or ../../../assets/face.jpg);
             settings = {
               "General" = {
                 scale = 1.0;

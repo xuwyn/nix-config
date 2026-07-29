@@ -1,6 +1,5 @@
 {config, ...}: {
   nixos.mango = {
-    host = "mango";
     system = "x86_64-linux";
     users = ["wyn"];
     modules = with config.modules.nixos; [

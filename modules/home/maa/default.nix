@@ -4,6 +4,7 @@
     lib,
     pkgs,
     inputs,
+    flake,
     ...
   }: let
     mkOutOfStoreSymlink = path: config.lib.file.mkOutOfStoreSymlink path;
@@ -32,10 +33,10 @@
       file = {
         ".config/maa/profiles".source =
           mkOutOfStoreSymlink
-          "${config.home.homeDirectory}/nix-config/modules/home/maa/profiles";
+          "${config.home.homeDirectory}/${flake.homeRelativePath}/modules/home/maa/profiles";
         ".config/maa/tasks".source =
           mkOutOfStoreSymlink
-          "${config.home.homeDirectory}/nix-config/modules/home/maa/tasks";
+          "${config.home.homeDirectory}/${flake.homeRelativePath}/modules/home/maa/tasks";
       };
     };
   };
