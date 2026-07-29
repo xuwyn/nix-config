@@ -47,7 +47,6 @@ in {
       hl.bind("SUPER + O", hl.dsp.exec_cmd("app2unit -- obs"))
       hl.bind("SUPER + T", hl.dsp.exec_cmd("thunar"))
       hl.bind("SUPER + Y", hl.dsp.exec_cmd("kitty -e yazi"))
-      hl.bind("SUPER + ALT + M", hl.dsp.exec_cmd("pavucontrol"))
 
       -- WINDOW MANAGEMENT
       hl.bind("SUPER + Q", hl.dsp.window.close())

@@ -95,7 +95,6 @@
         eog # GNOME Image viewer (GTK based)
         swappy # GUI to edit screenshots
         file-roller # GNOME Archive manager interface
-        pavucontrol # PulseAudio/PipeWire volume panel
       ];
 
       home.file = {

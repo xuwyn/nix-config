@@ -15,5 +15,6 @@
     maim # cli screenshot utility
     slop # region selection for screenshot
     xclip # access X clipboard for screenshot
+    pavucontrol # PulseAudio/PipeWire volume panel
   ];
 }

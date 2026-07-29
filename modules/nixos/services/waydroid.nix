@@ -32,28 +32,34 @@
         systemd = {
           packages = [pkgs.waydroid-helper];
           services.waydroid-mount.wantedBy = ["multi-user.target"];
+
           services.waydroid-fix = {
             description = "Fix Waydroid Settings";
-            after = ["waydroid-container.service"];
-            bindsTo = ["waydroid-container.service"];
-            wantedBy = ["multi-user.target"];
+            before = ["waydroid-container.service"];
+            wantedBy = ["waydroid-container.service"];
             serviceConfig = {
               Type = "oneshot";
               RemainAfterExit = true;
               ExecStart = pkgs.writeShellScript "waydroid-fix" ''
                 set -e
-                ${pkgs.coreutils}/bin/sleep 5
-
-                # fixes for nvidia gpu
-                ${config.virtualisation.waydroid.package}/bin/waydroid prop set ro.hardware.gralloc default
-                ${config.virtualisation.waydroid.package}/bin/waydroid prop set ro.hardware.egl swiftshader
-
-                # set persist resolution
-                ${config.virtualisation.waydroid.package}/bin/waydroid prop set persist.waydroid.density 240
-                ${config.virtualisation.waydroid.package}/bin/waydroid prop set persist.waydroid.width 1600
-                ${config.virtualisation.waydroid.package}/bin/waydroid prop set persist.waydroid.height 900
+                PROP_FILE="/var/lib/waydroid/waydroid.prop"
+                mkdir -p /var/lib/waydroid
+                touch "$PROP_FILE"
+                chown root:root "$PROP_FILE"
+                chmod 644 "$PROP_FILE"
+                set_prop() {
+                  ${pkgs.gnused}/bin/sed -i "/^$1=/d" "$PROP_FILE"
+                  echo "$1=$2" >> "$PROP_FILE"
+                }
+                set_prop persist.waydroid.width 1600
+                set_prop persist.waydroid.height 900
               '';
             };
+          };
+
+          services.waydroid-container = {
+            requires = ["waydroid-fix.service"];
+            after = ["waydroid-fix.service"];
           };
         };
       };

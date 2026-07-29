@@ -27,8 +27,8 @@
       default-window-height.fixed = 240;
     }
     {
-      match._props.title._raw = ''r#"^(Waydroid)$"#'';
-      open-floating = true;
+      match._props.app-id._raw = ''r#"^(Waydroid)$"#'';
+      open-floating = false;
     }
     {
       match._props.app-id._raw = ''r#"^(com\.jaoushingan\.WaydroidHelper)$"#'';
@@ -36,11 +36,7 @@
     }
     {
       match._props.app-id._raw = ''r#"^(waydroid\.com\.YoStarEN\.Arknights)$"#'';
-      open-floating = true;
-    }
-    {
-      match._props.app-id._raw = ''r#"^(pavucontrol|org.pulseaudio.pavucontrol|com.saivert.pwvucontrol)$"#'';
-      open-floating = true;
+      open-floating = false;
     }
     {
       match._props = {

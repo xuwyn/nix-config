@@ -194,15 +194,6 @@
     }
 
     {
-      name = "PlusAudio";
-      match = {
-        class = "^(pavucontrol|org.pulseaudio.pavucontrol|com.saivert.pwvucontrol)$";
-      };
-      center = true;
-      tag = "+settings";
-    }
-
-    {
       name = "xdg-desktop-portal-gtk";
       match = {
         class = "(xdg-desktop-portal-gtk)";
