@@ -28,12 +28,15 @@
       programs = {
         seahorse.enable = true;
         localsend.enable = true;
+        dconf.enable = true;
       };
 
       # Services to start
       services = {
         upower.enable = true; # noctalia shell battery
         power-profiles-daemon.enable = true;
+        blueman.enable = true; # Bluetooth Tray
+        gvfs.enable = true; # GUI for Mounting Drives
         tumbler.enable = true; # Image/video preview
         gnome.gnome-keyring.enable = true;
         smartd = {

@@ -33,12 +33,22 @@
       enableUserSlices = true;
     };
 
+    services = {
+      libinput.enable = true; # Input Handling
+      fstrim.enable = true; # SSD Optimizer
+    };
+
     environment.systemPackages = with pkgs; [
-      brightnessctl # Needs hardware permissions to alter laptop backlight
-      ddcutil # Needs direct access to monitor I2C buses for brightness
-      power-profiles-daemon # System-level power management daemon
+      mesa-demos # glxinfo, eglinfo
+      lm_sensors # sensors
+      lshw # hardware report
+      pciutils # lspci
+      usbutils # lsusb
+      brightnessctl # laptop backlight
+      ddcutil # monitor brightness
+      power-profiles-daemon # power management
       upower # System daemon for battery tracking
-      v4l-utils # Video4Linux utils; handles kernel-level webcam/OBS loops
+      v4l-utils # handles kernel-level webcam/OBS
       smartmontools # smartctl for drive health
     ];
 

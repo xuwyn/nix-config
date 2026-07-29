@@ -67,36 +67,13 @@
         NIXOS_OZONE_WL = "1";
       };
 
-      # General services, programs and packages
-      services = {
-        libinput.enable = true; # Input Handling
-        blueman.enable = true; # Bluetooth Support
-        fstrim.enable = true; # SSD Optimizer
-        gvfs.enable = true; # For Mounting USB & More
-      };
-
       programs = {
         mtr.enable = true; # ping and traceroute
-
-        gnupg.agent = {
-          enable = true;
-          enableSSHSupport = true;
-        };
-
-        dconf.enable = true;
       };
 
       environment.systemPackages = with pkgs; [
-        # --- System Diagnostics & Hardware Probing ---
-        inxi # Needs system-wide access to read specs
-        mesa-demos # Provides glxinfo/eglinfo used by inxi for GPU tracking
-        lm_sensors # Needs root-level access to read motherboard temp sensors
-        lshw # Detailed hardware list; won't work properly as a normal user
-        pciutils # Inspects physical PCI devices (lspci)
-        usbutils # Inspects physical USB buses (lsusb)
-        procps # process utilities
-
-        # --- Utilities ---
+        inxi # system summary
+        procps # ps, top, kill
         killall
         wget
         git
