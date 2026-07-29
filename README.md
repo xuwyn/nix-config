@@ -6,13 +6,44 @@ so most features are in Home Manager for portability.
 
 ## Previews
 
-### Hyprland + Noctalia
+<details>
+<summary>Niri + Noctalia</summary>
 
-![Hyprland + Noctalia Screenshot](./assets/previews/hyprland-noctalia.png)
+<table align="center" style="width: 600px;">
+  <tr>
+    <td align="center">
+      <img src="https://media.githubusercontent.com/media/xuwyn/nix-config/refs/heads/main/assets/previews/niri-noctalia.png" width="100%" />
+    </td>
+  </tr>
+</table>
 
-### i3 + Polybar
+</details>
 
-![i3 + Polybar Screenshot](./assets/previews/i3-polybar.png)
+<details>
+<summary>Hyprland + DankMaterialShell</summary>
+
+<table align="center" style="width: 600px;">
+  <tr>
+    <td align="center">
+      <img src="https://media.githubusercontent.com/media/xuwyn/nix-config/refs/heads/main/assets/previews/hyprland-dms.png" width="100%" />
+    </td>
+  </tr>
+</table>
+
+</details>
+
+<details>
+<summary>i3 + Polybar</summary>
+
+<table align="center" style="width: 600px;">
+  <tr>
+    <td align="center">
+      <img src="https://media.githubusercontent.com/media/xuwyn/nix-config/refs/heads/main/assets/previews/i3-polybar.png" width="100%" />
+    </td>
+  </tr>
+</table>
+
+</details>
 
 ## Overview
 
@@ -47,11 +78,11 @@ I went with **`<class>.<aspect>`** since it's easier to separate aspects by clas
 
 > [!TIP]
 >
-> - Naming scheme: **`modules.<class>.<aspect>`** with **`options.<class>.<aspect>.<module>`**
+> - Naming scheme: **`modules.<class>.<aspect>`** with **`options.<class>.<aspect>.<feature>`**
 >   - **`<class>`**: `nixos` or `homeManager`
 >   - **`<aspect>`**: Usually the same as the folder name
->   - **`<module>`**: Usually the same as the filename (some files has multiple modules in them)
->   - If a file does not belong to any aspect folder, its filename becomes the aspect, and there is no **`<module>`** level in its option path. These standalone aspects are also enabled by default.
+>   - **`<feature>`**: Usually the same as the filename (some files have multiple features in them)
+>   - If a file does not belong to any folder, its filename becomes the aspect, and there is no **`<feature>`** level in its option path. These standalone aspects are also enabled by default.
 > - `nixpkgs-stable` is just a pinned commit of `nixpkgs` (which tracks `nixos-unstable`) from a
 >   previous flake update and is **NOT** the actual NixOS stable release (`26.05`)
 > - `aarch64-darwin` platform follows this `nixpkgs-stable` input (see `./modules/lib/builders.nix`)
@@ -60,7 +91,7 @@ I went with **`<class>.<aspect>`** since it's easier to separate aspects by clas
 
 ## Hosts
 
-| Host       | Platform         | OS            | Modules               | WM + Bar                                                                         |
+| Host       | Platform         | OS            | Modules               | DE                                                                               |
 | ---------- | ---------------- | ------------- | --------------------- | -------------------------------------------------------------------------------- |
 | `apricot`  | `aarch64-darwin` | MacOS         | `homeManager`         | Aerospace                                                                        |
 | `capybara` | `x86_64-linux`   | CachyOS       | `homeManager`         | Hyprland + [DankMaterialShell](https://github.com/AvengeMedia/DankMaterialShell) |

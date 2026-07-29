@@ -643,12 +643,12 @@ in {
       showOnLastDisplay = true;
       spacing = 0;
       squareCorners = true;
-      transparency = 1;
+      transparency = 0.75;
       visible = true;
       widgetOutlineEnabled = true;
       widgetOutlineThickness = 2;
       widgetPadding = 8;
-      widgetTransparency = 1;
+      widgetTransparency = 0;
       shadowIntensity = 0;
       barInsetPadding = 15;
       widgetOutlineColor = "secondary";
