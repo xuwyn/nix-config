@@ -1,7 +1,7 @@
 <h2 align="center">Half-baked Dendritic Nix Config</h2>
 
 My personal config for NixOS and Home Manager (standalone) running on `x86_64-linux` and `aarch64-darwin`.
-Currently, I have no desire to fully transform every hosts I have into NixOS,
+I currently have no desire to fully transform every hosts I have into NixOS,
 so most features are in Home Manager for portability.
 
 ## Previews
@@ -16,9 +16,8 @@ so most features are in Home Manager for portability.
 
 ## Overview
 
-This flake implements a half-baked [dendritic pattern](https://github.com/mightyiam/dendritic).
-Why half-baked? Because mixing different classes (i.e., `nixos`, `homeManager`, and `darwin`)
-into the same aspect doesn't feel right to me.
+This flake implements a half-baked dendritic pattern. Why half-baked?
+Because mixing different classes (i.e., `nixos`, `homeManager`, and `darwin`) into the same aspect doesn't feel right to me.
 From what I learned, there are two main ways to set up dendritic pattern:
 
 - **`<class>.<aspect>`** which is the standard [flake-parts](https://flake.parts)
@@ -61,13 +60,13 @@ I went with **`<class>.<aspect>`** since it's easier to separate aspects by clas
 
 ## Hosts
 
-| Host       | Platform         | OS            | Modules               | WM + Bar            |
-| ---------- | ---------------- | ------------- | --------------------- | ------------------- |
-| `apricot`  | `aarch64-darwin` | MacOS         | `homeManager`         | Aerospace           |
-| `capybara` | `x86_64-linux`   | CachyOS       | `homeManager`         |
+| Host       | Platform         | OS            | Modules               | WM + Bar                                                                         |
+| ---------- | ---------------- | ------------- | --------------------- | -------------------------------------------------------------------------------- |
+| `apricot`  | `aarch64-darwin` | MacOS         | `homeManager`         | Aerospace                                                                        |
+| `capybara` | `x86_64-linux`   | CachyOS       | `homeManager`         | Hyprland + [DankMaterialShell](https://github.com/AvengeMedia/DankMaterialShell) |
 | `lettuce`  | `x86_64-linux`   | WSL           | `nixos`+`homeManager` |
-| `mango`    | `x86_64-linux`   | NixOS         | `nixos`+`homeManager` | Hyprland + Noctalia |
-| `potato`   | `x86_64-linux`   | Debian Trixie | `homeManager`         | i3 + Polybar        |
+| `mango`    | `x86_64-linux`   | NixOS         | `nixos`+`homeManager` | Niri + [Noctalia](https://github.com/noctalia-dev/noctalia)                      |
+| `potato`   | `x86_64-linux`   | Debian Trixie | `homeManager`         | i3 + Polybar                                                                     |
 
 ## Installation
 
@@ -80,7 +79,7 @@ Create host-specific config file
 ```sh
 cd ~/nix-config
 mkdir -p modules/hosts/new-host
-touch modules/hosts/new-host/configuration.nix
+vi modules/hosts/new-host/configuration.nix
 ```
 
 <details>
@@ -92,7 +91,6 @@ wallpaper = ../../../wallpapers/default.png;
 in {
   nixos.new-host = {
     system = "x86_64-linux";
-    host = "new-host";
     users = ["new-user"];
     modules = with config.modules.nixos; [
       ./_disko.nix
@@ -129,7 +127,9 @@ in {
       sops
       cli
       terminals
+      desktop
       hyprland
+      noctalia
       theme
       (_: {
         homeManager = {
@@ -142,7 +142,6 @@ in {
             };
           };
           terminals.kitty.enable = true;
-          hyprland.enable = true;
           theme = { matugen = { enable = true; inherit wallpaper; }; };
         };
       })
@@ -158,9 +157,6 @@ in {
 #### NixOS
 
 **Create [disko](https://github.com/nix-community/disko/tree/master) configuration**
-
-> [!NOTE]
-> [Impermanence](https://github.com/nix-community/impermanence#home-manager) only supports `home-manager` as a NixOS module so create a subvolume for `/home` to exclude it from impermanence
 
 1. Follow the [quickstart.md](https://github.com/nix-community/disko/blob/master/docs/quickstart.md) to get a disko template
 2. Replace `device` with disk name or id, obtains by
@@ -198,21 +194,24 @@ in {
    sops nix-config/modules/sops/new-host.yaml
 
    # Format disk with disko
-   sudo nix --experimental-features "nix-command flakes" run github:nix-community/disko -- --mode disko --flake nix-config#new-host
+   sudo nix --experimental-features "nix-command flakes" \
+   run github:nix-community/disko -- --mode disko --flake ./nix-config#new-host
 
    # Copy host keys to newly formatted disk
    sudo mkdir -p /mnt/etc/sops/age
    sudo cp keys.txt /mnt/etc/sops/age
 
    # Install NixOS
-   sudo nixos-install --root /mnt --flake nix-config#new-host
+   sudo nixos-install --root /mnt --flake ./nix-config#new-host
 
-   # Copy host keys to /persist (just in case)
-   sudo cp -r /mnt/etc/sops /mnt/persist/root/etc
+   # Copy host keys to /persist/etc (just in case)
+   sudo cp -r /mnt/etc/sops /mnt/persist/etc/
 
-   # Copy current repo to new-user's home
-   sudo cp -r nix-config /mnt/home/new-user
-   sudo chown -R new-user:new-user /mnt/home/new-user/nix-config
+   # Copy current repo to /persist/home/new-user
+   sudo cp -r nix-config /mnt/persist/home/new-user/
+
+   # Fix ownership (might not work if new-user is not defined in the ISO)
+   sudo chown -R new-user:users /mnt/persist/home/new-user/nix-config
 
    # Reboot into UEFI
    systemctl reboot --firmware-setup
@@ -244,6 +243,9 @@ Or install [Determinate Nix](https://docs.determinate.systems/determinate-nix/) 
 
 ### Install Home Manager (Standalone)
 
+> [!NOTE]
+> This step can be skipped for hosts that use both `nixos` and `homeManager`
+
 Follow the [official guide](https://nix-community.github.io/home-manager/installation/standalone.html) to install Home Manager
 
 ```sh
@@ -252,9 +254,15 @@ nix-channel --update
 nix-shell '<home-manager>' -A install
 ```
 
+Or use `nix-shell` just to get the binary
+
+```sh
+nix-shell -p home-manager
+```
+
 ### Enable Flake
 
-If not using Determinate, enable flake before running `nixos-rebuild` and/or `home-manager switch`
+If not using Determinate, enable flake locally before running `nixos-rebuild` and/or `home-manager switch`
 
 ```sh
 mkdir -p ~/.config/nix
@@ -264,7 +272,7 @@ echo "experimental-features = nix-command flakes" >> ~/.config/nix/nix.conf
 ### Nix Rebuild (NixOS Only)
 
 > [!NOTE]
-> This step can be skipped for hosts that only use Home Manager
+> This step can be skipped for hosts that only use `homeManager`
 
 Run initial build with `nixos-rebuild`
 
@@ -326,7 +334,7 @@ nh home switch --dry
 nh home switch
 ```
 
-### Flake Update
+## Flake Update
 
 This flake uses [tack](https://github.com/manic-systems/tack) to lazily fetch inputs
 
@@ -341,7 +349,7 @@ tack rm <name>
 tack update [names...]
 ```
 
-### Garbage Collector
+## Garbage Collector
 
 ```sh
 # use `nh`
@@ -353,7 +361,7 @@ ncg
 
 ## Troubleshoot
 
-### NVIDIA Shenanigans
+### NVIDIA shenanigans
 
 - Use open-sourced driver for RTX 50xx (see `./modules/nixos/drivers/nvidia.nix`)
 - Use `offload` mode for laptop with NVIDIA GPU
@@ -383,13 +391,13 @@ ncg
   }
   ```
 
-### Fix `pkg-config` Path on Non-NixOS Hosts
+### Fix `pkg-config` path on non-NixOS hosts
 
 When Nix is installed on a non-NixOS host, it puts its own path at the beginning of `$PATH`.
 This leads to errors running updates with the host's native package manager (e.g., `apt`, `yay`, etc.)
 because the nix version of `pkg-config` points to the `nix-store` instead of the host system.
 
-#### Arch-based Distros
+#### Arch-based distros
 
 Because AUR helpers like `yay` and `paru` rely on `makepkg` (from `pacman`) to compile packages:
 
@@ -398,20 +406,79 @@ mkdir -p ~/.config/pacman
 echo 'PKG_CONFIG_PATH="/usr/lib/pkgconfig:/usr/share/pkgconfig"' >> ~/.config/pacman/makepkg.conf
 ```
 
+### Recover from an external drive
+
+This section details the steps to manually recover from cases where reformatting drive and/or reinstalling NixOS is unnecessary
+(e.g., freezing on boot or user password failing to authenticate).
+Maybe one day I'll write a script for it.
+
+**Prerequisites:**
+
+- An external drive with Nix installed (can be either NixOS ISO or just the bare-bones nix manager)
+- The keys to decrypt user passwords are still accessible
+
+**For this example:**
+
+- `/dev/sda1` is the `/boot` partition
+- `/dev/sda2` is the `/root` partition (btrfs) encrypted with `luks`
+
+```sh
+# Find the correct drive
+lsblk -f
+
+# Decrypt /root
+sudo cryptsetup luksOpen /dev/sda2 cryptroot
+
+# Make local mounting points
+sudo mkdir -p /mnt/persist /mnt/nix /mnt/boot
+
+# Mount all btrfs subvols
+sudo mount -o subvol=root /dev/mapper/cryptroot /mnt
+sudo mount -o subvol=persist /dev/mapper/cryptroot /mnt/persist
+sudo mount -o subvol=nix /dev/mapper/cryptroot /mnt/nix
+
+# Mount /boot
+sudo mount /dev/sda1 /mnt/boot
+
+# (Optional) Read last boot log
+sudo journalctl -D /mnt/persist/var/log/journal -b -1
+
+# Copy host keys to where sops is set to look for them
+# Assume the host age keys survive in /persist
+sudo cp -r /mnt/persist/etc/sops /mnt/etc/
+
+# (Optional) Copy host ssh keys (I don't use them for sops)
+sudo cp -r /mnt/persist/etc/ssh /mnt/etc/
+
+# Copy machine-id (assume machine-id survives in /persist)
+sudo cp /mnt/persist/etc/machine-id /mnt/etc/
+
+# Get nixos-install-tools (on non-nixos)
+nix shell nixpkgs#nixos-install-tools
+
+# Rebuild NixOS using the flake in external drive
+sudo env "PATH=$PATH" nixos-install --root /mnt --flake ./path-to-flake#hostname --no-root-passwd
+
+# Reboot
+systemctl reboot --firmware-setup
+```
+
 ## Acknowledgement
 
-Huge thanks to everyone whose configurations I have referenced for the past two months learning Nix!
+Huge thanks to everyone whose configurations I have ~~stolen~~ referenced for the past two months learning Nix.
 I also want to extend my sincere thank you to all the nixpkgs maintainers, as well as the authors
-and contributors of open-source projects I used in my setup!
+and contributors of all open-source projects I used in my nix!
 
 ### References
 
-- **[Zaney/zaneyos](https://gitlab.com/Zaney/zaneyos)**: Best starting point for beginner (especially for non-coders like me 🥲)
-- **[linusammon/nixos-config](https://github.com/linusammon/nixos-config)**: Tips to migrate away from `flake-parts` and `import-tree`
-- **[iynaix/dotfiles](https://github.com/iynaix/dotfiles)**: where I learned about cool stuffs like `tack`, `nvfetcher`, `nix repl`
-- **[Doc-Steve/dendritic-design-with-flake-parts](https://github.com/Doc-Steve/dendritic-design-with-flake-parts)**: Guide to setup dendritic pattern
-- **[denful/den](https://github.com/denful/den)**: A complex den framework
-- **[ryan4yin/nix-config](https://github.com/ryan4yin/nix-config)**: Server stuffs
-- **[Vortriz/dotfiles](https://github.com/Vortriz/dotfiles)**: Custom zed theme using stylix colors
-- **[AlexNabokikh/nix-config](https://github.com/AlexNabokikh/nix-config)**: Simple dendritic nix
-- **[MatthiasBenaets/nix-config](https://github.com/MatthiasBenaets/nix-config)**: Dev shell layout and Aerospace WM
+- **[Zaney/zaneyos](https://gitlab.com/Zaney/zaneyos):** Best starting point for beginner (especially for non-coders like me 🥲)
+- **[linusammon/nixos-config](https://github.com/linusammon/nixos-config):** Tips to migrate away from `flake-parts` and `import-tree`
+- **[iynaix/dotfiles](https://github.com/iynaix/dotfiles):** where I learned about cool stuffs like `tack`, `nvfetcher`, `nix repl`
+- **[iStellanova/Stellyrland](https://github.com/iStellanova/Stellyrland):** Tips to set up `preservation`
+- **[rysieko.pl/nixossmth](https://tangled.org/rysieko.pl/nixossmth):** Tips to set up `preservation`
+- **[Doc-Steve/dendritic-design-with-flake-parts](https://github.com/Doc-Steve/dendritic-design-with-flake-parts):** Guide to setup dendritic pattern
+- **[denful/den](https://github.com/denful/den):** A complex den framework, probably overkilled for me
+- **[ryan4yin/nix-config](https://github.com/ryan4yin/nix-config):** Server stuffs
+- **[Vortriz/dotfiles](https://github.com/Vortriz/dotfiles):** Custom zed theme using stylix colors
+- **[AlexNabokikh/nix-config](https://github.com/AlexNabokikh/nix-config):** Simple dendritic structure
+- **[MatthiasBenaets/nix-config](https://github.com/MatthiasBenaets/nix-config):** Dev shell layout and Aerospace WM
