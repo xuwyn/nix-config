@@ -4,6 +4,7 @@
     username,
     pkgs,
     config,
+    lib,
     ...
   }: {
     imports = [inputs.nix-index-database.homeModules.default];
@@ -32,7 +33,7 @@
           "flakes"
         ];
       };
-      extraOptions = ''
+      extraOptions = lib.optionalString (config ? sops && config.sops.templates ? "nix-access-tokens.conf") ''
         !include ${config.sops.templates."nix-access-tokens.conf".path}
       '';
     };

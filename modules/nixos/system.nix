@@ -9,11 +9,6 @@
     cfg = config.nixos.system;
   in {
     options.nixos.system = {
-      consoleKeyMap = lib.mkOption {
-        type = lib.types.str;
-        default = "us";
-        description = "Set Console Key Map";
-      };
       timeZone = lib.mkOption {
         type = lib.types.str;
         default = "America/Moncton";
@@ -37,7 +32,7 @@
           allowed-users = ["@wheel"];
           trusted-users = ["@wheel"];
         };
-        extraOptions = ''
+        extraOptions = lib.optionalString (config ? sops && config.sops.templates ? "nix-access-tokens.conf") ''
           !include ${config.sops.templates."nix-access-tokens.conf".path}
         '';
       };
@@ -58,9 +53,6 @@
           LC_TIME = "en_US.UTF-8";
         };
       };
-
-      # Console Input
-      console.keyMap = cfg.consoleKeyMap;
 
       # Global environment variables
       environment.variables = {

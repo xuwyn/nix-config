@@ -5,6 +5,7 @@
     pkgs,
     lib,
     users,
+    host,
     ...
   }: {
     imports = [inputs.sops-nix.nixosModules.sops];
@@ -13,7 +14,7 @@
     sops = {
       age.keyFile = "/etc/sops/age/keys.txt";
 
-      defaultSopsFile = ./${config.networking.hostName}.yaml;
+      defaultSopsFile = ./${host}.yaml;
       defaultSopsFormat = "yaml";
 
       secrets =
