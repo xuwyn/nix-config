@@ -3,6 +3,7 @@
     config,
     lib,
     pkgs,
+    inputs,
     ...
   }: {
     options.homeManager.cli.utils = {
@@ -22,6 +23,7 @@
         unzip # Unpacker
         gnugrep # grep cmd
         jq # json processor
+        inputs.ncr.packages.${pkgs.stdenv.hostPlatform.system}.default
       ];
     };
   };

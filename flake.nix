@@ -1,5 +1,5 @@
 {
-  description = "nixos+home: hyprland+noctalia/dms & i3+polybar";
+  description = "nixos+home: niri/hyprland+noctalia/dms & i3+polybar";
 
   # Binary caches
   nixConfig = {

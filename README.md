@@ -118,7 +118,7 @@ vi modules/hosts/new-host/configuration.nix
 
 ```nix
 { config, ... }: let
-wallpaper = ../../../wallpapers/default.png;
+wallpaper = ../../../assets/wallpapers/default.png;
 in {
   nixos.new-host = {
     system = "x86_64-linux";
@@ -190,63 +190,56 @@ in {
 **Create [disko](https://github.com/nix-community/disko/tree/master) configuration**
 
 1. Follow the [quickstart.md](https://github.com/nix-community/disko/blob/master/docs/quickstart.md) to get a disko template
-2. Replace `device` with disk name or id, obtains by
-
-   ```sh
-   lsblk -f
-   ls -la /dev/disk/by-id
-   ```
-
+2. Replace `device` with disk name or id obtained by running `lsblk -f` and `ls -la /dev/disk/by-id`
 3. Edit partition values to match hardware and personal preferences
 
 **Install NixOS with disko from a flash drive**
 
-1. Get an ISO image from [NixOS](https://nixos.org/download/) onto a flash drive and boot into it
-2. Step-by-step commands to format disk with disko and install NixOS
+Boot into an external drive with [NixOS](https://nixos.org/download/) ISO or any distro with Nix installed and do the following:
 
-   ```sh
-   # Use nix-shell to get all required tools
-   nix-shell -p git age sops
+```sh
+# Use nix-shell to get all required tools
+nix-shell -p git age sops
 
-   # Clone repo
-   git clone https://github.com/xuwyn/nix-config.git ~/nix-config
+# Clone repo
+git clone https://github.com/xuwyn/nix-config.git ~/nix-config
 
-   # Create age key for host
-   age-keygen -o keys.txt
+# Create age key for host
+age-keygen -o keys.txt
 
-   # Copy host public age key to .sops.yaml
-   age-keygen -y keys.txt
-   vi nix-config/modules/sops/.sops.yaml
+# Copy host public age key to .sops.yaml
+age-keygen -y keys.txt
+vi nix-config/modules/sops/.sops.yaml
 
-   # Create user password in hash
-   mkpasswd -m yescrypt
+# Create user password in hash
+mkpasswd -m yescrypt
 
-   # Add the hashed password to new-host.yaml
-   sops nix-config/modules/sops/new-host.yaml
+# Add the hashed password to new-host.yaml
+sops nix-config/modules/sops/new-host.yaml
 
-   # Format disk with disko
-   sudo nix --experimental-features "nix-command flakes" \
-   run github:nix-community/disko -- --mode disko --flake ./nix-config#new-host
+# Format disk with disko
+sudo nix --experimental-features "nix-command flakes" \
+run github:nix-community/disko -- --mode disko --flake ./nix-config#new-host
 
-   # Copy host keys to newly formatted disk
-   sudo mkdir -p /mnt/etc/sops/age
-   sudo cp keys.txt /mnt/etc/sops/age
+# Copy host keys to newly formatted disk
+sudo mkdir -p /mnt/etc/sops/age
+sudo cp keys.txt /mnt/etc/sops/age
 
-   # Install NixOS
-   sudo nixos-install --root /mnt --flake ./nix-config#new-host
+# Install NixOS
+sudo nixos-install --root /mnt --flake ./nix-config#new-host
 
-   # Copy host keys to /persist/etc (just in case)
-   sudo cp -r /mnt/etc/sops /mnt/persist/etc/
+# Copy host keys to /persist/etc (just in case)
+sudo cp -r /mnt/etc/sops /mnt/persist/etc/
 
-   # Copy current repo to /persist/home/new-user
-   sudo cp -r nix-config /mnt/persist/home/new-user/
+# Copy current repo to /persist/home/new-user
+sudo cp -r nix-config /mnt/persist/home/new-user/
 
-   # Fix ownership (might not work if new-user is not defined in the ISO)
-   sudo chown -R new-user:users /mnt/persist/home/new-user/nix-config
+# Fix ownership (might not work if new-user is not defined in the ISO)
+sudo chown -R new-user:users /mnt/persist/home/new-user/nix-config
 
-   # Reboot into UEFI
-   systemctl reboot --firmware-setup
-   ```
+# Reboot into UEFI
+systemctl reboot --firmware-setup
+```
 
 #### Other Distros
 
@@ -254,12 +247,6 @@ Install Nix package manager following the [official guide](https://nixos.org/dow
 
 ```sh
 curl --proto '=https' --tlsv1.2 -L https://nixos.org/nix/install | sh -s -- --daemon
-```
-
-Or install [Determinate Nix](https://docs.determinate.systems/determinate-nix/) instead (flake enabled by default)
-
-```sh
-curl -fsSL https://install.determinate.systems/nix | sh -s -- install
 ```
 
 #### MacOS
@@ -270,14 +257,12 @@ Install Nix package manager following the [official guide](https://nixos.org/dow
 curl --proto '=https' --tlsv1.2 -L https://nixos.org/nix/install | sh
 ```
 
-Or install [Determinate Nix](https://docs.determinate.systems/determinate-nix/) instead (flake enabled by default)
-
-### Install Home Manager (Standalone)
+### Install Home Manager
 
 > [!NOTE]
 > This step can be skipped for hosts that use both `nixos` and `homeManager`
 
-Follow the [official guide](https://nix-community.github.io/home-manager/installation/standalone.html) to install Home Manager
+Follow the [official guide](https://nix-community.github.io/home-manager/installation/standalone.html) to install Home Manager standalone
 
 ```sh
 nix-channel --add https://github.com/nix-community/home-manager/archive/master.tar.gz home-manager
@@ -293,14 +278,19 @@ nix-shell -p home-manager
 
 ### Enable Flake
 
-If not using Determinate, enable flake locally before running `nixos-rebuild` and/or `home-manager switch`
+> [!NOTE]
+> This step can be skipped for NixOS installed via `disko`
+
+Enable flake locally before running `nixos-rebuild` and/or `home-manager switch`
 
 ```sh
 mkdir -p ~/.config/nix
 echo "experimental-features = nix-command flakes" >> ~/.config/nix/nix.conf
 ```
 
-### Nix Rebuild (NixOS Only)
+## Apply Configurations
+
+### NixOS Rebuild
 
 > [!NOTE]
 > This step can be skipped for hosts that only use `homeManager`
@@ -507,9 +497,8 @@ and contributors of all open-source projects I used in my nix!
 - **[iynaix/dotfiles](https://github.com/iynaix/dotfiles):** where I learned about cool stuffs like `tack`, `nvfetcher`, `nix repl`
 - **[iStellanova/Stellyrland](https://github.com/iStellanova/Stellyrland):** Tips to set up `preservation`
 - **[rysieko.pl/nixossmth](https://tangled.org/rysieko.pl/nixossmth):** Tips to set up `preservation`
+- **[LucasOe/nixos-config](https://github.com/LucasOe/nixos-config):** Home Manager globbing mimeApps
 - **[Doc-Steve/dendritic-design-with-flake-parts](https://github.com/Doc-Steve/dendritic-design-with-flake-parts):** Guide to setup dendritic pattern
-- **[denful/den](https://github.com/denful/den):** A complex den framework, probably overkilled for me
-- **[ryan4yin/nix-config](https://github.com/ryan4yin/nix-config):** Server stuffs
 - **[Vortriz/dotfiles](https://github.com/Vortriz/dotfiles):** Custom zed theme using stylix colors
 - **[AlexNabokikh/nix-config](https://github.com/AlexNabokikh/nix-config):** Simple dendritic structure
 - **[MatthiasBenaets/nix-config](https://github.com/MatthiasBenaets/nix-config):** Dev shell layout and Aerospace WM

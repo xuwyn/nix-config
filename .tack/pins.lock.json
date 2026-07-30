@@ -79,6 +79,14 @@
     "narHash": "sha256-kMk+ieiUNkx4s/URivt25/b3W9TCIB7ddp/gg4vCjIs=",
     "lastModified": 1784836631
   },
+  "ncr": {
+    "type": "github",
+    "owner": "greyxp1",
+    "repo": "ncr",
+    "rev": "964a639399ca8f80454b44494e7e97a6918dc903",
+    "narHash": "sha256-iEPl6VE2VP+2RaJtjooW9eeABaFbu73YvseAJWmpNTg=",
+    "lastModified": 1785410313
+  },
   "niri-nix": {
     "type": "git",
     "url": "https://codeberg.org/BANanaD3V/niri-nix",

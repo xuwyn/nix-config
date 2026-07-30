@@ -129,3 +129,6 @@ exclude_follow = ["nixpkgs"]
 
 [inputs.preservation]
 url = "github:nix-community/preservation"
+
+[inputs.ncr]
+url = "github:greyxp1/ncr"
