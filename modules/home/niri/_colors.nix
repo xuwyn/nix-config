@@ -20,5 +20,6 @@ in {
       ${lib.optionalString cfg.niri.barThemeEnabled (barThemes.${bar} or "")}
     ''
     + lib.optionalString (matugenEnabled && !cfg.niri.barThemeEnabled) ''
+      include optional=true "matugen-colors.kdl"
     '';
 }

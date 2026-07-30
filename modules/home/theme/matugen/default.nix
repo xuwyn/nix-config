@@ -35,8 +35,15 @@
         ];
         default = "scheme-tonal-spot";
       };
+      papirusPackage = lib.mkOption {
+        type = lib.types.package;
+        description = "Expose matugen overrided papirus folders";
+      };
     };
-    imports = [inputs.matugen.nixosModules.default];
+    imports = [
+      inputs.matugen.nixosModules.default
+      ./templates/_papirus-folders.nix
+    ];
     config = lib.mkIf cfg.enable {
       programs.matugen = {
         enable = true;
@@ -69,6 +76,10 @@
           hyprland = {
             input_path = ./templates/hyprland-colors.lua;
             output_path = "$HOME/.config/hypr/matugen.lua";
+          };
+          niri = {
+            input_path = ./templates/niri-colors.kdl;
+            output_path = "$HOME/.config/niri/matugen-colors.kdl";
           };
           gtk3 = {
             input_path = ./templates/gtk-colors.css;
@@ -131,6 +142,9 @@
         };
         ".config/hypr/matugen.lua" = lib.mkIf (homeModules ? hyprland) {
           source = "${matugenDir}/.config/hypr/matugen.lua";
+        };
+        ".config/niri/matugen-colors.kdl" = lib.mkIf (homeModules ? niri) {
+          source = "${matugenDir}/.config/niri/matugen-colors.kdl";
         };
         ".config/gtk-3.0/matugen-colors.css" = lib.mkIf (homeModules ? theme
           && homeModules.theme.gtk.enable) {

@@ -290,11 +290,11 @@ builtin = "Ayu"
 custom_palette = "m3-content"
 mode = "dark"
 source = "wallpaper"
-wallpaper_scheme = "m3-content"
+wallpaper_scheme = "m3-tonal-spot"
 
     [theme.templates]
     builtin_ids = [ "btop", "cava", "gtk3", "gtk4", "ghostty", "hyprland", "kitty", "niri", "qt" ]
-    community_ids = [ "pywalfox", "zed", "discord" ]
+    community_ids = [ "pywalfox", "discord", "zed" ]
 
         [theme.templates.user.nvim-base16]
         input_path = "~/.config/nvim/lua/matugen-template.lua"
@@ -305,16 +305,16 @@ wallpaper_scheme = "m3-content"
 directory = "/home/wyn/Pictures/Wallpapers"
 
     [wallpaper.default]
-    path = "/home/wyn/Pictures/Wallpapers/summertime-rendering.png"
+    path = "/home/wyn/Pictures/Wallpapers/Embraced_A.png"
 
     [wallpaper.last]
-    path = "/home/wyn/Pictures/Wallpapers/summertime-rendering.png"
+    path = "/home/wyn/Pictures/Wallpapers/Embraced_A.png"
 
     [wallpaper.monitors.DP-2]
     path = "/home/wyn/Pictures/Wallpapers/summertime-rendering.png"
 
     [wallpaper.monitors.DP-5]
-    path = "/home/wyn/Pictures/Wallpapers/summertime-rendering.png"
+    path = "/home/wyn/Pictures/Wallpapers/Embraced_A.png"
 
     [[wallpaper.favorite]]
     palette_source = "wallpaper"

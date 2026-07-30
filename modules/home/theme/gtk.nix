@@ -36,7 +36,10 @@
               package = pkgs.adw-gtk3;
             };
             iconTheme = {
-              package = pkgs.papirus-icon-theme;
+              package =
+                if matugenEnabled
+                then config.homeManager.theme.matugen.papirusPackage
+                else pkgs.papirus-icon-theme;
               name = "Papirus-Dark";
             };
           }

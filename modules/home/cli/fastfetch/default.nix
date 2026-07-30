@@ -2,213 +2,80 @@
   modules.homeManager.cli = {
     config,
     lib,
+    pkgs,
     ...
   }: let
     cfg = config.homeManager.cli.fastfetch;
+
+    logos = {
+      frieren = {
+        source = ./frieren.png;
+        type = "kitty";
+        height = 20;
+        width = 26;
+        padding = {
+          top = 0;
+          left = 0;
+        };
+      };
+      onlooker = {
+        source = ./onlooker.gif;
+        type = "kitty-icat";
+        padding = {
+          top = 2;
+          left = 0;
+        };
+      };
+    };
+
+    profiles = {
+      full = import ./_full.nix {inherit logos;};
+      minimal = import ./_minimal.nix {inherit logos;};
+    };
+
+    profileFiles =
+      lib.mapAttrs' (
+        name: settings:
+          lib.nameValuePair "fastfetch/profiles/${name}.jsonc" {
+            text = builtins.toJSON settings;
+          }
+      )
+      profiles;
+    fetch-switcher = pkgs.writeShellScriptBin "ff" ''
+      set -euo pipefail
+      PROFILE_DIR="$HOME/.config/fastfetch/profiles"
+
+      if [ "$#" -eq 0 ]; then
+        exec ${pkgs.fastfetch}/bin/fastfetch
+      fi
+
+      CONFIG="$PROFILE_DIR/$1.jsonc"
+      if [ ! -f "$CONFIG" ]; then
+        echo "No such profile: $1" >&2
+        echo "Available profiles:" >&2
+        ls "$PROFILE_DIR" | sed 's/\.jsonc$//' >&2
+        exit 1
+      fi
+      exec ${pkgs.fastfetch}/bin/fastfetch --config "$CONFIG" "''${@:2}"
+    '';
   in {
     options.homeManager.cli.fastfetch = {
       enable = lib.mkEnableOption "Enable fastfetch";
-      terminal = lib.mkOption {
-        type = lib.types.enum ["kitty" "foot" "alacritty" "ghostty" "wezterm"];
-        default = "kitty";
-        description = "Choose terminal emulator";
-      };
-      logo = lib.mkOption {
-        type = lib.types.enum ["png" "gif"];
-        default = "png";
-        description = "Choose logo image type";
+      defaultProfile = lib.mkOption {
+        type = lib.types.enum (builtins.attrNames profiles);
+        default = "minimal";
+        description = "Profile used when running plain `fastfetch` with no args";
       };
     };
 
     config = lib.mkIf cfg.enable {
       programs.fastfetch = {
         enable = true;
-
-        settings = let
-          colors = {
-            os = "cyan";
-            wm = "blue";
-            hw = "dim_blue";
-          };
-          logo = {
-            gif = {
-              source = ./onlooker.gif;
-              type = "kitty-icat";
-              padding = {
-                top = 6;
-                left = 0;
-              };
-            };
-            png = {
-              source = ./frieren.png;
-              type =
-                if cfg.terminal == "wezterm"
-                then "iterm"
-                else "kitty";
-              height = 20;
-              width = 26;
-              padding = {
-                top = 1;
-                left = 0;
-              };
-            };
-          };
-        in {
-          display = {
-            # color = {
-            #   keys = "35";
-            #   output = "95";
-            # };
-            separator = " ➜  ";
-          };
-
-          logo = logo.${cfg.logo};
-
-          modules = [
-            "break"
-            {
-              type = "title";
-              key = "OS   ";
-              keyColor = colors.os;
-              outputColor = colors.os;
-            }
-            {
-              type = "os";
-              key = " ├  ";
-              keyColor = colors.os;
-              outputColor = colors.os;
-            }
-            {
-              type = "kernel";
-              key = " ├  ";
-              keyColor = colors.os;
-              outputColor = colors.os;
-            }
-            {
-              type = "packages";
-              key = " ├ 󰏖 ";
-              keyColor = colors.os;
-              outputColor = colors.os;
-            }
-            {
-              type = "terminal";
-              key = " ├  ";
-              keyColor = colors.os;
-              outputColor = colors.os;
-            }
-            {
-              type = "shell";
-              key = " └  ";
-              keyColor = colors.os;
-              outputColor = colors.os;
-            }
-            "break"
-            {
-              type = "wm";
-              key = "WM   ";
-              keyColor = colors.wm;
-              outputColor = colors.wm;
-            }
-            {
-              type = "command";
-              key = " ├  ";
-              keyColor = colors.wm;
-              text = "polybar -v | head -n 1";
-              outputColor = colors.wm;
-            }
-            {
-              type = "command";
-              key = " ├ 󰏒 ";
-              keyColor = colors.wm;
-              text = "noctalia --version";
-              outputColor = colors.wm;
-            }
-            {
-              type = "command";
-              key = " ├  ";
-              keyColor = colors.wm;
-              text = "dms version | cut -d'+' -f1";
-              outputColor = colors.wm;
-            }
-            {
-              type = "command";
-              key = " ├  ";
-              keyColor = colors.wm;
-              text = "caelestia --version | awk '/caelestia-shell/ {printf \"%s v%s\\n\",$1,$2; exit}'";
-              outputColor = colors.wm;
-            }
-            {
-              type = "wmtheme";
-              key = " ├ 󰉼 ";
-              keyColor = colors.wm;
-              outputColor = colors.wm;
-            }
-            {
-              type = "icons";
-              key = " ├ 󰀻 ";
-              keyColor = colors.wm;
-              outputColor = colors.wm;
-            }
-            {
-              type = "cursor";
-              key = " ├  ";
-              keyColor = colors.wm;
-              outputColor = colors.wm;
-            }
-            {
-              type = "terminalfont";
-              key = " └  ";
-              keyColor = colors.wm;
-              outputColor = colors.wm;
-            }
-            "break"
-            {
-              type = "host";
-              format = "{5} {2}";
-              key = "HW   ";
-              keyColor = colors.hw;
-              outputColor = colors.hw;
-            }
-            {
-              type = "cpu";
-              key = " ├  ";
-              keyColor = colors.hw;
-              outputColor = colors.hw;
-            }
-            {
-              type = "gpu";
-              # format = "{name} [{type}]";
-              key = " ├ 󰢮 ";
-              keyColor = colors.hw;
-              outputColor = colors.hw;
-            }
-            {
-              type = "memory";
-              key = " ├  ";
-              keyColor = colors.hw;
-              outputColor = colors.hw;
-            }
-            {
-              type = "disk";
-              key = " ├ 󰋊 ";
-              keyColor = colors.hw;
-              outputColor = colors.hw;
-            }
-            {
-              type = "monitor";
-              format = "{width}x{height} @ {refresh-rate} Hz";
-              key = " └  ";
-              keyColor = colors.hw;
-              outputColor = colors.hw;
-            }
-            "break"
-            {
-              type = "uptime";
-              key = "   Uptime   ";
-            }
-          ];
-        };
+        settings = profiles.${cfg.defaultProfile};
       };
+
+      xdg.configFile = profileFiles;
+      home.packages = [fetch-switcher];
     };
   };
 }

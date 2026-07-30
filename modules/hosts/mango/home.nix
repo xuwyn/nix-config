@@ -1,5 +1,5 @@
 {config, ...}: let
-  wallpaper = ../../../assets/wallpapers/summertime-rendering.png;
+  wallpaper = ../../../assets/wallpapers/Embraced_A.png;
 in {
   home."wyn@mango" = {
     system = "x86_64-linux";
@@ -65,10 +65,7 @@ in {
             obs-studio.enable = true;
             spicetify.enable = true;
           };
-          terminals = {
-            kitty.enable = true;
-            # ghostty.enable = true;
-          };
+          terminals.kitty.enable = true;
           cli = {
             zsh.enable = true;
             bash.enable = true;
@@ -85,10 +82,7 @@ in {
               enable = true;
               theme = "noctalia";
             };
-            fastfetch = {
-              enable = true;
-              logo = "png";
-            };
+            fastfetch.enable = true;
             bottom.enable = true;
             nh.enable = true;
             tealdeer.enable = true;

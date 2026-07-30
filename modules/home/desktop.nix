@@ -95,6 +95,7 @@
         eog # GNOME Image viewer (GTK based)
         swappy # GUI to edit screenshots
         file-roller # GNOME Archive manager interface
+        playerctl # control music player
       ];
 
       home.file = {
