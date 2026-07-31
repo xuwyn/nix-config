@@ -42,17 +42,27 @@
               RemainAfterExit = true;
               ExecStart = pkgs.writeShellScript "waydroid-fix" ''
                 set -e
-                PROP_FILE="/var/lib/waydroid/waydroid.prop"
-                mkdir -p /var/lib/waydroid
-                touch "$PROP_FILE"
-                chown root:root "$PROP_FILE"
-                chmod 644 "$PROP_FILE"
+                CFG_FILE="/var/lib/waydroid/waydroid.cfg"
+
+                if [ ! -f "$CFG_FILE" ]; then
+                  echo "waydroid.cfg not found, skipping (run 'waydroid init' first)" >&2
+                  exit 0
+                fi
+
                 set_prop() {
-                  ${pkgs.gnused}/bin/sed -i "/^$1=/d" "$PROP_FILE"
-                  echo "$1=$2" >> "$PROP_FILE"
+                  key="$1"
+                  value="$2"
+                  if ${pkgs.gnugrep}/bin/grep -qE "^''${key}[[:space:]]*=" "$CFG_FILE"; then
+                    ${pkgs.gnused}/bin/sed -i "s|^''${key}[[:space:]]*=.*|''${key} = ''${value}|" "$CFG_FILE"
+                  else
+                    ${pkgs.gnused}/bin/sed -i "/^\[properties\]/a ''${key} = ''${value}" "$CFG_FILE"
+                  fi
                 }
+
                 set_prop persist.waydroid.width 1600
                 set_prop persist.waydroid.height 900
+
+                ${pkgs.waydroid-nftables}/bin/waydroid upgrade --offline
               '';
             };
           };
