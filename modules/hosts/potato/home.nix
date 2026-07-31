@@ -32,7 +32,6 @@ in {
               }
             ];
           };
-          rofi.background = wallpaper;
           cli = {
             zsh.enable = true;
             git = {

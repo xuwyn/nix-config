@@ -1,4 +1,8 @@
 #!/usr/bin/env bash
+#
+# Delete all snapshots created by btrfs-root-rotate
+# in ../modules/nixos/preservation.nix
+
 set -euo pipefail
 
 mkdir -p /btrfs_tmp

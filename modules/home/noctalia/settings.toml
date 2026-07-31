@@ -276,6 +276,7 @@ enabled = [
 [shell]
 niri_overview_type_to_launch_enabled = true
 polkit_agent = true
+screen_time_enabled = true
 
     [shell.panel]
     control_center_placement = "attached"

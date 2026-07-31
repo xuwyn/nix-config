@@ -6,9 +6,8 @@
     ...
   }: let
     cfg = config.homeManager.rofi;
-    matugenEnabled = config.programs.matugen.enable or false;
     colors =
-      if matugenEnabled
+      if cfg.matugenEnabled
       then {
         base00 = "#" + config.programs.matugen.theme.colors.surface.default.color;
         base01 = "#" + config.programs.matugen.theme.colors.surface_container_low.default.color;
@@ -21,27 +20,24 @@
       }
       else {
         base00 = "#1e1e2e";
-        base01 = "#1e1e2e";
-        base05 = "#1e1e2e";
-        base08 = "#1e1e2e";
-        base09 = "#1e1e2e";
-        base0B = "#1e1e2e";
-        base0E = "#1e1e2e";
-        base0F = "#1e1e2e";
-
-        # base01 = "#181825";
-        # base05 = "#cdd6f4";
-        # base08 = "#f38ba8";
-        # base09 = "#fab387";
-        # base0B = "#a6e3a1";
-        # base0E = "#cba6f7";
-        # base0F = "#f2cdcd";
+        base01 = "#181825";
+        base05 = "#cdd6f4";
+        base08 = "#f38ba8";
+        base09 = "#fab387";
+        base0B = "#a6e3a1";
+        base0E = "#cba6f7";
+        base0F = "#f2cdcd";
       };
   in {
     options.homeManager.rofi = {
       background = lib.mkOption {
         type = lib.types.path;
+        default = config.homeManager.desktop.wallpaper;
         description = "Choose background";
+      };
+      matugenEnabled = lib.mkOption {
+        type = lib.types.bool;
+        default = config.programs.matugen.enable or false;
       };
     };
     imports = [
