@@ -26,7 +26,6 @@ in {
         defaultFileManager = "thunar.desktop";
 
         mediaDefaults = lib.mkMerge [
-          (defaultsFor "text/" defaultTextEditor)
           (defaultsFor "image/" defaultImageViewer)
           (defaultsFor "video/" defaultVideoPlayer)
           (defaultsFor "audio/" defaultAudioPlayer)

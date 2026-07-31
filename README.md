@@ -307,13 +307,13 @@ git lfs fetch
 git lfs checkout
 
 # use `dry-activate` to preview changes without applying them
-sudo nixos-rebuild dry-activate --flake .#new-host
+sudo nixos-rebuild dry-activate --flake .#host
 
 # use `switch` to apply changes after build
-sudo nixos-rebuild switch --flake .#new-host
+sudo nixos-rebuild switch --flake .#host
 
 # use `boot` to apply changes after a reboot
-sudo nixos-rebuild boot --flake .#new-host
+sudo nixos-rebuild boot --flake .#host
 ```
 
 If `nh` is enabled with the initial `home-manager switch`, subsequent rebuilds can be executed with
@@ -335,14 +335,15 @@ Run initial build with `home-manager`
 
 ```sh
 # use flag `--dry-run` to preview changes without applying them
-home-manager switch --flake .#new-user@new-host --dry-run
+home-manager switch --flake .#user@host --dry-run
 
 # apply changes after build
-home-manager switch --flake .#new-user@new-host
+home-manager switch --flake .#user@host
 
 # high-chance it will complain about backup files
+# overwriteBackup was not an option in standalone
 # use `-b bak` to backup files with .bak
-home-manager switch -b bak --flake .#new-user@new-host
+home-manager switch -b bak --flake .#user@host
 ```
 
 If `nh` is enabled with the initial `home-manager switch`, subsequent builds can be executed with
@@ -418,7 +419,7 @@ When Nix is installed on a non-NixOS host, it puts its own path at the beginning
 This leads to errors running updates with the host's native package manager (e.g., `apt`, `yay`, etc.)
 because the nix version of `pkg-config` points to the `nix-store` instead of the host system.
 
-#### Arch-based distros
+**Arch-based distros**
 
 Because AUR helpers like `yay` and `paru` rely on `makepkg` (from `pacman`) to compile packages:
 
