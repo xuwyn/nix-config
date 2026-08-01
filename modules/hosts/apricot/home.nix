@@ -50,10 +50,10 @@ in {
           terminals.kitty.enable = true;
           theme = {
             fonts.enable = true;
-            matugen = {
-              enable = true;
-              inherit wallpaper;
-            };
+            # matugen = {
+            #   enable = true;
+            #   inherit wallpaper;
+            # };
           };
         };
       })
