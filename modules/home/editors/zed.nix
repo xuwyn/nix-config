@@ -6,7 +6,7 @@
     ...
   }: let
     cfg = config.homeManager.editors.zed;
-    matugenEnabled = config.programs.matugen.enable;
+    matugenEnabled = config.programs.matugen.enable or false;
     bar = config.homeManager.desktop.bar or null;
     barThemes = {
       noctalia = "Noctalia Dark Transparent";
