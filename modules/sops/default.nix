@@ -25,11 +25,13 @@
           users)
         // {
           github_token = {};
+          gitlab_token = {};
+          codeberg_token = {};
         };
 
       templates = {
         "nix-access-tokens.conf".content = ''
-          access-tokens = github.com=${config.sops.placeholder.github_token}
+          access-tokens = github.com=${config.sops.placeholder.github_token} gitlab.com=${config.sops.placeholder.gitlab_token} codeberg.org=${config.sops.placeholder.codeberg_token}
         '';
       };
     };
@@ -50,15 +52,17 @@
       defaultSopsFormat = "yaml";
 
       secrets = {
-        "private_ssh_key" = {};
-        "public_ssh_key" = {};
-        "syncthing_password" = {};
-        "github_token" = {};
+        private_ssh_key = {};
+        public_ssh_key = {};
+        syncthing_password = {};
+        github_token = {};
+        gitlab_token = {};
+        codeberg_token = {};
       };
 
       templates = {
         "nix-access-tokens.conf".content = ''
-          access-tokens = github.com=${config.sops.placeholder.github_token}
+          access-tokens = github.com=${config.sops.placeholder.github_token} gitlab.com=${config.sops.placeholder.gitlab_token} codeberg.org=${config.sops.placeholder.codeberg_token}
         '';
       };
     };

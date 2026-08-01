@@ -18,7 +18,9 @@ jobs:
 
       - name: Update .tack/pins.lock.json
         run: |
-          log=$(GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} nix run nixpkgs#tack -- update)
+          log=$(GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} \
+                GITLAB_TOKEN=${{ secrets.GITLAB_TOKEN }} \
+                nix run nixpkgs#tack -- update)
           delim=$(openssl rand -hex 8)
           {
             echo "TACK_LOG<<$delim"
