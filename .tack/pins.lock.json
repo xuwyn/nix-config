@@ -239,6 +239,14 @@
     "narHash": "sha256-ndyanKzw90yX2nUVFmTuYqXidUNymtMfgmIHyNdhht0=",
     "lastModified": 1784676123
   },
+  "tack": {
+    "type": "github",
+    "owner": "manic-systems",
+    "repo": "tack",
+    "rev": "671d4a7b61908adfce207349748fc59d655064a5",
+    "narHash": "sha256-sKO6dunSEgZAE1kMse8c/TUtwz5foklTJlTL9lYDgSo=",
+    "lastModified": 1784784543
+  },
   "zed": {
     "type": "github",
     "owner": "zed-industries",

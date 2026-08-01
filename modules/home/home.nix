@@ -20,7 +20,10 @@
       sessionVariables = {
         TACK_NIX_CONF_TOKENS = "1";
       };
-      packages = with pkgs; [nvfetcher];
+      packages = [
+        inputs.tack.packages.${pkgs.stdenv.hostPlatform.system}.default
+        pkgs.nvfetcher
+      ];
     };
 
     programs.home-manager.enable = true;

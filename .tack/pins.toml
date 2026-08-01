@@ -132,3 +132,6 @@ url = "github:nix-community/preservation"
 
 [inputs.ncr]
 url = "github:greyxp1/ncr"
+
+[inputs.tack]
+url = "github:manic-systems/tack"
