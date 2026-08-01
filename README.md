@@ -430,59 +430,19 @@ echo 'PKG_CONFIG_PATH="/usr/lib/pkgconfig:/usr/share/pkgconfig"' >> ~/.config/pa
 
 ### Recover from an external drive
 
-This section details the steps to manually recover from cases where reformatting drive and/or reinstalling NixOS is unnecessary
+**Usage:** to manually recover from cases where reformatting drive and/or reinstalling NixOS is unnecessary
 (e.g., freezing on boot or user password failing to authenticate).
-Maybe one day I'll write a script for it.
 
-**Prerequisites:**
-
-- An external drive with Nix installed (can be either NixOS ISO or just the bare-bones nix manager)
-- The keys to decrypt user passwords are still accessible
-
-**For this example:**
-
-- `/dev/sda1` is the `/boot` partition
-- `/dev/sda2` is the `/root` partition (btrfs) encrypted with `luks`
+Run this oneliner to recover:
 
 ```sh
-# Find the correct drive
-lsblk -f
+bash <(curl -L https://raw.githubusercontent.com/xuwyn/nix-config/main/scripts/recover)
+```
 
-# Decrypt /root
-sudo cryptsetup luksOpen /dev/sda2 cryptroot
+If on a distro without `nixos-install`, execute the onliner in a nix shell:
 
-# Make local mounting points
-sudo mkdir -p /mnt/persist /mnt/nix /mnt/boot
-
-# Mount all btrfs subvols
-sudo mount -o subvol=root /dev/mapper/cryptroot /mnt
-sudo mount -o subvol=persist /dev/mapper/cryptroot /mnt/persist
-sudo mount -o subvol=nix /dev/mapper/cryptroot /mnt/nix
-
-# Mount /boot
-sudo mount /dev/sda1 /mnt/boot
-
-# (Optional) Read last boot log
-sudo journalctl -D /mnt/persist/var/log/journal -b -1
-
-# Copy host keys to where sops is set to look for them
-# Assume the host age keys survive in /persist
-sudo cp -r /mnt/persist/etc/sops /mnt/etc/
-
-# (Optional) Copy host ssh keys (I don't use them for sops)
-sudo cp -r /mnt/persist/etc/ssh /mnt/etc/
-
-# Copy machine-id (assume machine-id survives in /persist)
-sudo cp /mnt/persist/etc/machine-id /mnt/etc/
-
-# Get nixos-install-tools (on non-nixos)
-nix shell nixpkgs#nixos-install-tools
-
-# Rebuild NixOS using the flake in external drive
-sudo env "PATH=$PATH" nixos-install --root /mnt --flake ./path-to-flake#hostname --no-root-passwd
-
-# Reboot
-systemctl reboot --firmware-setup
+```sh
+nix shell nixpkgs#nixos-install-tools --command bash <(curl -L https://raw.githubusercontent.com/xuwyn/nix-config/main/scripts/recover)
 ```
 
 ## Acknowledgement
