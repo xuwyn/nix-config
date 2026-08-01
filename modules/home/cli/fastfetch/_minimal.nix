@@ -53,11 +53,13 @@ in {
       key = "{#${colors.icon}}  {#${colors.text}}Memory  ";
       outputColor = colors.output;
       type = "memory";
+      format = "{1} / {2}";
     }
     {
       key = "{#${colors.icon}}󱥎  {#${colors.text}}Storage ";
       outputColor = colors.output;
       type = "disk";
+      format = "{1} / {2}";
     }
     {
       key = "{#${colors.icon}}󰅐  {#${colors.text}}Uptime  ";

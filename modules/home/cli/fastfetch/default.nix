@@ -10,7 +10,7 @@
     logos = {
       frieren = {
         source = ./frieren.png;
-        type = "kitty";
+        type = "kitty-direct";
         height = 20;
         width = 26;
         padding = {
@@ -22,7 +22,7 @@
         source = ./onlooker.gif;
         type = "kitty-icat";
         padding = {
-          top = 2;
+          top = 1;
           left = 0;
         };
       };

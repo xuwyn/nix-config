@@ -3,6 +3,7 @@
     config,
     lib,
     inputs,
+    pkgs,
     ...
   }: let
     cfg = config.homeManager.theme.matugen;
@@ -47,6 +48,7 @@
     config = lib.mkIf cfg.enable {
       programs.matugen = {
         enable = true;
+        package = pkgs.matugen;
         inherit (cfg) wallpaper variant type;
         templates = {
           kitty = {

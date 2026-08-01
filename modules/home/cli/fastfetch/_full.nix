@@ -128,12 +128,14 @@ in {
     {
       type = "memory";
       key = " ├  ";
+      format = "{1} / {2}";
       keyColor = colors.hw;
       outputColor = colors.hw;
     }
     {
       type = "disk";
       key = " ├ 󰋊 ";
+      format = "{1} / {2}";
       keyColor = colors.hw;
       outputColor = colors.hw;
     }

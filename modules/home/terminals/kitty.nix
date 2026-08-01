@@ -30,7 +30,6 @@
       {
         programs.kitty = {
           enable = true;
-          # Upstream test failures resolved; use default kitty package (>= 0.44).
           package = pkgs.kitty;
           settings = {
             font_family = "Maple Mono NF";
@@ -56,7 +55,8 @@
             remember_window_size = "no";
             initial_window_width = 1024;
             initial_window_height = 720;
-            background_blur = 1;
+            background_opacity = "0.85";
+            background_blur = 20;
             shell = "${pkgs.zsh}/bin/zsh";
           };
 
