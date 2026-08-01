@@ -439,7 +439,7 @@ Run this oneliner to recover:
 bash <(curl -L https://raw.githubusercontent.com/xuwyn/nix-config/main/scripts/recover)
 ```
 
-If on a distro without `nixos-install`, execute the onliner in a nix shell:
+If on a distro without `nixos-install`, execute the oneliner in a nix shell:
 
 ```sh
 nix shell nixpkgs#nixos-install-tools --command bash <(curl -L https://raw.githubusercontent.com/xuwyn/nix-config/main/scripts/recover)
