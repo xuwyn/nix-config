@@ -24,7 +24,6 @@ in {
         homeManager = {
           cli = {
             zsh.enable = true;
-            bash.enable = true;
             git = {
               enable = true;
               username = "wyn";

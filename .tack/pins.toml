@@ -24,10 +24,11 @@ nixpkgs = "nixpkgs"
 #   submodules      fetch git submodules
 #   unpack          fixed-only tarball or file
 [inputs.nixpkgs]
-url = "https://channels.nixos.org/nixos-unstable/nixexprs.tar.zst"
+url = "https://channels.nixos.org/nixos-unstable/nixexprs.tar.xz"
 
 [inputs.nixpkgs-stable]
-url = "github:nixos/nixpkgs/a799d3e3886da994fa307f817a6bc705ae538eeb"
+url = "https://channels.nixos.org/nixos-unstable/nixexprs.tar.xz"
+# url = "github:nixos/nixpkgs/a799d3e3886da994fa307f817a6bc705ae538eeb"
 exclude_follow = ["nixpkgs"]
 
 [inputs.home-manager]
