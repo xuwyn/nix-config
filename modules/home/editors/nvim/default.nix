@@ -144,6 +144,7 @@
             # Git integrations
             gitsigns.enable = true;
             diffview.enable = true;
+            lazygit.enable = true;
 
             # Motions and editing helpers
             hop.enable = true;
@@ -283,7 +284,7 @@
               options.desc = "Search files by name";
             }
             {
-              key = "<leader>lg";
+              key = "<leader>fg";
               mode = ["n"];
               action = "<cmd>Telescope live_grep<cr>";
               options.desc = "Search files by contents";
@@ -388,7 +389,6 @@
               ripgrep
               fd
               bat
-              lazygit
               nil
               typescript-language-server
               typescript

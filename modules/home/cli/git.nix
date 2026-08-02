@@ -8,18 +8,10 @@
   }: let
     cfg = config.homeManager.cli.git;
     matugenEnabled = config.programs.matugen.enable or false;
-    accent =
+    c = role: fallback:
       if matugenEnabled
-      then "#" + config.programs.matugen.theme.colors.primary.default.color
-      else "#89b4fa";
-    foreground =
-      if matugenEnabled
-      then "#" + config.programs.matugen.theme.colors.surface_container_high.default.color
-      else "#cdd6f4";
-    muted =
-      if matugenEnabled
-      then "#" + config.programs.matugen.theme.colors.surface_variant.default.color
-      else "#585b70";
+      then config.programs.matugen.theme.colors.${role}.default.color
+      else fallback;
   in {
     options.homeManager.cli.git = {
       enable = lib.mkEnableOption "Enable Git and lazygit";
@@ -94,9 +86,18 @@
           };
           gui = {
             theme = {
-              activeBorderColor = [accent "bold"];
-              inactiveBorderColor = [muted];
-              selectedLineBgColor = [foreground];
+              activeBorderColor = [(c "primary" "#89b4fa") "bold"];
+              inactiveBorderColor = [(c "outline" "#585b70")];
+              searchingActiveBorderColor = [(c "tertiary" "#94e2d5") "bold"];
+              optionsTextColor = [(c "on_surface_variant" "#89b4fa")];
+              selectedLineBgColor = [(c "secondary" "#45475a")];
+              inactiveViewSelectedLineBgColor = ["bold"];
+              cherryPickedCommitFgColor = [(c "on_secondary" "#89b4fa")];
+              cherryPickedCommitBgColor = [(c "secondary" "#94e2d5")];
+              markedBaseCommitFgColor = [(c "on_error" "#89b4fa")];
+              markedBaseCommitBgColor = [(c "error" "#f9e2af")];
+              unstagedChangesColor = [(c "error" "#f38ba8")];
+              defaultFgColor = [(c "on_surface" "#cdd6f4")];
             };
             showListFooter = false;
             showRandomTip = false;

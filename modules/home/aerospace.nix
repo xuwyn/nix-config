@@ -47,6 +47,38 @@
               "if".app-id = "com.apple.finder";
               run = "move-node-to-workspace 9";
             }
+            {
+              "if".app-id = "com.valvesoftware.steam";
+              run = "layout floating";
+            }
+            {
+              "if".app-id = "com.valvesoftware.steam.helper";
+              run = "layout floating";
+            }
+            {
+              "if".app-id = "com.apple.ActivityMonitor";
+              run = [
+                "layout floating"
+                "resize width 900"
+                "resize height 700"
+              ];
+            }
+            {
+              "if".app-id = "io.playcover.PlayCover";
+              run = "layout floating";
+            }
+            {
+              "if".app-id = "com.hguandl.MeoAsstMac";
+              run = [
+                "layout floating"
+                "resize width 900"
+                "resize height 700"
+              ];
+            }
+            {
+              "if".app-id = "com.YoStarEN.Arknights";
+              run = "layout floating";
+            }
           ];
 
           mode.main.binding = {
