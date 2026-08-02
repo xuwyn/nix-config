@@ -8,15 +8,26 @@
 {
   base46 = {
     pname = "base46";
-    version = "cb8a1257bbc2640f6e7415a01219b34d3efd1494";
+    version = "83522e02c6c3b4ea901c4bffd9e0a5e0371c1fe6";
     src = fetchFromGitHub {
       owner = "AvengeMedia";
       repo = "base46";
-      rev = "cb8a1257bbc2640f6e7415a01219b34d3efd1494";
+      rev = "83522e02c6c3b4ea901c4bffd9e0a5e0371c1fe6";
       fetchSubmodules = false;
-      sha256 = "sha256-6kK8q2dmmW3RO9FQmlcYN6Yyhl6fXE5ey1l8PWRVCfc=";
+      sha256 = "sha256-kwDMC6rYzJYECmGnwn8JiAbffUq7hAXcUH6gPSkk2uI=";
     };
-    date = "2026-06-07";
+    date = "2026-07-23";
+  };
+  leaves = {
+    pname = "leaves";
+    version = "v0.2.0-cross";
+    src = fetchFromGitHub {
+      owner = "patonw";
+      repo = "leaves";
+      rev = "v0.2.0-cross";
+      fetchSubmodules = false;
+      sha256 = "sha256-JGWGo/JDC3/Sj97ca4CrgD4WaobYUVmbryuIg/AN2kU=";
+    };
   };
   maa-cli = {
     pname = "maa-cli";

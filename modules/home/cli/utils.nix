@@ -5,7 +5,14 @@
     pkgs,
     inputs,
     ...
-  }: {
+  }: let
+    leaves = pkgs.rustPlatform.buildRustPackage {
+      pname = pkgs.sources.leaves.pname;
+      version = pkgs.sources.leaves.version;
+      src = pkgs.sources.leaves.src;
+      cargoLock.lockFile = "${pkgs.sources.leaves.src}/Cargo.lock";
+    };
+  in {
     options.homeManager.cli.utils = {
       enable = lib.mkEnableOption "Add extra cli utils";
     };
@@ -23,6 +30,7 @@
         unzip # Unpacker
         gnugrep # grep cmd
         jq # json processor
+        leaves # tui disk usage
         inputs.ncr.packages.${pkgs.stdenv.hostPlatform.system}.default
       ];
     };

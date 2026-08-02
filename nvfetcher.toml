@@ -1,3 +1,7 @@
+[leaves]
+src.github = "patonw/leaves"
+fetch.github = "patonw/leaves"
+
 [umbrella-fetch]
 src.github = "ezequielgk/Umbrella-Fetch"
 fetch.github = "ezequielgk/Umbrella-Fetch"
