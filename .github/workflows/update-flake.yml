@@ -24,6 +24,8 @@ jobs:
           EOF
 
       - name: Update .tack/pins.lock.json
+        env:
+          TACK_NIX_CONF_TOKENS: 1
         run: |
           log=$(nix run nixpkgs#tack -- update)
           delim=$(openssl rand -hex 8)
