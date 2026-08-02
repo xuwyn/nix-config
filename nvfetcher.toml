@@ -1,3 +1,8 @@
+[app2unit]
+src.git = "https://github.com/Vladimir-csp/app2unit"
+src.git_branch = "master"
+fetch.github = "Vladimir-csp/app2unit"
+
 [leaves]
 src.github = "patonw/leaves"
 fetch.github = "patonw/leaves"

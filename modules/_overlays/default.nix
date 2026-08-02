@@ -6,6 +6,13 @@
     };
   })
 
+  # nixpkgs version is a bit behind
+  (final: prev: {
+    app2unit = prev.app2unit.overrideAttrs (old: {
+      inherit (final.sources.app2unit) version src;
+    });
+  })
+
   # niri-nix overlays (for unstable pkgs)
   inputs.niri-nix.overlays.niri-nix
 

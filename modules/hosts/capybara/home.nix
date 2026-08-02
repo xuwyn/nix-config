@@ -72,7 +72,10 @@ in {
             nano.enable = true;
             nixvim.enable = true;
           };
-          apps.firefox.enable = true;
+          apps = {
+            firefox.enable = true;
+            nixcord.enable = true;
+          };
           terminals.kitty.enable = true;
           theme = {
             matugen = {

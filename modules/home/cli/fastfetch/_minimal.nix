@@ -1,17 +1,17 @@
-{logos, ...}: let
+{logo, ...}: let
   colors = {
-    icon = "35";
+    icon = "36";
     text = "34";
     output = "white";
   };
 in {
+  inherit logo;
   display.separator = "  󰨐  ";
-  logo = logos.onlooker;
   modules = [
     "break"
     {
       type = "title";
-      format = "{#${colors.icon}}{user-name}@{#${colors.text}}{host-name}";
+      format = "{#${colors.icon}}{user-name}{#35}@{#${colors.text}}{host-name}";
     }
     "break"
     {
@@ -30,9 +30,9 @@ in {
       type = "cpu";
     }
     {
-      key = "{#${colors.icon}}  {#${colors.text}}Packages";
+      key = "{#${colors.icon}}󰢮  {#${colors.text}}GPU     ";
       outputColor = colors.output;
-      type = "packages";
+      type = "gpu";
     }
     {
       key = "{#${colors.icon}}  {#${colors.text}}Desktop ";

@@ -32,7 +32,6 @@ in {
             btop.enable = true;
             cava.enable = true;
             fastfetch.enable = true;
-            fastfetch.defaultProfile = "full";
             nh.enable = true;
             tealdeer.enable = true;
             nix-search-tv.enable = true;

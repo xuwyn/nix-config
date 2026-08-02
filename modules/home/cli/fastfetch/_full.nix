@@ -1,4 +1,4 @@
-{logos, ...}: let
+{logo, ...}: let
   colors = {
     os = "cyan";
     wm = "blue";
@@ -6,7 +6,7 @@
   };
 in {
   display.separator = " ➜  ";
-  logo = logos.frieren;
+  inherit logo;
 
   modules = [
     "break"

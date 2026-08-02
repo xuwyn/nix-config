@@ -9,16 +9,16 @@
     matugenEnabled = config.programs.matugen.enable or false;
     accent =
       if matugenEnabled
-      then config.programs.matugen.theme.colors.primary.default.color
-      else "89b4fa";
+      then "#" + config.programs.matugen.theme.colors.primary.default.color
+      else "#89b4fa";
     foreground =
       if matugenEnabled
-      then config.programs.matugen.theme.colors.on_surface.default.color
-      else "cdd6f4";
+      then "#" + config.programs.matugen.theme.colors.on_surface.default.color
+      else "#cdd6f4";
     muted =
       if matugenEnabled
-      then config.programs.matugen.theme.colors.surface_variant.default.color
-      else "585b70";
+      then "#" + config.programs.matugen.theme.colors.surface_variant.default.color
+      else "#585b70";
   in {
     options.homeManager.cli.search = {
       enable = lib.mkEnableOption "Enable search utils for cli";

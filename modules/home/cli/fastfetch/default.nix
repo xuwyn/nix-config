@@ -14,7 +14,7 @@
         height = 20;
         width = 26;
         padding = {
-          top = 0;
+          top = 1;
           left = 0;
         };
       };
@@ -22,15 +22,23 @@
         source = ./onlooker.gif;
         type = "kitty-icat";
         padding = {
-          top = 1;
+          top = 3;
+          left = 0;
+        };
+      };
+      nixos = {
+        source = ./nixos.txt;
+        padding = {
+          top = 2;
           left = 0;
         };
       };
     };
 
     profiles = {
-      full = import ./_full.nix {inherit logos;};
-      minimal = import ./_minimal.nix {inherit logos;};
+      full = import ./_full.nix {logo = logos.frieren;};
+      mini = import ./_minimal.nix {logo = logos.nixos;};
+      gif = import ./_minimal.nix {logo = logos.onlooker;};
     };
 
     profileFiles =
@@ -63,7 +71,7 @@
       enable = lib.mkEnableOption "Enable fastfetch";
       defaultProfile = lib.mkOption {
         type = lib.types.enum (builtins.attrNames profiles);
-        default = "minimal";
+        default = "mini";
         description = "Profile used when running plain `fastfetch` with no args";
       };
     };
