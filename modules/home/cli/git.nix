@@ -10,7 +10,7 @@
     matugenEnabled = config.programs.matugen.enable or false;
     c = role: fallback:
       if matugenEnabled
-      then config.programs.matugen.theme.colors.${role}.default.color
+      then "#" + config.programs.matugen.theme.colors.${role}.default.color
       else fallback;
   in {
     options.homeManager.cli.git = {
@@ -90,13 +90,13 @@
               inactiveBorderColor = [(c "outline" "#585b70")];
               searchingActiveBorderColor = [(c "tertiary" "#94e2d5") "bold"];
               optionsTextColor = [(c "on_surface_variant" "#89b4fa")];
-              selectedLineBgColor = [(c "secondary" "#45475a")];
+              selectedLineBgColor = [(c "surface_container" "#45475a")];
               inactiveViewSelectedLineBgColor = ["bold"];
               cherryPickedCommitFgColor = [(c "on_secondary" "#89b4fa")];
               cherryPickedCommitBgColor = [(c "secondary" "#94e2d5")];
               markedBaseCommitFgColor = [(c "on_error" "#89b4fa")];
               markedBaseCommitBgColor = [(c "error" "#f9e2af")];
-              unstagedChangesColor = [(c "error" "#f38ba8")];
+              unstagedChangesColor = [(c "on_surface_variant" "#f38ba8")];
               defaultFgColor = [(c "on_surface" "#cdd6f4")];
             };
             showListFooter = false;
