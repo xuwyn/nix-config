@@ -102,12 +102,9 @@ url = "github:uiriansan/SilentSDDM"
 
 [inputs.qylock]
 url = "github:Darkkal44/qylock"
-exclude_follow = ["nixpkgs"]
 
 [inputs.quickshell]
 url = "github:quickshell-mirror/quickshell"
-exclude_follow = ["nixpkgs"]
-follows = { nixpkgs = "nixpkgs-stable" }
 
 [inputs.mac-app-util]
 url = "github:hraban/mac-app-util"
@@ -121,10 +118,6 @@ url = "gitlab:rycee/nur-expressions"
 
 [inputs.disko]
 url = "github:nix-community/disko"
-exclude_follow = ["nixpkgs"]
-
-[inputs.impermanence]
-url = "github:nix-community/impermanence"
 exclude_follow = ["nixpkgs"]
 
 [inputs.preservation]

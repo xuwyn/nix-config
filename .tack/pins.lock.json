@@ -55,14 +55,6 @@
     "narHash": "sha256-1dt2IyLBRn9ji79xxv82/Gh7semHCk8cjajtg72sWGI=",
     "lastModified": 1784533848
   },
-  "impermanence": {
-    "type": "github",
-    "owner": "nix-community",
-    "repo": "impermanence",
-    "rev": "7b1d382faf603b6d264f58627330f9faa5cba149",
-    "narHash": "sha256-03+JxvzmfwRu+5JafM0DLbxgHttOQZkUtDWBmeUkN8Y=",
-    "lastModified": 1769548169
-  },
   "mac-app-util": {
     "type": "github",
     "owner": "hraban",

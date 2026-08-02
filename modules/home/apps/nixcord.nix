@@ -63,7 +63,6 @@
                 useEmojiHyperLinks = true;
                 useStickerHyperLinks = true;
               };
-              favoriteGifSearch.enable = true;
               gameActivityToggle.enable = true;
               gifPaste.enable = true;
               greetStickerPicker.enable = true;
