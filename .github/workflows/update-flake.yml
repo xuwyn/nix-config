@@ -16,11 +16,16 @@ jobs:
 
       - uses: cachix/install-nix-action@v31
 
+      - name: Add access tokens to nix.conf
+        run: |
+          mkdir -p ~/.config/nix
+          cat >> ~/.config/nix/nix.conf <<EOF
+          access-tokens = github.com=${{ secrets.GITHUB_TOKEN }} gitlab.com=${{ secrets.GITLAB_TOKEN }} codeberg.org=${{ secrets.CODEBERG_TOKEN }}
+          EOF
+
       - name: Update .tack/pins.lock.json
         run: |
-          log=$(GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} \
-                GITLAB_TOKEN=${{ secrets.GITLAB_TOKEN }} \
-                nix run nixpkgs#tack -- update)
+          log=$(nix run nixpkgs#tack -- update)
           delim=$(openssl rand -hex 8)
           {
             echo "TACK_LOG<<$delim"
