@@ -27,8 +27,9 @@ nixpkgs = "nixpkgs"
 url = "https://channels.nixos.org/nixos-unstable/nixexprs.tar.xz"
 
 [inputs.nixpkgs-stable]
-url = "github:nixos/nixpkgs/a799d3e3886da994fa307f817a6bc705ae538eeb"
-exclude_follow = ["nixpkgs"]
+url = "https://channels.nixos.org/nixos-unstable/nixexprs.tar.xz"
+# url = "github:nixos/nixpkgs/a799d3e3886da994fa307f817a6bc705ae538eeb"
+# exclude_follow = ["nixpkgs"]
 
 [inputs.home-manager]
 url = "github:nix-community/home-manager"
