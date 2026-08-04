@@ -39,6 +39,11 @@ url = "github:nix-community/home-manager"
 exclude_follow = ["nixpkgs"]
 follows = { nixpkgs = "nixpkgs-stable" }
 
+[inputs.nix-darwin]
+url = "github:nix-darwin/nix-darwin/master"
+exclude_follow = ["nixpkgs"]
+follows = { nixpkgs = "nixpkgs-stable" }
+
 [inputs.nix-flatpak]
 url = "github:gmodena/nix-flatpak/latest"
 

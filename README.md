@@ -251,10 +251,10 @@ curl --proto '=https' --tlsv1.2 -L https://nixos.org/nix/install | sh -s -- --da
 
 #### MacOS
 
-Install Nix package manager following the [official guide](https://nixos.org/download/#nix-install-macos).
+Install [Lix](https://lix.systems/install/) instead cause the official installer from Nix didn't work for me
 
 ```sh
-curl --proto '=https' --tlsv1.2 -L https://nixos.org/nix/install | sh
+curl -sSf -L https://install.lix.systems/lix | sh -s -- install
 ```
 
 ### Install Home Manager

@@ -6,6 +6,7 @@ in {
     username = "wyn";
     modules = with config.modules.homeManager; [
       ./_gpu.nix
+      nix-settings
       home
       sops
       cli

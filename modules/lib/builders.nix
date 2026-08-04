@@ -30,6 +30,30 @@ in {
           }
       )
       config.nixos;
+    darwinConfigurations =
+      lib.mapAttrs (
+        name: cfg:
+          inputs.nix-darwin.lib.darwinSystem {
+            inherit (cfg) system;
+            specialArgs = {
+              inherit inputs;
+              inherit (cfg) host users;
+              inherit (config) flake;
+            };
+            modules =
+              cfg.modules
+              ++ [
+                (_: {
+                  nixpkgs.pkgs = import inputs.nixpkgs-stable {
+                    inherit overlays;
+                    inherit (cfg) system;
+                    config.allowUnfree = true;
+                  };
+                })
+              ];
+          }
+      )
+      config.darwin;
 
     homeConfigurations =
       lib.mapAttrs (

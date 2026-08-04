@@ -10,6 +10,7 @@ in {
     username = "wyn";
     modules = with config.modules.homeManager; [
       inputs.mac-app-util.homeManagerModules.default
+      nix-settings
       home
       sops
       syncthing
@@ -19,6 +20,7 @@ in {
       yazi
       theme
       aerospace
+      maa
 
       (_: {
         homeManager = {

@@ -19,24 +19,6 @@
     config = {
       system.stateVersion = "26.05";
 
-      # /etc/nix/nix.conf
-      nix = {
-        package = pkgs.nix;
-        settings = {
-          download-buffer-size = 200000000;
-          auto-optimise-store = true;
-          experimental-features = [
-            "nix-command"
-            "flakes"
-          ];
-          allowed-users = ["@wheel"];
-          trusted-users = ["@wheel"];
-        };
-        extraOptions = lib.optionalString (config ? sops && config.sops.templates ? "nix-access-tokens.conf") ''
-          !include ${config.sops.templates."nix-access-tokens.conf".path}
-        '';
-      };
-
       # Localization
       time.timeZone = cfg.timeZone;
       i18n = {

@@ -4,6 +4,7 @@
     users = ["wyn"];
     modules = with config.modules.nixos; [
       ./_disko.nix
+      nix-settings
       preservation
       drivers
       boot

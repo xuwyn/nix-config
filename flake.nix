@@ -63,7 +63,7 @@
       config
       ;
   in {
-    inherit (config) nixosConfigurations homeConfigurations;
+    inherit (config) nixosConfigurations darwinConfigurations homeConfigurations;
 
     formatter = perSystem (pkgs: _: pkgs.alejandra);
     checks = perSystem (_: system: buildsPerSystem system);

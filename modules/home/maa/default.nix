@@ -30,14 +30,24 @@
       packages = [
         maa-cli
       ];
-      file = {
-        ".config/maa/profiles".source =
-          mkOutOfStoreSymlink
-          "${config.home.homeDirectory}/${flake.homeRelativePath}/modules/home/maa/profiles";
-        ".config/maa/tasks".source =
-          mkOutOfStoreSymlink
-          "${config.home.homeDirectory}/${flake.homeRelativePath}/modules/home/maa/tasks";
-      };
+      file =
+        if !pkgs.stdenv.hostPlatform.isDarwin
+        then {
+          ".config/maa/profiles/default.json".source =
+            mkOutOfStoreSymlink
+            "${config.home.homeDirectory}/${flake.homeRelativePath}/modules/home/maa/profiles/waydroid.json";
+          ".config/maa/tasks".source =
+            mkOutOfStoreSymlink
+            "${config.home.homeDirectory}/${flake.homeRelativePath}/modules/home/maa/tasks";
+        }
+        else {
+          "Library/Application Support/com.loong.maa/config/profiles/default.json".source =
+            mkOutOfStoreSymlink
+            "${config.home.homeDirectory}/${flake.homeRelativePath}/modules/home/maa/profiles/playcover.json";
+          "Library/Application Support/com.loong.maa/config/tasks".source =
+            mkOutOfStoreSymlink
+            "${config.home.homeDirectory}/${flake.homeRelativePath}/modules/home/maa/tasks";
+        };
     };
   };
 }

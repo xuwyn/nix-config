@@ -28,19 +28,6 @@
 
     programs.home-manager.enable = true;
 
-    nix = {
-      package = pkgs.nix;
-      settings = {
-        experimental-features = [
-          "nix-command"
-          "flakes"
-        ];
-      };
-      extraOptions = lib.optionalString (config ? sops && config.sops.templates ? "nix-access-tokens.conf") ''
-        !include ${config.sops.templates."nix-access-tokens.conf".path}
-      '';
-    };
-
     programs = {
       nix-index.enable = true;
       nix-index-database.comma.enable = true;

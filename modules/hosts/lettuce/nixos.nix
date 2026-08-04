@@ -3,6 +3,7 @@
     system = "x86_64-linux";
     users = ["wyn"];
     modules = with config.modules.nixos; [
+      nix-settings
       drivers
       network
       security
