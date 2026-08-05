@@ -1,5 +1,5 @@
 github_token: ENC[AES256_GCM,data:hnCe1lQE+2SCLI0mjykQlJ4UrdcoWIu0S7/uT2qYKfgjQ+Gz8/jnOQ==,iv:NrB15tjT4uKyTeUdf3h7jVnLsR6GcdhGgmUqXOWJgvw=,tag:fa80qOa+fqFM19pBmKp/kQ==,type:str]
-gitlab_token: ENC[AES256_GCM,data:BbWCqCD6jmuWQT6DivGTiM4MsqEnvobfJlzcf0IWVV0wdJFDx8esRos1SVSF1xu7AlN8gyKwjQLPAyhAI/0=,iv:wyjv6g4t8Vkok3aNwPA8/oc/j/R2qcEsGjHy+on2yHM=,tag:Dbum4uWIxDI1v0K8Rc0r/w==,type:str]
+gitlab_token: ENC[AES256_GCM,data:KH4wi/Z7IZJyUFnj3hLz1IHLYd7MG4Mrckaihj0XiyZ5JE3ybQCrZgr6eRHk6PMHGtfQMqTfAe/Je7mZbH8=,iv:1xZthupzyG5r92zHnbCPWxpll5IA70pQ7MgYv1zSg7E=,tag:m85q8fMnS5JCmX7WucYJ0g==,type:str]
 codeberg_token: ENC[AES256_GCM,data:8TxenXXFbAWbrTOCHpHCuMk8dJAPbpTwcYhbDz8TL9P2Y9+hJE3bcg==,iv:X6ANifYz/u1pAP9A1e/gBFeqkP8le2smmsbSTpQxvS8=,tag:tWk/cD/b3j0xsBlWICY19A==,type:str]
 sops:
     age:
@@ -30,7 +30,7 @@ sops:
             Um8x/x9c9Bknc7uJdHyP4KcFbJSf4uj7OCKqEnfd2tNjuOtMKXFeFA==
             -----END AGE ENCRYPTED FILE-----
           recipient: age12z60qwkhzjcgulfchhf574ra9gm6emtfd2hg07mantsh8ermnsmq8yzw4c
-    lastmodified: "2026-08-05T14:19:23Z"
-    mac: ENC[AES256_GCM,data:FrFnm1+WGc6P9a0JQjk8rOvAiuMEgjJ1Mwwe0lUfEJy2n+qzNWlO0B72vyiS0MSE4/BvUhFLSCxDkuovHsJEYOjbKuxYm9LSelVjAIeEaRKdtpPucCHuJX21bBKrQGLNOt6U5+CjGAqn2YLXBoARTjjqJxXOqIIeIR5y3mzELqI=,iv:09rlYWdJRW6xCeMxyQ9hTszXWlK5DDK9kPKnuYN62uI=,tag:5FbSyFz/x7l7T+ofE82TKw==,type:str]
+    lastmodified: "2026-08-05T14:58:55Z"
+    mac: ENC[AES256_GCM,data:Is9bmP3Ejys2ur1YYngqLTf2C7mV+Tyd87gv8i+KH4du0ES2v/639q8G7b8fLXnLd7i7xQqaHP1yZwbp5e+B5mDTq7lBr/R1qKK7riW/XJLfCO5zIEqNtxmHkowIZMreritvpb+nQZECSXGdxAAYEumAUsDGJP1psVfLOfbFRKA=,iv:TI7MSuv0NB9yofRCJmzt7wihoMqMCE+H9qG5rqub8Q8=,tag:PnOfpmnCVhEUTlR6aktvTQ==,type:str]
     unencrypted_suffix: _unencrypted
     version: 3.13.3
