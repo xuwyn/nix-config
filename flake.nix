@@ -24,40 +24,30 @@
   outputs = args: let
     inputs = import ./.tack {overrides = args.tackOverrides or {};};
     inherit (inputs.nixpkgs) lib;
+    inherit (lib) hasSuffix hasPrefix splitString;
+    inherit (builtins) any concatMap isPath filter readFileType;
 
     systems = ["x86_64-linux" "aarch64-darwin"];
     perSystem = f: lib.genAttrs systems (system: f inputs.nixpkgs.legacyPackages.${system} system);
 
-    buildsPerSystem = system:
-      lib.mapAttrs' (
-        name: _:
-          lib.nameValuePair "${name}"
-          config.nixosConfigurations.${name}.config.system.build.toplevel
-      ) (lib.filterAttrs (name: _: config.nixosConfigurations.${name}.config.nixpkgs.hostPlatform.system == system) config.nixos)
-      // lib.mapAttrs' (
-        name: _:
-          lib.nameValuePair "${name}"
-          config.homeConfigurations.${name}.activationPackage
-      ) (lib.filterAttrs (name: cfg: cfg.system == system) config.home);
+    # Thanks llakala
+    # https://github.com/llakala/synaptic-standard/blob/main/demo/recursivelyImport.nix
+    expandIfFolder = elem:
+      if !isPath elem || readFileType elem != "directory"
+      then [elem]
+      else
+        filter
+        (path: !any (hasPrefix "_") (splitString "/" (toString path)))
+        (lib.filesystem.listFilesRecursive elem);
 
-    import-tree = dir:
-      builtins.concatMap (
-        elem: let
-          path = dir + "/${elem}";
-        in
-          if (builtins.readDir dir).${elem} == "directory"
-          then
-            (
-              if lib.hasPrefix "_" elem
-              then []
-              else import-tree path
-            )
-          else lib.optional (lib.hasSuffix ".nix" elem && !lib.hasPrefix "_" elem) path
-      ) (builtins.attrNames (builtins.readDir dir));
+    import-tree = list:
+      filter
+      (elem: !isPath elem || (hasSuffix ".nix" (toString elem) && !hasPrefix "_" (baseNameOf (toString elem))))
+      (concatMap expandIfFolder list);
 
     inherit
       (lib.evalModules {
-        modules = import-tree ./modules;
+        modules = import-tree [./modules];
         specialArgs = {inherit inputs;};
       })
       config
@@ -66,8 +56,6 @@
     inherit (config) nixosConfigurations darwinConfigurations homeConfigurations;
 
     formatter = perSystem (pkgs: _: pkgs.alejandra);
-    checks = perSystem (_: system: buildsPerSystem system);
-    packages = perSystem (_: system: buildsPerSystem system);
 
     devShells = perSystem (pkgs: _: {
       python = pkgs.mkShell {

@@ -119,16 +119,10 @@ function mount_subvols() {
 function restore_secrets() {
   echo "Restoring host identity/secrets so nixos-install can find them"
 
-  if [[ -d /mnt/persist/etc/sops ]]; then
-    sudo cp -r /mnt/persist/etc/sops /mnt/etc/
-  else
-    echo "  (no /persist/etc/sops found, skipping)" >&2
-  fi
-
-  local copy_ssh
-  copy_ssh=$(yesno "Copy host SSH keys too (only relevant if sops uses them)?")
-  if [[ "$copy_ssh" == "y" && -d /mnt/persist/etc/ssh ]]; then
+  if [[ -d /mnt/persist/etc/ssh ]]; then
     sudo cp -r /mnt/persist/etc/ssh /mnt/etc/
+  else
+    echo "  (no /persist/etc/ssh found, skipping)" >&2
   fi
 
   if [[ -f /mnt/persist/etc/machine-id ]]; then
@@ -207,7 +201,7 @@ function run_rebuild() {
 function main() {
   require_root_priv
 
-  echo "=== NixOS btrfs/LUKS recovery ==="
+  echo "================ NixOS btrfs/LUKS recovery ================"
   echo
 
   check_nixos_install_tools

@@ -75,9 +75,9 @@
     "type": "github",
     "owner": "greyxp1",
     "repo": "ncr",
-    "rev": "9ed3626acdb9ccfabc3d7d5d1265e1950b08140b",
-    "narHash": "sha256-DaJkK1RHYUIOgsfPZD4SkNN3XKcbsYF3ixbJOrCel8c=",
-    "lastModified": 1785629674
+    "rev": "366218fc8f5bec461d88b5fa22b489aa26308e95",
+    "narHash": "sha256-y4DgGAtEnVSQ0olKjonKiwNCbvi1RMr5NUqmmhp/D0M=",
+    "lastModified": 1785929324
   },
   "niri-nix": {
     "type": "git",

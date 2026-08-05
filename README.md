@@ -1,6 +1,6 @@
 <h2 align="center">Half-baked Dendritic Nix Config</h2>
 
-My personal config for NixOS and Home Manager (standalone) running on `x86_64-linux` and `aarch64-darwin`.
+My personal config for nixos, nix-darwin and home-manager (standalone) running on `x86_64-linux` and `aarch64-darwin`.
 I currently have no desire to fully transform every hosts I have into NixOS,
 so most features are in Home Manager for portability.
 
@@ -62,18 +62,20 @@ I went with **`<class>.<aspect>`** since it's easier to separate aspects by clas
 ./
 ├── .tack/                 # flake inputs
 ├── flake.nix              # flake outputs
-├── nvfetcher.toml         # nvfetcher inputs (build-from-source pkgs)
+├── nvfetcher.toml         # nvfetcher inputs
 ├── _sources/              # nvfetcher outputs
+├── scripts/               # helper scripts
 ├── assets/                # desktop screenshots, wallpapers, etc.
 └── modules/
     ├── _overlays/         # overlays for nixpkgs
     ├── lib/
     │   ├── options.nix    # options declaration for dendritic structure
-    │   └── builders.nix   # nixos and homeManager configuration wrappers
-    ├── sops/              # secret management
+    │   └── builders.nix   # nixos, darwin and homeManager wrappers
     ├── hosts/             # host-specific configurations
-    ├── nixos/             # nixos modules (e.g., boot, system, network, etc.)
-    └── home/              # homeManager modules (e.g., cli, terminals, hyprland, etc.)
+    ├── common/            # common features across classes
+    ├── nixos/             # nixos features
+    ├── darwin/            # darwin features
+    └── home/              # homeManager features
 ```
 
 > [!TIP]
@@ -91,13 +93,13 @@ I went with **`<class>.<aspect>`** since it's easier to separate aspects by clas
 
 ## Hosts
 
-| Host       | Platform         | OS            | Modules               | DE                                                                               |
-| ---------- | ---------------- | ------------- | --------------------- | -------------------------------------------------------------------------------- |
-| `apricot`  | `aarch64-darwin` | MacOS         | `homeManager`         | Aerospace                                                                        |
-| `capybara` | `x86_64-linux`   | CachyOS       | `homeManager`         | Hyprland + [DankMaterialShell](https://github.com/AvengeMedia/DankMaterialShell) |
-| `lettuce`  | `x86_64-linux`   | WSL           | `nixos`+`homeManager` |
-| `mango`    | `x86_64-linux`   | NixOS         | `nixos`+`homeManager` | Niri + [Noctalia](https://github.com/noctalia-dev/noctalia)                      |
-| `potato`   | `x86_64-linux`   | Debian Trixie | `homeManager`         | i3 + Polybar                                                                     |
+| Host       | Platform         | OS            | Modules                | DE                                                                             |
+| ---------- | ---------------- | ------------- | ---------------------- | ------------------------------------------------------------------------------ |
+| `apricot`  | `aarch64-darwin` | MacOS         | `darwin`+`homeManager` | Aerospace                                                                      |
+| `capybara` | `x86_64-linux`   | CachyOS       | `homeManager`          | Hyprland+[DankMaterialShell](https://github.com/AvengeMedia/DankMaterialShell) |
+| `lettuce`  | `x86_64-linux`   | WSL           | `nixos`+`homeManager`  |
+| `mango`    | `x86_64-linux`   | NixOS         | `nixos`+`homeManager`  | Niri+[Noctalia](https://github.com/noctalia-dev/noctalia)                      |
+| `potato`   | `x86_64-linux`   | Debian Trixie | `homeManager`          | i3+Polybar                                                                     |
 
 ## Installation
 
@@ -199,37 +201,35 @@ Boot into an external drive with [NixOS](https://nixos.org/download/) ISO or any
 
 ```sh
 # Use nix-shell to get all required tools
-nix-shell -p git age sops
+nix-shell -p git age sops ssh-to-age
 
 # Clone repo
 git clone https://github.com/xuwyn/nix-config.git ~/nix-config
-
-# Create age key for host
-age-keygen -o keys.txt
-
-# Copy host public age key to .sops.yaml
-age-keygen -y keys.txt
-vi nix-config/modules/sops/.sops.yaml
-
-# Create user password in hash
-mkpasswd -m yescrypt
-
-# Add the hashed password to new-host.yaml
-sops nix-config/modules/sops/new-host.yaml
 
 # Format disk with disko
 sudo nix --experimental-features "nix-command flakes" \
 run github:nix-community/disko -- --mode disko --flake ./nix-config#new-host
 
-# Copy host keys to newly formatted disk
-sudo mkdir -p /mnt/etc/sops/age
-sudo cp keys.txt /mnt/etc/sops/age
+# Generate ssh key directly on the target disk
+# (sshd-keygen won't run until first boot)
+sudo mkdir -p /mnt/etc/ssh
+sudo ssh-keygen -t ed25519 -f /mnt/etc/ssh/ssh_host_ed25519_key -N ""
+
+# Derive age key from the host's ssh key and add it to .sops.yaml
+cat /mnt/etc/ssh/ssh_host_ed25519_key.pub | ssh-to-age
+vi nix-config/modules/common/sops/.sops.yaml
+
+# Create user password in hash
+mkpasswd -m yescrypt
+
+# Add the hashed password to new-host.yaml
+sops nix-config/modules/common/sops/new-host.yaml
 
 # Install NixOS
 sudo nixos-install --root /mnt --flake ./nix-config#new-host
 
-# Copy host keys to /persist/etc (just in case)
-sudo cp -r /mnt/etc/sops /mnt/persist/etc/
+# Copy host keys to /persist/etc
+sudo cp -r /mnt/etc/ssh /mnt/persist/etc/
 
 # Copy current repo to /persist/home/new-user
 sudo cp -r nix-config /mnt/persist/home/new-user/

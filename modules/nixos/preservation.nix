@@ -50,10 +50,9 @@
           directories =
             [
               "/etc/NetworkManager"
-              "/etc/ssh"
               "/var"
               {
-                directory = "/etc/sops";
+                directory = "/etc/ssh";
                 inInitrd = true;
               }
             ]

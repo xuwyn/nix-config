@@ -25,9 +25,7 @@
       imports = [inputs.sops-nix.nixosModules.sops accessTokensTemplate];
       environment.systemPackages = with pkgs; [age sops];
       sops = {
-        # TODO: change key to host's ssh
-        age.keyFile = "/etc/sops/age/keys.txt";
-        # age.sshKeyPaths = ["/etc/ssh/ssh_host_ed25519_key"];
+        age.sshKeyPaths = ["/etc/ssh/ssh_host_ed25519_key"];
         defaultSopsFile = ./${host}.yaml;
         defaultSopsFormat = "yaml";
         secrets =

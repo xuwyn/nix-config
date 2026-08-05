@@ -29,7 +29,7 @@
       nixos = {
         source = ./nixos.txt;
         padding = {
-          top = 2;
+          top = 3;
           left = 0;
         };
       };

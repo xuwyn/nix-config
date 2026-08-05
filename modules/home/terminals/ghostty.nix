@@ -45,7 +45,7 @@
             custom-shader-animation = "always";
             term = "xterm-256color";
             confirm-close-surface = "false";
-            font-family = "Maple Mono NF Regular";
+            font-family = "Maple Mono NF";
             font-size = 12;
             adjust-cell-height = "10%";
             window-theme = "dark";
