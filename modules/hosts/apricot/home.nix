@@ -26,9 +26,18 @@ in {
       (_: {
         homeManager = {
           ssh.hosts = [
-            {name = "mango";}
-            {name = "capybara";}
-            {name = "potato";}
+            {
+              name = "mango";
+              hostname = "mango.local";
+            }
+            {
+              name = "capybara";
+              hostname = "capybara.local";
+            }
+            {
+              name = "potato";
+              hostname = "potato.local";
+            }
           ];
           cli = {
             zsh.enable = true;
