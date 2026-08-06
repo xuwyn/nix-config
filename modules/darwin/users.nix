@@ -22,6 +22,11 @@
             default = "zsh";
             description = "Default login shell for this user";
           };
+          sshKeys = lib.mkOption {
+            type = lib.types.listOf lib.types.path;
+            default = [];
+            description = "Public key files for SSH login";
+          };
         };
       });
       default = {};
@@ -35,12 +40,15 @@
 
       environment.shells = map (s: shellPackages.${s}) shellsInUse;
 
-      users.users =
-        lib.mapAttrs (name: u: {
+      users.users = lib.mapAttrs (name: u:
+        {
           home = "/Users/${name}";
           shell = shellPackages.${u.shell};
+        }
+        // lib.optionalAttrs (u.sshKeys != []) {
+          openssh.authorizedKeys.keyFiles = u.sshKeys;
         })
-        config.darwin.users;
+      config.darwin.users;
 
       system.primaryUser = lib.head users;
     };

@@ -26,6 +26,11 @@
             default = false;
             description = "Whether this user is granted wheel (sudo) access";
           };
+          sshKeys = lib.mkOption {
+            type = lib.types.listOf lib.types.path;
+            default = [];
+            description = "Public key files for SSH login";
+          };
           extraGroups = lib.mkOption {
             type = lib.types.listOf lib.types.str;
             default = [];
@@ -59,6 +64,9 @@
             ++ lib.optional u.isAdmin "wheel"
             ++ u.extraGroups;
           shell = shellPackages.${u.shell};
+        }
+        // lib.optionalAttrs (u.sshKeys != []) {
+          openssh.authorizedKeys.keyFiles = u.sshKeys;
         }
         // lib.optionalAttrs (config ? sops && config.sops.secrets ? "${name}_password") {
           hashedPasswordFile = config.sops.secrets."${name}_password".path;

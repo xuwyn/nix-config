@@ -81,7 +81,7 @@ I went with **`<class>.<aspect>`** since it's easier to separate aspects by clas
 > [!TIP]
 >
 > - Naming scheme: **`modules.<class>.<aspect>`** with **`options.<class>.<aspect>.<feature>`**
->   - **`<class>`**: `nixos` or `homeManager`
+>   - **`<class>`**: `nixos` or `darwin` or `homeManager`
 >   - **`<aspect>`**: Usually the same as the folder name
 >   - **`<feature>`**: Usually the same as the filename (some files have multiple features in them)
 >   - If a file does not belong to any folder, its filename becomes the aspect, and there is no **`<feature>`** level in its option path. These standalone aspects are also enabled by default.

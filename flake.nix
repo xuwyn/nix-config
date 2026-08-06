@@ -24,11 +24,11 @@
   outputs = args: let
     inputs = import ./.tack {overrides = args.tackOverrides or {};};
     inherit (inputs.nixpkgs) lib;
-    inherit (lib) hasSuffix hasPrefix splitString;
+    inherit (lib) hasSuffix hasPrefix splitString filesystem genAttrs evalModules;
     inherit (builtins) any concatMap isPath filter readFileType;
 
     systems = ["x86_64-linux" "aarch64-darwin"];
-    perSystem = f: lib.genAttrs systems (system: f inputs.nixpkgs.legacyPackages.${system} system);
+    perSystem = f: genAttrs systems (system: f inputs.nixpkgs.legacyPackages.${system} system);
 
     # Thanks llakala
     # https://github.com/llakala/synaptic-standard/blob/main/demo/recursivelyImport.nix
@@ -38,7 +38,7 @@
       else
         filter
         (path: !any (hasPrefix "_") (splitString "/" (toString path)))
-        (lib.filesystem.listFilesRecursive elem);
+        (filesystem.listFilesRecursive elem);
 
     import-tree = list:
       filter
@@ -46,7 +46,7 @@
       (concatMap expandIfFolder list);
 
     inherit
-      (lib.evalModules {
+      (evalModules {
         modules = import-tree [./modules];
         specialArgs = {inherit inputs;};
       })

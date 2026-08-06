@@ -8,9 +8,9 @@
       openssh = {
         enable = true; # Enable SSH
         settings = {
-          PermitRootLogin = "no"; # Prevent root from SSH login
-          PasswordAuthentication = true; #Users can SSH using kb and password
-          KbdInteractiveAuthentication = true;
+          PermitRootLogin = "no";
+          PasswordAuthentication = false; # use trusted ssh
+          KbdInteractiveAuthentication = false; # No keyboard
         };
         ports = [22];
       };

@@ -4,6 +4,14 @@
       enable = true;
       enableSSHSupport = true;
     };
-    services.openssh.enable = true; # Remote Login
+    services.openssh = {
+      enable = true;
+      # same settings as nixos' openssh
+      extraConfig = ''
+        PermitRootLogin no
+        PasswordAuthentication no
+        KbdInteractiveAuthentication no
+      '';
+    };
   };
 }

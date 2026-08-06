@@ -34,7 +34,10 @@
             enable = true;
             package = pkgs.cachyosKernels.linuxPackages-cachyos-bore-lto-zen4;
           };
-          users.wyn.isAdmin = true;
+          users.wyn = {
+            isAdmin = true;
+            sshKeys = [../../common/keys/id_ed25519_openssh.pub];
+          };
           preservation.users.wyn = {
             directories = [
               "Shared"

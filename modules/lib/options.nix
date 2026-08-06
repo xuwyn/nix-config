@@ -22,7 +22,7 @@ in {
         };
       });
       default = {};
-      description = "Global constants for nixos and homeManager";
+      description = "Global constants for nixos, darwin and homeManager";
     };
 
     modules = mkOption {

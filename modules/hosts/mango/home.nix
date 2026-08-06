@@ -9,6 +9,7 @@ in {
       home
       cli
       sops
+      ssh
       quickshell
       terminals
       apps
@@ -25,6 +26,12 @@ in {
 
       (_: {
         homeManager = {
+          ssh.hosts = [
+            {
+              name = "apricot";
+              hostname = "apricot.local";
+            }
+          ];
           desktop = {
             inherit wallpaper;
             qylockEnabled = true;

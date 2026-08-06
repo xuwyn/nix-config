@@ -8,6 +8,9 @@
       users
       network
       security
+      {
+        darwin.users.wyn.sshKeys = [../../common/keys/id_ed25519_openssh.pub];
+      }
     ];
   };
 }

@@ -13,6 +13,7 @@ in {
       nix-settings
       home
       sops
+      ssh
       syncthing
       cli
       editors
@@ -24,6 +25,11 @@ in {
 
       (_: {
         homeManager = {
+          ssh.hosts = [
+            {name = "mango";}
+            {name = "capybara";}
+            {name = "potato";}
+          ];
           cli = {
             zsh.enable = true;
             git = {
