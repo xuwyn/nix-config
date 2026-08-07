@@ -22,6 +22,7 @@
       };
       packages = [
         inputs.tack.packages.${pkgs.stdenv.hostPlatform.system}.default
+        inputs.deploy-rs.packages.${pkgs.stdenv.hostPlatform.system}.default
         pkgs.nvfetcher
       ];
     };

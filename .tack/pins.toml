@@ -28,8 +28,7 @@ url = "https://channels.nixos.org/nixos-unstable/nixexprs.tar.xz"
 
 [inputs.nixpkgs-stable]
 url = "https://channels.nixos.org/nixos-unstable/nixexprs.tar.xz"
-# url = "github:nixos/nixpkgs/a799d3e3886da994fa307f817a6bc705ae538eeb"
-# exclude_follow = ["nixpkgs"]
+exclude_follow = ["nixpkgs"]
 
 [inputs.home-manager]
 url = "github:nix-community/home-manager"
@@ -134,3 +133,6 @@ url = "github:greyxp1/ncr"
 
 [inputs.tack]
 url = "github:manic-systems/tack"
+
+[inputs.deploy-rs]
+url = "github:serokell/deploy-rs"

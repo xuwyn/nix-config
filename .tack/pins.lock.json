@@ -1,4 +1,12 @@
 {
+  "deploy-rs": {
+    "type": "github",
+    "owner": "serokell",
+    "repo": "deploy-rs",
+    "rev": "f6f2359a6cb7e3c51ea673bcb39933ac2622350d",
+    "narHash": "sha256-1JTy9/LyITSBP1a4WZ9tmOv2yDh9OTbA3YUJbQHiMYc=",
+    "lastModified": 1785892481
+  },
   "dgop": {
     "type": "github",
     "owner": "AvengeMedia",

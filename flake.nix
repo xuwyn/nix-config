@@ -50,28 +50,33 @@
       })
       config
       ;
-  in {
-    inherit (config) nixosConfigurations darwinConfigurations homeConfigurations;
+  in
+    {
+      inherit (config) nixosConfigurations darwinConfigurations homeConfigurations;
 
-    formatter = perSystem (pkgs: _: pkgs.alejandra);
+      formatter = perSystem (pkgs: _: pkgs.alejandra);
 
-    devShells = perSystem (pkgs: _: {
-      python = pkgs.mkShell {
-        packages = with pkgs; [
-          python3
-          python3Packages.pip
-          python3Packages.virtualenv
-          python3Packages.setuptools
-          python3Packages.black
-          python3Packages.flake8
-          python3Packages.mypy
-          python3Packages.requests
-        ];
+      devShells = perSystem (pkgs: _: {
+        python = pkgs.mkShell {
+          packages = with pkgs; [
+            python3
+            python3Packages.pip
+            python3Packages.virtualenv
+            python3Packages.setuptools
+            python3Packages.black
+            python3Packages.flake8
+            python3Packages.mypy
+            python3Packages.requests
+          ];
 
-        shellHook = ''
-          export PIP_USER=1
-        '';
-      };
-    });
-  };
+          shellHook = ''
+            export PIP_USER=1
+          '';
+        };
+      });
+    }
+    // import ./deploy.nix {
+      inherit inputs lib config;
+      self = args.self;
+    };
 }

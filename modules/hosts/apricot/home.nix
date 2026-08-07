@@ -3,7 +3,7 @@
   inputs,
   ...
 }: let
-  wallpaper = ../../../assets/wallpapers/Amiya-Birthday-Skin-Promote.png;
+  wallpaper = ../../../assets/wallpapers/interlude_RinLen_5.png;
 in {
   home."wyn@apricot" = {
     system = "aarch64-darwin";
