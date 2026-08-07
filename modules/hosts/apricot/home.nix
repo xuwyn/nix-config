@@ -25,22 +25,21 @@ in {
 
       (_: {
         homeManager = {
-          ssh.hosts = [
-            {
-              name = "mango";
-              hostname = "mango.local";
-            }
-            {
-              name = "capybara";
-              hostname = "capybara.local";
-            }
-            {
-              name = "potato";
-              hostname = "potato.local";
-            }
-          ];
+          ssh.hosts = {
+            mango = {};
+            capybara = {};
+            potato = {};
+            "mango.local" = {};
+            "capybara.local" = {};
+            "potato.local" = {};
+          };
           cli = {
-            zsh.enable = true;
+            zsh = {
+              enable = true;
+              extraShellAliases = {
+                tailscale-restart = "sudo launchctl kickstart -k system/com.tailscale.tailscaled";
+              };
+            };
             git = {
               enable = true;
               username = "wyn";

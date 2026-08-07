@@ -26,12 +26,10 @@ in {
 
       (_: {
         homeManager = {
-          ssh.hosts = [
-            {
-              name = "apricot";
-              hostname = "apricot.local";
-            }
-          ];
+          ssh.hosts = {
+            apricot = {};
+            "apricot.local" = {};
+          };
           desktop = {
             inherit wallpaper;
             qylockEnabled = true;

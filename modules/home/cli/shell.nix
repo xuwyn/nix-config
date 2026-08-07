@@ -8,8 +8,22 @@
     cfg = config.homeManager.cli;
   in {
     options.homeManager.cli = {
-      bash.enable = lib.mkEnableOption "Enable bash";
-      zsh.enable = lib.mkEnableOption "Enable zsh";
+      bash = {
+        enable = lib.mkEnableOption "Enable bash";
+        extraShellAliases = lib.mkOption {
+          type = lib.types.attrsOf lib.types.str;
+          default = {};
+          description = "Additional shell aliases";
+        };
+      };
+      zsh = {
+        enable = lib.mkEnableOption "Enable zsh";
+        extraShellAliases = lib.mkOption {
+          type = lib.types.attrsOf lib.types.str;
+          default = {};
+          description = "Additional shell aliases";
+        };
+      };
     };
 
     config = lib.mkMerge [
@@ -22,20 +36,22 @@
             microfetch
           '';
 
-          shellAliases = {
-            sv = "sudo nvim";
-            v = "nvim";
-            c = "clear";
-            ncg = "nix-collect-garbage --delete-old && nix-collect-garbage -d && nix-store --gc && nix-store --optimise";
-            cat = "bat";
-            man = "batman";
-            gl = "git log";
-            gs = "git status";
-            gd = "git diff";
-            ga = "git add .";
-            gb = "git branch -a";
-            ".." = "cd ..";
-          };
+          shellAliases =
+            {
+              sv = "sudo nvim";
+              v = "nvim";
+              c = "clear";
+              ncg = "nix-collect-garbage --delete-old && nix-collect-garbage -d && nix-store --gc && nix-store --optimise";
+              cat = "bat";
+              man = "batman";
+              gl = "git log";
+              gs = "git status";
+              gd = "git diff";
+              ga = "git add .";
+              gb = "git branch -a";
+              ".." = "cd ..";
+            }
+            // cfg.bash.extraShellAliases;
         };
       })
       (lib.mkIf cfg.zsh.enable {
@@ -71,20 +87,22 @@
             fastfetch
           '';
 
-          shellAliases = {
-            sv = "sudo nvim";
-            v = "nvim";
-            c = "clear";
-            ncg = "nix-collect-garbage --delete-old && nix-collect-garbage -d && nix-store --gc && nix-store --optimise";
-            cat = "bat";
-            man = "batman";
-            gl = "git log";
-            gs = "git status";
-            gd = "git diff";
-            ga = "git add .";
-            gb = "git branch -a";
-            ".." = "cd ..";
-          };
+          shellAliases =
+            {
+              sv = "sudo nvim";
+              v = "nvim";
+              c = "clear";
+              ncg = "nix-collect-garbage --delete-old && nix-collect-garbage -d && nix-store --gc && nix-store --optimise";
+              cat = "bat";
+              man = "batman";
+              gl = "git log";
+              gs = "git status";
+              gd = "git diff";
+              ga = "git add .";
+              gb = "git branch -a";
+              ".." = "cd ..";
+            }
+            // cfg.zsh.extraShellAliases;
         };
       })
     ];

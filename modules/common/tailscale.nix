@@ -1,14 +1,10 @@
 {
-  modules = let
-    tailscaleSettings = {config, ...}: {
+  modules = {
+    nixos.tailscale = {config, ...}: {
       services.tailscale = {
         enable = true;
         authKeyFile = config.sops.secrets.tailscale_key.path;
       };
-    };
-  in {
-    nixos.tailscale = {config, ...}: {
-      imports = [tailscaleSettings];
 
       # Allow traffic from tailscale
       networking = {
@@ -33,8 +29,30 @@
       boot.initrd.systemd.network.wait-online.enable = false;
     };
 
-    darwin.tailscale = {config, ...}: {
-      imports = [tailscaleSettings];
+    darwin.tailscale = {
+      config,
+      pkgs,
+      ...
+    }: {
+      services.tailscale = {
+        enable = true;
+        package = pkgs.tailscale;
+      };
+
+      # Tailscale for nix-darwin doesn't have authKeyFile
+      # start a launchd service to start tailscale with auth
+      launchd.daemons.tailscale-auth = {
+        serviceConfig = {
+          Label = "com.tailscale.auth";
+          ProgramArguments = [
+            "/bin/sh"
+            "-c"
+            "${config.services.tailscale.package}/bin/tailscale up --auth-key=file:${config.sops.secrets.tailscale_key.path}"
+          ];
+          WatchPaths = ["/var/run/tailscaled.socket"];
+          RunAtLoad = false;
+        };
+      };
     };
   };
 }
