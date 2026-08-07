@@ -12,6 +12,7 @@ in {
       inputs.mac-app-util.homeManagerModules.default
       nix-settings
       home
+      apps
       sops
       ssh
       syncthing
@@ -25,6 +26,7 @@ in {
 
       (_: {
         homeManager = {
+          apps.nixcord.enable = true;
           ssh.hosts = {
             mango = {};
             capybara = {};
