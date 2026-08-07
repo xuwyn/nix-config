@@ -13,6 +13,10 @@
         access-tokens = github.com=${config.sops.placeholder.github_token} gitlab.com=${config.sops.placeholder.gitlab_token} codeberg.org=${config.sops.placeholder.codeberg_token}
       '';
     };
+
+    tailscaleAuthKey = {
+      tailscale_key.sopsFile = ./tailscale.yaml;
+    };
   in {
     nixos.sops = {
       inputs,
@@ -23,7 +27,10 @@
       ...
     }: {
       imports = [inputs.sops-nix.nixosModules.sops accessTokensTemplate];
-      environment.systemPackages = with pkgs; [age sops];
+      environment = {
+        systemPackages = with pkgs; [ssh-to-age age sops];
+        variables.SOPS_AGE_KEY_CMD = "ssh-to-age -private-key -i /etc/ssh/ssh_host_ed25519_key";
+      };
       sops = {
         age.sshKeyPaths = ["/etc/ssh/ssh_host_ed25519_key"];
         defaultSopsFile = ./${host}.yaml;
@@ -34,7 +41,7 @@
               value = {neededForUsers = true;};
             })
             users)
-          // accessTokens;
+          // accessTokens // tailscaleAuthKey;
       };
     };
 
@@ -45,12 +52,15 @@
       ...
     }: {
       imports = [inputs.sops-nix.darwinModules.sops accessTokensTemplate];
-      environment.systemPackages = with pkgs; [age sops];
+      environment = {
+        systemPackages = with pkgs; [ssh-to-age age sops];
+        variables.SOPS_AGE_KEY_CMD = "ssh-to-age -private-key -i /etc/ssh/ssh_host_ed25519_key";
+      };
       sops = {
         age.sshKeyPaths = ["/etc/ssh/ssh_host_ed25519_key"];
         defaultSopsFile = ./${host}.yaml;
         defaultSopsFormat = "yaml";
-        secrets = {} // accessTokens;
+        secrets = {} // accessTokens // tailscaleAuthKey;
       };
     };
 

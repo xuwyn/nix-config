@@ -90,10 +90,7 @@ in {
               enable = true;
               theme = "noctalia";
             };
-            fastfetch = {
-              enable = true;
-              defaultProfile = "gif";
-            };
+            fastfetch.enable = true;
             bottom.enable = true;
             nh.enable = true;
             tealdeer.enable = true;

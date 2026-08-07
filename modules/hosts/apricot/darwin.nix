@@ -5,6 +5,7 @@
       nix-settings
       system
       sops
+      tailscale
       users
       network
       security

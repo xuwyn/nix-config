@@ -17,6 +17,7 @@
       apps
       services
       sops
+      tailscale
 
       ({pkgs, ...}: {
         nixos = {

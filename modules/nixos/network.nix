@@ -11,7 +11,7 @@
     networking = {
       hostName = host;
       firewall = {
-        enable = true;
+        enable = lib.mkDefault true;
         allowedTCPPorts = [
           22
           80

@@ -8,12 +8,15 @@ creation_rules:
     key_groups:
       - age:
         - *host_mango
-        - *user_wyn
   - path_regex: apricot\.yaml$
     key_groups:
       - age:
         - *host_apricot
-        - *user_wyn
+  - path_regex: tailscale\.yaml$
+    key_groups:
+      - age:
+        - *host_apricot
+        - *host_mango
   - path_regex: access-tokens\.yaml$
     key_groups:
       - age:
