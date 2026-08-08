@@ -10,7 +10,7 @@
 
     accessTokensTemplate = {config, ...}: {
       sops.templates."nix-access-tokens.conf".content = ''
-        access-tokens = github.com=${config.sops.placeholder.github_token} gitlab.com=${config.sops.placeholder.gitlab_token} codeberg.org=${config.sops.placeholder.codeberg_token}
+        access-tokens = github.com=${config.sops.placeholder.github_token} gitlab.com=PAT:${config.sops.placeholder.gitlab_token} codeberg.org=${config.sops.placeholder.codeberg_token}
       '';
     };
 

@@ -436,13 +436,13 @@ echo 'PKG_CONFIG_PATH="/usr/lib/pkgconfig:/usr/share/pkgconfig"' >> ~/.config/pa
 Run this oneliner to recover:
 
 ```sh
-bash <(curl -L https://raw.githubusercontent.com/xuwyn/nix-config/main/scripts/recover)
+bash <(curl -L https://raw.githubusercontent.com/xuwyn/nix-config/main/scripts/recover.sh)
 ```
 
 If on a distro without `nixos-install`, execute the oneliner in a nix shell:
 
 ```sh
-nix shell nixpkgs#nixos-install-tools --command bash <(curl -L https://raw.githubusercontent.com/xuwyn/nix-config/main/scripts/recover)
+nix shell nixpkgs#nixos-install-tools --command bash <(curl -L https://raw.githubusercontent.com/xuwyn/nix-config/main/scripts/recover.sh)
 ```
 
 ## Acknowledgement

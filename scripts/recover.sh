@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 #
+# recover.sh
+#
 # Recover a btrfs+LUKS+preservation NixOS externally
 # without reformatting or destroying any data in /persist.
 # This only works if the keys to decrypt user password
@@ -148,8 +150,6 @@ function fetch_flake_with_lfs() {
 
   rm -rf "$clone_dir"
 
-  # Full clone: --depth 1 combined with --branch
-  # only works if $rev is a branch name, not an arbitrary commit/tag
   nix shell nixpkgs#git nixpkgs#git-lfs --command git clone "$git_url" "$clone_dir"
   (
     cd "$clone_dir"
@@ -177,7 +177,7 @@ function run_rebuild() {
     flake_uri="${flake_ref}#${host}"
   else
     # flake on remote repo
-    read -rp "Enter git rev for flake (default: main): " git_rev
+    read -rp "Enter git branch, tag, or commit to checkout (default: main): " git_rev
     git_rev="${git_rev:-main}"
 
     use_lfs=$(yesno "Does this flake need git-lfs objects fetched?")

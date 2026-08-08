@@ -1,7 +1,9 @@
 #!/usr/bin/env bash
 #
+# btrfs-snapshots-purge.sh
+#
 # Delete all snapshots created by btrfs-root-rotate
-# in ../modules/nixos/preservation.nix
+# See ../modules/nixos/preservation.nix
 
 set -euo pipefail
 
