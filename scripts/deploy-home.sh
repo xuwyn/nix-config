@@ -5,9 +5,11 @@
 # Remote deploy script for home manager (standalone) via ssh
 #
 # Source: https://www.brokenpip3.com/posts/2024-27-06-nix-tiny-tools/#home-manager-remote
-#
-# Changes: Refactor copy_git_to_target() to accept uncommitted changes in local flake
-#          and handling remote repo with git-lfs objects and branch selection
+# Warning: mkOutOfStoreSymlink would NOT work if the target machine doesn't have its local
+#          flake in the expected directory. Changes to those mkOutOfStoreSymlink files
+#          will not applied via this scripts
+# Changes: Refactor copy_git_to_target() to accept uncommitted changes and remote repo with git-lfs
+#          Drop randomized directory name, use /tmp/nix-config instead
 
 set +u
 
@@ -40,16 +42,13 @@ yesno() {
   done
 }
 
-_create_temp() {
+_prepare_temp() {
   local target="$1"
-  local temp_dir_name
-  temp_dir_name=$(head /dev/urandom | tr -dc A-Za-z0-9 | head -c 8)
-  ssh "$target" "mkdir -p /tmp/$temp_dir_name"
+  ssh "$target" "rm -rf /tmp/nix-config && mkdir -p /tmp/nix-config"
   [ $? -ne 0 ] && {
     log "$target" "Failed to create temporary directory."
     exit 1
   }
-  echo "$temp_dir_name"
 }
 
 _sshexec() {
@@ -73,12 +72,11 @@ github_ref_to_clone_url() {
 
 copy_source_to_target() {
   local target="$1"
-  local temp_dir="$2"
-  local flake_path="$3"
+  local flake_path="$2"
 
   if [[ "$flake_path" == /* || "$flake_path" == .* ]]; then
     log "$target" "Copying local working directory..."
-    tar --exclude='.git' -cf - "$flake_path" | ssh "$target" "tar -xf - -C /tmp/$temp_dir"
+    tar --exclude='.git' -cf - "$flake_path" | ssh "$target" "tar -xmf - -C /tmp/nix-config"
   else
     log "$target" "Remote flake detected!"
 
@@ -94,9 +92,8 @@ copy_source_to_target() {
 
     ssh "$target" "
       export PATH=\$PATH:/run/current-system/sw/bin:/nix/var/nix/profiles/default/bin
-      rm -rf /tmp/$temp_dir &&
-      git clone '$git_url' /tmp/$temp_dir &&
-      cd /tmp/$temp_dir &&
+      git clone '$git_url' /tmp/nix-config &&
+      cd /tmp/nix-config &&
       git checkout '$git_rev' &&
       if [ '$use_lfs' = 'y' ]; then
         if command -v git-lfs &>/dev/null; then
@@ -118,8 +115,7 @@ copy_source_to_target() {
 
 local_build_and_copy() {
   local target="$1"
-  local temp_dir="$2"
-  local flake_path="$3"
+  local flake_path="$2"
   local local_build_output
   log "$target" "Building locally..."
   local_build_output=$(nix build "$flake_path#homeConfigurations.$(_sshexec "$target" 'whoami')@$(_sshexec "$target" "echo \$HOSTNAME").activationPackage" --json | jq -r '.[].outputs.out')
@@ -147,7 +143,6 @@ main() {
   local flake_path="$1"
   local target="$2"
   local build_on_target=false
-  local temp_dir
 
   [[ "$3" = "--build-on-target" ]] && build_on_target=true
   [[ -z "$target" ]] && read -rp "Enter the target host: " target
@@ -156,23 +151,23 @@ main() {
     exit 1
   }
 
-  temp_dir=$(_create_temp "$target")
-  log "$target" "Temporary directory '/tmp/$temp_dir' created."
+  _prepare_temp "$target"
+  log "$target" "Temporary directory '/tmp/nix-config' created."
 
-  copy_source_to_target "$target" "$temp_dir" "$flake_path"
+  copy_source_to_target "$target" "$flake_path"
 
   if [ "$build_on_target" = true ]; then
     log "$target" "Building on target..."
-    _sshexec "$target" "cd /tmp/$temp_dir && sh -c '\$HOME/.nix-profile/bin/home-manager build --flake .#\$(whoami)@\$(hostname || echo \$HOSTNAME)'"
+    _sshexec "$target" "cd /tmp/nix-config && sh -c '\$HOME/.nix-profile/bin/home-manager build --flake .#\$(whoami)@\$(hostname || echo \$HOSTNAME)'"
   else
-    local_build_and_copy "$target" "$temp_dir" "$flake_path"
+    local_build_and_copy "$target" "$flake_path"
   fi
 
   log "$target" "Switching to the new configuration..."
-  _sshexec "$target" "cd /tmp/$temp_dir && sh -c '\$HOME/.nix-profile/bin/home-manager switch --flake .#\$(whoami)@\$(hostname || echo \$HOSTNAME)'"
+  _sshexec "$target" "cd /tmp/nix-config && sh -c '\$HOME/.nix-profile/bin/home-manager switch --flake .#\$(whoami)@\$(hostname || echo \$HOSTNAME)'"
 
   log "$target" "Cleaning up temporary files..."
-  _sshexec "$target" "rm -rf /tmp/$temp_dir"
+  _sshexec "$target" "rm -rf /tmp/nix-config"
 
   log "$target" "Running home-manager expire-generations..."
   _sshexec "$target" "\$HOME/.nix-profile/bin/home-manager expire-generations 7d"
