@@ -20,6 +20,7 @@
       lib,
       users,
       host,
+      config,
       ...
     }: {
       imports = [inputs.sops-nix.nixosModules.sops accessTokensTemplate];
@@ -36,7 +37,7 @@
               name = "${u}_password";
               value = {neededForUsers = true;};
             })
-            users)
+            (lib.filter (u: !(config.nixos.users.${u}.isDeployer or false)) users))
           // accessTokens;
       };
     };

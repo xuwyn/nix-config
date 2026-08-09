@@ -59,7 +59,6 @@
         default = {};
         description = "Per-user account configuration";
       };
-
       config = let
         shellPkgs = shellPackages pkgs;
         shellsInUse = mkShellsInUse config.nixos.users;
@@ -68,10 +67,12 @@
           users.mutableUsers = !(config ? sops);
           users.users = lib.mapAttrs (name: u:
             {
-              isNormalUser = true;
+              isNormalUser = !u.isDeployer;
+              isSystemUser = u.isDeployer;
               description = name;
+              group = lib.mkIf u.isDeployer "deploy";
               extraGroups =
-                ["networkmanager" "video" "render" "input" "i2c"]
+                lib.optionals (!u.isDeployer) ["networkmanager" "video" "render" "input" "i2c"]
                 ++ lib.optional u.isAdmin "wheel"
                 ++ u.extraGroups;
               shell = shellPkgs.${u.shell};
@@ -79,10 +80,14 @@
             // lib.optionalAttrs (u.sshKeys != []) {
               openssh.authorizedKeys.keyFiles = u.sshKeys;
             }
-            // lib.optionalAttrs (config ? sops && config.sops.secrets ? "${name}_password") {
+            // lib.optionalAttrs (!u.isDeployer && config ? sops && config.sops.secrets ? "${name}_password") {
               hashedPasswordFile = config.sops.secrets."${name}_password".path;
             })
           config.nixos.users;
+
+          users.groups = lib.mkIf (lib.any (u: u.isDeployer) (lib.attrValues config.nixos.users)) {
+            deploy = {};
+          };
         }
         // mkShellProgramsConfig shellsInUse;
     };
