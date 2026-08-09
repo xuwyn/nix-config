@@ -49,16 +49,16 @@ in
       --inside-color="#${colors.base00}33" \
       --ring-color="#${colors.base05}ff" \
       --line-color="#${colors.base00}00" \
-      --keyhl-color="#${colors.base0B}ff" \
+      --keyhl-color="#${colors.base0D}ff" \
       --bshl-color="#${colors.base08}ff" \
       --separator-color="#${colors.base00}00" \
-      --insidever-color="#${colors.base00}33" \
+      --insidever-color="#${colors.base0D}33" \
       --ringver-color="#${colors.base0D}ff" \
       --insidewrong-color="#${colors.base08}33" \
       --ringwrong-color="#${colors.base07}ff" \
       --time-color="#${colors.base07}ff" \
       --date-color="#${colors.base06}ff" \
-      --verif-color="#${colors.base07}ff" \
+      --verif-color="#${colors.base0D}ff" \
       --wrong-color="#${colors.base07}ff" \
       --nofork
   ''
