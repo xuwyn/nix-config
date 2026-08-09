@@ -22,12 +22,7 @@ in {
       thunar
       yazi
 
-      (_: {
-        sops.secrets = {
-          syncthing_password = {};
-          deploy_key = {};
-        };
-      })
+      (_: {sops.secrets.deploy_key = {};})
       ({pkgs, ...}: {
         homeManager = {
           desktop = {

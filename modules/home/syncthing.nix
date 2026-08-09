@@ -6,6 +6,7 @@
     pkgs,
     ...
   }: {
+    sops.secrets.syncthing_password = {};
     services.syncthing = {
       enable = true;
       guiCredentials = {

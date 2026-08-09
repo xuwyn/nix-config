@@ -1,6 +1,6 @@
 {
   modules = let
-    nixSettings = {
+    commonNixSettings = {
       lib,
       config,
       ...
@@ -17,7 +17,7 @@
     };
   in {
     nixos.nix-settings = {users, ...}: {
-      imports = [nixSettings];
+      imports = [commonNixSettings];
       nix.settings = {
         download-buffer-size = 200000000;
         auto-optimise-store = true;
@@ -27,7 +27,7 @@
     };
 
     darwin.nix-settings = {users, ...}: {
-      imports = [nixSettings];
+      imports = [commonNixSettings];
       nix = {
         settings = {
           auto-optimise-store = true;
@@ -39,7 +39,7 @@
 
     homeManager.nix-settings = {pkgs, ...}: {
       nix.package = pkgs.nix;
-      imports = [nixSettings];
+      imports = [commonNixSettings];
     };
   };
 }

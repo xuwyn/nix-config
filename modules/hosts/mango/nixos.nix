@@ -18,6 +18,7 @@
       services
       sops
       tailscale
+      deploy
 
       ({pkgs, ...}: {
         nixos = {

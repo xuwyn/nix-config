@@ -31,6 +31,7 @@
     };
 
     config = {
+      sops.secrets.openssh_key = {};
       programs.ssh = {
         enable = true;
         enableDefaultConfig = false;

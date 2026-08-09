@@ -13,10 +13,6 @@
         access-tokens = github.com=${config.sops.placeholder.github_token} gitlab.com=PAT:${config.sops.placeholder.gitlab_token} codeberg.org=${config.sops.placeholder.codeberg_token}
       '';
     };
-
-    tailscaleAuthKey = {
-      tailscale_key.sopsFile = ./tailscale.yaml;
-    };
   in {
     nixos.sops = {
       inputs,
@@ -41,7 +37,7 @@
               value = {neededForUsers = true;};
             })
             users)
-          // accessTokens // tailscaleAuthKey;
+          // accessTokens;
       };
     };
 
@@ -60,7 +56,7 @@
         age.sshKeyPaths = ["/etc/ssh/ssh_host_ed25519_key"];
         defaultSopsFile = ./${host}.yaml;
         defaultSopsFormat = "yaml";
-        secrets = {} // accessTokens // tailscaleAuthKey;
+        secrets = {} // accessTokens;
       };
     };
 
@@ -80,7 +76,6 @@
           {
             private_ssh_key = {};
             public_ssh_key = {};
-            openssh_key = {};
           }
           // accessTokens;
       };

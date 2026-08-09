@@ -1,10 +1,16 @@
 {
-  modules = {
-    nixos.tailscale = {config, ...}: {
+  modules = let
+    commonTailscaleSettings = {pkgs, ...}: {
+      sops.secrets.tailscale_key.sopsFile = ./sops/tailscale.yaml;
       services.tailscale = {
         enable = true;
-        authKeyFile = config.sops.secrets.tailscale_key.path;
+        package = pkgs.tailscale;
       };
+    };
+  in {
+    nixos.tailscale = {config, ...}: {
+      imports = [commonTailscaleSettings];
+      services.tailscale.authKeyFile = config.sops.secrets.tailscale_key.path;
 
       # Allow traffic from tailscale
       networking = {
@@ -29,15 +35,8 @@
       boot.initrd.systemd.network.wait-online.enable = false;
     };
 
-    darwin.tailscale = {
-      config,
-      pkgs,
-      ...
-    }: {
-      services.tailscale = {
-        enable = true;
-        package = pkgs.tailscale;
-      };
+    darwin.tailscale = {config, ...}: {
+      imports = [commonTailscaleSettings];
 
       # Tailscale for nix-darwin doesn't have authKeyFile
       # start a launchd service to start tailscale with auth

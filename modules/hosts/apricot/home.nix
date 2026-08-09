@@ -24,12 +24,7 @@ in {
       aerospace
       maa
 
-      (_: {
-        sops.secrets = {
-          syncthing_password = {};
-          deploy_key = {};
-        };
-      })
+      (_: {sops.secrets.deploy_key = {};})
       (_: {
         homeManager = {
           apps.nixcord.enable = true;

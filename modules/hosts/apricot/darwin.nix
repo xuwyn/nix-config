@@ -6,6 +6,7 @@
       system
       sops
       tailscale
+      deploy
       users
       network
       security
