@@ -25,7 +25,7 @@ if dscl . -list /Users | grep -qx "$USERNAME"; then
 fi
 
 echo "Currently taken UIDs:"
-dscl . -list /Users UniqueID | awk '{print $2}' | sort -n
+dscl . -list /Users UniqueID | sort -k2 -n | awk '{printf "  %-6s %s\n", $2, $1}'
 
 echo
 echo "Note: UID < 500 is hidden from the login window (recommended for 'deploy')."
