@@ -1,7 +1,7 @@
 {config, ...}: {
   nixos.mango = {
     system = "x86_64-linux";
-    users = ["wyn"];
+    users = ["wyn" "deploy"];
     modules = with config.modules.nixos; [
       ./_disko.nix
       nix-settings
@@ -35,9 +35,15 @@
             enable = true;
             package = pkgs.cachyosKernels.linuxPackages-cachyos-bore-lto-zen4;
           };
-          users.wyn = {
-            isAdmin = true;
-            sshKeys = [../../common/keys/id_ed25519_openssh.pub];
+          users = {
+            wyn = {
+              isAdmin = true;
+              sshKeys = [../../common/keys/openssh_key.pub];
+            };
+            deploy = {
+              isDeployer = true;
+              sshKeys = [../../common/keys/deploy_key.pub];
+            };
           };
           preservation.users.wyn = {
             directories = [

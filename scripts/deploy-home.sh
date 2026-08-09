@@ -4,12 +4,15 @@
 #
 # Remote deploy script for home manager (standalone) via ssh
 #
-# Source: https://www.brokenpip3.com/posts/2024-27-06-nix-tiny-tools/#home-manager-remote
-# Warning: mkOutOfStoreSymlink would NOT work if the target machine doesn't have its local
-#          flake in the expected directory. Changes to those mkOutOfStoreSymlink files
-#          will not applied via this scripts
+# Source:  https://github.com/brokenpip3/my-binaries/blob/main/productivity/nix-specific/home-manager-remote/home-manager-remote.sh
+#
+# Warning: mkOutOfStoreSymlink would NOT work if the target machine doesn't have its own flake.
+#          Changes made to those mkOutOfStoreSymlink files cannot be applied via this script.
+#
 # Changes: Refactor copy_git_to_target() to accept uncommitted changes and remote repo with git-lfs
 #          Drop randomized directory name, use /tmp/nix-config instead
+#
+# Usage:   ./deploy-home.sh <flake_path> <user@host> [--build-on-target]
 
 set +u
 
@@ -133,7 +136,7 @@ local_build_and_copy() {
 }
 
 help() {
-  echo "Usage: $0 <flake_path> [target] [--build-on-target]"
+  echo "Usage: $0 <flake_path> <user@host> [--build-on-target]"
   exit 1
 }
 

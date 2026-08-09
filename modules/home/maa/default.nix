@@ -7,7 +7,6 @@
     flake,
     ...
   }: let
-    mkOutOfStoreSymlink = path: config.lib.file.mkOutOfStoreSymlink path;
     maa-cli = pkgs.rustPlatform.buildRustPackage {
       pname = pkgs.sources.maa-cli.pname;
       version = pkgs.sources.maa-cli.version;
@@ -32,15 +31,11 @@
         if !pkgs.stdenv.hostPlatform.isDarwin
         then {
           ".config/maa/profiles/default.json".source = ./profiles/waydroid.json;
-          ".config/maa/tasks".source =
-            mkOutOfStoreSymlink
-            "${config.home.homeDirectory}/${flake.homeRelativePath}/modules/home/maa/tasks";
+          ".config/maa/tasks".source = ./tasks;
         }
         else {
           "Library/Application Support/com.loong.maa/config/profiles/default.json".source = ./profiles/playcover.json;
-          "Library/Application Support/com.loong.maa/config/tasks".source =
-            mkOutOfStoreSymlink
-            "${config.home.homeDirectory}/${flake.homeRelativePath}/modules/home/maa/tasks";
+          "Library/Application Support/com.loong.maa/config/tasks".source = ./tasks;
         };
     };
   };

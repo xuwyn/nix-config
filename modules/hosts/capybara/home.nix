@@ -23,6 +23,12 @@ in {
       syncthing
 
       (_: {
+        sops.secrets = {
+          syncthing_password = {};
+          deploy_key = {};
+        };
+      })
+      (_: {
         homeManager = {
           desktop = {
             inherit wallpaper;

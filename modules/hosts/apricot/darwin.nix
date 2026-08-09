@@ -1,6 +1,6 @@
 {config, ...}: {
   darwin.apricot = {
-    users = ["wyn"];
+    users = ["wyn" "deploy"];
     modules = with config.modules.darwin; [
       nix-settings
       system
@@ -10,7 +10,10 @@
       network
       security
       {
-        darwin.users.wyn.sshKeys = [../../common/keys/id_ed25519_openssh.pub];
+        darwin.users = {
+          wyn.sshKeys = [../../common/keys/openssh_key.pub];
+          deploy.sshKeys = [../../common/keys/deploy_key.pub];
+        };
       }
     ];
   };

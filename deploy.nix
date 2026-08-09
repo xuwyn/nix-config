@@ -20,27 +20,22 @@
   isWSL = nixosConfig: nixosConfig.config.nixos.drivers.wsl.enable or false;
   nixosConfigAttrs = lib.filterAttrs (_: c: !isWSL c) config.nixosConfigurations;
 
-  primaryUser = usersAttrs:
-    lib.head (lib.attrNames (lib.filterAttrs (_: u: builtins.elem "wheel" u.extraGroups) usersAttrs));
-
   mkNode = name: _: let
     nixosConfig = nixosConfigAttrs.${name} or null;
     darwinConfig = config.darwinConfigurations.${name} or null;
   in {
     hostname = name;
-    sshUser =
-      if nixosConfig != null
-      then primaryUser nixosConfig.config.users.users
-      else darwinConfig.config.system.primaryUser;
+    sshUser = "deploy";
+    sshOpts = ["-i" "~/.config/sops-nix/secrets/deploy_key" "-o" "IdentitiesOnly=yes"];
     profiles =
       lib.optionalAttrs (nixosConfig != null) {nixos = mkNixosProfile nixosConfig;}
       // lib.optionalAttrs (darwinConfig != null) {darwin = mkDarwinProfile darwinConfig;};
   };
 in {
   deploy = {
-    interactiveSudo = true; # openssh already limited
+    interactiveSudo = false; # deploy has NOPASSWD sudo
     fastConnection = true;
-    remoteBuild = true; # can't cross-compile anyway
+    remoteBuild = true;
     magicRollback = true;
     autoRollback = true;
     nodes = lib.mapAttrs mkNode (nixosConfigAttrs // config.darwinConfigurations);

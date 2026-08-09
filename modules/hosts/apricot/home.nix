@@ -25,6 +25,12 @@ in {
       maa
 
       (_: {
+        sops.secrets = {
+          syncthing_password = {};
+          deploy_key = {};
+        };
+      })
+      (_: {
         homeManager = {
           apps.nixcord.enable = true;
           ssh.hosts = {

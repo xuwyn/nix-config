@@ -51,6 +51,24 @@
       config.darwin.users;
 
       system.primaryUser = lib.head users;
+
+      # Reactivate home manager at login
+      # deploy-home.sh can't activate all services if user is logout
+      launchd.user.agents.hm-activation = {
+        serviceConfig = {
+          ProgramArguments = [
+            "/bin/sh"
+            "-c"
+            ''exec "$HOME/.local/state/nix/profiles/home-manager/activate" > /tmp/hm-activation.log 2>&1''
+          ];
+          WatchPaths = ["/nix/var/nix/daemon-socket/socket"];
+        };
+      };
+
+      # give deploy limited sudo to commands that deploy-rs needs
+      environment.etc."sudoers.d/deploy".text = ''
+        deploy ALL=(root) NOPASSWD: /nix/store/*/activate-rs, /bin/rm /tmp/deploy-rs-canary-*
+      '';
     };
   };
 }

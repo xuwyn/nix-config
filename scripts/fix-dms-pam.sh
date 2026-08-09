@@ -8,6 +8,8 @@
 #
 # Fix: symlink /run/wrappers/bin/unix_chkpwd to real system unix_chkpwd,
 # registered via systemd-tmpfiles so it survives reboots
+#
+# Usage: ./fix-dms-pam.sh
 
 set -euo pipefail
 

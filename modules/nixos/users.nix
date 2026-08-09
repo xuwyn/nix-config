@@ -26,6 +26,11 @@
             default = false;
             description = "Whether this user is granted wheel (sudo) access";
           };
+          isDeployer = lib.mkOption {
+            type = lib.types.bool;
+            default = false;
+            description = "Whether this user is a deploy-rs sudoer (not full wheel)";
+          };
           sshKeys = lib.mkOption {
             type = lib.types.listOf lib.types.path;
             default = [];
@@ -72,6 +77,20 @@
           hashedPasswordFile = config.sops.secrets."${name}_password".path;
         })
       config.nixos.users;
+
+      # Grant deploy-rs passwordless sudo
+      security.sudo.extraRules =
+        lib.optional
+        (lib.any (u: u.isDeployer) (lib.attrValues config.nixos.users))
+        {
+          users = lib.attrNames (lib.filterAttrs (_: u: u.isDeployer) config.nixos.users);
+          commands = [
+            {
+              command = "/nix/store/*/bin/switch-to-configuration";
+              options = ["NOPASSWD"];
+            }
+          ];
+        };
     };
   };
 }

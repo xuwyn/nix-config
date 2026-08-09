@@ -9,6 +9,8 @@
 #
 # Use this script for cases like boot freezes and/or
 # user environment being inaccessible to run nixos-rebuild
+#
+# Usage: ./recover.sh
 
 set -o errexit
 set -o nounset

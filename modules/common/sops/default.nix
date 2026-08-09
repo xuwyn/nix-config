@@ -80,7 +80,6 @@
           {
             private_ssh_key = {};
             public_ssh_key = {};
-            syncthing_password = {};
             openssh_key = {};
           }
           // accessTokens;
