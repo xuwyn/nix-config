@@ -23,6 +23,7 @@ in {
       thunar
       yazi
       maa
+
       (_: {sops.secrets.deploy_key = {};})
       (_: {
         homeManager = {

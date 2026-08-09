@@ -22,7 +22,6 @@ in {
       thunar
       yazi
 
-      (_: {sops.secrets.deploy_key = {};})
       ({pkgs, ...}: {
         homeManager = {
           desktop = {

@@ -22,7 +22,6 @@ in {
       yazi
       syncthing
 
-      (_: {sops.secrets.deploy_key = {};})
       (_: {
         homeManager = {
           desktop = {
