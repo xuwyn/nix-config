@@ -86,7 +86,11 @@
           users = lib.attrNames (lib.filterAttrs (_: u: u.isDeployer) config.nixos.users);
           commands = [
             {
-              command = "/nix/store/*/bin/switch-to-configuration";
+              command = "/nix/store/*/activate-rs";
+              options = ["NOPASSWD"];
+            }
+            {
+              command = "/run/current-system/sw/bin/rm /tmp/deploy-rs-canary-*";
               options = ["NOPASSWD"];
             }
           ];
