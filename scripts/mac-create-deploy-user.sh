@@ -3,8 +3,6 @@
 # mac-create-deploy-user.sh
 #
 # Creates a 'deploy' user on macOS for headless nix-darwin/deploy-rs deployment
-# - UID < 500 is hidden from the login window (recommended for a non-interactive account)
-# - UID >= 500 shows up as a selectable account at login
 #
 # Usage: sudo ./mac-create-deploy-user.sh
 
@@ -28,8 +26,7 @@ echo "Currently taken UIDs:"
 dscl . -list /Users UniqueID | sort -k2 -n | awk '{printf "  %-6s %s\n", $2, $1}'
 
 echo
-echo "Note: UID < 500 is hidden from the login window (recommended for 'deploy')."
-echo "      UID >= 500 shows up as a selectable login account."
+echo "Note: UID < 500 is conventional for non-interactive/service accounts."
 echo
 
 while true; do
@@ -50,10 +47,10 @@ done
 
 echo
 echo "Creating user '$USERNAME' (UID $UID_INPUT, home $HOME_DIR)..."
-sysadminctl -addUser "$USERNAME" -fullName "Deploy" -home "$HOME_DIR" -shell /bin/zsh -UID "$UID_INPUT"
+sysadminctl -addUser "$USERNAME" -fullName "$USERNAME" -home "$HOME_DIR" -shell /bin/zsh -UID "$UID_INPUT"
 
-echo "Creating home directory..."
-createhomedir -c -u "$USERNAME" >/dev/null
+echo "Hiding '$USERNAME' from the login window (dscl IsHidden = 1)..."
+dscl . -create "/Users/${USERNAME}" IsHidden 1
 
 echo "Granting Remote Login (SSH) access..."
 dseditgroup -o create com.apple.access_ssh 2>/dev/null || true
@@ -61,4 +58,4 @@ dseditgroup -o edit -a "$USERNAME" -t user com.apple.access_ssh
 
 echo
 echo "Done. Summary:"
-dscl . -read "/Users/${USERNAME}" UniqueID NFSHomeDirectory UserShell
+dscl . -read "/Users/${USERNAME}" UniqueID NFSHomeDirectory UserShell IsHidden
