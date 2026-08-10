@@ -54,18 +54,17 @@ so most features are in Home Manager for portability.
 ## Overview
 
 This flake implements a half-baked dendritic pattern. Why half-baked?
-Because mixing different classes (i.e., `nixos`, `darwin`, and `homeManager`) into the same aspect doesn't feel right to me.
+Because mixing different classes (i.e., `nixos`, `darwin`, and `homeManager`)
+into the same aspect doesn't feel right to me.
 From what I learned, there are two main ways to set up dendritic pattern:
 
 - **`<class>.<aspect>`** which is the standard [flake-parts](https://flake.parts)
-- **`<aspect>.<class>`** which can be achieved with [den](https://github.com/denful/den) or just [flake-aspects](https://github.com/denful/flake-aspects)
+- **`<aspect>.<class>`** which can be achieved with [den](https://github.com/denful/den)
+  or just [flake-aspects](https://github.com/denful/flake-aspects)
 
 I went with **`<class>.<aspect>`** since it's easier to separate aspects by class this way.
-
-I use den pattern as a guideline to modularly divide my config, though adopting it isn't necessary for a modular approach.
-As a disclaimer, **none** of tools listed above are actually implemented in my current config, since they are a bit overkill
-for what I need. But if I have to compare, my setup is closest to `flake-parts` cause I used it at one point before
-learning how to replicate `flake-parts` structure with just pure Nix.
+As a disclaimer, **none** of tools listed above are actually implemented in my current config
+since they are a bit overkill for what I need.
 
 ## Layout
 
