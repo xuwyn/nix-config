@@ -88,7 +88,7 @@
 
           plugins = {
             # UI and visuals
-            web-devicons.enable = false;
+            web-devicons.enable = true;
             lualine = {
               enable = true;
               settings = {

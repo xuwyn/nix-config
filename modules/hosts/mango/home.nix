@@ -5,9 +5,11 @@ in {
     system = "x86_64-linux";
     username = "wyn";
     modules = with config.modules.homeManager; [
+      nix-settings
       home
       cli
       sops
+      ssh
       quickshell
       terminals
       apps
@@ -22,8 +24,13 @@ in {
       yazi
       maa
 
+      (_: {sops.secrets.deploy_key = {};})
       (_: {
         homeManager = {
+          ssh.hosts = {
+            apricot = {};
+            "apricot.local" = {};
+          };
           desktop = {
             inherit wallpaper;
             qylockEnabled = true;
@@ -66,6 +73,7 @@ in {
             spicetify.enable = true;
           };
           terminals.kitty.enable = true;
+          # terminals.ghostty.enable = true;
           cli = {
             zsh.enable = true;
             bash.enable = true;
@@ -82,10 +90,7 @@ in {
               enable = true;
               theme = "noctalia";
             };
-            fastfetch = {
-              enable = true;
-              defaultProfile = "gif";
-            };
+            fastfetch.enable = true;
             bottom.enable = true;
             nh.enable = true;
             tealdeer.enable = true;

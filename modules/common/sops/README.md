@@ -16,15 +16,21 @@ Generate `age` private and public keys
 age-keygen -o ~/.config/sops/age/keys.txt
 ```
 
-Extract public key and copy it to `.sops.yaml`
+Extract `age` public key and copy it to `.sops.yaml`
 
 ```sh
 age-keygen -y ~/.config/sops/age/keys.txt
 ```
 
+Or generate `age` public key from ssh key and copy it to `.sops.yaml`
+
+```sh
+cat ~/.ssh/id_ed25519.pub | ssh-to-age
+```
+
 ## Add Secrets
 
-Add new entry to **`sops.secrets`** in [default.nix](./default.nix)
+Add new entry to **`sops.secrets`**
 
 ```nix
 sops = {

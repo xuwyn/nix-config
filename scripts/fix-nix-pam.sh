@@ -1,15 +1,19 @@
 #!/usr/bin/env bash
 #
-# Nix-built DMS/quickshell (e.g. via home-manager on non-NixOS)
+# fix-nix-pam.sh
+#
+# Nix-built packages like DMS/quickshell (e.g. via home-manager on non-NixOS)
 # looks for unix_chkpwd at /run/wrappers/bin/unix_chkpwd (NixOS-only path),
 # causing lock screen/greeter auth to fail on non-NixOS distros
 #
 # Fix: symlink /run/wrappers/bin/unix_chkpwd to real system unix_chkpwd,
 # registered via systemd-tmpfiles so it survives reboots
+#
+# Usage: sudo ./fix-nix-pam.sh
 
 set -euo pipefail
 
-TMPFILES_CONF="/etc/tmpfiles.d/dms-pam.conf"
+TMPFILES_CONF="/etc/tmpfiles.d/fix-nix-pam.conf"
 
 if [[ "${EUID}" -ne 0 ]]; then
   echo "This script must be run as root (it writes to /etc and /run)" >&2

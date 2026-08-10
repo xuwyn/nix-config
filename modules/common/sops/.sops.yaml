@@ -1,0 +1,29 @@
+keys:
+  - &host_mango age1yvlp7lzjaev4hmajyky8v52fh93ga6cx2egwdfhnxlchnp935acqz4f9m7
+  - &host_apricot age1t3ehe3z6ke8et89pxq0x3cce9v9sphv5tp962z92csurvw3phazq2fzsr8
+  - &user_wyn age12z60qwkhzjcgulfchhf574ra9gm6emtfd2hg07mantsh8ermnsmq8yzw4c
+
+creation_rules:
+  - path_regex: mango\.yaml$
+    key_groups:
+      - age:
+        - *host_mango
+  - path_regex: apricot\.yaml$
+    key_groups:
+      - age:
+        - *host_apricot
+  - path_regex: tailscale\.yaml$
+    key_groups:
+      - age:
+        - *host_apricot
+        - *host_mango
+  - path_regex: access-tokens\.yaml$
+    key_groups:
+      - age:
+        - *host_mango
+        - *host_apricot
+        - *user_wyn
+  - path_regex: wyn\.yaml$
+    key_groups:
+      - age:
+        - *user_wyn

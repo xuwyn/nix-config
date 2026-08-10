@@ -9,7 +9,6 @@
       "https://nix-community.cachix.org"
       "https://noctalia.cachix.org"
       "https://cache.xinux.uz"
-      "https://zed-industries.cachix.org"
     ];
     trusted-public-keys = [
       "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
@@ -17,75 +16,47 @@
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
       "noctalia.cachix.org-1:pCOR47nnMEo5thcxNDtzWpOxNFQsBRglJzxWPp3dkU4="
       "cache.xinux.uz:BXCrtqejFjWzWEB9YuGB7X2MV4ttBur1N8BkwQRdH+0="
-      "zed-industries.cachix.org-1:fgVpvtdF+ssrgP1lB6EusuR3uM6bNcncWduKxri3u6Y="
     ];
   };
 
   outputs = args: let
     inputs = import ./.tack {overrides = args.tackOverrides or {};};
     inherit (inputs.nixpkgs) lib;
+    inherit (lib) hasSuffix hasPrefix splitString filesystem genAttrs evalModules;
+    inherit (builtins) any concatMap isPath filter readFileType;
 
     systems = ["x86_64-linux" "aarch64-darwin"];
-    perSystem = f: lib.genAttrs systems (system: f inputs.nixpkgs.legacyPackages.${system} system);
+    perSystem = f: genAttrs systems (system: f inputs.nixpkgs.legacyPackages.${system} system);
 
-    buildsPerSystem = system:
-      lib.mapAttrs' (
-        name: _:
-          lib.nameValuePair "${name}"
-          config.nixosConfigurations.${name}.config.system.build.toplevel
-      ) (lib.filterAttrs (name: _: config.nixosConfigurations.${name}.config.nixpkgs.hostPlatform.system == system) config.nixos)
-      // lib.mapAttrs' (
-        name: _:
-          lib.nameValuePair "${name}"
-          config.homeConfigurations.${name}.activationPackage
-      ) (lib.filterAttrs (name: cfg: cfg.system == system) config.home);
+    # Thanks llakala
+    # https://github.com/llakala/synaptic-standard/blob/main/demo/recursivelyImport.nix
+    expandIfFolder = elem:
+      if !isPath elem || readFileType elem != "directory"
+      then [elem]
+      else
+        filter
+        (path: !any (hasPrefix "_") (splitString "/" (toString path)))
+        (filesystem.listFilesRecursive elem);
 
-    import-tree = dir:
-      builtins.concatMap (
-        elem: let
-          path = dir + "/${elem}";
-        in
-          if (builtins.readDir dir).${elem} == "directory"
-          then
-            (
-              if lib.hasPrefix "_" elem
-              then []
-              else import-tree path
-            )
-          else lib.optional (lib.hasSuffix ".nix" elem && !lib.hasPrefix "_" elem) path
-      ) (builtins.attrNames (builtins.readDir dir));
+    import-tree = list:
+      filter
+      (elem: !isPath elem || (hasSuffix ".nix" (toString elem) && !hasPrefix "_" (baseNameOf (toString elem))))
+      (concatMap expandIfFolder list);
 
     inherit
-      (lib.evalModules {
-        modules = import-tree ./modules;
+      (evalModules {
+        modules = import-tree [./modules];
         specialArgs = {inherit inputs;};
       })
       config
       ;
-  in {
-    inherit (config) nixosConfigurations homeConfigurations;
-
-    formatter = perSystem (pkgs: _: pkgs.alejandra);
-    checks = perSystem (_: system: buildsPerSystem system);
-    packages = perSystem (_: system: buildsPerSystem system);
-
-    devShells = perSystem (pkgs: _: {
-      python = pkgs.mkShell {
-        packages = with pkgs; [
-          python3
-          python3Packages.pip
-          python3Packages.virtualenv
-          python3Packages.setuptools
-          python3Packages.black
-          python3Packages.flake8
-          python3Packages.mypy
-          python3Packages.requests
-        ];
-
-        shellHook = ''
-          export PIP_USER=1
-        '';
-      };
-    });
-  };
+  in
+    {
+      inherit (config) nixosConfigurations darwinConfigurations homeConfigurations;
+      formatter = perSystem (pkgs: _: pkgs.alejandra);
+    }
+    // import ./deploy.nix {
+      inherit inputs lib config;
+      self = args.self;
+    };
 }

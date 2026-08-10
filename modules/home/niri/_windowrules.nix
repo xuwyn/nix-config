@@ -40,6 +40,20 @@
     }
     {
       match._props = {
+        app-id._raw = ''r#"^(io\.missioncenter\.MissionCenter)$"#'';
+        is-active = true;
+      };
+      opacity = 0.80;
+    }
+    {
+      match._props = {
+        app-id._raw = ''r#"^(io\.missioncenter\.MissionCenter)$"#'';
+        is-active = false;
+      };
+      opacity = 0.70;
+    }
+    {
+      match._props = {
         app-id._raw = ''r#"^(com.mitchellh.ghostty|org.wezfurlong.wezterm|Alacritty|kitty)$"#'';
         is-active = true;
       };

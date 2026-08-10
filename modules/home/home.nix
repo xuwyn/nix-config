@@ -22,24 +22,12 @@
       };
       packages = [
         inputs.tack.packages.${pkgs.stdenv.hostPlatform.system}.default
+        inputs.deploy-rs.packages.${pkgs.stdenv.hostPlatform.system}.default
         pkgs.nvfetcher
       ];
     };
 
     programs.home-manager.enable = true;
-
-    nix = {
-      package = pkgs.nix;
-      settings = {
-        experimental-features = [
-          "nix-command"
-          "flakes"
-        ];
-      };
-      extraOptions = lib.optionalString (config ? sops && config.sops.templates ? "nix-access-tokens.conf") ''
-        !include ${config.sops.templates."nix-access-tokens.conf".path}
-      '';
-    };
 
     programs = {
       nix-index.enable = true;

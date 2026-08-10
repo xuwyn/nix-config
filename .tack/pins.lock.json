@@ -1,4 +1,12 @@
 {
+  "deploy-rs": {
+    "type": "github",
+    "owner": "serokell",
+    "repo": "deploy-rs",
+    "rev": "f6f2359a6cb7e3c51ea673bcb39933ac2622350d",
+    "narHash": "sha256-1JTy9/LyITSBP1a4WZ9tmOv2yDh9OTbA3YUJbQHiMYc=",
+    "lastModified": 1785892481
+  },
   "dgop": {
     "type": "github",
     "owner": "AvengeMedia",
@@ -95,6 +103,14 @@
     "narHash": "sha256-l+RTmz09TxwWJRLQuc+cKi3yY0K4PSz8tRPTbBUvaVo=",
     "lastModified": 1785870829
   },
+  "nix-darwin": {
+    "type": "github",
+    "owner": "nix-darwin",
+    "repo": "nix-darwin",
+    "rev": "15abb8c98f336cd8bd840d71059adebabe60bf04",
+    "narHash": "sha256-0tLW8Ff5yt8AH97jw4ZpFJ0OCJ122zIlgWGDmOfU/VU=",
+    "lastModified": 1785389976
+  },
   "nix-flatpak": {
     "type": "github",
     "owner": "gmodena",
@@ -134,12 +150,10 @@
     "narHash": "sha256-929m7iW8q2uv3mZHNwY8Um6XKj99rbIcZsWS9cT1vaI="
   },
   "nixpkgs-stable": {
-    "type": "github",
-    "owner": "nixos",
-    "repo": "nixpkgs",
-    "rev": "a799d3e3886da994fa307f817a6bc705ae538eeb",
-    "narHash": "sha256-3av0pIjlOWQ6rDbNOmpUSvbNnJkGORQKKjb4LtCZsIY=",
-    "lastModified": 1780749050
+    "type": "tarball",
+    "url": "https://releases.nixos.org/nixos/unstable/nixos-26.11pre1046609.643809054d65/nixexprs.tar.xz",
+    "rev": "643809054d65fdd466a63e3155b8c498cb483c04",
+    "narHash": "sha256-1+YGJM7PLfvTsbUxDHKj0NcuEXYFHfZBDuajujCcVmY="
   },
   "nixvim": {
     "type": "github",

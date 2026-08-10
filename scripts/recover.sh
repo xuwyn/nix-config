@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 #
+# recover.sh
+#
 # Recover a btrfs+LUKS+preservation NixOS externally
 # without reformatting or destroying any data in /persist.
 # This only works if the keys to decrypt user password
@@ -7,6 +9,8 @@
 #
 # Use this script for cases like boot freezes and/or
 # user environment being inaccessible to run nixos-rebuild
+#
+# Usage: ./recover.sh
 
 set -o errexit
 set -o nounset
@@ -119,16 +123,10 @@ function mount_subvols() {
 function restore_secrets() {
   echo "Restoring host identity/secrets so nixos-install can find them"
 
-  if [[ -d /mnt/persist/etc/sops ]]; then
-    sudo cp -r /mnt/persist/etc/sops /mnt/etc/
-  else
-    echo "  (no /persist/etc/sops found, skipping)" >&2
-  fi
-
-  local copy_ssh
-  copy_ssh=$(yesno "Copy host SSH keys too (only relevant if sops uses them)?")
-  if [[ "$copy_ssh" == "y" && -d /mnt/persist/etc/ssh ]]; then
+  if [[ -d /mnt/persist/etc/ssh ]]; then
     sudo cp -r /mnt/persist/etc/ssh /mnt/etc/
+  else
+    echo "  (no /persist/etc/ssh found, skipping)" >&2
   fi
 
   if [[ -f /mnt/persist/etc/machine-id ]]; then
@@ -154,8 +152,6 @@ function fetch_flake_with_lfs() {
 
   rm -rf "$clone_dir"
 
-  # Full clone: --depth 1 combined with --branch
-  # only works if $rev is a branch name, not an arbitrary commit/tag
   nix shell nixpkgs#git nixpkgs#git-lfs --command git clone "$git_url" "$clone_dir"
   (
     cd "$clone_dir"
@@ -183,7 +179,7 @@ function run_rebuild() {
     flake_uri="${flake_ref}#${host}"
   else
     # flake on remote repo
-    read -rp "Enter git rev for flake (default: main): " git_rev
+    read -rp "Enter git branch, tag, or commit to checkout (default: main): " git_rev
     git_rev="${git_rev:-main}"
 
     use_lfs=$(yesno "Does this flake need git-lfs objects fetched?")
@@ -207,7 +203,7 @@ function run_rebuild() {
 function main() {
   require_root_priv
 
-  echo "=== NixOS btrfs/LUKS recovery ==="
+  echo "================ NixOS btrfs/LUKS recovery ================"
   echo
 
   check_nixos_install_tools

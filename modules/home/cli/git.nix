@@ -44,6 +44,7 @@
           settings = {
             core = {
               sshCommand = "ssh -i ${config.sops.secrets.private_ssh_key.path}";
+              editor = "nvim";
             };
             user = {
               name = cfg.username;

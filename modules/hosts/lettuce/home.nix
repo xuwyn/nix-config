@@ -5,6 +5,7 @@ in {
     system = "x86_64-linux";
     username = "wyn";
     modules = with config.modules.homeManager; [
+      nix-settings
       home
       sops
       yazi

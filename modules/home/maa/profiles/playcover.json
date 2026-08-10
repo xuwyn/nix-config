@@ -1,0 +1,16 @@
+{
+  "connection": {
+    "preset": "PlayCover"
+  },
+  "instance_options": {
+    "touch_mode": "MaaTouch",
+    "deployment_with_pause": false,
+    "adb_lite_enabled": false,
+    "kill_adb_on_exit": false
+  },
+  "resource": {
+    "user_resource": false,
+    "global_resource": "YoStarEN",
+    "platform_diff_resource": "iOS"
+  }
+}

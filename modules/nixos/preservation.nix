@@ -41,8 +41,15 @@
     config = {
       # fix user ownership in /home
       systemd.tmpfiles.rules = map (userName: "d /home/${userName} 0700 ${userName} users -") users;
+
       # Suppress machine-id commit service if not using the 'firstboot' pattern
       systemd.suppressedSystemUnits = ["systemd-machine-id-commit.service"];
+
+      # Need these folders for boot
+      fileSystems = {
+        "/nix".neededForBoot = true;
+        "/persist".neededForBoot = true;
+      };
 
       preservation = {
         enable = true;
@@ -50,10 +57,9 @@
           directories =
             [
               "/etc/NetworkManager"
-              "/etc/ssh"
               "/var"
               {
-                directory = "/etc/sops";
+                directory = "/etc/ssh";
                 inInitrd = true;
               }
             ]

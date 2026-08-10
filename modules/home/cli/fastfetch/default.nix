@@ -10,7 +10,7 @@
     logos = {
       frieren = {
         source = ./frieren.png;
-        type = "kitty-direct";
+        type = "kitty";
         height = 20;
         width = 26;
         padding = {
@@ -29,7 +29,7 @@
       nixos = {
         source = ./nixos.txt;
         padding = {
-          top = 2;
+          top = 3;
           left = 0;
         };
       };

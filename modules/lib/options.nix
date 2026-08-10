@@ -22,13 +22,17 @@ in {
         };
       });
       default = {};
-      description = "Global constants for nixos and homeManager";
+      description = "Global constants for nixos, darwin and homeManager";
     };
 
     modules = mkOption {
       type = types.submodule {
         options = {
           nixos = mkOption {
+            type = types.lazyAttrsOf types.deferredModule;
+            default = {};
+          };
+          darwin = mkOption {
             type = types.lazyAttrsOf types.deferredModule;
             default = {};
           };
@@ -59,6 +63,27 @@ in {
       default = {};
     };
 
+    darwin = mkOption {
+      type = types.lazyAttrsOf (types.submodule ({name, ...}: {
+        options = {
+          host = mkOption {
+            type = types.str;
+            default = name;
+          };
+          modules = mkOption {
+            type = types.listOf types.deferredModule;
+            default = [];
+          };
+          users = mkOption {type = types.listOf types.str;};
+          system = mkOption {
+            type = types.str;
+            default = "aarch64-darwin";
+          };
+        };
+      }));
+      default = {};
+    };
+
     home = mkOption {
       type = types.lazyAttrsOf (types.submodule ({name, ...}: {
         options = {
@@ -74,6 +99,11 @@ in {
     };
 
     nixosConfigurations = mkOption {
+      type = types.lazyAttrsOf types.raw;
+      default = {};
+    };
+
+    darwinConfigurations = mkOption {
       type = types.lazyAttrsOf types.raw;
       default = {};
     };

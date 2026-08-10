@@ -10,8 +10,11 @@ in {
     username = "wyn";
     modules = with config.modules.homeManager; [
       inputs.mac-app-util.homeManagerModules.default
+      nix-settings
       home
+      apps
       sops
+      ssh
       syncthing
       cli
       editors
@@ -19,11 +22,27 @@ in {
       yazi
       theme
       aerospace
+      maa
 
+      (_: {sops.secrets.deploy_key = {};})
       (_: {
         homeManager = {
+          apps.nixcord.enable = true;
+          ssh.hosts = {
+            mango = {};
+            capybara = {};
+            potato = {};
+            "mango.local" = {};
+            "capybara.local" = {};
+            "potato.local" = {};
+          };
           cli = {
-            zsh.enable = true;
+            zsh = {
+              enable = true;
+              extraShellAliases = {
+                tailscale-restart = "sudo launchctl kickstart -k system/com.tailscale.tailscaled";
+              };
+            };
             git = {
               enable = true;
               username = "wyn";

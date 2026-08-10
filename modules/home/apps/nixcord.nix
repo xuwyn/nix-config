@@ -3,6 +3,7 @@
     inputs,
     lib,
     config,
+    pkgs,
     ...
   }: let
     cfg = config.homeManager.apps.nixcord;
@@ -24,6 +25,12 @@
         home.activation.linkVencordThemes = lib.hm.dag.entryAfter ["writeBoundary"] ''
           run mkdir -p "$HOME/.config/Equicord/themes"
           run ln -sf "$HOME/.config/Vencord/themes/dank-discord.css" "$HOME/.config/Equicord/themes/dank-discord.css"
+        '';
+      })
+      (lib.mkIf (matugenEnabled && pkgs.stdenv.hostPlatform.isDarwin) {
+        home.activation.linkVencordThemes = lib.hm.dag.entryAfter ["writeBoundary"] ''
+          run mkdir -p "$HOME/Library/Application Support/Equicord/themes"
+          run ln -sf "$HOME/.config/Equicord/themes/midnight-discord.css" "$HOME/Library/Application Support/Equicord/themes/midnight-discord.css"
         '';
       })
       {
