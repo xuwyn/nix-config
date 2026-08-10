@@ -28,8 +28,81 @@ and created natively on macOS (see [mac-create-deploy-user.sh](../scripts/mac-cr
 
 1. **SSH Access:** Ensure an SSH connection is established between the control node and all target nodes.
    A `deploy` user must exist on target nodes with a trusted public key (see [users.nix](../modules/common/users.nix))
+
+      <details>
+      <summary>Add <code>deploy</code> user to NixOS</summary>
+
+   ```nix
+   {config, ...}: {
+     nixos.host1 = {
+       system = "x86_64-linux";
+       users = ["nixos" "deploy"];
+       modules = with config.modules.nixos;
+         [nix-settings system sops tailscale deploy users network security]
+         ++ [
+           {
+             nixos.users = {
+               nixos = {
+                 isAdmin = true;
+                 sshKeys = [../../common/keys/openssh_key.pub];
+               };
+               deploy = {
+                 isDeployer = true;
+                 sshKeys = [../../common/keys/deploy_key.pub];
+               };
+             };
+           }
+         ];
+     };
+   }
+   ```
+
+      </details>
+
+      <details>
+      <summary>Add <code>deploy</code> user to nix-darwin</summary>
+
+   ```nix
+   {config, ...}: {
+     darwin.host2 = {
+       users = ["darwin" "deploy"];
+       modules = with config.modules.darwin;
+         [nix-settings system sops tailscale deploy users network security]
+         ++ [
+           {
+             darwin.users = {
+               darwin.sshKeys = [../../common/keys/openssh_key.pub];
+               deploy.sshKeys = [../../common/keys/deploy_key.pub];
+             };
+           }
+         ];
+     };
+   }
+   ```
+
+   Since adding `deploy` to nix-darwin config does not automatically create a new user on MacOS,
+   run [mac-create-deploy-user.sh](../scripts/mac-create-deploy-user.sh) with sudo locally (not through SSH)
+   to create `deploy` as a hidden user.
+
+   Run it locally if the repo is already cloned:
+
+   ```sh
+   cd ~/nix-config
+   sudo ./scripts/mac-create-deploy-user.sh
+   ```
+
+   Or run it as a oneliner:
+
+   ```sh
+   curl -sL https://raw.githubusercontent.com/xuwyn/nix-config/main/scripts/mac-create-deploy-user.sh \
+   -o /tmp/mac-create-deploy-user.sh && \
+   sudo sh /tmp/mac-create-deploy-user.sh; rm -f /tmp/mac-create-deploy-user.sh
+   ```
+
+      </details>
+
 2. **Private Key:** The control node must have access to the private `deploy_key` managed by
-   `homeManager.sops` (stored at `~/.config/sops-nix/secrets/deploy_key` by default)
+   `homeManager.sops` (can be found at `~/.config/sops-nix/secrets/deploy_key` by `sops-nix` default)
 
 Test the connection with:
 
@@ -59,14 +132,14 @@ cd path/to/flake
 
 # Skip flake check for matched platform targets
 # (can take forever, especially after `nh clean all`)
-deploy --skip-checks .#hostname
+deploy --skip-checks .#host1
 
 # Deploy multiple nodes at once
-deploy --targets .#hostname1 .#hostname2 .#hostname3
+deploy --targets .#host1 .#host2 .#host3
 
 # Override default target hostname (defaults to target config name)
 # Useful if MagicDNS (tailscale) or mDNS isn't configured:
-deploy .#hostname --hostname hostname.local
+deploy .#host1 --hostname hostname.local
 ```
 
 ## Home Deployment
@@ -95,9 +168,10 @@ for this script! 🥹
 
 **Deploying:**
 
-> [!NOTE]
-> This script does NOT run `nix eval` or `flake check` locally even for target node with the same
-> architecture as the main node and there is no option to deploy multiple nodes at once
+> [!WARNING]
+> `mkOutOfStoreSymlink` will not work properly if the target node does not already have a local copy
+> of the flake at the expected path. Any changes made to those symlinked files on the control node's flake
+> (or in the remote repo) will **NOT** be applied to the target node by this script.
 
 Run it locally:
 
