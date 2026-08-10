@@ -8,24 +8,56 @@
     cfg = config.homeManager.cli.fastfetch;
 
     logos = {
-      frieren = {
-        source = ./frieren.png;
-        type = "kitty";
-        height = 20;
-        width = 26;
-        padding = {
-          top = 1;
-          left = 0;
+      frieren = let
+        darwinLogoConfig = {
+          type = "kitty-direct";
+          height = 20;
+          width = 26;
+          padding = {
+            top = 0;
+            left = 0;
+          };
         };
-      };
-      onlooker = {
-        source = ./onlooker.gif;
-        type = "kitty-icat";
-        padding = {
-          top = 3;
-          left = 0;
+        linuxLogoConfig = {
+          type = "kitty";
+          height = 20;
+          width = 26;
+          padding = {
+            top = 1;
+            left = 0;
+          };
         };
-      };
+        logoConfig =
+          if pkgs.stdenv.hostPlatform.isDarwin
+          then darwinLogoConfig
+          else linuxLogoConfig;
+      in
+        logoConfig // {source = ./frieren.png;};
+
+      onlooker = let
+        darwinLogoConfig = {
+          type = "kitty-icat";
+          height = 26;
+          width = 20;
+          padding = {
+            top = 2;
+            left = 0;
+          };
+        };
+        linuxLogoConfig = {
+          type = "kitty-icat";
+          padding = {
+            top = 3;
+            left = 0;
+          };
+        };
+        logoConfig =
+          if pkgs.stdenv.hostPlatform.isDarwin
+          then darwinLogoConfig
+          else linuxLogoConfig;
+      in
+        logoConfig // {source = ./onlooker.gif;};
+
       nixos = {
         source = ./nixos.txt;
         padding = {
