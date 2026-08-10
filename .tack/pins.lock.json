@@ -11,9 +11,9 @@
     "type": "github",
     "owner": "AvengeMedia",
     "repo": "dgop",
-    "rev": "d57055f6d9e634aaf4f154fdd448e511267b885b",
-    "narHash": "sha256-Tmsh3vJj5/shLANhzodqQWI1zsGADCW04zomLpB7HfM=",
-    "lastModified": 1785966402
+    "rev": "f559f2f31d2a35a29a096df174e688da9cc089c9",
+    "narHash": "sha256-+vFzppOik5+KP+oz39j1PlIMlLY6R0dKmfhnDqsgYjg=",
+    "lastModified": 1786198551
   },
   "disko": {
     "type": "github",
@@ -27,9 +27,9 @@
     "type": "github",
     "owner": "AvengeMedia",
     "repo": "DankMaterialShell",
-    "rev": "74896fb87cb9e4bb866dbabcfd754e3e649ad0c7",
-    "narHash": "sha256-7VjoVZu+8PC41ZDQ3umi/EXsU3sCLNyRfxZrfJKHy+E=",
-    "lastModified": 1784341117
+    "rev": "069ddab041c738236a8910e4c39b65d9628d3018",
+    "narHash": "sha256-aTNuC9NDBnYAeEtFsleeUwmGX3AZlKOutbl+LQRPkmQ=",
+    "lastModified": 1785111455
   },
   "dms-plugin-registry": {
     "type": "github",
@@ -59,9 +59,9 @@
     "type": "github",
     "owner": "hyprwm",
     "repo": "Hyprland",
-    "rev": "36b2e0cfe0c6094dbc47bd42a437431315bb3087",
-    "narHash": "sha256-1dt2IyLBRn9ji79xxv82/Gh7semHCk8cjajtg72sWGI=",
-    "lastModified": 1784533848
+    "rev": "5c9377c15f85c50648f35ca5a213754f95b93ca0",
+    "narHash": "sha256-8CKDx282HhxlD1pwXPnC4uK29Abn1Jsnh7LgPzeIXxI=",
+    "lastModified": 1785170029
   },
   "mac-app-util": {
     "type": "github",

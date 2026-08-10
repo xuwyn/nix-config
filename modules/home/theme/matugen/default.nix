@@ -53,63 +53,63 @@
         templates = {
           kitty = {
             input_path = ./templates/kitty-colors.conf;
-            output_path = "$HOME/.config/kitty/matugen-colors.conf";
+            output_path = ["$HOME/.config/kitty/matugen-colors.conf"];
           };
           ghostty = {
             input_path = ./templates/ghostty;
-            output_path = "$HOME/.config/ghostty/themes/matugen";
+            output_path = ["$HOME/.config/ghostty/themes/matugen"];
           };
           btop = {
             input_path = ./templates/btop.theme;
-            output_path = "$HOME/.config/btop/themes/matugen.theme";
+            output_path = ["$HOME/.config/btop/themes/matugen.theme"];
           };
           cava = {
             input_path = ./templates/cava-colors.ini;
-            output_path = "$HOME/.config/cava/themes/matugen";
+            output_path = ["$HOME/.config/cava/themes/matugen"];
           };
           zed = {
             input_path = ./templates/zed-colors.json;
-            output_path = "$HOME/.config/zed/themes/matugen-colors.json";
+            output_path = ["$HOME/.config/zed/themes/matugen-colors.json"];
           };
           nvim = {
             input_path = ./templates/nvim.lua;
-            output_path = "$HOME/.config/nvim/lua/matugen-colors.lua";
+            output_path = ["$HOME/.config/nvim/lua/matugen-colors.lua"];
           };
           hyprland = {
             input_path = ./templates/hyprland-colors.lua;
-            output_path = "$HOME/.config/hypr/matugen.lua";
+            output_path = ["$HOME/.config/hypr/matugen.lua"];
           };
           niri = {
             input_path = ./templates/niri-colors.kdl;
-            output_path = "$HOME/.config/niri/matugen-colors.kdl";
+            output_path = ["$HOME/.config/niri/matugen-colors.kdl"];
           };
           gtk3 = {
             input_path = ./templates/gtk-colors.css;
-            output_path = "$HOME/.config/gtk-3.0/matugen-colors.css";
+            output_path = ["$HOME/.config/gtk-3.0/matugen-colors.css"];
           };
           gtk4 = {
             input_path = ./templates/gtk-colors.css;
-            output_path = "$HOME/.config/gtk-4.0/matugen-colors.css";
+            output_path = ["$HOME/.config/gtk-4.0/matugen-colors.css"];
           };
           qt5 = {
             input_path = ./templates/qtct-colors.conf;
-            output_path = "$HOME/.config/qt5ct/colors/matugen-colors.conf";
+            output_path = ["$HOME/.config/qt5ct/colors/matugen-colors.conf"];
           };
           qt6 = {
             input_path = ./templates/qtct-colors.conf;
-            output_path = "$HOME/.config/qt6ct/colors/matugen-colors.conf";
+            output_path = ["$HOME/.config/qt6ct/colors/matugen-colors.conf"];
           };
           pywalfox = {
             input_path = ./templates/pywalfox-colors.json;
-            output_path = "$HOME/.cache/wal/matugen-colors.json";
+            output_path = ["$HOME/.cache/wal/matugen-colors.json"];
           };
           discord = {
             input_path = ./templates/midnight-discord.css;
-            output_path = "$HOME/.config/Equicord/themes/midnight-discord.css";
+            output_path = ["$HOME/.config/Equicord/themes/midnight-discord.css"];
           };
           spicetify = {
             input_path = ./templates/spicetify.ini;
-            output_path = "$HOME/.config/spicetify/Themes/matugen/color.ini";
+            output_path = ["$HOME/.config/spicetify/Themes/matugen/color.ini"];
           };
         };
       };

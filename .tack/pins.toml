@@ -65,7 +65,7 @@ url = "github:noctalia-dev/noctalia/cachix"
 exclude_follow = ["nixpkgs"]
 
 [inputs.dms]
-url = "github:AvengeMedia/DankMaterialShell/v1.5.2"
+url = "github:AvengeMedia/DankMaterialShell/v1.5.3"
 
 [inputs.dms-plugin-registry]
 url = "github:AvengeMedia/dms-plugin-registry"
@@ -77,7 +77,7 @@ url = "github:AvengeMedia/dgop"
 url = "github:nix-community/nixvim"
 
 [inputs.hyprland]
-url = "github:hyprwm/Hyprland/v0.56.0"
+url = "github:hyprwm/Hyprland/v0.56.1"
 exclude_follow = ["nixpkgs"]
 
 [inputs.niri-nix]
