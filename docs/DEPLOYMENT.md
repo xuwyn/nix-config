@@ -1,0 +1,117 @@
+# Remote Deployment
+
+This file documents the procedure for remote deployment between hosts.
+
+## System Deployment
+
+This flake uses [deploy-rs](https://github.com/serokell/deploy-rs) for remote deployment via SSH with
+passwordless sudo for NixOS and nix-darwin (see [deploy.nix](../deploy.nix) and [flake.nix](../flake.nix)).
+To achieve this, a system user called `deploy` is declared on NixOS (see [users.nix](../modules/common/users.nix))
+and created natively on macOS (see [mac-create-deploy-user.sh](../scripts/mac-create-deploy-user.sh)).
+
+<details>
+
+<summary>Some key points about <code>deploy</code> as a system user</summary>
+
+- No user password
+- Not available as a login user
+- No home directory
+- Only have sudo privilege for [two commands](../modules/common/deploy.nix) to activate nix
+- Can only be used as ssh user with correct `deploy_key`
+- Belongs to `deploy` group (NixOS only)
+
+</details>
+
+---
+
+**Prerequisites:**
+
+1. **SSH Access:** Ensure an SSH connection is established between the control node and all target nodes.
+   A `deploy` user must exist on target nodes with a trusted public key (see [users.nix](../modules/common/users.nix))
+2. **Private Key:** The control node must have access to the private `deploy_key` managed by
+   `homeManager.sops` (stored at `~/.config/sops-nix/secrets/deploy_key` by default)
+
+Test the connection with:
+
+```sh
+ssh deploy@hostname -i ~/.config/sops-nix/secrets/deploy_key -o IdentitiesOnly=yes
+```
+
+**Deploying:**
+
+Run `deploy-rs` directly via `nix run`:
+
+```sh
+nix run github:serokell/deploy-rs ./path/to/flake/#hostname
+```
+
+Alternatively, add `deploy-rs` binary to `home.packages` (see [home.nix](../modules/home/home.nix))
+or `environment.systemPackages` so it's always available:
+
+```sh
+deploy ./path/to/flake/#hostname
+```
+
+Some helpful flags:
+
+```sh
+cd path/to/flake
+
+# Skip flake check for matched platform targets
+# (can take forever, especially after `nh clean all`)
+deploy --skip-checks .#hostname
+
+# Deploy multiple nodes at once
+deploy --targets .#hostname1 .#hostname2 .#hostname3
+
+# Override default target hostname (defaults to target config name)
+# Useful if MagicDNS (tailscale) or mDNS isn't configured:
+deploy .#hostname --hostname hostname.local
+```
+
+## Home Deployment
+
+`deploy-rs` cannot deploy Home Manager configurations because one module (`matugen`) relies on
+[IFD](https://nix.dev/manual/nix/2.35/language/import-from-derivation#illustration) (build-during-eval).
+And `deploy-rs` always runs `nix eval` locally before building remotely, so this breaks cross-platform
+deployments (the local eval can't produce a derivation for a different platform).
+
+Setting up a `nix.buildMachine` just to work around this for `deploy-rs` seems excessive, so this flake
+uses a custom script [deploy-home.sh](../scripts/deploy-home.sh) to handle Home Manager deployments instead.
+
+A sincere thank you to [brokenpip3](https://github.com/brokenpip3/my-binaries/blob/main/productivity/nix-specific/home-manager-remote/home-manager-remote.sh)
+for this script! 🥹
+
+---
+
+**Prerequisites:**
+
+1. **SSH Access:** SSH connection is established between the main node and target node for the user with
+   Home Manager profile (see [home/ssh.nix](../modules/home/ssh.nix))
+2. **Home Activate:** A system service to auto-activate Home Manager on the target node upon login,
+   in case the initial activation fails due to user session being inactive (e.g., user is logout)
+   (see [common/deploy.nix](../modules/common/deploy.nix))
+3. **Naming Convention:** `homeConfigurations` is keyed as `username@hostname`
+
+**Deploying:**
+
+> [!NOTE]
+> This script does NOT run `nix eval` or `flake check` locally even for target node with the same
+> architecture as the main node and there is no option to deploy multiple nodes at once
+
+Running it locally:
+
+```sh
+cd ~/nix-config
+
+# path/to/flake can be a local path or a remote git repo
+# use --build-on-target for cross-platform deployment
+./scripts/deploy-home.sh ./path/to/flake username@hostname [--build-on-target]
+```
+
+Or run it as oneliner:
+
+```sh
+sh <(curl -L https://raw.githubusercontent.com/xuwyn/nix-config/main/scripts/deploy-home.sh) \
+./path/to/flake username@hostname [--build-on-target]
+```

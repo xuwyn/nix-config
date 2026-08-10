@@ -73,6 +73,7 @@ in {
             spicetify.enable = true;
           };
           terminals.kitty.enable = true;
+          # terminals.ghostty.enable = true;
           cli = {
             zsh.enable = true;
             bash.enable = true;

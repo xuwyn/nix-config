@@ -1,5 +1,11 @@
 <h2 align="center">Half-baked Dendritic Nix Config</h2>
 
+<p align="center">
+  <a href="#installation"><strong>Installation</strong></a> ❄️
+  <a href="./docs/DEPLOYMENT.md"><strong>Deployment</strong></a> ❄️
+  <a href="./docs/TROUBLESHOOT.md"><strong>Troubleshoot</strong></a>
+</p>
+
 My personal config for nixos, nix-darwin and home-manager (standalone) running on `x86_64-linux` and `aarch64-darwin`.
 I currently have no desire to fully transform every hosts I have into NixOS,
 so most features are in Home Manager for portability.
@@ -48,7 +54,7 @@ so most features are in Home Manager for portability.
 ## Overview
 
 This flake implements a half-baked dendritic pattern. Why half-baked?
-Because mixing different classes (i.e., `nixos`, `homeManager`, and `darwin`) into the same aspect doesn't feel right to me.
+Because mixing different classes (i.e., `nixos`, `darwin`, and `homeManager`) into the same aspect doesn't feel right to me.
 From what I learned, there are two main ways to set up dendritic pattern:
 
 - **`<class>.<aspect>`** which is the standard [flake-parts](https://flake.parts)
@@ -56,21 +62,26 @@ From what I learned, there are two main ways to set up dendritic pattern:
 
 I went with **`<class>.<aspect>`** since it's easier to separate aspects by class this way.
 
+I use den pattern as a guideline to modularly divide my config, though adopting it isn't necessary for a modular approach.
+As a disclaimer, **none** of tools listed above are actually implemented in my current config, since they are a bit overkill
+for what I need. But if I have to compare, my setup is closest to `flake-parts` cause I used it at one point before
+learning how to replicate `flake-parts` structure with just pure Nix.
+
 ## Layout
 
-```
+```hs
 ./
 ├── .tack/                 # flake inputs
 ├── flake.nix              # flake outputs
 ├── nvfetcher.toml         # nvfetcher inputs
 ├── _sources/              # nvfetcher outputs
 ├── scripts/               # helper scripts
-├── assets/                # desktop screenshots, wallpapers, etc.
+├── assets/                # screenshots, wallpapers, etc.
 └── modules/
-    ├── _overlays/         # overlays for nixpkgs
     ├── lib/
     │   ├── options.nix    # options declaration for dendritic structure
     │   └── builders.nix   # nixos, darwin and homeManager wrappers
+    ├── _overlays/         # overlays for nixpkgs
     ├── hosts/             # host-specific configurations
     ├── common/            # common features across classes
     ├── nixos/             # nixos features
@@ -78,18 +89,26 @@ I went with **`<class>.<aspect>`** since it's easier to separate aspects by clas
     └── home/              # homeManager features
 ```
 
-> [!TIP]
->
-> - Naming scheme: **`modules.<class>.<aspect>`** with **`options.<class>.<aspect>.<feature>`**
->   - **`<class>`**: `nixos` or `darwin` or `homeManager`
->   - **`<aspect>`**: Usually the same as the folder name
->   - **`<feature>`**: Usually the same as the filename (some files have multiple features in them)
->   - If a file does not belong to any folder, its filename becomes the aspect, and there is no **`<feature>`** level in its option path. These standalone aspects are also enabled by default.
-> - `nixpkgs-stable` is just a pinned commit of `nixpkgs` (which tracks `nixos-unstable`) from a
->   previous flake update and is **NOT** the actual NixOS stable release (`26.05`)
-> - `aarch64-darwin` platform follows this `nixpkgs-stable` input (see `./modules/lib/builders.nix`)
-> - `import-tree` does not import files and folders with underscore `_` prefix, so none of those should
->   contain flake module declaration.
+<details>
+<summary>Design considerations for my half-baked dendritic set up</summary>
+
+- Naming scheme: **`modules.<class>.<aspect>`** with **`options.<class>.<aspect>.<feature>`**
+  - **`<class>`**: `nixos` or `darwin` or `homeManager`
+  - **`<aspect>`**: Usually the same as the folder name
+  - **`<feature>`**: Usually the same as the filename (some files have multiple features in them)
+  - If a file does not belong to any folder, its filename becomes the aspect, and there is no **`<feature>`** level
+    in its option path. These standalone aspects are also enabled by default
+- [modules/common](./modules/common/) stores aspects shared across multiple classes. The goal is to reduce code
+  duplication, so even if `darwin` and `nixos` both have `network.nix`, there's no real benefit to combining them into
+  a single file
+- `nixpkgs-stable` is just a pinned commit of `nixpkgs` (which tracks `nixos-unstable`) from a
+  previous flake update and is **NOT** the actual NixOS stable release (`26.05`)
+- `aarch64-darwin` platform follows this `nixpkgs-stable` input due to `darwin` not being a high priority in `nixpkgs`
+  updates (see [builder.nix](./modules/lib/builders.nix))
+- `import-tree` does not import files and folders with underscore `_` prefix, so none of those should
+  contain aspect declaration (see [flake.nix](./flake.nix))
+
+</details>
 
 ## Hosts
 
@@ -290,7 +309,7 @@ echo "experimental-features = nix-command flakes" >> ~/.config/nix/nix.conf
 
 ## Apply Configurations
 
-### NixOS Rebuild
+### NixOS Switch
 
 > [!NOTE]
 > This step can be skipped for hosts that only use `homeManager`
@@ -298,7 +317,7 @@ echo "experimental-features = nix-command flakes" >> ~/.config/nix/nix.conf
 Run initial build with `nixos-rebuild`
 
 ```sh
-cd ~/nix-config
+cd /path/to/flake
 
 # (Optional) fetch assets/ on fresh install (no git-lfs)
 nix-shell -p git git-lfs
@@ -329,11 +348,38 @@ nh os switch
 nh os boot
 ```
 
+### Darwin Switch
+
+Run initial build with `nix-darwin`
+
+```sh
+cd /path/to/flake
+sudo nix run nix-darwin -- switch --flake .#host
+```
+
+Subsequent rebuilds can be run with `darwin-rebuild`
+
+```sh
+darwin-rebuild switch --flake .#host
+```
+
+If `nh` is enabled with the initial `home-manager switch`, subsequent rebuilds can be executed with
+
+```sh
+# use flag `--dry` to preview changes without applying them
+nh darwin switch --dry
+
+# use `switch` to apply changes after build
+nh darwin switch
+```
+
 ### Home Manager Switch
 
 Run initial build with `home-manager`
 
 ```sh
+cd /path/to/flake
+
 # use flag `--dry-run` to preview changes without applying them
 home-manager switch --flake .#user@host --dry-run
 
@@ -381,70 +427,6 @@ nh clean all
 ncg
 ```
 
-## Troubleshoot
-
-### NVIDIA shenanigans
-
-- Use open-sourced driver for RTX 50xx (see `./modules/nixos/drivers/nvidia.nix`)
-- Use `offload` mode for laptop with NVIDIA GPU
-- Use `sync` mode for desktop with NVIDIA GPU
-- Standalone Home Manager running on non-NixOS Linux hosts with NVIDIA GPU
-  should enable `targets.genericLinux.gpu.nvidia`
-
-  ```nix
-  # example for _gpu.nix
-  { lib, ... }: {
-    nixpkgs.config.nvidia.acceptLicense = true;
-    targets = {
-      genericLinux = {
-        enable = true;
-        gpu = {
-          enable = true;
-          nvidia = {
-            enable = true;
-            # Run `nvidia-smi` to get the exact driver version
-            version = "595.71.05";
-            # Run `home-manager switch` once to get the actual hash then replace it here
-            sha256 = lib.fakeHash;
-          };
-        };
-      };
-    };
-  }
-  ```
-
-### Fix `pkg-config` path on non-NixOS hosts
-
-When Nix is installed on a non-NixOS host, it puts its own path at the beginning of `$PATH`.
-This leads to errors running updates with the host's native package manager (e.g., `apt`, `yay`, etc.)
-because the nix version of `pkg-config` points to the `nix-store` instead of the host system.
-
-**Arch-based distros**
-
-Because AUR helpers like `yay` and `paru` rely on `makepkg` (from `pacman`) to compile packages:
-
-```sh
-mkdir -p ~/.config/pacman
-echo 'PKG_CONFIG_PATH="/usr/lib/pkgconfig:/usr/share/pkgconfig"' >> ~/.config/pacman/makepkg.conf
-```
-
-### Recover from an external drive
-
-**Usage:** to manually recover from cases where reformatting drive and/or reinstalling NixOS is unnecessary
-(e.g., freezing on boot or user password failing to authenticate).
-
-Run this oneliner to recover:
-
-```sh
-bash <(curl -L https://raw.githubusercontent.com/xuwyn/nix-config/main/scripts/recover.sh)
-```
-
-If on a distro without `nixos-install`, execute the oneliner in a nix shell:
-
-```sh
-nix shell nixpkgs#nixos-install-tools --command bash <(curl -L https://raw.githubusercontent.com/xuwyn/nix-config/main/scripts/recover.sh)
-```
-
 ## Acknowledgement
 
 Huge thanks to everyone whose configurations I have ~~stolen~~ referenced for the past two months learning Nix.
@@ -456,10 +438,11 @@ and contributors of all open-source projects I used in my nix!
 - **[Zaney/zaneyos](https://gitlab.com/Zaney/zaneyos):** Best starting point for beginner (especially for non-coders like me 🥲)
 - **[linusammon/nixos-config](https://github.com/linusammon/nixos-config):** Tips to migrate away from `flake-parts` and `import-tree`
 - **[iynaix/dotfiles](https://github.com/iynaix/dotfiles):** where I learned about cool stuffs like `tack`, `nvfetcher`, `nix repl`
-- **[iStellanova/Stellyrland](https://github.com/iStellanova/Stellyrland):** Tips to set up `preservation`
+- **[iStellanova/Stellyrland](https://github.com/iStellanova/Stellyrland):** Tips to set up `preservation` and homebrew
 - **[rysieko.pl/nixossmth](https://tangled.org/rysieko.pl/nixossmth):** Tips to set up `preservation`
 - **[LucasOe/nixos-config](https://github.com/LucasOe/nixos-config):** Home Manager globbing mimeApps
 - **[Doc-Steve/dendritic-design-with-flake-parts](https://github.com/Doc-Steve/dendritic-design-with-flake-parts):** Guide to setup dendritic pattern
 - **[Vortriz/dotfiles](https://github.com/Vortriz/dotfiles):** Custom zed theme using stylix colors
 - **[AlexNabokikh/nix-config](https://github.com/AlexNabokikh/nix-config):** Simple dendritic structure
 - **[MatthiasBenaets/nix-config](https://github.com/MatthiasBenaets/nix-config):** Dev shell layout and Aerospace WM
+- **[Baitinq/nixos-config](https://github.com/Baitinq/nixos-config):** Use `deploy-rs` for remote deployment

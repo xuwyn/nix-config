@@ -11,10 +11,7 @@
 
   mkDarwinProfile = darwinConfig: {
     user = "root";
-    path =
-      inputs.deploy-rs.lib.${darwinConfig.pkgs.stdenv.hostPlatform.system}.activate.custom
-      darwinConfig.config.system.build.toplevel
-      "./activate";
+    path = inputs.deploy-rs.lib.${darwinConfig.pkgs.stdenv.hostPlatform.system}.activate.darwin darwinConfig;
   };
 
   isWSL = nixosConfig: nixosConfig.config.nixos.drivers.wsl.enable or false;

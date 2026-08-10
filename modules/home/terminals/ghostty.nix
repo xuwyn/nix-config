@@ -46,11 +46,11 @@
             term = "xterm-256color";
             confirm-close-surface = "false";
             font-family = "Maple Mono NF";
-            font-size = 12;
-            adjust-cell-height = "10%";
+            font-size = 11;
+            # adjust-cell-height = "0%";
             window-theme = "dark";
-            window-height = "32";
-            window-width = "110";
+            # window-height = "32";
+            # window-width = "110";
             background-opacity = "1.00";
             background-blur-radius = "60";
             selection-background = "#2d3f76";
