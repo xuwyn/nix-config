@@ -99,7 +99,7 @@ for this script! 🥹
 > This script does NOT run `nix eval` or `flake check` locally even for target node with the same
 > architecture as the main node and there is no option to deploy multiple nodes at once
 
-Running it locally:
+Run it locally:
 
 ```sh
 cd ~/nix-config
@@ -109,7 +109,7 @@ cd ~/nix-config
 ./scripts/deploy-home.sh ./path/to/flake username@hostname [--build-on-target]
 ```
 
-Or run it as oneliner:
+Or run it as a oneliner:
 
 ```sh
 sh <(curl -L https://raw.githubusercontent.com/xuwyn/nix-config/main/scripts/deploy-home.sh) \

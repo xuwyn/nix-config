@@ -8,6 +8,10 @@ Most problems usually stem from either NVIDIA driver or trying to run nix on non
 **Usage:** to manually recover from cases where reformatting drive and/or reinstalling NixOS is unnecessary
 (e.g., freezing on boot or user password failing to authenticate).
 
+> [!NOTE]
+> This script ([recover.sh](../scripts/recover.sh)) will mount the LUKS-encrypted NixOS
+> and try to rebuild it with a chosen flake (can be either local or from a remote repo).
+
 Boot into an external drive running any distro with Nix installed and run this oneliner:
 
 ```sh
@@ -19,10 +23,6 @@ If on a distro without `nixos-install`, execute the oneliner in a nix shell:
 ```sh
 nix shell nixpkgs#nixos-install-tools --command sh <(curl -L https://raw.githubusercontent.com/xuwyn/nix-config/main/scripts/recover.sh)
 ```
-
-> [!NOTE]
-> This script ([recover.sh](../scripts/recover.sh)) will mount the LUKS-encrypted NixOS
-> and try to rebuild it with a chosen flake (can be either local or from a remote repo).
 
 ## NVIDIA Shenanigans
 
@@ -79,13 +79,19 @@ The solution is to symlink the native `unix_chkpwd` to the expected Nix path and
 in `/etc/tmpfiles.d/` so the fix persists across reboots (see [fix-nix-pam.sh](../scripts/fix-nix-pam.sh))
 
 > [!WARNING]
-> This script **should** fix this issue across most non-NixOS distros for most packages installed via Home Manager
+> This script **should** fix this issue across most non-NixOS distros for most packages installed via Home Manager,
 > but I have only tested this on CachyOS with DankMaterialShell.
 
-```sh
-# Run it locally with sudo
-sudo /path/to/scripts/fix-nix-pam.sh
+Run it locally with sudo:
 
-# Or use this oneliner
-sudo sh <(curl -L https://raw.githubusercontent.com/xuwyn/nix-config/main/scripts/fix-nix-pam.sh)
+```sh
+cd /path/to/flake
+sudo ./scripts/fix-nix-pam.sh
+```
+
+Or use this oneliner to download the script, execute and then delete it:
+
+```sh
+curl -sL https://raw.githubusercontent.com/xuwyn/nix-config/main/scripts/fix-nix-pam.sh -o /tmp/fix.sh && \
+sudo sh /tmp/fix.sh; rm -f /tmp/fix.sh
 ```
