@@ -118,7 +118,7 @@ Run `deploy-rs` directly via `nix run`:
 nix run github:serokell/deploy-rs ./path/to/flake/#hostname
 ```
 
-Alternatively, add `deploy-rs` binary to `home.packages` (see [home.nix](../modules/home/home.nix))
+Alternatively, add `deploy-rs` binary to `home.packages` (see [common/deploy.nix](../modules/common/deploy.nix))
 or `environment.systemPackages` so it's always available:
 
 ```sh

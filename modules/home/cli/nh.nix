@@ -17,7 +17,7 @@
         enable = true;
         clean = {
           enable = true;
-          extraArgs = "--keep-since 7d --keep 5";
+          extraArgs = "--keep-since 7d --keep 1 --optimise";
         };
         flake = "${config.home.homeDirectory}/${flake.homeRelativePath}";
       };

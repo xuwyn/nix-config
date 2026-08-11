@@ -11,8 +11,14 @@
       '';
     };
   in {
-    # Must include this in home of user running deploy-rs
-    homeManager.deploy = {sops.secrets.deploy_key = {};};
+    homeManager.deploy = {
+      inputs,
+      pkgs,
+      ...
+    }: {
+      home.packages = [inputs.deploy-rs.packages.${pkgs.stdenv.hostPlatform.system}.default];
+      sops.secrets.deploy_key = {};
+    };
 
     nixos.deploy = {
       config,

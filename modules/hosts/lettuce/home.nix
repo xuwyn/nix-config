@@ -1,5 +1,5 @@
 {config, ...}: let
-  wallpaper = ../../../assets/wallpapers/DaVinci.jpg;
+  wallpaper = ../../../assets/wallpapers/IS-Mysterious_Banquet.png;
 in {
   home."wyn@lettuce" = {
     system = "x86_64-linux";
