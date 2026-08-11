@@ -46,7 +46,10 @@
     inherit
       (evalModules {
         modules = import-tree [./modules];
-        specialArgs = {inherit inputs;};
+        specialArgs = {
+          inherit inputs;
+          inherit (args) self;
+        };
       })
       config
       ;
@@ -57,6 +60,6 @@
     }
     // import ./deploy.nix {
       inherit inputs lib config;
-      self = args.self;
+      inherit (args) self;
     };
 }

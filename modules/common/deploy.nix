@@ -11,6 +11,9 @@
       '';
     };
   in {
+    # Must include this in home of user running deploy-rs
+    homeManager.deploy = {sops.secrets.deploy_key = {};};
+
     nixos.deploy = {
       config,
       lib,

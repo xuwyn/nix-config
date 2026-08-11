@@ -2,6 +2,7 @@
   inputs,
   lib,
   config,
+  self,
   ...
 }: let
   overlays = import ../_overlays {inherit inputs;};
@@ -12,7 +13,7 @@ in {
         name: cfg:
           inputs.nixpkgs.lib.nixosSystem {
             specialArgs = {
-              inherit inputs;
+              inherit inputs self;
               inherit (cfg) host users;
               inherit (config) flake;
             };
@@ -36,7 +37,7 @@ in {
           inputs.nix-darwin.lib.darwinSystem {
             inherit (cfg) system;
             specialArgs = {
-              inherit inputs;
+              inherit inputs self;
               inherit (cfg) host users;
               inherit (config) flake;
             };
@@ -75,7 +76,7 @@ in {
               config.allowUnfree = true;
             };
             extraSpecialArgs = {
-              inherit inputs;
+              inherit inputs self;
               inherit (cfg) system username;
               inherit (config) flake;
             };
