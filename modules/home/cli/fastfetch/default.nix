@@ -10,9 +10,7 @@
     logos = {
       frieren = let
         darwinLogoConfig = {
-          type = "kitty-direct";
-          height = 20;
-          width = 26;
+          type = "kitty-icat";
           padding = {
             top = 0;
             left = 0;
@@ -20,8 +18,6 @@
         };
         linuxLogoConfig = {
           type = "kitty";
-          height = 20;
-          width = 26;
           padding = {
             top = 1;
             left = 0;
@@ -32,7 +28,12 @@
           then darwinLogoConfig
           else linuxLogoConfig;
       in
-        logoConfig // {source = ./frieren.png;};
+        logoConfig
+        // {
+          source = ./frieren.png;
+          height = 20;
+          width = 26;
+        };
 
       onlooker = let
         darwinLogoConfig = {
