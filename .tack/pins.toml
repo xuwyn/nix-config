@@ -43,6 +43,23 @@ url = "github:nix-darwin/nix-darwin/master"
 exclude_follow = ["nixpkgs"]
 follows = { nixpkgs = "nixpkgs-stable" }
 
+[inputs.nix-homebrew]
+url = "github:zhaofengli/nix-homebrew"
+exclude_follow = ["nixpkgs"]
+follows = { nixpkgs = "nixpkgs-stable" }
+
+[inputs.homebrew-core]
+url = "github:homebrew/homebrew-core"
+type = "fetch"
+
+[inputs.homebrew-cask]
+url = "github:homebrew/homebrew-cask"
+type = "fetch"
+
+[inputs.barutsrb-tap]
+url = "github:BarutSRB/homebrew-tap"
+type = "fetch"
+
 [inputs.nix-flatpak]
 url = "github:gmodena/nix-flatpak/latest"
 

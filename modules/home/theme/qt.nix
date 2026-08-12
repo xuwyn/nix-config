@@ -7,9 +7,23 @@
     cfg = config.homeManager.theme.qt;
     matugenEnabled = config.programs.matugen.enable or false;
     bar = config.homeManager.desktop.bar or null;
+
     barThemes = {
-      "noctalia" = "noctalia.conf";
-      "dms" = "matugen.conf";
+      "noctalia" = "noctalia";
+      "dms" = "matugen";
+    };
+
+    themeName =
+      if cfg.barThemeEnabled
+      then barThemes.${bar}
+      else if matugenEnabled
+      then "matugen-colors"
+      else null;
+
+    commonAppearance = {
+      custom_palette = true;
+      icon_theme = "Papirus-Dark";
+      standard_dialogs = "default";
     };
   in {
     options.homeManager.theme.qt = {
@@ -19,52 +33,23 @@
         default = config.homeManager.desktop.barThemeEnabled or false;
       };
     };
+
     config = lib.mkIf cfg.enable {
       qt = {
         enable = true;
         platformTheme.name = "qtct";
-      };
-      xdg.configFile = {
-        "qt5ct/qt5ct.conf" = {
-          text = ''
-            [Appearance]
-            ${
-              if cfg.barThemeEnabled
-              then ''
-                color_scheme_path="$HOME/.config/qt5ct/colors/${barThemes.${bar}}"
-              ''
-              else if matugenEnabled
-              then ''
-                color_scheme_path="$HOME/.config/qt5ct/colors/matugen-colors.conf"
-              ''
-              else ''''
-            }
-            custom_palette=true
-            icon_theme=Papirus-Dark
-            standard_dialogs=default
-          '';
-          force = true;
-        };
-        "qt6ct/qt6ct.conf" = {
-          text = ''
-            [Appearance]
-            ${
-              if cfg.barThemeEnabled
-              then ''
-                color_scheme_path="$HOME/.config/qt6ct/colors/${barThemes.${bar}}"
-              ''
-              else if matugenEnabled
-              then ''
-                color_scheme_path="$HOME/.config/qt6ct/colors/matugen-colors.conf"
-              ''
-              else ''''
-            }
-            custom_palette=true
-            icon_theme=Papirus-Dark
-            standard_dialogs=default
-          '';
-          force = true;
-        };
+
+        qt5ctSettings.Appearance =
+          commonAppearance
+          // lib.optionalAttrs (themeName != null) {
+            color_scheme_path = "${config.xdg.configHome}/qt5ct/colors/${themeName}.conf";
+          };
+
+        qt6ctSettings.Appearance =
+          commonAppearance
+          // lib.optionalAttrs (themeName != null) {
+            color_scheme_path = "${config.xdg.configHome}/qt6ct/colors/${themeName}.conf";
+          };
       };
     };
   };

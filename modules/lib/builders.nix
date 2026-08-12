@@ -31,6 +31,7 @@ in {
           }
       )
       config.nixos;
+
     darwinConfigurations =
       lib.mapAttrs (
         name: cfg:

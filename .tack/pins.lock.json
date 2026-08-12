@@ -1,4 +1,12 @@
 {
+  "barutsrb-tap": {
+    "type": "github",
+    "owner": "BarutSRB",
+    "repo": "homebrew-tap",
+    "rev": "fe93ff6d4b5faa203a78c42b7cebdab495c2e193",
+    "narHash": "sha256-L763M3PcobXTuJ+g2vVGxNgKfkMn4buwkLT3MluTAzk=",
+    "lastModified": 1786378701
+  },
   "deploy-rs": {
     "type": "github",
     "owner": "serokell",
@@ -54,6 +62,22 @@
     "rev": "7834e82588860aaf780cec1366524456a70898d7",
     "narHash": "sha256-TIDlLTLI1/pB7IqgjzcKQjpODQsZE2oII4XGG9B6KjI=",
     "lastModified": 1786031233
+  },
+  "homebrew-cask": {
+    "type": "github",
+    "owner": "homebrew",
+    "repo": "homebrew-cask",
+    "rev": "6319ec0678e456fb357b449aecebef73cc608421",
+    "narHash": "sha256-2D94KpggqL9VfaCZBvH5ENvaHobMKhEP8lPgw9ue5Hs=",
+    "lastModified": 1786445127
+  },
+  "homebrew-core": {
+    "type": "github",
+    "owner": "homebrew",
+    "repo": "homebrew-core",
+    "rev": "27c93724237491901e6755cfa80619ff62ff4c98",
+    "narHash": "sha256-h4H3up4sAYFtgviivHAan4hUFWKUcIkGHot/iTEaivc=",
+    "lastModified": 1786452088
   },
   "hyprland": {
     "type": "github",
@@ -118,6 +142,14 @@
     "rev": "440818969ac2cbd77bfe025e884d0aa528991374",
     "narHash": "sha256-7ZCulYUD9RmJIDULTRkGLSW1faMpDlPKcbWJLYHoXcs=",
     "lastModified": 1767983141
+  },
+  "nix-homebrew": {
+    "type": "github",
+    "owner": "zhaofengli",
+    "repo": "nix-homebrew",
+    "rev": "486357ea434dc0061ea52121ff99b1d33096c811",
+    "narHash": "sha256-rusAj5QBnbSwXG6csns6dwxTeCOGRcj08VmlnhUQ6ZY=",
+    "lastModified": 1786217209
   },
   "nix-index-database": {
     "type": "github",

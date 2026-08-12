@@ -9,6 +9,7 @@
     cfg = config.homeManager.editors.nixvim;
     matugenEnabled = config.programs.matugen.enable or false;
     bar = config.homeManager.desktop.bar or null;
+
     barThemes = {
       noctalia = ''
         require('matugen').setup()
@@ -17,6 +18,34 @@
         vim.cmd.colorscheme("dms")
       '';
     };
+
+    matugenTheme = ''
+      local matugen_path = vim.fn.stdpath("config") .. "/lua/matugen-colors.lua"
+      local function apply_matugen_theme()
+        if vim.uv.fs_stat(matugen_path) then
+          local ok, err = pcall(dofile, matugen_path)
+          if not ok then
+            vim.notify("Failed to load matugen theme: " .. tostring(err), vim.log.levels.ERROR)
+            return
+          end
+        end
+      end
+      apply_matugen_theme()
+      local signal = vim.uv.new_signal()
+      signal:start('sigusr1', vim.schedule_wrap(function()
+        vim.defer_fn(apply_matugen_theme, 50)
+      end))
+    '';
+
+    themeInitLua =
+      if cfg.barThemeEnabled
+      then (barThemes.${bar} or "")
+      else if matugenEnabled
+      then matugenTheme
+      else "";
+
+    customThemeEnabled = cfg.barThemeEnabled || matugenEnabled;
+    noctaliaTemplateEnabled = bar == "noctalia";
   in {
     options.homeManager.editors.nixvim = {
       enable = lib.mkEnableOption "Enable nixvim";
@@ -29,7 +58,7 @@
     imports = [inputs.nixvim.homeModules.nixvim];
 
     config = lib.mkIf cfg.enable (lib.mkMerge [
-      (lib.mkIf (bar == "noctalia") {
+      (lib.mkIf noctaliaTemplateEnabled {
         home.file.".config/nvim/lua/matugen-template.lua".source = ./noctalia-template.lua;
       })
       {
@@ -65,7 +94,7 @@
           };
 
           colorschemes.catppuccin = {
-            enable = !cfg.barThemeEnabled && !matugenEnabled;
+            enable = !customThemeEnabled;
             settings = {
               flavour = "mocha"; # "latte", "mocha", "frappe", "macchiato", "auto"
               transparent_background = true;
@@ -232,8 +261,6 @@
                 clangd.enable = true;
                 zls.enable = false;
                 marksman.enable = false;
-                hyprls.enable = !pkgs.stdenv.hostPlatform.isDarwin;
-                # hyprls is optional; keep tools available via extraPackages
               };
               keymaps = {
                 diagnostic = {
@@ -384,65 +411,34 @@
           ];
 
           # Runtime tools and language servers
-          extraPackages = with pkgs;
-            [
-              ripgrep
-              fd
-              bat
-              nil
-              typescript-language-server
-              typescript
-              vscode-langservers-extracted
-              pyright
-              lua-language-server
-              zls
-              marksman
-              multimarkdown
-              clang-tools
-              prettierd
-              stylua
-              shfmt
-              nixpkgs-fmt
-              alejandra
-              figlet
-              toilet
-              bash-language-server
-              tailwindcss-language-server
-            ]
-            ++ (
-              if !pkgs.stdenv.hostPlatform.isDarwin
-              then [
-                wl-clipboard
-                hyprls
-              ]
-              else []
-            );
+          extraPackages = with pkgs; [
+            ripgrep
+            fd
+            bat
+            nil
+            typescript-language-server
+            typescript
+            vscode-langservers-extracted
+            pyright
+            lua-language-server
+            zls
+            marksman
+            multimarkdown
+            clang-tools
+            prettierd
+            stylua
+            shfmt
+            nixpkgs-fmt
+            alejandra
+            figlet
+            toilet
+            bash-language-server
+            tailwindcss-language-server
+          ];
 
           # Diagnostic UI and notify background tweaks
           extraConfigLua = ''
-            ${
-              if cfg.barThemeEnabled
-              then (barThemes.${bar} or "")
-              else if matugenEnabled
-              then ''
-                local matugen_path = vim.fn.stdpath("config") .. "/lua/matugen-colors.lua"
-                local function apply_matugen_theme()
-                  if vim.uv.fs_stat(matugen_path) then
-                    local ok, err = pcall(dofile, matugen_path)
-                    if not ok then
-                      vim.notify("Failed to load matugen theme: " .. tostring(err), vim.log.levels.ERROR)
-                      return
-                    end
-                  end
-                end
-                apply_matugen_theme()
-                local signal = vim.uv.new_signal()
-                signal:start('sigusr1', vim.schedule_wrap(function()
-                  vim.defer_fn(apply_matugen_theme, 50)
-                end))
-              ''
-              else ''''
-            }
+            ${themeInitLua}
             -- Inline diagnostics (virtual text) similar to NVF virtual_lines
             vim.diagnostic.config({
               virtual_text = { prefix = "●", spacing = 2 },

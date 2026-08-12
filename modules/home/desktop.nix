@@ -6,13 +6,14 @@
     ...
   }: let
     cfg = config.homeManager.desktop;
-    activeWM = lib.filter (n: config.homeManager.${n}._module_marker or false) ["hyprland" "niri" "i3" "aerospace"];
+    isDarwin = pkgs.stdenv.hostPlatform.isDarwin;
+    activeWM = lib.filter (n: config.homeManager.${n}._module_marker or false) ["hyprland" "niri" "i3" "aerospace" "omniwm"];
     activeBar = lib.filter (n: config.homeManager.${n}._module_marker or false) ["noctalia" "dms"];
   in {
     # Placeholders for desktop environments
     options.homeManager.desktop = {
       wm = lib.mkOption {
-        type = lib.types.nullOr (lib.types.enum ["hyprland" "niri" "i3" "aerospace"]);
+        type = lib.types.nullOr (lib.types.enum ["hyprland" "niri" "i3" "aerospace" "omniwm"]);
         default = lib.head (activeWM ++ [null]);
         readOnly = true;
         description = "Currently active window manager, derived from which WM module is imported.";
@@ -72,39 +73,41 @@
       qylockEnabled = lib.mkEnableOption "Use qylock as lockscreen, does not install qylock";
     };
 
-    config = {
-      assertions = [
-        {
-          assertion = lib.length activeWM <= 1;
-          message = "homeManager.desktop: more than one window manager module imported (${toString activeWM}). Only one may be active.";
-        }
-        {
-          assertion = lib.length activeBar <= 1;
-          message = "homeManager.desktop: more than one bar module imported (${toString activeBar}). Only one may be active.";
-        }
-        {
-          assertion = !cfg.barThemeEnabled || (cfg.bar != null);
-          message = "homeManager.desktop.barThemeEnabled cannot be true when no bar module is active.";
-        }
-      ];
-
-      home.packages = with pkgs; [
-        # --- Desktop Apps ---
-        mpv # Video player
-        rhythmbox # Music player GUI
-        eog # GNOME Image viewer (GTK based)
-        swappy # GUI to edit screenshots
-        file-roller # GNOME Archive manager interface
-        playerctl # control music player
-      ];
-
-      home.file = {
-        "Pictures/Wallpapers" = {
-          source = ../../assets/wallpapers;
-          force = true;
+    config = lib.mkMerge [
+      {
+        assertions = [
+          {
+            assertion = lib.length activeWM <= 1;
+            message = "homeManager.desktop: more than one window manager module imported (${toString activeWM}). Only one may be active.";
+          }
+          {
+            assertion = lib.length activeBar <= 1;
+            message = "homeManager.desktop: more than one bar module imported (${toString activeBar}). Only one may be active.";
+          }
+          {
+            assertion = !cfg.barThemeEnabled || (cfg.bar != null);
+            message = "homeManager.desktop.barThemeEnabled cannot be true when no bar module is active.";
+          }
+        ];
+      }
+      (lib.mkIf (!isDarwin) {
+        home.packages = with pkgs; [
+          # --- Desktop Apps ---
+          mpv # Video player
+          rhythmbox # Music player GUI
+          eog # GNOME Image viewer (GTK based)
+          swappy # GUI to edit screenshots
+          file-roller # GNOME Archive manager interface
+          playerctl # control music player
+        ];
+        home.file = {
+          "Pictures/Wallpapers" = {
+            source = ../../assets/wallpapers;
+            force = true;
+          };
+          ".face".source = ../../assets/face.jpg;
         };
-        ".face".source = ../../assets/face.jpg;
-      };
-    };
+      })
+    ];
   };
 }

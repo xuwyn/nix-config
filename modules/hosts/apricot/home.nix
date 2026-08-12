@@ -11,7 +11,7 @@ in {
     modules = with config.modules.homeManager;
       [inputs.mac-app-util.homeManagerModules.default]
       ++ [nix-settings home sops ssh deploy syncthing]
-      ++ [apps cli editors terminals theme yazi aerospace maa]
+      ++ [desktop omniwm apps cli editors terminals theme yazi maa]
       ++ [
         (_: {
           homeManager = {
