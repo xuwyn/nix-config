@@ -27,6 +27,16 @@
         platforms = platforms.all;
       };
     };
+    sink-it-for-reddit = buildMozillaXpiAddon {
+      pname = "sink-it-for-reddit";
+      version = "8.6.0";
+      addonId = "{09acf9ff-55d4-4366-a1a9-c9b3c8877c09}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4913795/sink_it_for_reddit-8.6.0.xpi";
+      sha256 = "sha256-L6sQXoPH+BadLbHVeWElE3rAGpKR9bByrBKSygeeHpk=";
+      meta = with lib; {
+        platforms = platforms.all;
+      };
+    };
   in {
     options.homeManager.apps.firefox = {
       enable = lib.mkEnableOption "Enable firefox user profile";
@@ -79,11 +89,10 @@
             extensions.packages =
               [
                 duckduckgo-no-ai-search
+                sink-it-for-reddit
               ]
               ++ (with pkgs.nur.repos.rycee.firefox-addons; [
                 ublock-origin
-                old-reddit-redirect
-                reddit-enhancement-suite
                 tree-style-tab
                 don-t-fuck-with-paste
                 return-youtube-dislikes
