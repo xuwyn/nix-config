@@ -92,6 +92,8 @@ in {
             theme = {
               matugen = {
                 enable = true;
+                inherit wallpaper;
+                cachedThemeFile = ./_theme.json;
                 type = "scheme-fidelity";
               };
               cursor.enable = true;

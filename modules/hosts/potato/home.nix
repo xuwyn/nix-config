@@ -55,6 +55,7 @@ in {
               matugen = {
                 enable = true;
                 inherit wallpaper;
+                cachedThemeFile = ./_theme.json;
               };
               gtk.enable = true;
               qt.enable = true;

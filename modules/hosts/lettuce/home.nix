@@ -33,6 +33,7 @@ in {
               matugen = {
                 enable = true;
                 inherit wallpaper;
+                cachedThemeFile = ./_theme.json;
               };
             };
           };

@@ -67,8 +67,8 @@ in {
             theme = {
               matugen = {
                 enable = true;
-                type = "scheme-tonal-spot";
                 inherit wallpaper;
+                cachedThemeFile = ./_theme.json;
               };
               fonts.enable = true;
               cursor.enable = true;

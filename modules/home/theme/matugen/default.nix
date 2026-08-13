@@ -15,6 +15,10 @@
         default = config.homeManager.desktop.wallpaper or null;
         description = "Set matugen wallpaper";
       };
+      cachedThemeFile = lib.mkOption {
+        type = lib.types.nullOr lib.types.path;
+        description = "Locally generated theme file to avoid IFD";
+      };
       variant = lib.mkOption {
         description = "Colorscheme variant.";
         type = lib.types.enum ["light" "dark" "smart"];
@@ -42,14 +46,36 @@
       };
     };
     imports = [
-      inputs.matugen.nixosModules.default
+      ({inputs, ...}: {
+        disabledModules = ["${inputs.matugen}/module.nix"];
+        imports = [(import ./_patched-module.nix inputs.matugen)];
+      })
       ./templates/_papirus-folders.nix
     ];
     config = lib.mkIf cfg.enable {
+      # command to generate theme.json locally
+      home.packages = [
+        (pkgs.writeShellScriptBin "matugen-generate" ''
+          set -euo pipefail
+          OUT_FILE="''${1:?Usage: matugen-generate <output-theme.json>}"
+          ${pkgs.matugen}/bin/matugen \
+            image ${cfg.wallpaper} \
+            --mode ${cfg.variant} \
+            --type ${cfg.type} \
+            --json strip \
+            --contrast 0 \
+            --lightness-dark 0 \
+            --lightness-light 0 \
+            --source-color-index 0 \
+            --quiet \
+            --include-image-in-json=false \
+            > "$OUT_FILE"
+        '')
+      ];
       programs.matugen = {
         enable = true;
         package = pkgs.matugen;
-        inherit (cfg) wallpaper variant type;
+        inherit (cfg) wallpaper cachedThemeFile variant type;
         templates = {
           kitty = {
             input_path = ./templates/kitty-colors.conf;
