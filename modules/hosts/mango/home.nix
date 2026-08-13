@@ -54,6 +54,7 @@ in {
               };
               obs-studio.enable = true;
               spicetify.enable = true;
+              vellum.enable = true;
             };
             terminals.kitty.enable = true;
             # terminals.ghostty.enable = true;

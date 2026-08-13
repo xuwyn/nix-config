@@ -143,6 +143,7 @@ in {
         "Mod+O".spawn = ["obs"];
         "Mod+T".spawn = ["thunar"];
         "Mod+Y".spawn = ["kitty" "-e" "yazi"];
+        "Mod+Ctrl+A".spawn = ["vellum" "toggle"];
       }
       // lib.listToAttrs (map (b: {
           name = toNiriKey b.key;

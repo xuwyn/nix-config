@@ -47,6 +47,7 @@ in {
       hl.bind("SUPER + O", hl.dsp.exec_cmd("app2unit -- obs"))
       hl.bind("SUPER + T", hl.dsp.exec_cmd("thunar"))
       hl.bind("SUPER + Y", hl.dsp.exec_cmd("kitty -e yazi"))
+      hl.bind("SUPER + CTRL + A", hl.dsp.exec_cmd("vellum toggle"))
 
       -- WINDOW MANAGEMENT
       hl.bind("SUPER + Q", hl.dsp.window.close())

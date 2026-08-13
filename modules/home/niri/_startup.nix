@@ -14,6 +14,7 @@ in {
       ["dbus-update-activation-environment --systemd --all && systemctl --user stop niri-session.target && systemctl --user start niri-session.target"]
       ["wl-paste --type text --watch cliphist store"]
       ["wl-paste --type image --watch cliphist store"]
+      ["vellum &"]
       ["dbus-update-activation-environment --all --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"]
       ["systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"]
     ]

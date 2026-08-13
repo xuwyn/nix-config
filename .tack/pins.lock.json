@@ -283,6 +283,14 @@
     "narHash": "sha256-rTiX4SZ9Sjei3WzsW25nDTZweMRzA7ZunspkhDXkZfY=",
     "lastModified": 1785878583
   },
+  "vellum": {
+    "type": "github",
+    "owner": "greyxp1",
+    "repo": "vellum",
+    "rev": "c177cdcf8459a6c65a6a80388c991276166b9672",
+    "narHash": "sha256-LOAMO2V3XS89+ucYcb9DUJ/WHkEuBq7/+OXhdP3C/qk=",
+    "lastModified": 1786660698
+  },
   "zed": {
     "type": "github",
     "owner": "zed-industries",

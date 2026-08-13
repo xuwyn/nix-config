@@ -148,6 +148,9 @@ url = "github:nix-community/preservation"
 [inputs.ncr]
 url = "github:greyxp1/ncr"
 
+[inputs.vellum]
+url = "github:greyxp1/vellum"
+
 [inputs.tack]
 url = "github:manic-systems/tack"
 

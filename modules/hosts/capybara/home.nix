@@ -62,6 +62,7 @@ in {
             apps = {
               firefox.enable = true;
               nixcord.enable = true;
+              vellum.enable = true;
             };
             terminals.kitty.enable = true;
             theme = {
