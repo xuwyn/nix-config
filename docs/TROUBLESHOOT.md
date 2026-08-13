@@ -1,6 +1,6 @@
 # Troubleshoot
 
-This file documented my troubleshooting results via trial and error.
+This file documents my troubleshooting results via trial and error.
 Most problems usually stem from either NVIDIA driver or trying to run nix on non-nix system 😭
 
 ## NixOS Recovery
@@ -54,7 +54,7 @@ nix shell nixpkgs#nixos-install-tools --command sh <(curl -L https://raw.githubu
   }
   ```
 
-## Fix `pkg-config` on non-NixOS
+## Fix `pkg-config` on Non-NixOS
 
 When Nix is installed on a non-NixOS host, it puts its own path at the beginning of `$PATH`.
 This leads to errors running updates with the host's native package manager (e.g., `apt`, `yay`, etc.)
@@ -69,7 +69,7 @@ mkdir -p ~/.config/pacman
 echo 'PKG_CONFIG_PATH="/usr/lib/pkgconfig:/usr/share/pkgconfig"' >> ~/.config/pacman/makepkg.conf
 ```
 
-## Fix PAM on non-NixOS
+## Fix PAM on Non-NixOS
 
 If any package requiring PAM, such as Noctalia or DankMaterialShell (to unlock lockscreen for instance), is installed
 via Home Manager on a non-NixOS, there's a high chance it will fail to find the correct path to the native `unix_chkpwd`
@@ -94,4 +94,34 @@ Or use this oneliner to download the script, execute and then delete it:
 ```sh
 curl -sL https://raw.githubusercontent.com/xuwyn/nix-config/main/scripts/fix-nix-pam.sh -o /tmp/fix.sh && \
 sudo sh /tmp/fix.sh; rm -f /tmp/fix.sh
+```
+
+## Avoid IFD for Remote Deployment
+
+[deploy-rs](https://github.com/serokell/deploy-rs) cannot deploy configurations with
+[IFD](https://nix.dev/manual/nix/2.35/language/import-from-derivation#illustration) (build-during-eval)
+across different platforms (even with `remoteBuild` enabled) since it always runs `nix eval`
+locally before building remotely (the local eval can't produce a derivation for a different platform).
+
+At the time of writing this (2026/08/13), the only module with IFD in my config is [matugen](https://github.com/InioX/matugen). The module
+[builds a theme file](https://github.com/InioX/matugen/blob/133e410751c7c484a9fdddc299851d4494e59871/module.nix#L91-L110)
+and [reads its output back in with `builtins.readFile`](https://github.com/InioX/matugen/blob/133e410751c7c484a9fdddc299851d4494e59871/module.nix#L112)
+to populate `programs.matugen.theme.colors`, forcing the build to happen _during evaluation_ rather than at
+build/switch time. Unfortunately, `theme.colors` is embedded in quite a few of my apps and features, hence patching the module
+(rather than a major refactoring) is the easier option.
+
+The patch works by adding another option, `cachedThemeFile`, to populate `programs.matugen.theme.colors`
+with a pre-generated theme file (see [\_patched-module.nix](../modules/home/theme/matugen/_patched-module.nix)).
+To apply the patch, the upstream [module.nix](https://github.com/InioX/matugen/blob/133e410751c7c484a9fdddc299851d4494e59871/module.nix)
+is disabled and the patched module (as a local copy) is imported (see [matugen/default.nix](../modules/home/theme/matugen/default.nix)).
+It is done this way to avoid using IFD to patch an imported module, which defeats the whole purpose of the patch in the first place.
+
+```nix
+# matugen/default.nix
+imports = [
+  ({inputs, ...}: {
+    disabledModules = ["${inputs.matugen}/module.nix"];
+    imports = [(import ./_patched-module.nix inputs.matugen)];
+  })
+];
 ```

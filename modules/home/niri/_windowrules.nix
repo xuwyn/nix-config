@@ -54,6 +54,20 @@
     }
     {
       match._props = {
+        app-id._raw = ''r#"^([Tt]hunar)$"#'';
+        is-active = true;
+      };
+      opacity = 0.90;
+    }
+    {
+      match._props = {
+        app-id._raw = ''r#"^([Tt]hunar)$"#'';
+        is-active = false;
+      };
+      opacity = 0.80;
+    }
+    {
+      match._props = {
         app-id._raw = ''r#"^(com.mitchellh.ghostty|org.wezfurlong.wezterm|Alacritty|kitty)$"#'';
         is-active = true;
       };
