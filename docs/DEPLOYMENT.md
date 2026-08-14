@@ -193,7 +193,7 @@ deploy --auto-rollback false --magic-rollback false .#hostname.home
 **_Via custom script_**
 
 Use this custom script ([deploy-home.sh](../scripts/deploy-home.sh)) for cross-platform deployment
-if for some odd reasons, I decide to add anything IDF in `homeConfigurations` because `deploy-rs`
+if for some odd reasons, I decide to add anything IFD in `homeConfigurations` because `deploy-rs`
 will fail at eval stage (see [TROUBLESHOOT](./TROUBLESHOOT.md#avoid-ifd-for-remote-deployment)).
 The trade-offs are the ability to deploy multiple nodes/profiles at once and the `autoRollback`&`magicRollback` features.
 
