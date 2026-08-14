@@ -80,7 +80,7 @@ since they are a bit overkill for what I need.
 └── modules/
     ├── lib/
     │   ├── options.nix    # options declaration for dendritic structure
-    │   └── builders.nix   # nixos, darwin, homeManager configs wrappers
+    │   └── builders.nix   # nixos, darwin, home configuration wrappers
     ├── _overlays/         # overlays for nixpkgs
     ├── hosts/             # host-specific configurations
     ├── common/            # common features across classes
@@ -112,30 +112,32 @@ since they are a bit overkill for what I need.
 
 ## Hosts
 
-| Host       | Platform         | OS            | Modules                | DE                                                                             |
-| ---------- | ---------------- | ------------- | ---------------------- | ------------------------------------------------------------------------------ |
-| `apricot`  | `aarch64-darwin` | MacOS         | `darwin`+`homeManager` | Aerospace                                                                      |
-| `capybara` | `x86_64-linux`   | CachyOS       | `homeManager`          | Hyprland+[DankMaterialShell](https://github.com/AvengeMedia/DankMaterialShell) |
+| Host       | Platform         | OS            | Modules                | DE                                                                 |
+| ---------- | ---------------- | ------------- | ---------------------- | ------------------------------------------------------------------ |
+| `apricot`  | `aarch64-darwin` | MacOS         | `darwin`+`homeManager` | [OmniWM](https://github.com/BarutSRB/OmniWM)                       |
+| `capybara` | `x86_64-linux`   | CachyOS       | `homeManager`          | Hyprland + [DMS](https://github.com/AvengeMedia/DankMaterialShell) |
 | `lettuce`  | `x86_64-linux`   | WSL           | `nixos`+`homeManager`  |
-| `mango`    | `x86_64-linux`   | NixOS         | `nixos`+`homeManager`  | Niri+[Noctalia](https://github.com/noctalia-dev/noctalia)                      |
-| `potato`   | `x86_64-linux`   | Debian Trixie | `homeManager`          | i3+Polybar                                                                     |
+| `mango`    | `x86_64-linux`   | NixOS         | `nixos`+`homeManager`  | Niri + [Noctalia](https://github.com/noctalia-dev/noctalia)        |
+| `potato`   | `x86_64-linux`   | Debian Trixie | `homeManager`          | i3 + Polybar                                                       |
 
 ## Acknowledgement
 
-Huge thanks to everyone whose configurations I have ~~stolen~~ referenced for the past two months learning Nix.
-I also want to extend my sincere thank you to all the nixpkgs maintainers, as well as the authors
-and contributors of all open-source projects I used in my nix!
+Huge thanks to everyone whose configurations I have ~~stolen~~ referenced and incorporated into my setup,
+especially the folks in Noctalia Discord's **#nixos** channel. I also want to extend my sincere
+thanks to the nixpkgs maintainers, as well as the authors and contributors of all open-source projects!
 
 ### References
 
-- **[Zaney/zaneyos](https://gitlab.com/Zaney/zaneyos):** Best starting point for beginner (especially for non-coders like me 🥲)
+- **[Zaney/zaneyos](https://gitlab.com/Zaney/zaneyos):** Best starting point for beginners (especially for non-coders like me 🥲)
 - **[linusammon/nixos-config](https://github.com/linusammon/nixos-config):** Tips to migrate away from `flake-parts` and `import-tree`
 - **[iynaix/dotfiles](https://github.com/iynaix/dotfiles):** where I learned about cool stuffs like `tack`, `nvfetcher`, `nix repl`
-- **[iStellanova/Stellyrland](https://github.com/iStellanova/Stellyrland):** Tips to set up `preservation` and homebrew
+- **[iStellanova/Stellyrland](https://github.com/iStellanova/Stellyrland):** Tips to set up `preservation` and `homebrew`
 - **[rysieko.pl/nixossmth](https://tangled.org/rysieko.pl/nixossmth):** Tips to set up `preservation`
+- **[eljangus/nixos](https://github.com/eljangus/nixos):** Pretty cursor and fastfetch themes
+- **[samiser/nix-configs](https://github.com/samiser/nix-configs):** Self-host cache with Attic
 - **[LucasOe/nixos-config](https://github.com/LucasOe/nixos-config):** Home Manager globbing mimeApps
 - **[Doc-Steve/dendritic-design-with-flake-parts](https://github.com/Doc-Steve/dendritic-design-with-flake-parts):** Guide to setup dendritic pattern
 - **[Vortriz/dotfiles](https://github.com/Vortriz/dotfiles):** Custom zed theme using stylix colors
 - **[AlexNabokikh/nix-config](https://github.com/AlexNabokikh/nix-config):** Simple dendritic structure
 - **[MatthiasBenaets/nix-config](https://github.com/MatthiasBenaets/nix-config):** Dev shell layout and Aerospace WM
-- **[Baitinq/nixos-config](https://github.com/Baitinq/nixos-config):** Use `deploy-rs` for remote deployment
+- **[Baitinq/nixos-config](https://github.com/Baitinq/nixos-config):** Remote deployment with `deploy-rs`
