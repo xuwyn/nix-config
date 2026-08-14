@@ -94,7 +94,7 @@ url = "github:AvengeMedia/dgop"
 url = "github:nix-community/nixvim"
 
 [inputs.hyprland]
-url = "github:hyprwm/Hyprland/v0.56.1"
+url = "github:hyprwm/Hyprland/v0.56.2"
 exclude_follow = ["nixpkgs"]
 
 [inputs.niri-nix]
