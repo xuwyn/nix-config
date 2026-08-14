@@ -177,6 +177,11 @@ bundleId = "com.apple.finder"
 id = "641DE429-407E-42FB-B86C-AC239D3B3AF2"
 layout = "float"
 
+[[appRules]]
+bundleId = "com.YoStarEN.Arknights"
+id = "F164A9C5-84D1-45C8-8253-7BABBBD4EB2B"
+layout = "float"
+
 [[hotkeys]]
 binding = "Option+1"
 id = "switchWorkspace.0"
