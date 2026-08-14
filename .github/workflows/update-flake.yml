@@ -20,7 +20,7 @@ jobs:
         run: |
           mkdir -p ~/.config/nix
           cat >> ~/.config/nix/nix.conf <<EOF
-          access-tokens = github.com=${{ secrets.GITHUB_TOKEN }} gitlab.com=${{ secrets.GITLAB_TOKEN }} codeberg.org=${{ secrets.CODEBERG_TOKEN }}
+          access-tokens = github.com=${{ secrets.GITHUB_TOKEN }} gitlab.com=PAT:${{ secrets.GITLAB_TOKEN }} codeberg.org=${{ secrets.CODEBERG_TOKEN }}
           EOF
 
       - name: Update .tack/pins.lock.json
