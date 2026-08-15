@@ -72,6 +72,10 @@
               steam.enable = true;
             };
             services = {
+              scheduler = {
+                scx.enable = true;
+                ananicy.enable = true;
+              };
               printing.enable = true;
               waydroid.enable = true;
             };
