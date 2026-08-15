@@ -61,6 +61,7 @@ in {
             };
             apps = {
               firefox.enable = true;
+              spicetify.enable = true;
               nixcord.enable = true;
               vellum.enable = true;
             };

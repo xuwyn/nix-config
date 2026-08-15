@@ -83,9 +83,9 @@
     "type": "github",
     "owner": "hyprwm",
     "repo": "Hyprland",
-    "rev": "efb50993780079460b0cbed1363e2166a2de1d9f",
-    "narHash": "sha256-IptZjFf/bE9lv8SQLef4Wmn3KOs3BwchYr6aFcCJ9NI=",
-    "lastModified": 1785939201
+    "rev": "a1b9dc0e8cdfeca3e2d96a24b10b3d85e14fbd50",
+    "narHash": "sha256-8Pyv0ORHhzsUElqqESECxSr3xr+SFibDZTizTF48k9I=",
+    "lastModified": 1786807079
   },
   "mac-app-util": {
     "type": "github",

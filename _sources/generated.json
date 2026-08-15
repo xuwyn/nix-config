@@ -1,25 +1,4 @@
 {
-    "app2unit": {
-        "cargoLock": null,
-        "date": "2026-08-01",
-        "extract": null,
-        "name": "app2unit",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "owner": "Vladimir-csp",
-            "repo": "app2unit",
-            "rev": "47e23ec6ab9e97bbe335c32fb640744a29bf32f7",
-            "sha256": "sha256-TIY+/9ekGub+10uyqXy5aYU+2NLysMtaQnD1PIjBCFA=",
-            "sparseCheckout": [],
-            "type": "github"
-        },
-        "version": "47e23ec6ab9e97bbe335c32fb640744a29bf32f7"
-    },
     "base46": {
         "cargoLock": null,
         "date": "2026-07-23",

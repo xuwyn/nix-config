@@ -6,18 +6,6 @@
   dockerTools,
 }:
 {
-  app2unit = {
-    pname = "app2unit";
-    version = "47e23ec6ab9e97bbe335c32fb640744a29bf32f7";
-    src = fetchFromGitHub {
-      owner = "Vladimir-csp";
-      repo = "app2unit";
-      rev = "47e23ec6ab9e97bbe335c32fb640744a29bf32f7";
-      fetchSubmodules = false;
-      sha256 = "sha256-TIY+/9ekGub+10uyqXy5aYU+2NLysMtaQnD1PIjBCFA=";
-    };
-    date = "2026-08-01";
-  };
   base46 = {
     pname = "base46";
     version = "83522e02c6c3b4ea901c4bffd9e0a5e0371c1fe6";
