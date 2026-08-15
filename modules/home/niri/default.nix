@@ -29,6 +29,7 @@
       ./_packages.nix
       ./_colors.nix
       ./_env.nix
+      ./_animation.nix
     ];
 
     config = {
