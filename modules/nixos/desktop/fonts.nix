@@ -14,7 +14,6 @@
       fonts = {
         packages = with pkgs; [
           dejavu_fonts
-          jetbrains-mono
           maple-mono.NF
           nerd-fonts.jetbrains-mono
           nerd-fonts.noto
