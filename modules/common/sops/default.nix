@@ -1,17 +1,14 @@
 {
   modules = let
-    accessTokensFile = ./access-tokens.yaml;
-
-    accessTokens = {
-      github_token.sopsFile = accessTokensFile;
-      gitlab_token.sopsFile = accessTokensFile;
-      codeberg_token.sopsFile = accessTokensFile;
+    commonSopsEnv = pkgs: {
+      systemPackages = with pkgs; [ssh-to-age age sops];
+      variables.SOPS_AGE_KEY_CMD = "ssh-to-age -private-key -i /etc/ssh/ssh_host_ed25519_key";
     };
 
-    accessTokensTemplate = {config, ...}: {
-      sops.templates."nix-access-tokens.conf".content = ''
-        access-tokens = github.com=${config.sops.placeholder.github_token} gitlab.com=PAT:${config.sops.placeholder.gitlab_token} codeberg.org=${config.sops.placeholder.codeberg_token}
-      '';
+    commonSopsSettings = host: {
+      age.sshKeyPaths = ["/etc/ssh/ssh_host_ed25519_key"];
+      defaultSopsFile = ./${host}.yaml;
+      defaultSopsFormat = "yaml";
     };
   in {
     nixos.sops = {
@@ -23,23 +20,17 @@
       config,
       ...
     }: {
-      imports = [inputs.sops-nix.nixosModules.sops accessTokensTemplate];
-      environment = {
-        systemPackages = with pkgs; [ssh-to-age age sops];
-        variables.SOPS_AGE_KEY_CMD = "ssh-to-age -private-key -i /etc/ssh/ssh_host_ed25519_key";
-      };
-      sops = {
-        age.sshKeyPaths = ["/etc/ssh/ssh_host_ed25519_key"];
-        defaultSopsFile = ./${host}.yaml;
-        defaultSopsFormat = "yaml";
-        secrets =
-          lib.listToAttrs (map (u: {
+      imports = [inputs.sops-nix.nixosModules.sops];
+      environment = commonSopsEnv pkgs;
+      sops =
+        commonSopsSettings host
+        // {
+          secrets = lib.listToAttrs (map (u: {
               name = "${u}_password";
               value = {neededForUsers = true;};
             })
-            (lib.filter (u: !(config.nixos.users.${u}.isDeployer or false)) users))
-          // accessTokens;
-      };
+            (lib.filter (u: !(config.nixos.users.${u}.isDeployer or false)) users));
+        };
     };
 
     darwin.sops = {
@@ -48,17 +39,9 @@
       host,
       ...
     }: {
-      imports = [inputs.sops-nix.darwinModules.sops accessTokensTemplate];
-      environment = {
-        systemPackages = with pkgs; [ssh-to-age age sops];
-        variables.SOPS_AGE_KEY_CMD = "ssh-to-age -private-key -i /etc/ssh/ssh_host_ed25519_key";
-      };
-      sops = {
-        age.sshKeyPaths = ["/etc/ssh/ssh_host_ed25519_key"];
-        defaultSopsFile = ./${host}.yaml;
-        defaultSopsFormat = "yaml";
-        secrets = {} // accessTokens;
-      };
+      imports = [inputs.sops-nix.darwinModules.sops];
+      environment = commonSopsEnv pkgs;
+      sops = commonSopsSettings host // {secrets = {};};
     };
 
     homeManager.sops = {
@@ -67,18 +50,16 @@
       pkgs,
       ...
     }: {
-      imports = [inputs.sops-nix.homeManagerModules.sops accessTokensTemplate];
+      imports = [inputs.sops-nix.homeManagerModules.sops];
       home.packages = with pkgs; [age sops];
       sops = {
         age.keyFile = "${config.home.homeDirectory}/.config/sops/age/keys.txt";
         defaultSopsFile = ./${config.home.username}.yaml;
         defaultSopsFormat = "yaml";
-        secrets =
-          {
-            private_ssh_key = {};
-            public_ssh_key = {};
-          }
-          // accessTokens;
+        secrets = {
+          private_ssh_key = {};
+          public_ssh_key = {};
+        };
       };
     };
   };

@@ -5,6 +5,16 @@
       config,
       ...
     }: {
+      sops = {
+        secrets = {
+          github_token.sopsFile = ./sops/access-tokens.yaml;
+          gitlab_token.sopsFile = ./sops/access-tokens.yaml;
+          codeberg_token.sopsFile = ./sops/access-tokens.yaml;
+        };
+        templates."nix-access-tokens.conf".content = ''
+          access-tokens = github.com=${config.sops.placeholder.github_token} gitlab.com=PAT:${config.sops.placeholder.gitlab_token} codeberg.org=${config.sops.placeholder.codeberg_token}
+        '';
+      };
       nix = {
         settings.experimental-features = [
           "nix-command"
