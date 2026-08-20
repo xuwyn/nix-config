@@ -167,6 +167,14 @@
     "narHash": "sha256-Ofi56F9MS1HvgGlAJi3q37Jkeyt7ztnCsjl413mhXAw=",
     "lastModified": 1786685292
   },
+  "nixos-hardware": {
+    "type": "github",
+    "owner": "NixOS",
+    "repo": "nixos-hardware",
+    "rev": "0471accf8d0a8210b31d947497d179ecc99e0021",
+    "narHash": "sha256-HHfv2/HkNSKbbSyU9iD/g8lbP6r4tl33sSw1W4rXCk0=",
+    "lastModified": 1787144466
+  },
   "nixos-wsl": {
     "type": "github",
     "owner": "nix-community",

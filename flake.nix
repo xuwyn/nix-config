@@ -25,7 +25,7 @@
     inherit (lib) hasSuffix hasPrefix splitString filesystem genAttrs evalModules;
     inherit (builtins) any concatMap isPath filter readFileType;
 
-    systems = ["x86_64-linux" "aarch64-darwin"];
+    systems = ["x86_64-linux" "aarch64-darwin" "aarch64-linux"];
     perSystem = f: genAttrs systems (system: f inputs.nixpkgs.legacyPackages.${system} system);
 
     # Thanks llakala
