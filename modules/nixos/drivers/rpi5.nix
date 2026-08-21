@@ -14,7 +14,7 @@
       imports = [inputs.nixos-hardware.nixosModules.raspberry-pi-5];
       config = mkIf cfg.enable {
         boot.initrd.systemd.enable = lib.mkForce false;
-        boot.kernelParams = ["video=efifb:off" "fbcon=rotate:0" "video=1920x1080-32"];
+        # boot.kernelParams = ["video=efifb:off" "fbcon=rotate:0" "video=1920x1080-32"];
         nix.settings.system-features = ["nixos-test" "benchmark" "big-parallel" "kvm" "gccarch-armv8-a"];
         fileSystems = {
           "/" = {
@@ -30,21 +30,21 @@
         hardware.raspberry-pi = {
           firmware = {
             enable = true;
-            uboot.enable = true;
+            # uboot.enable = true;
           };
-          configtxt.settings = {
-            all = {
-              dtparam = [
-                "audio=on"
-                "i2c_arm=on"
-              ];
-              dtoverlay = [
-                "vc4-kms-v3d"
-                # "disable-bt"
-              ];
-              arm_boost = lib.mkForce null;
-            };
-          };
+          # configtxt.settings = {
+          #   all = {
+          #     dtparam = [
+          #       "audio=on"
+          #       "i2c_arm=on"
+          #     ];
+          #     dtoverlay = [
+          #       "vc4-kms-v3d"
+          #       # "disable-bt"
+          #     ];
+          #     arm_boost = lib.mkForce null;
+          #   };
+          # };
         };
       };
     };
