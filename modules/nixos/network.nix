@@ -24,6 +24,10 @@
       enable = true;
       nssmdns4 = true;
       openFirewall = true; # port 5353
+      publish = {
+        enable = true;
+        addresses = true;
+      };
     };
   };
 }
