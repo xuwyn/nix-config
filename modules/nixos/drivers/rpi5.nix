@@ -13,6 +13,7 @@
       };
       imports = [inputs.nixos-hardware.nixosModules.raspberry-pi-5];
       config = mkIf cfg.enable {
+        boot.initrd.systemd.enable = lib.mkForce false;
         nix.settings.system-features = ["nixos-test" "benchmark" "big-parallel" "kvm" "gccarch-armv8-a"];
         fileSystems = {
           "/" = {
@@ -30,7 +31,7 @@
             enable = true;
             uboot.enable = true;
           };
-          configtxt.settings = {};
+          # configtxt.settings = {};
         };
       };
     };
