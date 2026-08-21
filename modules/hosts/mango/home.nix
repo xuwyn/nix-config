@@ -12,7 +12,9 @@ in {
           homeManager = {
             ssh.hosts = {
               apricot = {};
+              puffin = {};
               "apricot.local" = {};
+              "puffin.local" = {};
             };
             desktop = {
               inherit wallpaper;

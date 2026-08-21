@@ -18,7 +18,7 @@
               "potato.local" = {};
             };
             cli = {
-              zsh.enable = true;
+              bash.enable = true;
               nh.enable = true;
               tealdeer.enable = true;
               search.enable = true;
