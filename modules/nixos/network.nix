@@ -20,5 +20,10 @@
       networkmanager.enable = true;
       timeServers = options.networking.timeServers.default ++ ["pool.ntp.org"];
     };
+    services.avahi = {
+      enable = true;
+      nssmdns4 = true;
+      openFirewall = true; # port 5353
+    };
   };
 }
