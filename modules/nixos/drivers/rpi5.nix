@@ -31,7 +31,15 @@
             enable = true;
             uboot.enable = true;
           };
-          # configtxt.settings = {};
+          configtxt.settings = {
+            all = {
+              dtparam = [
+                "audio=on"
+                "i2c_arm=on"
+                "hdmi_pixel_encoding=1"
+              ];
+            };
+          };
         };
       };
     };

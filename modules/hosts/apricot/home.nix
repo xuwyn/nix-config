@@ -17,9 +17,11 @@ in {
           homeManager = {
             apps.nixcord.enable = true;
             ssh.hosts = {
+              puffin = {};
               mango = {};
               capybara = {};
               potato = {};
+              "puffin.local" = {};
               "mango.local" = {};
               "capybara.local" = {};
               "potato.local" = {};
