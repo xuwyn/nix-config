@@ -18,7 +18,6 @@ in {
             };
             desktop = {
               inherit wallpaper;
-              qylockEnabled = true;
               barThemeEnabled = true;
               monitors = [
                 {

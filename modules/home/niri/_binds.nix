@@ -6,7 +6,7 @@
   inherit (config.homeManager.desktop) browser terminal bar;
   barBinds =
     if bar == "noctalia"
-    then (import ../noctalia/_binds.nix) {inherit config;}
+    then (import ../noctalia/_binds.nix)
     else if bar == "dms"
     then (import ../dms/_binds.nix) {inherit config;}
     else [];

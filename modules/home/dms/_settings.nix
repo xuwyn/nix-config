@@ -1,5 +1,4 @@
 {config, ...}: let
-  qylockEnabled = config.homeManager.desktop.qylockEnabled or false;
   hyprlandEnabled = config.homeManager ? hyprland;
   niriEnabled = config.homeManager ? niri;
 in {
@@ -549,10 +548,7 @@ in {
   ];
   powerMenuDefaultAction = "logout";
   powerMenuGridLayout = false;
-  customPowerActionLock =
-    if qylockEnabled
-    then "systemd-run --user -- qylock-lock"
-    else "";
+  customPowerActionLock = "";
   customPowerActionLogout =
     if hyprlandEnabled
     then "hyprctl dispatch 'hl.dsp.exit()'"

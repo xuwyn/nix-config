@@ -75,16 +75,10 @@
       key = "SUPER + E";
       command = "dms ipc call plugins enable emojiLauncher && dms ipc call spotlight toggleQuery :e";
     }
-  ];
-  lockBind =
-    if config.homeManager.desktop.qylockEnabled
-    then {
-      key = "SUPER + L";
-      command = "qylock-lock";
-    }
-    else {
+    {
       key = "SUPER + L";
       command = "dms ipc call lock lock";
-    };
+    }
+  ];
 in
-  dmsBinds ++ [lockBind]
+  dmsBinds
