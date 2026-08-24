@@ -1,10 +1,14 @@
 {
   modules = let
-    commonTailscaleSettings = {pkgs, ...}: {
+    commonTailscaleSettings = {
+      pkgs,
+      inputs,
+      ...
+    }: {
       sops.secrets.tailscale_key.sopsFile = ./sops/tailscale.yaml;
       services.tailscale = {
         enable = true;
-        package = pkgs.tailscale;
+        package = inputs.nixpkgs.legacyPackages.${pkgs.stdenv.hostPlatform.system}.tailscale;
       };
     };
   in {
