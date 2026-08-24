@@ -22,16 +22,18 @@
     # To match with nvmd/nixos-raspberrypi image
     boot.loader.raspberry-pi.bootloader = "kernel";
     boot.tmp.useTmpfs = true;
-    networking.networkmanager.enable = false;
-    networking.wireless.iwd = {
-      enable = true;
-      settings = {
-        Network = {
-          EnableIPv6 = true;
-          RoutePriorityOffset = 300;
+    networking = {
+      networkmanager.wifi.backend = "iwd";
+      wireless.iwd = {
+        enable = true;
+        settings = {
+          Network = {
+            EnableIPv6 = true;
+            RoutePriorityOffset = 300;
+          };
+          General.EnableNetworkConfiguration = true;
+          Settings.AutoConnect = true;
         };
-        General.EnableNetworkConfiguration = true;
-        Settings.AutoConnect = true;
       };
     };
 
