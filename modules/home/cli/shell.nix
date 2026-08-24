@@ -38,7 +38,7 @@
 
           shellAliases =
             {
-              sv = "sudo nvim";
+              sv = "sudo -E nvim";
               v = "nvim";
               c = "clear";
               ncg = "nix-collect-garbage --delete-old && nix-collect-garbage -d && nix-store --gc && nix-store --optimise";
@@ -87,7 +87,7 @@
 
           shellAliases =
             {
-              sv = "sudo nvim";
+              sv = "sudo -E nvim";
               v = "nvim";
               c = "clear";
               ncg = "nix-collect-garbage --delete-old && nix-collect-garbage -d && nix-store --gc && nix-store --optimise";
