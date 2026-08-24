@@ -31,8 +31,31 @@
         dconf.enable = true;
       };
 
+      # security features only relevant on desktop
+      security = {
+        rtkit.enable = true;
+        polkit = {
+          enable = true;
+          extraConfig = ''
+            polkit.addRule(function(action, subject) {
+              if ( subject.isInGroup("users") && (
+               action.id == "org.freedesktop.login1.reboot" ||
+               action.id == "org.freedesktop.login1.reboot-multiple-sessions" ||
+               action.id == "org.freedesktop.login1.power-off" ||
+               action.id == "org.freedesktop.login1.power-off-multiple-sessions"
+              ))
+              { return polkit.Result.YES; }
+            })
+          '';
+        };
+      };
+
       # Services to start
       services = {
+        xserver = {
+          enable = true;
+          excludePackages = [pkgs.xterm];
+        };
         upower.enable = true; # noctalia shell battery
         power-profiles-daemon.enable = true;
         blueman.enable = true; # Bluetooth Tray

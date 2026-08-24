@@ -30,6 +30,10 @@ url = "https://channels.nixos.org/nixos-unstable/nixexprs.tar.xz"
 url = "https://channels.nixos.org/nixos-unstable/nixexprs.tar.xz"
 exclude_follow = ["nixpkgs"]
 
+[inputs.nixos-raspberrypi]
+url = "github:nvmd/nixos-raspberrypi/main"
+exclude_follow = ["nixpkgs"]
+
 [inputs.home-manager]
 url = "github:nix-community/home-manager"
 

@@ -148,6 +148,52 @@ Install [Lix](https://lix.systems/install/) instead cause the official installer
 curl -sSf -L https://install.lix.systems/lix | sh -s -- install
 ```
 
+### Raspberry Pi
+
+Use [nvmd/nixos-raspberrypi](https://github.com/nvmd/nixos-raspberrypi/tree/develop#installer-configurations)
+installer for sd-image to minimize cache misses
+
+```sh
+# build sd-image (X: [02, 3, 4, 5])
+nix build github:nvmd/nixos-raspberrypi#installerImages.rpiX --accept-flake-config
+
+# decompress and write the image to the sd card
+# find /dev/sdX with `lsblk -f`
+zstdcat result/sd-image/nixos-*.img.zst | sudo dd of=/dev/sdX bs=4M status=progress conv=fsync
+```
+
+Boot into the pi with monitor and keyboard connected to set root password for first switch
+
+```sh
+sudo passwd root
+
+# (Optional) Connect to wifi via iwd
+# (stock image use iwd instead of wpa_supplicant)
+iwctl station wlan0 connect SSID
+```
+
+Connect to the pi via ethernet/wifi and execute first switch with `nixos-rebuild`. It's also possible to do this with
+`nixos-anywhere` but not necessary since no disko was used and the image was already configured on the sd card
+
+```sh
+# Get host ssh key for sops
+ssh root@nixos-installer.local "cat /etc/ssh/ssh_host_ed25519_key.pub" | nix run nixpkgs#ssh-to-age
+
+# Add key to current flake (not located on the pi)
+vi ./path/to/flake/modules/common/sops/.sops.yaml
+
+# Set user password and add it to rpi secret
+mkpasswd -m yescrypt
+cd ./path/to/flake/modules/common/sops && sops rpi.yaml
+
+# Remember to updatekeys for other secrets that rpi might need
+sudo -E sops updatekeys ./path/to/flake/modules/common/sops/access-tokens.yaml
+
+# First switch
+nixos-rebuild switch --flake ./path/to/flake#rpi --accept-flake-config \
+--target-host root@nixos-installer.local --build-host root@nixos-installer.local
+```
+
 ## Install Home Manager
 
 > [!NOTE]

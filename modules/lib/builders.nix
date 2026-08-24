@@ -9,28 +9,49 @@
 in {
   config = {
     nixosConfigurations =
-      lib.mapAttrs (
-        name: cfg:
-          inputs.nixpkgs.lib.nixosSystem {
-            specialArgs = {
-              inherit inputs self;
-              inherit (cfg) host users;
-              inherit (config) flake;
-            };
-            modules =
-              cfg.modules
-              ++ [
-                (_: {
-                  nixpkgs = {
-                    inherit overlays;
-                    hostPlatform = cfg.system;
-                    config.allowUnfree = true;
-                  };
-                })
-              ];
-          }
-      )
-      config.nixos;
+      (lib.mapAttrs (
+          name: cfg:
+            inputs.nixpkgs.lib.nixosSystem {
+              specialArgs = {
+                inherit inputs self;
+                inherit (cfg) host users system;
+                inherit (config) flake;
+              };
+              modules =
+                cfg.modules
+                ++ [
+                  (_: {
+                    nixpkgs = lib.mkDefault {
+                      inherit overlays;
+                      hostPlatform = cfg.system;
+                      config.allowUnfree = true;
+                    };
+                  })
+                ];
+            }
+        )
+        config.nixos)
+      // (lib.mapAttrs (
+          name: cfg:
+            inputs.nixos-raspberrypi.lib.nixosSystem {
+              specialArgs = {
+                inherit inputs self;
+                inherit (cfg) host users system;
+                inherit (config) flake;
+              };
+              modules =
+                cfg.modules
+                ++ [
+                  (_: {
+                    nixpkgs = lib.mkDefault {
+                      hostPlatform = cfg.system;
+                      config.allowUnfree = true;
+                    };
+                  })
+                ];
+            }
+        )
+        config.nixos-rpi);
 
     darwinConfigurations =
       lib.mapAttrs (

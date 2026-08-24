@@ -1,6 +1,4 @@
 {
-  description = "nixos+home: niri/hyprland+noctalia/dms & i3+polybar";
-
   # Binary caches
   nixConfig = {
     substituters = [
@@ -9,6 +7,7 @@
       "https://nix-community.cachix.org"
       "https://noctalia.cachix.org"
       "https://cache.xinux.uz"
+      "https://nixos-raspberrypi.cachix.org"
     ];
     trusted-public-keys = [
       "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
@@ -16,6 +15,7 @@
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
       "noctalia.cachix.org-1:pCOR47nnMEo5thcxNDtzWpOxNFQsBRglJzxWPp3dkU4="
       "cache.xinux.uz:BXCrtqejFjWzWEB9YuGB7X2MV4ttBur1N8BkwQRdH+0="
+      "nixos-raspberrypi.cachix.org-1:4iMO9LXa8BqhU+Rpg6LQKiGa2lsNh/j2oiYLNOQ5sPI="
     ];
   };
 
@@ -25,7 +25,7 @@
     inherit (lib) hasSuffix hasPrefix splitString filesystem genAttrs evalModules;
     inherit (builtins) any concatMap isPath filter readFileType;
 
-    systems = ["x86_64-linux" "aarch64-darwin"];
+    systems = ["x86_64-linux" "aarch64-darwin" "aarch64-linux"];
     perSystem = f: genAttrs systems (system: f inputs.nixpkgs.legacyPackages.${system} system);
 
     # Thanks llakala

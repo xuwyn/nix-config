@@ -15,11 +15,16 @@ in {
       ++ [
         (_: {
           homeManager = {
-            apps.nixcord.enable = true;
+            apps = {
+              nixcord.enable = true;
+              spicetify.enable = true;
+            };
             ssh.hosts = {
+              puffin = {};
               mango = {};
               capybara = {};
               potato = {};
+              "puffin.local" = {};
               "mango.local" = {};
               "capybara.local" = {};
               "potato.local" = {};

@@ -14,6 +14,7 @@
     };
     imports = [inputs.niri-nix.nixosModules.default];
     config = {
+      environment.variables.NIXOS_OZONE_WL = "1";
       programs = {
         hyprland = {
           enable = cfg.hyprland.enable;

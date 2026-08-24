@@ -5,5 +5,14 @@
       computerName = host;
       applicationFirewall.enable = true;
     };
+    services.openssh = {
+      enable = true;
+      # same settings as nixos' openssh
+      extraConfig = ''
+        PermitRootLogin no
+        PasswordAuthentication no
+        KbdInteractiveAuthentication no
+      '';
+    };
   };
 }

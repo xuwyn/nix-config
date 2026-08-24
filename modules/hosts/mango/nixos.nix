@@ -3,8 +3,8 @@
     system = "x86_64-linux";
     users = ["wyn" "deploy"];
     modules = with config.modules.nixos;
-      [./_disko.nix nix-settings preservation drivers boot hardware network security]
-      ++ [system users desktop apps services sops tailscale deploy]
+      [./_disko.nix nix-settings preservation drivers boot hardware network]
+      ++ [system users desktop apps services sops tailscale deploy binfmt]
       ++ [
         ({pkgs, ...}: {
           nixos = {
@@ -63,7 +63,6 @@
               niri.enable = true;
               fonts.enable = true;
               thunar.enable = true;
-              xserver.enable = true;
               utils.enable = true;
             };
             apps = {

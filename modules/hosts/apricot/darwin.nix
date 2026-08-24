@@ -2,7 +2,7 @@
   darwin.apricot = {
     users = ["wyn" "deploy"];
     modules = with config.modules.darwin;
-      [nix-settings system sops tailscale deploy users network security]
+      [nix-settings system sops tailscale deploy users network]
       ++ [homebrew desktop]
       ++ [
         {

@@ -62,6 +62,24 @@ in {
       default = {};
     };
 
+    nixos-rpi = mkOption {
+      type = types.lazyAttrsOf (types.submodule ({name, ...}: {
+        options = {
+          host = mkOption {
+            type = types.str;
+            default = name;
+          };
+          modules = mkOption {
+            type = types.listOf types.deferredModule;
+            default = [];
+          };
+          users = mkOption {type = types.listOf types.str;};
+          system = mkOption {type = types.str;};
+        };
+      }));
+      default = {};
+    };
+
     darwin = mkOption {
       type = types.lazyAttrsOf (types.submodule ({name, ...}: {
         options = {

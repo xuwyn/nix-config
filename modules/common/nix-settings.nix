@@ -1,10 +1,6 @@
 {
   modules = let
-    commonNixSettings = {
-      lib,
-      config,
-      ...
-    }: {
+    commonNixSettings = {config, ...}: {
       sops = {
         secrets = {
           github_token.sopsFile = ./sops/access-tokens.yaml;
@@ -20,7 +16,7 @@
           "nix-command"
           "flakes"
         ];
-        extraOptions = lib.optionalString (config ? sops && config.sops.templates ? "nix-access-tokens.conf") ''
+        extraOptions = ''
           !include ${config.sops.templates."nix-access-tokens.conf".path}
         '';
       };
@@ -38,18 +34,16 @@
 
     darwin.nix-settings = {users, ...}: {
       imports = [commonNixSettings];
-      nix = {
-        settings = {
-          auto-optimise-store = true;
-          allowed-users = users;
-          trusted-users = users;
-        };
+      nix.settings = {
+        auto-optimise-store = true;
+        allowed-users = users;
+        trusted-users = users;
       };
     };
 
     homeManager.nix-settings = {pkgs, ...}: {
-      nix.package = pkgs.nix;
       imports = [commonNixSettings];
+      nix.package = pkgs.nix;
     };
   };
 }

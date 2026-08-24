@@ -40,11 +40,6 @@
           };
         };
 
-        # Global environment variables
-        environment.variables = {
-          NIXOS_OZONE_WL = "1";
-        };
-
         programs = {
           mtr.enable = true; # ping and traceroute
         };

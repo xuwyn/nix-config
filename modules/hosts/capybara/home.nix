@@ -62,7 +62,10 @@ in {
             apps = {
               firefox.enable = true;
               spicetify.enable = true;
-              nixcord.enable = true;
+              nixcord = {
+                enable = true;
+                themes = ["dank-discord.css"];
+              };
               vellum.enable = true;
             };
             terminals.kitty.enable = true;

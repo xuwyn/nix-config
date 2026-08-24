@@ -6,7 +6,6 @@
     options,
     ...
   }: {
-    environment.systemPackages = with pkgs; [networkmanagerapplet];
     networking = {
       hostName = host;
       firewall = {
@@ -17,8 +16,28 @@
           443
         ];
       };
-      networkmanager.enable = true;
+      networkmanager.enable = lib.mkDefault true;
       timeServers = options.networking.timeServers.default ++ ["pool.ntp.org"];
+    };
+    services = {
+      avahi = {
+        enable = true;
+        nssmdns4 = true;
+        openFirewall = true; # port 5353
+        publish = {
+          enable = true;
+          addresses = true;
+        };
+      };
+      openssh = {
+        enable = true;
+        settings = {
+          PermitRootLogin = "no";
+          PasswordAuthentication = false;
+          KbdInteractiveAuthentication = false;
+        };
+        ports = [22];
+      };
     };
   };
 }

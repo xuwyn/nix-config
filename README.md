@@ -6,7 +6,7 @@
   <a href="./docs/TROUBLESHOOT.md"><strong>Troubleshoot</strong></a>
 </p>
 
-My personal config for nixos, nix-darwin and home-manager (standalone) running on `x86_64-linux` and `aarch64-darwin`.
+My personal config for nixos, nix-darwin and home-manager (standalone) running on `x86_64-linux`, `aarch64-linux` and `aarch64-darwin`.
 I currently have no desire to fully transform every hosts I have into NixOS,
 so most features are in Home Manager for portability.
 
@@ -119,6 +119,7 @@ since they are a bit overkill for what I need.
 | `lettuce`  | `x86_64-linux`   | WSL           | `nixos`+`homeManager`  |
 | `mango`    | `x86_64-linux`   | NixOS         | `nixos`+`homeManager`  | Niri + [Noctalia](https://github.com/noctalia-dev/noctalia)        |
 | `potato`   | `x86_64-linux`   | Debian Trixie | `homeManager`          | i3 + Polybar                                                       |
+| `puffin`   | `aarch64-linux`  | NixOS         | `nixos`+`homeManager`  |                                                                    |
 
 ## Acknowledgement
 
