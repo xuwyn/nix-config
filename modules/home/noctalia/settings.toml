@@ -127,17 +127,17 @@ cancel = [ "Delete", "Escape" ]
 auto_locate = true
 
 [lockscreen]
-blurred_desktop = true
+blur_intensity = 0.0
+wallpaper = "/home/wyn/Pictures/Wallpapers/Embraced_A.png"
 
 [lockscreen_widgets]
 enabled = true
 schema_version = 1
 widget_order = [
-    "lockscreen-login-box@HDMI-A-1",
     "lockscreen-login-box@DP-2",
-    "lockscreen-login-box@WAYLAND-1",
     "lockscreen-login-box@DP-5",
-    "lockscreen-widget-0000000000000001"
+    "lockscreen-widget-0000000000000001",
+    "lockscreen-widget-0000000000000002"
 ]
 
     [lockscreen_widgets.grid]
@@ -149,7 +149,7 @@ widget_order = [
     box_height = 196.0
     box_width = 810.0
     cx = 960.0
-    cy = 957.0
+    cy = 910.0
     output = "DP-2"
     placement_height = 1080.0
     placement_width = 1920.0
@@ -157,14 +157,19 @@ widget_order = [
     type = "login_box"
 
         [lockscreen_widgets.widget."lockscreen-login-box@DP-2".settings]
-        center_password_text = false
+        background_color = "surface_variant"
+        background_opacity = 0.88
+        background_radius = 12.0
+        center_password_text = true
+        input_opacity = 1.0
+        input_radius = 6.0
         layout = "regular"
         show_caps_lock = true
         show_keyboard_layout = true
         show_login_button = true
         show_media = true
         show_session_buttons = true
-        show_unlock_hint = true
+        show_unlock_hint = false
         show_weather = true
 
     [lockscreen_widgets.widget."lockscreen-login-box@DP-5"]
@@ -179,65 +184,26 @@ widget_order = [
     type = "login_box"
 
         [lockscreen_widgets.widget."lockscreen-login-box@DP-5".settings]
-        center_password_text = false
+        background_color = "surface_variant"
+        background_opacity = 0.88
+        background_radius = 12.0
+        center_password_text = true
+        input_opacity = 1.0
+        input_radius = 6.0
         layout = "regular"
         show_caps_lock = true
         show_keyboard_layout = true
         show_login_button = true
         show_media = true
         show_session_buttons = true
-        show_unlock_hint = true
-        show_weather = true
-
-    [lockscreen_widgets.widget."lockscreen-login-box@HDMI-A-1"]
-    box_height = 196.0
-    box_width = 810.0
-    cx = 960.0
-    cy = 957.0
-    output = "HDMI-A-1"
-    placement_height = 0.0
-    placement_width = 0.0
-    rotation = 0.0
-    type = "login_box"
-
-        [lockscreen_widgets.widget."lockscreen-login-box@HDMI-A-1".settings]
-        center_password_text = false
-        layout = "regular"
-        show_caps_lock = true
-        show_keyboard_layout = true
-        show_login_button = true
-        show_media = true
-        show_session_buttons = true
-        show_unlock_hint = true
-        show_weather = true
-
-    [lockscreen_widgets.widget."lockscreen-login-box@WAYLAND-1"]
-    box_height = 196.0
-    box_width = 810.0
-    cx = 235.0
-    cy = 128.0
-    output = "WAYLAND-1"
-    placement_height = 0.0
-    placement_width = 0.0
-    rotation = 0.0
-    type = "login_box"
-
-        [lockscreen_widgets.widget."lockscreen-login-box@WAYLAND-1".settings]
-        center_password_text = false
-        layout = "regular"
-        show_caps_lock = true
-        show_keyboard_layout = true
-        show_login_button = true
-        show_media = true
-        show_session_buttons = true
-        show_unlock_hint = true
+        show_unlock_hint = false
         show_weather = true
 
     [lockscreen_widgets.widget.lockscreen-widget-0000000000000001]
     box_height = 288.0
     box_width = 816.0
     cx = 960.0
-    cy = 620.0
+    cy = 668.0
     output = "DP-5"
     placement_height = 1080.0
     placement_width = 1920.0
@@ -245,6 +211,31 @@ widget_order = [
     type = "audio_visualizer"
 
         [lockscreen_widgets.widget.lockscreen-widget-0000000000000001.settings]
+        background = false
+        background_color = "surface"
+        background_opacity = 0.80000000000000004
+        background_padding = 10
+        background_radius = 12
+        bands = 52
+        centered = false
+        color_1 = "primary"
+        color_2 = "primary"
+        mirrored = true
+        reversed = false
+        show_when_idle = false
+
+    [lockscreen_widgets.widget.lockscreen-widget-0000000000000002]
+    box_height = 288.0
+    box_width = 816.0
+    cx = 960.0
+    cy = 668.0
+    output = "DP-2"
+    placement_height = 1080.0
+    placement_width = 1920.0
+    rotation = 0.0
+    type = "audio_visualizer"
+
+        [lockscreen_widgets.widget.lockscreen-widget-0000000000000002.settings]
         background = false
         background_color = "surface"
         background_opacity = 0.80000000000000004
@@ -296,6 +287,7 @@ enabled = [
     name = "community"
 
 [shell]
+date_format = "%A, %Y %b %d"
 font_family = "Maple Mono NF"
 niri_overview_type_to_launch_enabled = true
 password_style = "random"
@@ -393,90 +385,6 @@ directory = "/home/wyn/Pictures/Wallpapers"
 
     [wallpaper.monitors.DP-5]
     path = "/home/wyn/Pictures/Wallpapers/Embraced_A.png"
-
-    [[wallpaper.favorite]]
-    palette_source = "wallpaper"
-    path = "/home/wyn/Pictures/Wallpapers/SnakeNewYear.png"
-    theme_mode = "dark"
-    wallpaper_scheme = "m3-content"
-
-    [[wallpaper.favorite]]
-    palette_source = "wallpaper"
-    path = "/home/wyn/Pictures/Wallpapers/voyager.png"
-    theme_mode = "dark"
-    wallpaper_scheme = "m3-content"
-
-    [[wallpaper.favorite]]
-    palette_source = "wallpaper"
-    path = "/home/wyn/Pictures/Wallpapers/interlude_MDxBA_1.png"
-    theme_mode = "dark"
-    wallpaper_scheme = "m3-content"
-
-    [[wallpaper.favorite]]
-    palette_source = "wallpaper"
-    path = "/home/wyn/Pictures/Wallpapers/Embraced_A.png"
-    theme_mode = "dark"
-    wallpaper_scheme = "m3-tonal-spot"
-
-    [[wallpaper.favorite]]
-    palette_source = "wallpaper"
-    path = "/home/wyn/Pictures/Wallpapers/IS-Mysterious_Banquet.png"
-    theme_mode = "dark"
-    wallpaper_scheme = "m3-content"
-
-    [[wallpaper.favorite]]
-    palette_source = "wallpaper"
-    path = "/home/wyn/Pictures/Wallpapers/Ereshkigal.jpg"
-    theme_mode = "dark"
-    wallpaper_scheme = "m3-content"
-
-    [[wallpaper.favorite]]
-    palette_source = "wallpaper"
-    path = "/home/wyn/Pictures/Wallpapers/Frankenstein.jpg"
-    theme_mode = "dark"
-    wallpaper_scheme = "dysfunctional"
-
-    [[wallpaper.favorite]]
-    palette_source = "wallpaper"
-    path = "/home/wyn/Pictures/Wallpapers/Ishtar.jpg"
-    theme_mode = "dark"
-    wallpaper_scheme = "m3-content"
-
-    [[wallpaper.favorite]]
-    palette_source = "wallpaper"
-    path = "/home/wyn/Pictures/Wallpapers/IS5-Expansion-Official-Artwork.jpeg"
-    theme_mode = "dark"
-    wallpaper_scheme = "vibrant"
-
-    [[wallpaper.favorite]]
-    palette_source = "wallpaper"
-    path = "/home/wyn/Pictures/Wallpapers/HokusaiWin7.jpg"
-    theme_mode = "dark"
-    wallpaper_scheme = "m3-content"
-
-    [[wallpaper.favorite]]
-    palette_source = "wallpaper"
-    path = "/home/wyn/Pictures/Wallpapers/interlude_109.png"
-    theme_mode = "dark"
-    wallpaper_scheme = "m3-content"
-
-    [[wallpaper.favorite]]
-    palette_source = "wallpaper"
-    path = "/home/wyn/Pictures/Wallpapers/interlude_RinLen_5.png"
-    theme_mode = "dark"
-    wallpaper_scheme = "m3-content"
-
-    [[wallpaper.favorite]]
-    palette_source = "wallpaper"
-    path = "/home/wyn/Pictures/Wallpapers/AprilFool2026.png"
-    theme_mode = "dark"
-    wallpaper_scheme = "faithful"
-
-    [[wallpaper.favorite]]
-    palette_source = "wallpaper"
-    path = "/home/wyn/Pictures/Wallpapers/summertime-rendering.png"
-    theme_mode = "dark"
-    wallpaper_scheme = "m3-content"
 
 [widget.audio_visualizer]
 centered = false
