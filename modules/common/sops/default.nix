@@ -14,23 +14,13 @@
     nixos.sops = {
       inputs,
       pkgs,
-      lib,
-      users,
       host,
-      config,
       ...
     }: {
       imports = [inputs.sops-nix.nixosModules.sops];
       environment = commonSopsEnv pkgs;
       sops =
-        commonSopsSettings host
-        // {
-          secrets = lib.listToAttrs (map (u: {
-              name = "${u}_password";
-              value = {neededForUsers = true;};
-            })
-            (lib.filter (u: !(config.nixos.users.${u}.isDeployer or false)) users));
-        };
+        commonSopsSettings host;
     };
 
     darwin.sops = {
@@ -41,7 +31,7 @@
     }: {
       imports = [inputs.sops-nix.darwinModules.sops];
       environment = commonSopsEnv pkgs;
-      sops = commonSopsSettings host // {secrets = {};};
+      sops = commonSopsSettings host;
     };
 
     homeManager.sops = {

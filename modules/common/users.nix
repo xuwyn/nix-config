@@ -33,6 +33,7 @@
       pkgs,
       lib,
       config,
+      users,
       ...
     }: {
       options.nixos.users = lib.mkOption {
@@ -89,7 +90,14 @@
             deploy = {};
           };
         }
-        // mkShellProgramsConfig shellsInUse;
+        // mkShellProgramsConfig shellsInUse
+        // lib.optionalAttrs (config ? sops) {
+          sops.secrets = lib.listToAttrs (map (u: {
+              name = "${u}_password";
+              value = {neededForUsers = true;};
+            })
+            (lib.filter (u: !(config.nixos.users.${u}.isDeployer or false)) users));
+        };
     };
 
     darwin.users = {
