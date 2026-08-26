@@ -19,8 +19,7 @@
     }: {
       imports = [inputs.sops-nix.nixosModules.sops];
       environment = commonSopsEnv pkgs;
-      sops =
-        commonSopsSettings host;
+      sops = commonSopsSettings host;
     };
 
     darwin.sops = {

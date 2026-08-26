@@ -21,7 +21,7 @@ in {
                 cfg.modules
                 ++ [
                   (_: {
-                    nixpkgs = lib.mkDefault {
+                    nixpkgs = {
                       inherit overlays;
                       hostPlatform = cfg.system;
                       config.allowUnfree = true;
@@ -43,7 +43,7 @@ in {
                 cfg.modules
                 ++ [
                   (_: {
-                    nixpkgs = lib.mkDefault {
+                    nixpkgs = {
                       hostPlatform = cfg.system;
                       config.allowUnfree = true;
                     };

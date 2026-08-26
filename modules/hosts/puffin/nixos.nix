@@ -3,7 +3,7 @@
     system = "aarch64-linux";
     users = ["wyn" "deploy"];
     modules = with config.modules.nixos;
-      [rpi5 nix-settings network system users sops tailscale deploy]
+      [rpi5 nix-settings network system users sops tailscale deploy services]
       ++ [
         {
           # micro sd card disk layout
@@ -24,16 +24,22 @@
               options = ["noatime"];
             };
           };
-          nixos.users = {
-            wyn = {
-              isAdmin = true;
-              sshKeys = [../../common/keys/openssh_key.pub];
-              shell = "bash";
+          nixos = {
+            users = {
+              wyn = {
+                isAdmin = true;
+                sshKeys = [../../common/keys/openssh_key.pub];
+                shell = "bash";
+              };
+              deploy = {
+                isDeployer = true;
+                sshKeys = [../../common/keys/deploy_key.pub];
+                shell = "bash";
+              };
             };
-            deploy = {
-              isDeployer = true;
-              sshKeys = [../../common/keys/deploy_key.pub];
-              shell = "bash";
+            services.atticd = {
+              enable = true;
+              device = "/dev/disk/by-uuid/41bf277f-dfb4-4610-aa67-659f48601a75";
             };
           };
         }
