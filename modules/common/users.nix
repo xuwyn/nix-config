@@ -65,7 +65,7 @@
         shellsInUse = mkShellsInUse config.nixos.users;
       in
         {
-          users.mutableUsers = !(config ? sops);
+          users.mutableUsers = false;
           users.users = lib.mapAttrs (name: u:
             {
               isNormalUser = !u.isDeployer;
@@ -81,7 +81,7 @@
             // lib.optionalAttrs (u.sshKeys != []) {
               openssh.authorizedKeys.keyFiles = u.sshKeys;
             }
-            // lib.optionalAttrs (!u.isDeployer && config ? sops && config.sops.secrets ? "${name}_password") {
+            // lib.optionalAttrs (!u.isDeployer) {
               hashedPasswordFile = config.sops.secrets."${name}_password".path;
             })
           config.nixos.users;
@@ -91,7 +91,7 @@
           };
         }
         // mkShellProgramsConfig shellsInUse
-        // lib.optionalAttrs (config ? sops) {
+        // {
           sops.secrets = lib.listToAttrs (map (u: {
               name = "${u}_password";
               value = {neededForUsers = true;};
