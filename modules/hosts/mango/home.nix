@@ -5,7 +5,7 @@ in {
     system = "x86_64-linux";
     username = "wyn";
     modules = with config.modules.homeManager;
-      [nix-settings home sops ssh deploy syncthing]
+      [nix-settings home sops ssh deploy attic syncthing]
       ++ [cli terminals apps editors desktop xdg theme niri noctalia quickshell thunar yazi maa]
       ++ [
         (_: {
@@ -15,6 +15,12 @@ in {
               puffin = {};
               "apricot.local" = {};
               "puffin.local" = {};
+            };
+            attic = {
+              tailscaleDomain = "puffin.tail9fb2b9.ts.net";
+              lanDomain = "puffin.local";
+              cacheName = "mango-home";
+              publicKey = "9h3FV2ei8Z1QVA9NiKrhZVI1blxeNwlxTqWQa6rgoJ4=";
             };
             desktop = {
               inherit wallpaper;

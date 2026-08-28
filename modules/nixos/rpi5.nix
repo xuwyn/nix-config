@@ -10,7 +10,7 @@
     imports = with nixos-raspberrypi.nixosModules; [
       nixos-raspberrypi.lib.inject-overlays-global
       nixpkgs-rpi
-      trusted-nix-caches
+      # trusted-nix-caches # duplicated with flake
       usb-gadget-ethernet
       raspberry-pi-5.base
       raspberry-pi-5.bluetooth

@@ -10,7 +10,7 @@ in {
     username = "wyn";
     modules = with config.modules.homeManager;
       [inputs.mac-app-util.homeManagerModules.default]
-      ++ [nix-settings home sops ssh deploy syncthing]
+      ++ [nix-settings home sops ssh deploy syncthing attic]
       ++ [desktop omniwm apps cli editors terminals theme yazi maa]
       ++ [
         (_: {
@@ -18,6 +18,12 @@ in {
             apps = {
               nixcord.enable = true;
               spicetify.enable = true;
+            };
+            attic = {
+              tailscaleDomain = "puffin.tail9fb2b9.ts.net";
+              lanDomain = "puffin.local";
+              cacheName = "apricot-home";
+              publicKey = "04kBC3jJDnJs0Ahe+12eanvJG3zripkzH2EwUAUAhMU=";
             };
             ssh.hosts = {
               puffin = {};

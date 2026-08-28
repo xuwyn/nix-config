@@ -1,13 +1,18 @@
 {config, ...}: {
   nixos.mango = {
-    system = "x86_64-linux";
     users = ["wyn" "deploy"];
     modules = with config.modules.nixos;
       [./_disko.nix nix-settings preservation drivers boot hardware network]
-      ++ [system users desktop apps services sops tailscale deploy binfmt]
+      ++ [system users desktop apps services sops tailscale deploy attic binfmt]
       ++ [
         ({pkgs, ...}: {
           nixos = {
+            attic = {
+              tailscaleDomain = "puffin.tail9fb2b9.ts.net";
+              lanDomain = "puffin.local";
+              cacheName = "mango-nixos";
+              publicKey = "un6QncCDnZlLGZVvw/8spmQuHqZwJVv7qh2c0nj99Mg=";
+            };
             drivers = {
               amdcpu.enable = true;
               nvidia.enable = true;
