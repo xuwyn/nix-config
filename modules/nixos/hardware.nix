@@ -24,6 +24,7 @@
       memoryPercent = 50; # % of RAM
       priority = 100; # higher than disk swap
     };
+    boot.kernel.sysctl."vm.swappiness" = 180;
 
     systemd.oomd = {
       enable = true;

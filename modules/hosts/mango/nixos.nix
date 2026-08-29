@@ -7,12 +7,6 @@
       ++ [
         ({pkgs, ...}: {
           nixos = {
-            attic = {
-              tailscaleDomain = "puffin.tail9fb2b9.ts.net";
-              lanDomain = "puffin.local";
-              cacheName = "mango-nixos";
-              publicKey = "un6QncCDnZlLGZVvw/8spmQuHqZwJVv7qh2c0nj99Mg=";
-            };
             drivers = {
               amdcpu.enable = true;
               nvidia.enable = true;

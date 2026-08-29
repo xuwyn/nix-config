@@ -16,12 +16,6 @@ in {
               "apricot.local" = {};
               "puffin.local" = {};
             };
-            attic = {
-              tailscaleDomain = "puffin.tail9fb2b9.ts.net";
-              lanDomain = "puffin.local";
-              cacheName = "mango-home";
-              publicKey = "9h3FV2ei8Z1QVA9NiKrhZVI1blxeNwlxTqWQa6rgoJ4=";
-            };
             desktop = {
               inherit wallpaper;
               barThemeEnabled = true;

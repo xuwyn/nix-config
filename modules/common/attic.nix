@@ -3,20 +3,22 @@
     mkAtticOptions = lib: {
       tailscaleDomain = lib.mkOption {
         type = lib.types.nullOr lib.types.str;
-        default = null;
+        default = "puffin.tail9fb2b9.ts.net";
         description = "Tailnet of the cache server";
       };
       lanDomain = lib.mkOption {
         type = lib.types.nullOr lib.types.str;
-        default = null;
+        default = "puffin.local";
         description = "LAN fallback. Null to omit";
       };
       cacheName = lib.mkOption {
         type = lib.types.str;
-        description = "This config's cache name, e.g. mango-nixos, capybara-home";
+        default = "main";
+        description = "This config's cache entry";
       };
       publicKey = lib.mkOption {
         type = lib.types.str;
+        default = "CZqpT2vd3PMOrxL+o9mdyGdwxy8zDzC+tJMc868/XKo=";
         description = "This cache's public key from `attic cache info <cache>`";
       };
     };
@@ -49,9 +51,7 @@
         substituters =
           lib.optionals (cfg.tailscaleDomain != null) ["https://${cfg.tailscaleDomain}/${cfg.cacheName}"]
           ++ lib.optionals (cfg.lanDomain != null) ["https://${cfg.lanDomain}/${cfg.cacheName}"];
-        trusted-public-keys =
-          lib.optionals (cfg.tailscaleDomain != null) ["${cfg.cacheName}:${cfg.publicKey}"]
-          ++ lib.optionals (cfg.lanDomain != null) ["${cfg.cacheName}:${cfg.publicKey}"];
+        trusted-public-keys = ["${cfg.cacheName}:${cfg.publicKey}"];
         netrc-file = config.sops.templates."attic-netrc".path;
       };
     };

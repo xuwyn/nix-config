@@ -19,12 +19,6 @@ in {
               nixcord.enable = true;
               spicetify.enable = true;
             };
-            attic = {
-              tailscaleDomain = "puffin.tail9fb2b9.ts.net";
-              lanDomain = "puffin.local";
-              cacheName = "apricot-home";
-              publicKey = "04kBC3jJDnJs0Ahe+12eanvJG3zripkzH2EwUAUAhMU=";
-            };
             ssh.hosts = {
               puffin = {};
               mango = {};
