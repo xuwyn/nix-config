@@ -66,14 +66,8 @@
       options.${class}.attic = mkAtticOptions lib;
       config = lib.mkMerge [
         (mkAtticPullConfig {inherit config lib cfg;})
-        (lib.mkIf (cfg.lanDomain != null && class == "nixos") {
+        (lib.mkIf (cfg.lanDomain != null) {
           security.pki.certificateFiles = [./keys/atticd.crt];
-        })
-        (lib.mkIf (cfg.lanDomain != null && class == "darwin") {
-          system.activationScripts.addAtticdCert.text = ''
-            /usr/bin/security delete-certificate -c "${cfg.lanDomain}" /Library/Keychains/System.keychain 2>/dev/null || true
-            /usr/bin/security add-trusted-cert -d -r trustRoot -k /Library/Keychains/System.keychain ${./keys/atticd.crt}
-          '';
         })
       ];
     };
