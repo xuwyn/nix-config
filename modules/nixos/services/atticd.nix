@@ -13,7 +13,7 @@
       enable = lib.mkEnableOption "Enable Attic cache server";
       device = lib.mkOption {
         type = lib.types.str;
-        description = "Disk UUID for postgresql database";
+        description = "Disk UUID for atticd storage";
       };
       port = lib.mkOption {
         type = lib.types.port;
@@ -42,23 +42,6 @@
     };
 
     config = lib.mkIf cfg.enable {
-      # set up postgresql for atticd
-      fileSystems."/var/lib/postgresql" = {
-        inherit (cfg) device;
-        fsType = "ext4";
-        options = ["noatime"];
-      };
-      services.postgresql = {
-        enable = true;
-        ensureDatabases = ["atticd"];
-        ensureUsers = [
-          {
-            name = "atticd";
-            ensureDBOwnership = true;
-          }
-        ];
-      };
-
       # attic-server
       environment.systemPackages = [unstableNixpkgs.attic-server];
       sops.secrets.atticd_env = {};
@@ -71,7 +54,7 @@
           database.url = "postgres://atticd@localhost/atticd?host=/run/postgresql";
           storage = {
             type = "local";
-            path = "/var/lib/atticd/storage";
+            path = "/mnt/atticd/storage";
           };
           compression = {type = "zstd";};
           chunking = {
@@ -81,6 +64,24 @@
             max-size = 256 * 1024; # 256 KiB
           };
         };
+      };
+      # Mount atticd storage
+      fileSystems."/mnt/atticd" = {
+        inherit (cfg) device;
+        fsType = "ext4";
+        options = ["noatime"];
+      };
+
+      # postgresl only stores metadata
+      services.postgresql = {
+        enable = true;
+        ensureDatabases = ["atticd"];
+        ensureUsers = [
+          {
+            name = "atticd";
+            ensureDBOwnership = true;
+          }
+        ];
       };
       systemd.services.atticd = {
         after = ["postgresql.service"];
@@ -147,8 +148,11 @@
         };
       };
 
-      # give nginx permission to atticd-certs
-      systemd.tmpfiles.rules = ["d /var/lib/atticd-certs 0750 root ${config.services.nginx.group} -"];
+      # fix permission
+      systemd.tmpfiles.rules = [
+        "d /var/lib/atticd-certs 0750 root ${config.services.nginx.group} -"
+        "d /mnt/atticd/storage 0750 atticd atticd -"
+      ];
 
       # reload nginx if cert changed
       systemd.services.nginx.reloadTriggers = [

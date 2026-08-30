@@ -3,15 +3,14 @@
     system = "aarch64-linux";
     username = "wyn";
     modules = with config.modules.homeManager;
-      [nix-settings home sops ssh deploy cli attic]
+      [nix-settings home sops ssh deploy cli]
       ++ [
         {
           homeManager = {
-            attic = {
-              defaultServer = "lan";
-              tailscaleDomain = null;
-              lanDomain = "127.0.0.1";
-            };
+            # attic = {
+            #   defaultServer = "lan";
+            #   tailscaleDomain = null;
+            # };
             ssh.hosts = {
               apricot = {};
               mango = {};

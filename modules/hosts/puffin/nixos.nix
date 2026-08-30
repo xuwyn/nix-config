@@ -2,7 +2,7 @@
   nixos-rpi.puffin = {
     users = ["wyn" "deploy"];
     modules = with config.modules.nixos;
-      [rpi5 nix-settings network system users sops tailscale deploy services attic]
+      [rpi5 nix-settings network system users sops tailscale deploy services]
       ++ [
         {
           # micro sd card disk layout
@@ -38,14 +38,13 @@
             };
             services.atticd = {
               enable = true;
-              device = "/dev/disk/by-uuid/41bf277f-dfb4-4610-aa67-659f48601a75";
+              device = "/dev/disk/by-uuid/d263f363-df94-473d-bbce-a1549e716098";
               tailscaleDomain = "puffin.tail9fb2b9.ts.net";
               lanDomain = "puffin.local";
             };
-            attic = {
-              tailscaleDomain = null;
-              lanDomain = "127.0.0.1";
-            };
+            # attic = {
+            #   tailscaleDomain = null;
+            # };
           };
         }
       ];

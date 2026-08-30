@@ -18,7 +18,7 @@
       };
       publicKey = lib.mkOption {
         type = lib.types.str;
-        default = "CZqpT2vd3PMOrxL+o9mdyGdwxy8zDzC+tJMc868/XKo=";
+        default = "AOInzGo25vK/CX+//GtecGc5zoePljsTyLki/rliiS8=";
         description = "This cache's public key from `attic cache info <cache>`";
       };
     };
