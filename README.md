@@ -112,14 +112,14 @@ since they are a bit overkill for what I need.
 
 ## Hosts
 
-| Host       | Platform         | OS            | Modules                | DE                                                                 |
-| ---------- | ---------------- | ------------- | ---------------------- | ------------------------------------------------------------------ |
-| `apricot`  | `aarch64-darwin` | MacOS         | `darwin`+`homeManager` | [OmniWM](https://github.com/BarutSRB/OmniWM)                       |
-| `capybara` | `x86_64-linux`   | CachyOS       | `homeManager`          | Hyprland + [DMS](https://github.com/AvengeMedia/DankMaterialShell) |
-| `lettuce`  | `x86_64-linux`   | WSL           | `nixos`+`homeManager`  |
-| `mango`    | `x86_64-linux`   | NixOS         | `nixos`+`homeManager`  | Niri + [Noctalia](https://github.com/noctalia-dev/noctalia)        |
-| `potato`   | `x86_64-linux`   | Debian Trixie | `homeManager`          | i3 + Polybar                                                       |
-| `puffin`   | `aarch64-linux`  | NixOS         | `nixos`+`homeManager`  |                                                                    |
+| Host                                  | Platform         | OS            | Modules                | DE                                                                 |
+| ------------------------------------- | ---------------- | ------------- | ---------------------- | ------------------------------------------------------------------ |
+| [apricot](./modules/hosts/apricot/)   | `aarch64-darwin` | MacOS         | `darwin`+`homeManager` | [OmniWM](https://github.com/BarutSRB/OmniWM)                       |
+| [capybara](./modules/hosts/capybara/) | `x86_64-linux`   | CachyOS       | `homeManager`          | Hyprland + [DMS](https://github.com/AvengeMedia/DankMaterialShell) |
+| [lettuce](./modules/hosts/lettuce/)   | `x86_64-linux`   | WSL           | `nixos`+`homeManager`  |
+| [mango](./modules/hosts/mango/)       | `x86_64-linux`   | NixOS         | `nixos`+`homeManager`  | Niri + [Noctalia](https://github.com/noctalia-dev/noctalia)        |
+| [potato](./modules/hosts/potato/)     | `x86_64-linux`   | Debian Trixie | `homeManager`          | i3 + Polybar                                                       |
+| [puffin](./modules/hosts/puffin/)     | `aarch64-linux`  | NixOS         | `nixos`+`homeManager`  |                                                                    |
 
 ## Acknowledgement
 
