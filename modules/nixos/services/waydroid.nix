@@ -22,11 +22,20 @@
 
         services.geoclue2.enable = true;
 
-        environment.systemPackages = [
+        environment.systemPackages = let
+          # nixpkgs bump finally makes this version of python obsolete 😢 (2026-08-31)
+          waydroidScriptSrc = pkgs.fetchFromGitHub {
+            owner = "AtaraxiaSjel";
+            repo = "nur";
+            rev = "f57371a89a5ab6d969de035af7b6d814f07b06b1";
+            hash = "sha256-lunhMluFR5vUgZzwxuGeN0gIOYIwW2SPmaJzSC6A+Ys=";
+          };
+          waydroid-script = pkgs.python313Packages.callPackage "${waydroidScriptSrc}/pkgs/waydroid-script" {};
+        in [
           pkgs.android-tools # adb
           pkgs.wl-clipboard
           pkgs.waydroid-helper
-          inputs.nur.legacyPackages.${pkgs.stdenv.hostPlatform.system}.repos.ataraxiasjel.waydroid-script
+          waydroid-script
           (pkgs.writeShellApplication {
             name = "waydroid-fix-adb-auth";
             runtimeInputs = with pkgs; [android-tools waydroid-nftables];

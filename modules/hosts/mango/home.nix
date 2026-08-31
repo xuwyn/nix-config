@@ -6,7 +6,7 @@ in {
     username = "wyn";
     modules = with config.modules.homeManager;
       [nix-settings home sops ssh deploy attic syncthing]
-      ++ [cli terminals apps editors desktop xdg theme niri noctalia quickshell thunar yazi maa]
+      ++ [cli terminals apps editors desktop xdg theme niri noctalia thunar yazi maa]
       ++ [
         (_: {
           homeManager = {
@@ -52,7 +52,6 @@ in {
                 enable = true;
                 themes = ["noctalia.theme.css"];
               };
-              obs-studio.enable = true;
               spicetify.enable = true;
               vellum.enable = true;
             };
