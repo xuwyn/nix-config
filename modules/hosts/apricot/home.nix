@@ -10,7 +10,7 @@ in {
     username = "wyn";
     modules = with config.modules.homeManager;
       [inputs.mac-app-util.homeManagerModules.default]
-      ++ [nix-settings home sops ssh deploy syncthing]
+      ++ [nix-settings home sops ssh deploy syncthing attic]
       ++ [desktop omniwm apps cli editors terminals theme yazi maa]
       ++ [
         (_: {

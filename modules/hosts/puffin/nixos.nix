@@ -1,9 +1,8 @@
 {config, ...}: {
   nixos-rpi.puffin = {
-    system = "aarch64-linux";
     users = ["wyn" "deploy"];
     modules = with config.modules.nixos;
-      [rpi5 nix-settings network system users sops tailscale deploy]
+      [rpi5 nix-settings network system users sops tailscale deploy services attic]
       ++ [
         {
           # micro sd card disk layout
@@ -24,17 +23,26 @@
               options = ["noatime"];
             };
           };
-          nixos.users = {
-            wyn = {
-              isAdmin = true;
-              sshKeys = [../../common/keys/openssh_key.pub];
-              shell = "bash";
+          nixos = {
+            users = {
+              wyn = {
+                isAdmin = true;
+                sshKeys = [../../common/keys/openssh_key.pub];
+                shell = "bash";
+              };
+              deploy = {
+                isDeployer = true;
+                sshKeys = [../../common/keys/deploy_key.pub];
+                shell = "bash";
+              };
             };
-            deploy = {
-              isDeployer = true;
-              sshKeys = [../../common/keys/deploy_key.pub];
-              shell = "bash";
+            services.atticd = {
+              enable = true;
+              device = "/dev/disk/by-uuid/d263f363-df94-473d-bbce-a1549e716098";
+              tailscaleDomain = "puffin.tail9fb2b9.ts.net";
+              lanDomain = "puffin.local";
             };
+            attic.lanDomain = null;
           };
         }
       ];

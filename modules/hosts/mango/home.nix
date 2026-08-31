@@ -5,7 +5,7 @@ in {
     system = "x86_64-linux";
     username = "wyn";
     modules = with config.modules.homeManager;
-      [nix-settings home sops ssh deploy syncthing]
+      [nix-settings home sops ssh deploy attic syncthing]
       ++ [cli terminals apps editors desktop xdg theme niri noctalia quickshell thunar yazi maa]
       ++ [
         (_: {
@@ -50,7 +50,7 @@ in {
               };
               nixcord = {
                 enable = true;
-                themes = ["noctalia-material.theme.css" "noctalia.theme.css"];
+                themes = ["noctalia.theme.css"];
               };
               obs-studio.enable = true;
               spicetify.enable = true;

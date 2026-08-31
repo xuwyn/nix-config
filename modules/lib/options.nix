@@ -56,7 +56,10 @@ in {
             default = [];
           };
           users = mkOption {type = types.listOf types.str;};
-          system = mkOption {type = types.str;};
+          system = mkOption {
+            type = types.str;
+            default = "x86_64-linux";
+          };
         };
       }));
       default = {};
@@ -74,7 +77,10 @@ in {
             default = [];
           };
           users = mkOption {type = types.listOf types.str;};
-          system = mkOption {type = types.str;};
+          system = mkOption {
+            type = types.str;
+            default = "aarch64-linux";
+          };
         };
       }));
       default = {};

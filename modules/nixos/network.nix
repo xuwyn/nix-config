@@ -10,11 +10,7 @@
       hostName = host;
       firewall = {
         enable = lib.mkDefault true;
-        allowedTCPPorts = [
-          22
-          80
-          443
-        ];
+        allowedTCPPorts = [22];
       };
       networkmanager.enable = lib.mkDefault true;
       timeServers = options.networking.timeServers.default ++ ["pool.ntp.org"];

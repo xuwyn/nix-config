@@ -3,7 +3,7 @@
     users = ["wyn" "deploy"];
     modules = with config.modules.darwin;
       [nix-settings system sops tailscale deploy users network]
-      ++ [homebrew desktop]
+      ++ [homebrew desktop attic]
       ++ [
         {
           darwin = {

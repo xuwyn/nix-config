@@ -6,10 +6,11 @@ in {
     username = "wyn";
     modules = with config.modules.homeManager;
       [./_gpu.nix nix-settings home sops cli syncthing]
-      ++ [desktop hyprland dms theme xdg thunar yazi apps terminals editors]
+      ++ [desktop hyprland dms theme xdg thunar yazi apps terminals editors attic]
       ++ [
         (_: {
           homeManager = {
+            attic.lanDomain = null;
             desktop = {
               inherit wallpaper;
               barThemeEnabled = true;
