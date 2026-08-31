@@ -50,7 +50,7 @@ in {
               };
               nixcord = {
                 enable = true;
-                themes = ["noctalia-material.theme.css" "noctalia.theme.css"];
+                themes = ["noctalia.theme.css"];
               };
               obs-studio.enable = true;
               spicetify.enable = true;
