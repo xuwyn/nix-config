@@ -22,22 +22,7 @@
       };
       tailscaleDomain = lib.mkOption {
         type = lib.types.str;
-        description = "Tailnet MagicDNS FQDN, e.g. hostname.*-tailnet.ts.net";
-      };
-      lanDomain = lib.mkOption {
-        type = lib.types.nullOr lib.types.str;
-        default = null;
-        description = "LAN-only hostname via mDNS. Null disables the LAN vhost";
-      };
-      lanInterface = lib.mkOption {
-        type = lib.types.str;
-        default = "wlan0";
-        description = "Network interface name for the LAN-facing vhost";
-      };
-      lanCertValidityDays = lib.mkOption {
-        type = lib.types.int;
-        default = 60;
-        description = "LAN self-signed cert rotation period in days";
+        description = "Tailscale domain to serve the cache on";
       };
     };
 
@@ -65,6 +50,7 @@
           };
         };
       };
+
       # Mount atticd storage
       fileSystems."/mnt/atticd" = {
         inherit (cfg) device;
@@ -120,34 +106,6 @@
         };
       };
 
-      # generate self-signed certs for LAN
-      systemd.services.lan-cert-renew = lib.mkIf (cfg.lanDomain != null) {
-        wantedBy = ["multi-user.target"];
-        before = ["nginx.service"];
-        serviceConfig.Type = "oneshot";
-        script = ''
-          if [ -f /var/lib/atticd-certs/lan.crt ] && \
-             ${unstableNixpkgs.openssl}/bin/openssl x509 -in /var/lib/atticd-certs/lan.crt -checkend 0 -noout; then
-            exit 0
-          fi
-          ${unstableNixpkgs.openssl}/bin/openssl req -x509 -newkey rsa:4096 -nodes \
-            -keyout /var/lib/atticd-certs/lan.key \
-            -out /var/lib/atticd-certs/lan.crt \
-            -days ${toString cfg.lanCertValidityDays} \
-            -subj "/CN=${cfg.lanDomain}" \
-            -addext "subjectAltName=DNS:${cfg.lanDomain}"
-          chown root:${config.services.nginx.group} /var/lib/atticd-certs/lan.key
-          chmod 640 /var/lib/atticd-certs/lan.key
-        '';
-      };
-      systemd.timers.lan-cert-renew = lib.mkIf (cfg.lanDomain != null) {
-        wantedBy = ["timers.target"];
-        timerConfig = {
-          OnCalendar = "weekly";
-          Persistent = true;
-        };
-      };
-
       # fix permission
       systemd.tmpfiles.rules = [
         "d /var/lib/atticd-certs 0750 root ${config.services.nginx.group} -"
@@ -155,12 +113,9 @@
       ];
 
       # reload nginx if cert changed
-      systemd.services.nginx.reloadTriggers = [
-        "/var/lib/atticd-certs/tailscale.crt"
-        "/var/lib/atticd-certs/lan.crt"
-      ];
+      systemd.services.nginx.reloadTriggers = ["/var/lib/atticd-certs/tailscale.crt"];
 
-      # setup nginx for tailnet and LAN
+      # setup nginx for tailscale
       services.nginx = {
         enable = true;
         recommendedProxySettings = true;
@@ -168,44 +123,24 @@
         recommendedGzipSettings = true;
         recommendedOptimisation = true;
         sslCiphers = "AES256+EECDH:AES256+EDH:!aNULL";
-        virtualHosts =
-          {
-            ${cfg.tailscaleDomain} = {
-              onlySSL = true;
-              sslCertificate = "/var/lib/atticd-certs/tailscale.crt";
-              sslCertificateKey = "/var/lib/atticd-certs/tailscale.key";
-              locations."/" = {
-                proxyPass = "http://127.0.0.1:${toString cfg.port}";
-                # remove payload size limit
-                extraConfig = ''
-                  client_max_body_size 0;
-                '';
-              };
-            };
-          }
-          // lib.optionalAttrs (cfg.lanDomain != null) {
-            ${cfg.lanDomain} = {
-              onlySSL = true;
-              sslCertificate = "/var/lib/atticd-certs/lan.crt";
-              sslCertificateKey = "/var/lib/atticd-certs/lan.key";
-              locations."/" = {
-                proxyPass = "http://127.0.0.1:${toString cfg.port}";
-                # remove payload size limit
-                extraConfig = ''
-                  client_max_body_size 0;
-                '';
-              };
+        virtualHosts = {
+          ${cfg.tailscaleDomain} = {
+            onlySSL = true;
+            sslCertificate = "/var/lib/atticd-certs/tailscale.crt";
+            sslCertificateKey = "/var/lib/atticd-certs/tailscale.key";
+            locations."/" = {
+              proxyPass = "http://127.0.0.1:${toString cfg.port}";
+              # remove payload size limit
+              extraConfig = ''
+                client_max_body_size 0;
+              '';
             };
           };
+        };
       };
 
-      networking.firewall.interfaces =
-        {
-          "tailscale0".allowedTCPPorts = [443];
-        }
-        // lib.optionalAttrs (cfg.lanDomain != null) {
-          ${cfg.lanInterface}.allowedTCPPorts = [443];
-        };
+      # open port 443 on tailscale0
+      networking.firewall.interfaces."tailscale0".allowedTCPPorts = [443];
     };
   };
 }

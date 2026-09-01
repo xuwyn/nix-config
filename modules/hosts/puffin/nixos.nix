@@ -38,11 +38,9 @@
             };
             services.atticd = {
               enable = true;
-              device = "/dev/disk/by-uuid/d263f363-df94-473d-bbce-a1549e716098";
+              device = "/dev/disk/by-label/cache";
               tailscaleDomain = "puffin.tail9fb2b9.ts.net";
-              lanDomain = "puffin.local";
             };
-            attic.lanDomain = null;
           };
         }
       ];

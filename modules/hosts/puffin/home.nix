@@ -7,7 +7,6 @@
       ++ [
         {
           homeManager = {
-            attic.lanDomain = null;
             ssh.hosts = {
               apricot = {};
               mango = {};

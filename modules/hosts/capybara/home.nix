@@ -10,7 +10,6 @@ in {
       ++ [
         (_: {
           homeManager = {
-            attic.lanDomain = null;
             desktop = {
               inherit wallpaper;
               barThemeEnabled = true;
