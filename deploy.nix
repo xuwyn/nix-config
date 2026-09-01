@@ -54,7 +54,7 @@
 in {
   deploy = {
     interactiveSudo = false;
-    fastConnection = true;
+    fastConnection = false;
     remoteBuild = true;
     magicRollback = true;
     autoRollback = true;
