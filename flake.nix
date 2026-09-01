@@ -61,5 +61,6 @@
     // import ./deploy.nix {
       inherit inputs lib config;
       inherit (args) self;
-    };
+    }
+    // import ./ci.nix {inherit config lib;};
 }

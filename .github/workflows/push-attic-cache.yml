@@ -1,0 +1,162 @@
+name: cache push
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  ATTIC_ENDPOINT: https://puffin.tail9fb2b9.ts.net
+  ATTIC_CACHE: main
+  ATTIC_PUBLIC_KEY: "main:AOInzGo25vK/CX+//GtecGc5zoePljsTyLki/rliiS8="
+  ATTIC_JOBS: "2"
+
+jobs:
+  discover:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.discover.outputs.matrix }}
+    steps:
+      - uses: actions/checkout@v7
+      - uses: cachix/install-nix-action@v31
+      - id: discover
+        name: Generate CI matrix
+        run: |
+          set -Eeuo pipefail
+          matrix="$(nix eval --json .#ciMatrix | jq -c '
+            {"x86_64-linux": "ubuntu-latest",
+             "aarch64-linux": "ubuntu-24.04-arm",
+             "x86_64-darwin": "macos-13",
+             "aarch64-darwin": "macos-latest"} as $os |
+            {include: map(. + {os: $os[.system]})}')"
+          echo "matrix=$matrix" >> "$GITHUB_OUTPUT"
+          jq -r '.include[] | "  \(.name) (\(.system))"' <<< "$matrix"
+
+  push-inputs:
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+      - name: Connect to tailnet
+        uses: tailscale/github-action@v3
+        with:
+          authkey: ${{ secrets.TAILSCALE_AUTHKEY }}
+
+      - uses: actions/checkout@v7
+      - uses: cachix/install-nix-action@v31
+        with:
+          extra_nix_config: |
+            extra-substituters = ${{ env.ATTIC_ENDPOINT }}/${{ env.ATTIC_CACHE }}
+            extra-trusted-public-keys = ${{ env.ATTIC_PUBLIC_KEY }}
+
+      - name: Push flake inputs to Attic cache
+        id: push
+        env:
+          ATTIC_TOKEN: ${{ secrets.ATTIC_TOKEN }}
+        run: |
+          set -Eeuo pipefail
+          nix profile add --inputs-from . nixpkgs#attic-client
+          attic login cache "$ATTIC_ENDPOINT" "$ATTIC_TOKEN"
+
+          paths=()
+          while IFS= read -r path; do
+            paths+=("$path")
+          done < <(nix flake archive --json | jq -r '[.. | .path? | strings] | unique[]')
+
+          for attempt in 1 2 3; do
+            if attic push --jobs "$ATTIC_JOBS" "$ATTIC_CACHE" "${paths[@]}"; then
+              exit 0
+            fi
+            echo "::warning::attic push failed (attempt $attempt/3)"
+            sleep $((attempt * 30))
+          done
+          exit 1
+      - name: Report cache push failure
+        if: always() && steps.push.outcome == 'failure'
+        run: |
+          echo "::warning title=Cache push failed::Pushing flake inputs to $ATTIC_ENDPOINT failed"
+          echo "⚠️ Pushing flake inputs to the Attic cache failed." >> "$GITHUB_STEP_SUMMARY"
+
+  build:
+    name: ${{ matrix.name }} (${{ matrix.system }})
+    needs: discover
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix: ${{ fromJSON(needs.discover.outputs.matrix) }}
+    steps:
+      - name: Connect to tailnet
+        uses: tailscale/github-action@v3
+        with:
+          authkey: ${{ secrets.TAILSCALE_AUTHKEY }}
+
+      - uses: actions/checkout@v7
+      - uses: cachix/install-nix-action@v31
+        with:
+          extra_nix_config: |
+            extra-substituters = ${{ env.ATTIC_ENDPOINT }}/${{ env.ATTIC_CACHE }}
+            extra-trusted-public-keys = ${{ env.ATTIC_PUBLIC_KEY }}
+
+      - name: Evaluate
+        id: eval
+        run: |
+          set -Eeuo pipefail
+          attr='.#ciChecks."${{ matrix.system }}"."${{ matrix.name }}"'
+          eval="$(nix eval --json "$attr" --apply 'd: { drv = d.drvPath; out = d.outPath; }')"
+          drv="$(jq -r '.drv' <<< "$eval")"
+          out="$(jq -r '.out' <<< "$eval")"
+          hash="$(basename "$out" | cut -d- -f1)"
+
+          echo "drv=$drv" >> "$GITHUB_OUTPUT"
+
+          if curl -sf -o /dev/null "$ATTIC_ENDPOINT/$ATTIC_CACHE/$hash.narinfo"; then
+            echo "$out already cached, skipping build"
+            echo "cached=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "cached=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Build
+        if: steps.eval.outputs.cached == 'false'
+        run: nix build -L --no-link '${{ steps.eval.outputs.drv }}^*'
+
+      - name: Push to Attic cache
+        id: push
+        if: steps.eval.outputs.cached == 'false'
+        continue-on-error: true
+        env:
+          ATTIC_TOKEN: ${{ secrets.ATTIC_TOKEN }}
+          DRV: ${{ steps.eval.outputs.drv }}
+        run: |
+          set -Eeuo pipefail
+          nix profile add --inputs-from . nixpkgs#attic-client
+          attic login cache "$ATTIC_ENDPOINT" "$ATTIC_TOKEN"
+
+          outs=()
+          while IFS= read -r out; do
+            outs+=("$out")
+          done < <(nix build --no-link --print-out-paths "$DRV^*")
+
+          push() {
+            for attempt in 1 2 3; do
+              if attic push --jobs "$ATTIC_JOBS" "$@"; then
+                return 0
+              fi
+              echo "::warning::attic push failed (attempt $attempt/3)"
+              sleep $((attempt * 30))
+            done
+            return 1
+          }
+
+          push --no-closure "$ATTIC_CACHE" "$DRV"
+          push "$ATTIC_CACHE" "${outs[@]}"
+
+      - name: Report cache push failure
+        if: always() && steps.push.outcome == 'failure'
+        run: |
+          echo "::warning title=Cache push failed::${{ matrix.name }} (${{ matrix.system }}) built successfully but the cache push failed after 3 attempts"
+          echo "⚠️ **${{ matrix.name }} (${{ matrix.system }})** built successfully but the cache push failed after 3 attempts." >> "$GITHUB_STEP_SUMMARY"
