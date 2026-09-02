@@ -4,19 +4,28 @@
   ...
 }: let
   categories = {
-    nixosConfigurations = cfg: cfg.config.system.build.toplevel;
-    darwinConfigurations = cfg: cfg.config.system.build.toplevel;
-    homeConfigurations = cfg: cfg.activationPackage;
+    nixosConfigurations = {
+      specs = config.nixos // config.nixos-rpi;
+      valueOf = cfg: cfg.config.system.build.toplevel;
+    };
+    darwinConfigurations = {
+      specs = config.darwin;
+      valueOf = cfg: cfg.config.system.build.toplevel;
+    };
+    homeConfigurations = {
+      specs = config.home;
+      valueOf = cfg: cfg.activationPackage;
+    };
   };
 
-  mkGroup = attr: valueOf:
+  mkGroup = attr: cat:
     lib.foldl' (
       acc: name: let
+        system = cat.specs.${name}.system;
         cfg = config.${attr}.${name};
-        system = cfg.pkgs.stdenv.hostPlatform.system;
       in
-        acc // {${system} = (acc.${system} or {}) // {${name} = valueOf cfg;};}
-    ) {} (builtins.attrNames config.${attr});
+        acc // {${system} = (acc.${system} or {}) // {${name} = cat.valueOf cfg;};}
+    ) {} (builtins.attrNames cat.specs);
 
   checks = lib.foldl' lib.recursiveUpdate {} (lib.mapAttrsToList mkGroup categories);
 in {

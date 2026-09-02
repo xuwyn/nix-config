@@ -28,13 +28,7 @@ jobs:
       matrix: ${{ steps.discover.outputs.matrix }}
     steps:
       - uses: actions/checkout@v7
-        with:
-          lfs: true
-
       - uses: cachix/install-nix-action@v31
-        with:
-          extra_nix_config: ${{ env.NIX_EXTRA_CONFIG }}
-
       - name: Generate CI matrix
         id: discover
         run: |
