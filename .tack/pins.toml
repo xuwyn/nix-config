@@ -126,9 +126,6 @@ exclude_follow = ["nixpkgs"]
 [inputs.silentSDDM]
 url = "github:uiriansan/SilentSDDM"
 
-[inputs.qylock]
-url = "github:Darkkal44/qylock"
-
 [inputs.quickshell]
 url = "github:quickshell-mirror/quickshell"
 

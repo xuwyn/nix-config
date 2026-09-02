@@ -12,7 +12,7 @@
     options.nixos.desktop.displayManager = {
       enable = lib.mkEnableOption "Enable Display Manager";
       mode = lib.mkOption {
-        type = lib.types.enum ["tui" "silent" "qylock"];
+        type = lib.types.enum ["tui" "silent"];
         default = "tui";
         description = "Choose Login Display Manager";
       };
@@ -21,19 +21,9 @@
         default = {};
         description = "Per-user login icon";
       };
-      # See: https://github.com/Darkkal44/qylock/tree/main/themes
-      # My favourites: "pixel-skyscrapers" "pixel-night-city" "pixel-dusk-city" "pixel-coffee"
-      qylock.theme = lib.mkOption {
-        type = lib.types.str;
-        default = "pixel-night-city";
-        description = "Theme choice for Qylock";
-      };
     };
 
-    imports = with inputs; [
-      silentSDDM.nixosModules.default
-      qylock.nixosModules.default
-    ];
+    imports = with inputs; [silentSDDM.nixosModules.default];
 
     config = lib.mkIf cfg.enable (
       lib.mkMerge [
@@ -57,12 +47,11 @@
           };
         })
 
-        (lib.mkIf (cfg.mode == "silent" || cfg.mode == "qylock") {
+        (lib.mkIf (cfg.mode == "silent") {
           environment.systemPackages = [pkgs.bibata-cursors];
           services.displayManager.sddm = {
             enable = true;
             wayland.enable = lib.mkForce false; # nvidia shenanigan
-
             setupScript = ''
               ${pkgs.xrdb}/bin/xrdb -merge - <<EOF
               Xcursor.theme: Bibata-Modern-Ice
@@ -70,46 +59,6 @@
               EOF
             '';
           };
-        })
-
-        (lib.mkIf (cfg.mode == "qylock") {
-          services.displayManager.sddm.extraPackages = with pkgs; [
-            kdePackages.qt5compat
-          ];
-
-          environment.systemPackages = with pkgs; [
-            gst_all_1.gstreamer
-            gst_all_1.gst-plugins-base
-            gst_all_1.gst-plugins-good
-            gst_all_1.gst-plugins-bad
-            gst_all_1.gst-plugins-ugly
-          ];
-
-          # nvidia shenanigan
-          environment.sessionVariables = {
-            QT_DISABLE_HW_TEXTURES_CONVERSION = "1";
-          };
-
-          programs.qylock = {
-            enable = true;
-            inherit (cfg.qylock) theme;
-            sddm.enable = true;
-            quickshell.enable = false; # disable qylock-lock
-
-            # Optional per-theme tweaks (replaces the interactive prompts):
-            themeOptions = {
-              terraria.backgroundMode = "time"; # time | random | static
-              Genshin.backgroundMode = "time";
-              clockwork.orbital = {
-                themeMode = "dark";
-                enableWindup = true;
-              };
-              osu.gameMode = "menu"; # menu | game
-            };
-          };
-        })
-
-        (lib.mkIf (cfg.mode == "silent") {
           programs.silentSDDM = {
             enable = true;
             theme = "silvia";

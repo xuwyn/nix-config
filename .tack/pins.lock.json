@@ -243,14 +243,6 @@
     "narHash": "sha256-6SUZyyALo19heYPa/Xmu2H4zV+wvdfVX4fTcqbgHRnI=",
     "lastModified": 1787994703
   },
-  "qylock": {
-    "type": "github",
-    "owner": "Darkkal44",
-    "repo": "qylock",
-    "rev": "f86d3f669cf988f50662e60b9128ca726d269a12",
-    "narHash": "sha256-ypS2jlAzcZU1Sf76XNRdKoZr2oeaEV/jhRBSoxonxtc=",
-    "lastModified": 1786536622
-  },
   "silentSDDM": {
     "type": "github",
     "owner": "uiriansan",

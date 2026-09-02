@@ -56,7 +56,7 @@
             desktop = {
               displayManager = {
                 enable = true;
-                mode = "qylock";
+                mode = "silent";
               };
               niri.enable = true;
               fonts.enable = true;
