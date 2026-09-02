@@ -20,7 +20,7 @@ env:
     extra-trusted-public-keys = main:AOInzGo25vK/CX+//GtecGc5zoePljsTyLki/rliiS8=
     accept-flake-config = true
     access-tokens = github.com=${{ secrets.GITHUB_TOKEN }} gitlab.com=PAT:${{ secrets.GITLAB_TOKEN }}
-    netrc-file = /home/runner/attic-netrc
+    netrc-file = ${{ runner.temp }}/attic-netrc
 
 jobs:
   discover:
@@ -69,9 +69,10 @@ jobs:
           ATTIC_TOKEN: ${{ secrets.ATTIC_TOKEN }}
         run: |
           domain=$(echo "$ATTIC_ENDPOINT" | awk -F/ '{print $3}')
-          echo "machine $domain" > /home/runner/attic-netrc
-          echo "password $ATTIC_TOKEN" >> /home/runner/attic-netrc
-          chmod 600 /home/runner/attic-netrc
+          netrc_path="$RUNNER_TEMP/attic-netrc"
+          echo "machine $domain" > "$netrc_path"
+          echo "password $ATTIC_TOKEN" >> "$netrc_path"
+          chmod 600 "$netrc_path"
 
       - name: Attic login
         env:
