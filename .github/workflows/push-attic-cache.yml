@@ -15,7 +15,7 @@ env:
   ATTIC_CACHE: main
   ATTIC_JOBS: "2"
   NIX_EXTRA_CONFIG: |
-    extra-substituters = https://puffin.tail9fb2b9.ts.net
+    extra-substituters = https://puffin.tail9fb2b9.ts.net/main
     extra-trusted-public-keys = main:AOInzGo25vK/CX+//GtecGc5zoePljsTyLki/rliiS8=
 
 jobs:
@@ -25,11 +25,15 @@ jobs:
       matrix: ${{ steps.discover.outputs.matrix }}
     steps:
       - uses: actions/checkout@v7
+        with:
+          lfs: true
+
       - uses: cachix/install-nix-action@v31
         with:
           extra_nix_config: ${{ env.NIX_EXTRA_CONFIG }}
-      - id: discover
-        name: Generate CI matrix
+
+      - name: Generate CI matrix
+        id: discover
         run: |
           set -Eeuo pipefail
           matrix="$(nix eval --json .#ciMatrix | jq -c '
@@ -109,17 +113,21 @@ jobs:
 
       - name: Evaluate
         id: eval
+        env:
+          ATTIC_TOKEN: ${{ secrets.ATTIC_TOKEN }}
         run: |
           set -Eeuo pipefail
           attr='.#ciChecks."${{ matrix.system }}"."${{ matrix.name }}"'
           eval="$(nix eval --json "$attr" --apply 'd: { drv = d.drvPath; out = d.outPath; }')"
           drv="$(jq -r '.drv' <<< "$eval")"
           out="$(jq -r '.out' <<< "$eval")"
-          hash="$(basename "$out" | cut -d- -f1)"
 
           echo "drv=$drv" >> "$GITHUB_OUTPUT"
 
-          if curl -sf -o /dev/null "$ATTIC_ENDPOINT/$ATTIC_CACHE/$hash.narinfo"; then
+          if nix path-info \
+               --store "$ATTIC_ENDPOINT/$ATTIC_CACHE" \
+               --option access-tokens "$ATTIC_ENDPOINT=$ATTIC_TOKEN" \
+               "$out" &>/dev/null; then
             echo "$out already cached, skipping build"
             echo "cached=true" >> "$GITHUB_OUTPUT"
           else
