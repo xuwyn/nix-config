@@ -12,6 +12,7 @@ concurrency:
 
 env:
   ATTIC_ENDPOINT: https://puffin.tail9fb2b9.ts.net
+  ATTIC_SERVER: tailscale
   ATTIC_CACHE: main
   ATTIC_JOBS: "2"
   NIX_EXTRA_CONFIG: |
@@ -71,7 +72,8 @@ jobs:
         run: |
           set -Eeuo pipefail
           nix profile add --inputs-from . nixpkgs#attic-client
-          attic login cache "$ATTIC_ENDPOINT" "$ATTIC_TOKEN"
+          attic login "$ATTIC_SERVER" "$ATTIC_ENDPOINT" "$ATTIC_TOKEN"
+          attic use "$ATTIC_SERVER":"$ATTIC_CACHE"
 
           paths=()
           while IFS= read -r path; do
@@ -86,6 +88,7 @@ jobs:
             sleep $((attempt * 30))
           done
           exit 1
+
       - name: Report cache push failure
         if: always() && steps.push.outcome == 'failure'
         run: |
@@ -151,7 +154,8 @@ jobs:
         run: |
           set -Eeuo pipefail
           nix profile add --inputs-from . nixpkgs#attic-client
-          attic login cache "$ATTIC_ENDPOINT" "$ATTIC_TOKEN"
+          attic login "$ATTIC_SERVER" "$ATTIC_ENDPOINT" "$ATTIC_TOKEN"
+          attic use "$ATTIC_SERVER":"$ATTIC_CACHE"
 
           outs=()
           while IFS= read -r out; do
