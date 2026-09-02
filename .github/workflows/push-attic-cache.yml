@@ -47,54 +47,6 @@ jobs:
           echo "matrix=$matrix" >> "$GITHUB_OUTPUT"
           jq -r '.include[] | "  \(.name) (\(.system))"' <<< "$matrix"
 
-  push-inputs:
-    runs-on: ubuntu-latest
-    continue-on-error: true
-    steps:
-      - name: Connect to tailnet
-        uses: tailscale/github-action@v3
-        with:
-          authkey: ${{ secrets.TAILSCALE_AUTHKEY }}
-
-      - uses: actions/checkout@v7
-        with:
-          fetch-depth: 0
-          lfs: true
-
-      - uses: cachix/install-nix-action@v31
-        with:
-          extra_nix_config: ${{ env.NIX_EXTRA_CONFIG }}
-
-      - name: Push flake inputs to Attic cache
-        id: push
-        env:
-          ATTIC_TOKEN: ${{ secrets.ATTIC_TOKEN }}
-        run: |
-          set -Eeuo pipefail
-          nix profile add --inputs-from . nixpkgs#attic-client
-          attic login "$ATTIC_SERVER" "$ATTIC_ENDPOINT" "$ATTIC_TOKEN"
-          attic use "$ATTIC_SERVER":"$ATTIC_CACHE"
-
-          paths=()
-          while IFS= read -r path; do
-            paths+=("$path")
-          done < <(nix flake archive --json | jq -r '[.. | .path? | strings] | unique[]')
-
-          for attempt in 1 2 3; do
-            if attic push --jobs "$ATTIC_JOBS" "$ATTIC_CACHE" "${paths[@]}"; then
-              exit 0
-            fi
-            echo "::warning::attic push failed (attempt $attempt/3)"
-            sleep $((attempt * 30))
-          done
-          exit 1
-
-      - name: Report cache push failure
-        if: always() && steps.push.outcome == 'failure'
-        run: |
-          echo "::warning title=Cache push failed::Pushing flake inputs to $ATTIC_ENDPOINT failed"
-          echo "⚠️ Pushing flake inputs to the Attic cache failed." >> "$GITHUB_STEP_SUMMARY"
-
   build:
     name: ${{ matrix.name }} (${{ matrix.system }})
     needs: discover
