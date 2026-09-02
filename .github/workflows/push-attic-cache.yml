@@ -15,12 +15,6 @@ env:
   ATTIC_SERVER: tailscale
   ATTIC_CACHE: main
   ATTIC_JOBS: "2"
-  NIX_EXTRA_CONFIG: |
-    extra-substituters = https://puffin.tail9fb2b9.ts.net/main
-    extra-trusted-public-keys = main:AOInzGo25vK/CX+//GtecGc5zoePljsTyLki/rliiS8=
-    accept-flake-config = true
-    access-tokens = github.com=${{ secrets.GITHUB_TOKEN }} gitlab.com=PAT:${{ secrets.GITLAB_TOKEN }}
-    netrc-file = ${{ runner.temp }}/attic-netrc
 
 jobs:
   discover:
@@ -60,19 +54,25 @@ jobs:
         with:
           lfs: true
 
-      - uses: cachix/install-nix-action@v31
-        with:
-          extra_nix_config: ${{ env.NIX_EXTRA_CONFIG }}
-
       - name: Generate Attic netrc for Nix
         env:
           ATTIC_TOKEN: ${{ secrets.ATTIC_TOKEN }}
         run: |
+          set -Eeuo pipefail
           domain=$(echo "$ATTIC_ENDPOINT" | awk -F/ '{print $3}')
           netrc_path="$RUNNER_TEMP/attic-netrc"
           echo "machine $domain" > "$netrc_path"
           echo "password $ATTIC_TOKEN" >> "$netrc_path"
           chmod 600 "$netrc_path"
+
+      - uses: cachix/install-nix-action@v31
+        with:
+          extra_nix_config: |
+            extra-substituters = ${{ env.ATTIC_ENDPOINT }}/${{ env.ATTIC_CACHE }}
+            extra-trusted-public-keys = main:AOInzGo25vK/CX+//GtecGc5zoePljsTyLki/rliiS8=
+            accept-flake-config = true
+            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }} gitlab.com=PAT:${{ secrets.GITLAB_TOKEN }}
+            netrc-file = ${{ runner.temp }}/attic-netrc
 
       - name: Attic login
         env:
