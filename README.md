@@ -75,6 +75,7 @@ since they are a bit overkill for what I need.
 ├── nvfetcher.toml         # nvfetcher inputs
 ├── _sources/              # nvfetcher outputs
 ├── deploy.nix             # remote deployment via deploy-rs
+├── ci.nix                 # ciMatrix for cache push
 ├── scripts/               # custom shell scripts
 ├── assets/                # screenshots, wallpapers, etc.
 └── modules/

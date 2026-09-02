@@ -256,7 +256,7 @@ Create an all encompassing token so all hosts can use it to push and pull.
 This simplifies the complexity but with security trade-off (Too bad! 🙃)
 
 > [!Note]
-> Please generate a different token for github action with just push privilege
+> Please generate a different token for [CI](../.github/workflows/push-attic-cache.yml) with just push and pull privileges
 
 ```sh
 cd /tmp # to avoid permission error
