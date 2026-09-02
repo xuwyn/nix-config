@@ -1,6 +1,5 @@
 github_token: ENC[AES256_GCM,data:knEX4u0J0IvxJf5RMXW17TVqjnEmricBDvDNAPYINvzmN4tShCPgEg==,iv:FG1zWd8NQ6f3/TNNf/fJ2y7ZTrrpGdhnej3Gn2An5Ig=,tag:PMOH19Z7w8IzH2dtASw1vQ==,type:str]
 gitlab_token: ENC[AES256_GCM,data:KH4wi/Z7IZJyUFnj3hLz1IHLYd7MG4Mrckaihj0XiyZ5JE3ybQCrZgr6eRHk6PMHGtfQMqTfAe/Je7mZbH8=,iv:1xZthupzyG5r92zHnbCPWxpll5IA70pQ7MgYv1zSg7E=,tag:m85q8fMnS5JCmX7WucYJ0g==,type:str]
-codeberg_token: ENC[AES256_GCM,data:8TxenXXFbAWbrTOCHpHCuMk8dJAPbpTwcYhbDz8TL9P2Y9+hJE3bcg==,iv:X6ANifYz/u1pAP9A1e/gBFeqkP8le2smmsbSTpQxvS8=,tag:tWk/cD/b3j0xsBlWICY19A==,type:str]
 attic_token: ENC[AES256_GCM,data:2jYiaHb5nnszc5zrFYcJ7MYUh8asGmHA40r+0OVnQ6lvTMm3fqKTufRN6j4SNGdKrmiG6ld+CNbTiJ5hj9TaYdg8bnZSMOMGKeXdXEXzHYI0MfTMLEb8x1YDneOJ0/dIA5E/UPtqviajFh47qGZA4vYXG6YEGFs+fymz4Vdep0cDT7L4VqKBft0sxlqkLrhiS7MCCsflf93grHK4PiDdhSSb47td4V79DHv1oq87KRpknXTqkxmj9WPBABVjU3LxY9ynGbm5N+iz7GdqMxygoFuBWlG7lUOaG0WNyakA1Q3PEtZiLkc3Wn/94F8X+tNXoFu8Q8T+zO0StvcUsxWTvS+5bkFl1t3juCECVxF7X47lq8VkJ4Q4ez0qMjYxMq9egQesZ9QyghUrsXo9/F4J9I/KbKBNWGcwQuV7DMcvo0CjgywTxSUrhPQNjfCy7DVFOUasY8nN4LTGFrd4aJXBwghuRd8Byhda1zndnRWTDJ7awaEK9q5gQQJkGAqQPZRGh2sPees6dinBz3WTBsmNOGEUBSYOJVG2hLt01t6MDOsOeZB87hCFTOXSv2v9tyTb/6NiUR//oKTkzCiv7M4xn7UzmoWhKwU4pF/aMAB2NBeY2A2+SpEvQS4k7A3ugOnnZ31KS5T2hWHJONTgTYU3EvoiFra9+z59rVRFi5DkyU5mC4xHImOk5xYxyqbVtdUcue3mNgTEYq2bZOv/7QZSeVlqOE6Ic78IL8WDHIX5OgcvrvEl0hrgBCsHh8cZxO7HVtzDBygXAknvGQZl5fh4VNGIwnqJ6Zt++dvMkwRTnjPLyPgNVDU5hWjUlUU2HnG1xkHZHh0zAjxt8sDwJEDAbvth5NeTXE+Ao96oudzX5mr9fRWd0j5r57WRd/Li9N0J9M+SoPE2PR6DyHc0aewUw8yrT0hS/LtjOsU/+IjUHiF3aXBGAj3+Xx1Mtf3kWZEL2kwCDBVP5cN9sWqUI4r7e85QgxNwcsxAP6zzE6+NjK3nSBZmtNnKFWS9qphrX/Jnw2+abQRUxUF4Oi2ekX9u4mf7TllOeMKj25/BPb/salJMBXGKujlhaYotqJij/JczXYZy6LLD9FauXJAO4e61vAzNRrKWNIfbQG1FQaTh5HruC1i9wUpaBcqonYgqTgo2xE96fFk=,iv:SeM0fOsJZYOFEQ9esAYkIsgYQ0RP9qSs3F/FsA1nwa4=,tag:vj09BM7EVbDUyEf3IIGxiw==,type:str]
 sops:
     age:
@@ -49,7 +48,7 @@ sops:
             YhQtsJzPNB6JwNOYUybF5tdhQKSE0gwlxBmyOtJTxPSERaIDTdLXKQ==
             -----END AGE ENCRYPTED FILE-----
           recipient: age12z60qwkhzjcgulfchhf574ra9gm6emtfd2hg07mantsh8ermnsmq8yzw4c
-    lastmodified: "2026-08-27T23:39:34Z"
-    mac: ENC[AES256_GCM,data:egOCMdbtV/t1ovbwLQj78jOh2aOn+nnSmDkuVswt19RcJKZytzi9LJseStERFL1XkpFbOwjiI2idcpgciR8fN4pvOFS4YSAAEFYNRcufMS0dYMdEj7AFdbj6G75m2lwo/jVNsXexlwchcWyXhUpHEg57PRkhApo+rJYjHA+tS1Q=,iv:GY40vzq2SlkhTx6OhchKJft1jHysxSV6e/bE7lU/2qw=,tag:Dtz4U8pp5K8cf/qdKLmo/g==,type:str]
+    lastmodified: "2026-09-02T03:34:01Z"
+    mac: ENC[AES256_GCM,data:MWmtdKmlW+60QIO6/bi8XqrIfxFa1QRomLsJ8XMkEhEQSp9HQGuuCrsBLfCZYu3kUPJzhaQY4L0Kqlw2CCYJHS0l3fdN9Z37Gzz6hVG7UazUD6XWqYpsApD07tiEOcHozc9DFq244VsZ3d2m/x/kgCD+UP7cLB/StXR2RF7HW2E=,iv:O+U5twVtY8ZTTQZJpXI5Uu8YtVS+Ahusa+aiA2NTtaE=,tag:2v0zEYVI14bv3S9I/cflzw==,type:str]
     unencrypted_suffix: _unencrypted
     version: 3.13.3
