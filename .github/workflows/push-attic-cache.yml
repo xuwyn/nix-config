@@ -1,7 +1,6 @@
 name: cache push
 
 on:
-  pull_request:
   push:
     branches:
       - main
@@ -14,6 +13,7 @@ env:
   ATTIC_ENDPOINT: https://puffin.tail9fb2b9.ts.net
   ATTIC_SERVER: tailscale
   ATTIC_CACHE: main
+  ATTIC_PUBLICKEY: main:AOInzGo25vK/CX+//GtecGc5zoePljsTyLki/rliiS8=
   ATTIC_JOBS: "2"
 
 jobs:
@@ -80,7 +80,7 @@ jobs:
         with:
           extra_nix_config: |
             extra-substituters = ${{ env.ATTIC_ENDPOINT }}/${{ env.ATTIC_CACHE }}
-            extra-trusted-public-keys = main:AOInzGo25vK/CX+//GtecGc5zoePljsTyLki/rliiS8=
+            extra-trusted-public-keys = ${{ env.ATTIC_PUBLICKEY }}
             accept-flake-config = true
             access-tokens = github.com=${{ secrets.GITHUB_TOKEN }} gitlab.com=PAT:${{ secrets.GITLAB_TOKEN }}
             netrc-file = ${{ runner.temp }}/attic-netrc
