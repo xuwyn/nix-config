@@ -50,6 +50,14 @@ jobs:
         with:
           authkey: ${{ secrets.TAILSCALE_AUTHKEY }}
 
+      - name: Work around macOS MagicDNS gap
+        if: runner.os == 'macOS'
+        run: |
+          set -Eeuo pipefail
+          domain=$(echo "$ATTIC_ENDPOINT" | awk -F/ '{print $3}')
+          ip="$(tailscale ip -4 "$domain")"
+          echo "$ip $domain" | sudo tee -a /etc/hosts
+
       - uses: actions/checkout@v7
         with:
           lfs: true

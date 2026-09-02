@@ -8,7 +8,6 @@
     ...
   }: let
     mkOutOfStoreSymlink = path: config.lib.file.mkOutOfStoreSymlink path;
-    noctaliaPkg = inputs.noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default;
   in {
     options.homeManager.noctalia._module_marker = lib.mkOption {
       type = lib.types.bool;
@@ -24,7 +23,6 @@
     config = {
       # Install the Noctalia package
       home.packages = [
-        noctaliaPkg
         pkgs.evtest # read kb input for bongo cat
       ];
 
@@ -34,6 +32,7 @@
 
       programs.noctalia = {
         enable = true;
+        package = inputs.noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default;
         systemd.enable = true;
         settings = {
           plugin_settings = {
