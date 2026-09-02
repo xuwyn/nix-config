@@ -40,14 +40,14 @@ in {
       type = "wm";
     }
     {
-      key = "{#${colors.icon}}  {#${colors.text}}Terminal";
-      outputColor = colors.output;
-      type = "terminal";
-    }
-    {
-      key = "{#${colors.icon}}  {#${colors.text}}Shell   ";
+      key = "{#${colors.icon}}  {#${colors.text}}Shell   ";
       outputColor = colors.output;
       type = "shell";
+    }
+    {
+      key = "{#${colors.icon}}  {#${colors.text}}Terminal";
+      outputColor = colors.output;
+      type = "terminal";
     }
     {
       key = "{#${colors.icon}}  {#${colors.text}}Memory  ";

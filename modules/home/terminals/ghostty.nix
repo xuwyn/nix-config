@@ -46,7 +46,7 @@
             term = "xterm-256color";
             confirm-close-surface = "false";
             font-family = "Maple Mono NF";
-            font-size = 11;
+            font-size = 8;
             # adjust-cell-height = "0%";
             window-theme = "dark";
             # window-height = "32";

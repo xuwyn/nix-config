@@ -33,7 +33,7 @@
           package = pkgs.kitty;
           settings = {
             font_family = "Maple Mono NF";
-            font_size = 11;
+            font_size = 8;
             wheel_scroll_min_lines = 1;
             window_padding_width = 4;
             confirm_os_window_close = 0;

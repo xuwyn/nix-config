@@ -47,8 +47,10 @@
         };
         linuxLogoConfig = {
           type = "kitty-icat";
+          height = 40;
+          width = 30;
           padding = {
-            top = 3;
+            top = 1;
             left = 0;
           };
         };
