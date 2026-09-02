@@ -55,7 +55,8 @@ jobs:
         run: |
           set -Eeuo pipefail
           domain=$(echo "$ATTIC_ENDPOINT" | awk -F/ '{print $3}')
-          ip="$(tailscale ip -4 "$domain")"
+          short="${domain%%.*}"
+          ip="$(tailscale ip -4 "$short")"
           echo "$ip $domain" | sudo tee -a /etc/hosts
 
       - uses: actions/checkout@v7
