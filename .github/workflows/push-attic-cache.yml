@@ -20,6 +20,7 @@ env:
     extra-trusted-public-keys = main:AOInzGo25vK/CX+//GtecGc5zoePljsTyLki/rliiS8=
     accept-flake-config = true
     access-tokens = github.com=${{ secrets.GITHUB_TOKEN }} gitlab.com=PAT:${{ secrets.GITLAB_TOKEN }}
+    netrc-file = /home/runner/attic-netrc
 
 jobs:
   discover:
@@ -62,6 +63,15 @@ jobs:
       - uses: cachix/install-nix-action@v31
         with:
           extra_nix_config: ${{ env.NIX_EXTRA_CONFIG }}
+
+      - name: Generate Attic netrc for Nix
+        env:
+          ATTIC_TOKEN: ${{ secrets.ATTIC_TOKEN }}
+        run: |
+          domain=$(echo "$ATTIC_ENDPOINT" | awk -F/ '{print $3}')
+          echo "machine $domain" > /home/runner/attic-netrc
+          echo "password $ATTIC_TOKEN" >> /home/runner/attic-netrc
+          chmod 600 /home/runner/attic-netrc
 
       - name: Attic login
         env:
