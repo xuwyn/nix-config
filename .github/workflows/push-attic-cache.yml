@@ -13,8 +13,10 @@ concurrency:
 env:
   ATTIC_ENDPOINT: https://puffin.tail9fb2b9.ts.net
   ATTIC_CACHE: main
-  ATTIC_PUBLIC_KEY: "main:AOInzGo25vK/CX+//GtecGc5zoePljsTyLki/rliiS8="
   ATTIC_JOBS: "2"
+  NIX_EXTRA_CONFIG: |
+    extra-substituters = https://puffin.tail9fb2b9.ts.net
+    extra-trusted-public-keys = main:AOInzGo25vK/CX+//GtecGc5zoePljsTyLki/rliiS8=
 
 jobs:
   discover:
@@ -24,6 +26,8 @@ jobs:
     steps:
       - uses: actions/checkout@v7
       - uses: cachix/install-nix-action@v31
+        with:
+          extra_nix_config: ${{ env.NIX_EXTRA_CONFIG }}
       - id: discover
         name: Generate CI matrix
         run: |
@@ -47,11 +51,12 @@ jobs:
           authkey: ${{ secrets.TAILSCALE_AUTHKEY }}
 
       - uses: actions/checkout@v7
+        with:
+          lfs: true
+
       - uses: cachix/install-nix-action@v31
         with:
-          extra_nix_config: |
-            extra-substituters = ${{ env.ATTIC_ENDPOINT }}/${{ env.ATTIC_CACHE }}
-            extra-trusted-public-keys = ${{ env.ATTIC_PUBLIC_KEY }}
+          extra_nix_config: ${{ env.NIX_EXTRA_CONFIG }}
 
       - name: Push flake inputs to Attic cache
         id: push
@@ -95,11 +100,12 @@ jobs:
           authkey: ${{ secrets.TAILSCALE_AUTHKEY }}
 
       - uses: actions/checkout@v7
+        with:
+          lfs: true
+
       - uses: cachix/install-nix-action@v31
         with:
-          extra_nix_config: |
-            extra-substituters = ${{ env.ATTIC_ENDPOINT }}/${{ env.ATTIC_CACHE }}
-            extra-trusted-public-keys = ${{ env.ATTIC_PUBLIC_KEY }}
+          extra_nix_config: ${{ env.NIX_EXTRA_CONFIG }}
 
       - name: Evaluate
         id: eval
