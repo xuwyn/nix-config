@@ -30,8 +30,8 @@
         password ${config.sops.placeholder.attic_token}
       '';
       nix.settings = {
-        substituters = ["https://${cfg.tailscaleDomain}/${cfg.cacheName}"];
-        trusted-public-keys = ["${cfg.cacheName}:${cfg.publicKey}"];
+        extra-substituters = ["https://${cfg.tailscaleDomain}/${cfg.cacheName}"];
+        extra-trusted-public-keys = ["${cfg.cacheName}:${cfg.publicKey}"];
         netrc-file = config.sops.templates."attic-netrc".path;
       };
     };
