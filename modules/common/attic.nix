@@ -25,14 +25,13 @@
     }: {
       # TODO: Every caches use the same token... ¯\_(ツ)_/¯
       sops.secrets.attic_token.sopsFile = ./sops/access-tokens.yaml;
-      sops.templates."attic-netrc".content = ''
+      sops.templates.".netrc".content = ''
         machine ${cfg.tailscaleDomain}
         password ${config.sops.placeholder.attic_token}
       '';
       nix.settings = {
         extra-substituters = ["https://${cfg.tailscaleDomain}/${cfg.cacheName}"];
         extra-trusted-public-keys = ["${cfg.cacheName}:${cfg.publicKey}"];
-        netrc-file = config.sops.templates."attic-netrc".path;
       };
     };
 

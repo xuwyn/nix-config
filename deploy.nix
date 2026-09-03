@@ -23,8 +23,7 @@
     path = inputs.deploy-rs.lib.${homeConfig.pkgs.stdenv.hostPlatform.system}.activate.home-manager homeConfig;
   };
 
-  isWSL = nixosConfig: nixosConfig.config.nixos.drivers.wsl.enable or false;
-  nixosConfigAttrs = lib.filterAttrs (_: c: !isWSL c) config.nixosConfigurations;
+  nixosConfigAttrs = config.nixosConfigurations;
   darwinConfigAttrs = config.darwinConfigurations;
   homeConfigAttrs = config.homeConfigurations or {};
 

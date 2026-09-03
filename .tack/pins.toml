@@ -138,6 +138,7 @@ url = "github:nix-community/NixOS-WSL/main"
 
 [inputs.nur-expressions]
 url = "gitlab:rycee/nur-expressions"
+# url = "git+https://gitlab.com/rycee/nur-expressions"
 
 [inputs.disko]
 url = "github:nix-community/disko"

@@ -14,10 +14,24 @@ jobs:
     steps:
       - uses: actions/checkout@v6
 
+      - name: Generate .netrc for Nix
+        env:
+          CODEBERG_TOKEN: ${{ secrets.CODEBERG_TOKEN }}
+        run: |
+          set -Eeuo pipefail
+          netrc_path="$HOME/.netrc"
+          {
+            echo "machine codeberg.org"
+            echo "login oauth2"
+            echo "password $CODEBERG_TOKEN"
+          } > "$netrc_path"
+          chmod 600 "$netrc_path"
+
       - uses: cachix/install-nix-action@v31
         with:
           extra_nix_config: |
             access-tokens = github.com=${{ secrets.GITHUB_TOKEN }} gitlab.com=PAT:${{ secrets.GITLAB_TOKEN }}
+            netrc-file = $HOME/.netrc
 
       - name: Update .tack/pins.lock.json
         env:

@@ -14,6 +14,10 @@
       };
 
       # see: https://github.com/pioner14/Waydroid_on_NixOS/blob/main/Waydroid_Setup_Guide.md
+      # TODO: write a script for this?
+      # $ sudo rm -rf /var/lib/waydroid /home/.waydroid ~/waydroid ~/.share/waydroid ~/.local/share/waydroid ~/.local/share/applications/*waydroid*
+      # $ sudo waydroid init -s GAPPS -f
+      # $ echo 'ANDROID_RUNTIME_ROOT=/apex/com.android.runtime sqlite3 /data/data/com.google.android.gsf/databases/gservices.db "select * from main where name = \"android_id\";"' | sudo waydroid shell
       config = mkIf cfg.enable {
         virtualisation.waydroid = {
           enable = true;
@@ -77,45 +81,6 @@
         systemd = {
           packages = [pkgs.waydroid-helper];
           services.waydroid-mount.wantedBy = ["multi-user.target"];
-
-          services.waydroid-fix = {
-            description = "Fix Waydroid Settings";
-            before = ["waydroid-container.service"];
-            wantedBy = ["waydroid-container.service"];
-            serviceConfig = {
-              Type = "oneshot";
-              RemainAfterExit = true;
-              ExecStart = pkgs.writeShellScript "waydroid-fix" ''
-                set -e
-                CFG_FILE="/var/lib/waydroid/waydroid.cfg"
-
-                if [ ! -f "$CFG_FILE" ]; then
-                  echo "waydroid.cfg not found, skipping (run 'waydroid init' first)" >&2
-                  exit 0
-                fi
-
-                set_prop() {
-                  key="$1"
-                  value="$2"
-                  if ${pkgs.gnugrep}/bin/grep -qE "^''${key}[[:space:]]*=" "$CFG_FILE"; then
-                    ${pkgs.gnused}/bin/sed -i "s|^''${key}[[:space:]]*=.*|''${key} = ''${value}|" "$CFG_FILE"
-                  else
-                    ${pkgs.gnused}/bin/sed -i "/^\[properties\]/a ''${key} = ''${value}" "$CFG_FILE"
-                  fi
-                }
-
-                set_prop persist.waydroid.width 1600
-                set_prop persist.waydroid.height 900
-
-                ${pkgs.waydroid-nftables}/bin/waydroid upgrade --offline
-              '';
-            };
-          };
-
-          services.waydroid-container = {
-            requires = ["waydroid-fix.service"];
-            after = ["waydroid-fix.service"];
-          };
         };
       };
     };
