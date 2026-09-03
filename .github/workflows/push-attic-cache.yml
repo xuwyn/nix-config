@@ -72,7 +72,7 @@ jobs:
         run: |
           set -Eeuo pipefail
           domain=$(echo "$ATTIC_ENDPOINT" | awk -F/ '{print $3}')
-          netrc_path="$HOME/.netrc"
+          netrc_path="$RUNNER_TEMP/.netrc"
           {
             echo "machine $domain"
             echo "password $ATTIC_TOKEN"
@@ -90,7 +90,7 @@ jobs:
             extra-trusted-public-keys = ${{ env.ATTIC_PUBLICKEY }}
             accept-flake-config = true
             access-tokens = github.com=${{ secrets.GITHUB_TOKEN }} gitlab.com=PAT:${{ secrets.GITLAB_TOKEN }}
-            netrc-file = $HOME/.netrc
+            netrc-file = ${{ runner.temp }}/.netrc
 
       - name: Attic login
         env:

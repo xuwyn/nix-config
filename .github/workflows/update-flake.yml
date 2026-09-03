@@ -19,7 +19,7 @@ jobs:
           CODEBERG_TOKEN: ${{ secrets.CODEBERG_TOKEN }}
         run: |
           set -Eeuo pipefail
-          netrc_path="$HOME/.netrc"
+          netrc_path="$RUNNER_TEMP/.netrc"
           {
             echo "machine codeberg.org"
             echo "login oauth2"
@@ -31,7 +31,7 @@ jobs:
         with:
           extra_nix_config: |
             access-tokens = github.com=${{ secrets.GITHUB_TOKEN }} gitlab.com=PAT:${{ secrets.GITLAB_TOKEN }}
-            netrc-file = $HOME/.netrc
+            netrc-file = ${{ runner.temp }}/.netrc
 
       - name: Update .tack/pins.lock.json
         env:
