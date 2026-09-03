@@ -11,8 +11,7 @@
       pname = pkgs.sources.maa-cli.pname;
       version = pkgs.sources.maa-cli.version;
       src = pkgs.sources.maa-cli.src;
-      cargoLock.lockFile = "${pkgs.sources.maa-cli.src}/Cargo.lock";
-
+      cargoLock = pkgs.sources.maa-cli.cargoLock."Cargo.lock";
       nativeBuildInputs = [pkgs.pkg-config pkgs.makeWrapper];
       buildInputs = [pkgs.openssl];
       doCheck = false;

@@ -1,14 +1,17 @@
 [leaves]
 src.github = "patonw/leaves"
 fetch.github = "patonw/leaves"
+cargo_lock = ["Cargo.lock"]
 
 [umbrella-fetch]
 src.github = "ezequielgk/Umbrella-Fetch"
 fetch.github = "ezequielgk/Umbrella-Fetch"
+cargo_lock = ["Cargo.lock"]
 
 [maa-cli]
 src.github = "MaaAssistantArknights/maa-cli"
 fetch.github = "MaaAssistantArknights/maa-cli"
+cargo_lock = ["Cargo.lock"]
 
 [base46]
 src.git = "https://github.com/AvengeMedia/base46.git"

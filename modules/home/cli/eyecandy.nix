@@ -11,7 +11,7 @@
       pname = pkgs.sources.umbrella-fetch.pname;
       version = pkgs.sources.umbrella-fetch.version;
       src = pkgs.sources.umbrella-fetch.src;
-      cargoLock.lockFile = "${pkgs.sources.umbrella-fetch.src}/Cargo.lock";
+      cargoLock = pkgs.sources.umbrella-fetch.cargoLock."Cargo.lock";
     };
   in {
     options.homeManager.cli.eyecandy = {

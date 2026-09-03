@@ -21,7 +21,12 @@
         "version": "83522e02c6c3b4ea901c4bffd9e0a5e0371c1fe6"
     },
     "leaves": {
-        "cargoLock": null,
+        "cargoLock": {
+            "Cargo.lock": [
+                "sha256-JGWGo_JDC3_Sj97ca4CrgD4WaobYUVmbryuIg_AN2kU=/Cargo.lock",
+                {}
+            ]
+        },
         "date": null,
         "extract": null,
         "name": "leaves",
@@ -42,7 +47,12 @@
         "version": "v0.2.0-cross"
     },
     "maa-cli": {
-        "cargoLock": null,
+        "cargoLock": {
+            "Cargo.lock": [
+                "sha256-rvFjtmsOC25t_vKgZGO6WmwtC+yxXoZKXvwd3jpoKvY=/Cargo.lock",
+                {}
+            ]
+        },
         "date": null,
         "extract": null,
         "name": "maa-cli",
@@ -63,7 +73,12 @@
         "version": "v0.7.5"
     },
     "umbrella-fetch": {
-        "cargoLock": null,
+        "cargoLock": {
+            "Cargo.lock": [
+                "sha256-U+gANbRoYVmLz7AMog55eHl9+Sm9_EJuuAAimr8psQY=/Cargo.lock",
+                {}
+            ]
+        },
         "date": null,
         "extract": null,
         "name": "umbrella-fetch",

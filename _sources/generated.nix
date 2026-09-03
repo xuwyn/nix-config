@@ -28,6 +28,12 @@
       fetchSubmodules = false;
       sha256 = "sha256-JGWGo/JDC3/Sj97ca4CrgD4WaobYUVmbryuIg/AN2kU=";
     };
+    cargoLock."Cargo.lock" = {
+      lockFile = ./. + "/sha256-JGWGo_JDC3_Sj97ca4CrgD4WaobYUVmbryuIg_AN2kU=/Cargo.lock";
+      outputHashes = {
+        
+      };
+    };
   };
   maa-cli = {
     pname = "maa-cli";
@@ -39,6 +45,12 @@
       fetchSubmodules = false;
       sha256 = "sha256-rvFjtmsOC25t/vKgZGO6WmwtC+yxXoZKXvwd3jpoKvY=";
     };
+    cargoLock."Cargo.lock" = {
+      lockFile = ./. + "/sha256-rvFjtmsOC25t_vKgZGO6WmwtC+yxXoZKXvwd3jpoKvY=/Cargo.lock";
+      outputHashes = {
+        
+      };
+    };
   };
   umbrella-fetch = {
     pname = "umbrella-fetch";
@@ -49,6 +61,12 @@
       rev = "v0.1.6";
       fetchSubmodules = false;
       sha256 = "sha256-U+gANbRoYVmLz7AMog55eHl9+Sm9/EJuuAAimr8psQY=";
+    };
+    cargoLock."Cargo.lock" = {
+      lockFile = ./. + "/sha256-U+gANbRoYVmLz7AMog55eHl9+Sm9_EJuuAAimr8psQY=/Cargo.lock";
+      outputHashes = {
+        
+      };
     };
   };
 }

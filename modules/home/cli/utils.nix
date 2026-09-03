@@ -10,7 +10,7 @@
       pname = pkgs.sources.leaves.pname;
       version = pkgs.sources.leaves.version;
       src = pkgs.sources.leaves.src;
-      cargoLock.lockFile = "${pkgs.sources.leaves.src}/Cargo.lock";
+      cargoLock = pkgs.sources.leaves.cargoLock."Cargo.lock";
     };
   in {
     options.homeManager.cli.utils = {
