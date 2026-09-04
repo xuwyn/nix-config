@@ -27,12 +27,18 @@
       default-window-height.fixed = 240;
     }
     {
-      match._props.app-id._raw = ''r#"^(steam_app\\d+)$"#'';
+      match._props.app-id._raw = ''r#"^([Tt]hunar|org.gnome.Nautilus|[Pp]cmanfm-qt)$"#'';
+      open-floating = true;
+    }
+    {
+      match._props.app-id._raw = ''r#"^steam_app_\d+$"#'';
       open-floating = true;
     }
     {
       match._props.app-id._raw = ''r#"^([Ss]team)$"#'';
-      open-floating = true;
+      open-floating = false;
+      default-column-width.fixed = 1850;
+      default-window-height.fixed = 1024;
     }
     {
       match._props.app-id._raw = ''r#"^(gamescope)$"#'';

@@ -155,7 +155,7 @@
     {
       name = "steam-app";
       match = {
-        class = "^(steam_app\\d+)$";
+        class = "^steam_app_\d+$";
       };
       tag = "+games";
     }
