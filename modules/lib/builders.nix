@@ -14,7 +14,7 @@ in {
             inputs.nixpkgs.lib.nixosSystem {
               specialArgs = {
                 inherit inputs self;
-                inherit (cfg) host users system;
+                inherit (cfg) host users;
                 inherit (config) flake;
               };
               modules =
@@ -36,7 +36,7 @@ in {
             inputs.nixos-raspberrypi.lib.nixosSystem {
               specialArgs = {
                 inherit inputs self;
-                inherit (cfg) host users system;
+                inherit (cfg) host users;
                 inherit (config) flake;
               };
               modules =
@@ -67,9 +67,8 @@ in {
               cfg.modules
               ++ [
                 (_: {
-                  nixpkgs.pkgs = import inputs.nixpkgs-stable {
+                  nixpkgs = {
                     inherit overlays;
-                    inherit (cfg) system;
                     config.allowUnfree = true;
                   };
                 })
@@ -80,19 +79,9 @@ in {
 
     homeConfigurations =
       lib.mapAttrs (
-        name: cfg: let
-          isMac = cfg.system == "aarch64-darwin" || cfg.system == "x86_64-darwin";
-          hmLib =
-            if isMac
-            then inputs.home-manager-stable.lib
-            else inputs.home-manager.lib;
-          chosenNixpkgs =
-            if isMac
-            then inputs.nixpkgs-stable
-            else inputs.nixpkgs;
-        in
-          hmLib.homeManagerConfiguration {
-            pkgs = import chosenNixpkgs {
+        name: cfg:
+          inputs.home-manager.lib.homeManagerConfiguration {
+            pkgs = import inputs.nixpkgs {
               inherit (cfg) system;
               inherit overlays;
               config.allowUnfree = true;

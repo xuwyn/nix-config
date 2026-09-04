@@ -74,7 +74,6 @@
                 ananicy.enable = true;
               };
               printing.enable = true;
-              waydroid.enable = true;
             };
           };
         })

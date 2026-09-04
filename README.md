@@ -102,10 +102,6 @@ since they are a bit overkill for what I need.
 - [modules/common](./modules/common/) stores aspects shared across multiple classes. The goal is to reduce code
   duplication, so even if `darwin` and `nixos` both have `network.nix`, there's no real benefit to combining them into
   a single file
-- `nixpkgs-stable` is just a pinned commit of `nixpkgs` (which tracks `nixos-unstable`) from a
-  previous flake update and is **NOT** the actual NixOS stable release (`26.05`)
-- `aarch64-darwin` platform follows this `nixpkgs-stable` input due to `darwin` not being a high priority in `nixpkgs`
-  updates (see [builder.nix](./modules/lib/builders.nix))
 - `import-tree` does not import files and folders with underscore `_` prefix, so none of those should
   contain aspect declaration (see [flake.nix](./flake.nix))
 

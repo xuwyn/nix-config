@@ -55,14 +55,6 @@
     "narHash": "sha256-G0F2rFORVcFkEvVdE/qWQTnYekIc77YP5/vRF9nZlxU=",
     "lastModified": 1788229478
   },
-  "home-manager-stable": {
-    "type": "github",
-    "owner": "nix-community",
-    "repo": "home-manager",
-    "rev": "1dc2d1f720ab17fc7981e087346bf54b26d284b1",
-    "narHash": "sha256-G0F2rFORVcFkEvVdE/qWQTnYekIc77YP5/vRF9nZlxU=",
-    "lastModified": 1788229478
-  },
   "homebrew-cask": {
     "type": "github",
     "owner": "homebrew",
@@ -184,12 +176,6 @@
     "lastModified": 1784642409
   },
   "nixpkgs": {
-    "type": "tarball",
-    "url": "https://releases.nixos.org/nixos/unstable/nixos-26.11pre1064949.34ab99075ac4/nixexprs.tar.xz",
-    "rev": "34ab99075ac4f7e40cf037eef32cb1c360bb85e9",
-    "narHash": "sha256-maQBa7XmWJ+a6te4QwF++R1FIXUrjvki0AtGOOhyZn0="
-  },
-  "nixpkgs-stable": {
     "type": "tarball",
     "url": "https://releases.nixos.org/nixos/unstable/nixos-26.11pre1064949.34ab99075ac4/nixexprs.tar.xz",
     "rev": "34ab99075ac4f7e40cf037eef32cb1c360bb85e9",

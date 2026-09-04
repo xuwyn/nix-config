@@ -26,10 +26,6 @@ nixpkgs = "nixpkgs"
 [inputs.nixpkgs]
 url = "https://channels.nixos.org/nixos-unstable/nixexprs.tar.xz"
 
-[inputs.nixpkgs-stable]
-url = "https://channels.nixos.org/nixos-unstable/nixexprs.tar.xz"
-exclude_follow = ["nixpkgs"]
-
 [inputs.nixos-raspberrypi]
 url = "github:nvmd/nixos-raspberrypi/main"
 exclude_follow = ["nixpkgs"]
@@ -37,20 +33,11 @@ exclude_follow = ["nixpkgs"]
 [inputs.home-manager]
 url = "github:nix-community/home-manager"
 
-[inputs.home-manager-stable]
-url = "github:nix-community/home-manager"
-exclude_follow = ["nixpkgs"]
-follows = { nixpkgs = "nixpkgs-stable" }
-
 [inputs.nix-darwin]
 url = "github:nix-darwin/nix-darwin/master"
-exclude_follow = ["nixpkgs"]
-follows = { nixpkgs = "nixpkgs-stable" }
 
 [inputs.nix-homebrew]
 url = "github:zhaofengli/nix-homebrew"
-exclude_follow = ["nixpkgs"]
-follows = { nixpkgs = "nixpkgs-stable" }
 
 [inputs.homebrew-core]
 url = "github:homebrew/homebrew-core"
