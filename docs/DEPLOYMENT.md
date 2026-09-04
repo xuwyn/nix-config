@@ -297,11 +297,9 @@ sudo atticd --mode garbage-collector-once
 sudo du -hs /mnt/atticd/storage
 
 # test connection with
-sudo curl -v --netrc-file /run/secrets/rendered/.netrc \
-https://tailnet.ts.net/main/nix-cache-info
+sudo curl -v --netrc-file /run/secrets/rendered/.netrc https://tailnet.ts.net/main/nix-cache-info
 
 # or
-curl -v --netrc-file ~/.netrc \
-https://tailnet.ts.net/main/nix-cache-info
+curl -v --netrc-file ~/.netrc https://tailnet.ts.net/main/nix-cache-info
 
 ```
