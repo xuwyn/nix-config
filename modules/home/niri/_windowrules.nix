@@ -27,6 +27,18 @@
       default-window-height.fixed = 240;
     }
     {
+      match._props.app-id._raw = ''r#"^(steam_app\\d+)$"#'';
+      open-floating = true;
+    }
+    {
+      match._props.app-id._raw = ''r#"^([Ss]team)$"#'';
+      open-floating = true;
+    }
+    {
+      match._props.app-id._raw = ''r#"^(gamescope)$"#'';
+      open-floating = true;
+    }
+    {
       match._props.app-id._raw = ''r#"^(Waydroid)$"#'';
       open-floating = false;
     }
