@@ -30,11 +30,9 @@ in {
               "potato.local" = {};
             };
             cli = {
-              zsh = {
-                enable = true;
-                extraShellAliases = {
-                  tailscale-restart = "sudo launchctl kickstart -k system/com.tailscale.tailscaled";
-                };
+              zsh.enable = true;
+              extraShellAliases = {
+                ts-restart = "sudo launchctl kickstart -k system/com.tailscale.tailscaled";
               };
               git = {
                 enable = true;

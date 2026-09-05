@@ -8,22 +8,13 @@
     cfg = config.homeManager.cli;
   in {
     options.homeManager.cli = {
-      bash = {
-        enable = lib.mkEnableOption "Enable bash";
-        extraShellAliases = lib.mkOption {
-          type = lib.types.attrsOf lib.types.str;
-          default = {};
-          description = "Additional shell aliases";
-        };
+      extraShellAliases = lib.mkOption {
+        type = lib.types.attrsOf lib.types.str;
+        default = {};
+        description = "Additional shell aliases";
       };
-      zsh = {
-        enable = lib.mkEnableOption "Enable zsh";
-        extraShellAliases = lib.mkOption {
-          type = lib.types.attrsOf lib.types.str;
-          default = {};
-          description = "Additional shell aliases";
-        };
-      };
+      bash.enable = lib.mkEnableOption "Enable bash";
+      zsh.enable = lib.mkEnableOption "Enable zsh";
     };
 
     config = lib.mkMerge [
@@ -49,7 +40,7 @@
               gb = "git branch -a";
               ".." = "cd ..";
             }
-            // cfg.bash.extraShellAliases;
+            // cfg.extraShellAliases;
         };
       })
       (lib.mkIf cfg.zsh.enable {
@@ -100,7 +91,7 @@
               gb = "git branch -a";
               ".." = "cd ..";
             }
-            // cfg.zsh.extraShellAliases;
+            // cfg.extraShellAliases;
         };
       })
     ];
