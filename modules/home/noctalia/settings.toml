@@ -374,6 +374,10 @@ wallpaper_scheme = "m3-tonal-spot"
 [wallpaper]
 directory = "/home/wyn/Pictures/Wallpapers"
 
+    [wallpaper.automation]
+    enabled = true
+    interval_seconds = 300
+
     [wallpaper.default]
     path = "/home/wyn/Pictures/Wallpapers/Embraced_A.png"
 
