@@ -18,6 +18,17 @@
     };
 
     config = lib.mkMerge [
+      {
+        home.shellAliases =
+          {
+            sv = "sudo -E nvim";
+            v = "nvim";
+            c = "clear";
+            ncg = "nix-collect-garbage --delete-old && nix-collect-garbage -d && nix-store --gc && nix-store --optimise";
+            ".." = "cd ..";
+          }
+          // cfg.extraShellAliases;
+      }
       (lib.mkIf cfg.bash.enable {
         home.packages = [pkgs.microfetch];
         programs.bash = {
@@ -26,21 +37,6 @@
           initExtra = ''
             microfetch
           '';
-
-          shellAliases =
-            {
-              sv = "sudo -E nvim";
-              v = "nvim";
-              c = "clear";
-              ncg = "nix-collect-garbage --delete-old && nix-collect-garbage -d && nix-store --gc && nix-store --optimise";
-              gl = "git log";
-              gs = "git status";
-              gd = "git diff";
-              ga = "git add .";
-              gb = "git branch -a";
-              ".." = "cd ..";
-            }
-            // cfg.extraShellAliases;
         };
       })
       (lib.mkIf cfg.zsh.enable {
@@ -53,20 +49,16 @@
             highlighters = ["main" "brackets" "pattern" "regexp" "root" "line"];
           };
           historySubstringSearch.enable = true;
-
           history = {
             ignoreDups = true;
             save = 10000;
             size = 10000;
           };
-
           oh-my-zsh = {
             enable = true;
             theme = "";
           };
-
           plugins = [];
-
           initContent = ''
             bindkey "\eh" backward-word
             bindkey "\ej" down-line-or-history
@@ -75,23 +67,6 @@
 
             fastfetch
           '';
-
-          shellAliases =
-            {
-              sv = "sudo -E nvim";
-              v = "nvim";
-              c = "clear";
-              ncg = "nix-collect-garbage --delete-old && nix-collect-garbage -d && nix-store --gc && nix-store --optimise";
-              cat = "bat";
-              man = "batman";
-              gl = "git log";
-              gs = "git status";
-              gd = "git diff";
-              ga = "git add .";
-              gb = "git branch -a";
-              ".." = "cd ..";
-            }
-            // cfg.extraShellAliases;
         };
       })
     ];

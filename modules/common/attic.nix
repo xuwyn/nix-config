@@ -79,7 +79,7 @@
               };
             };
           };
-          homeManager.cli.extraShellAliases = {
+          home.shellAliases = {
             ap-system = "attic push main /run/current-system";
             ap-home = "attic push main $(readlink -f ~/.local/state/nix/profiles/home-manager)";
           };

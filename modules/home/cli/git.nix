@@ -31,47 +31,38 @@
         git-lfs
         git-filter-repo
       ];
-      programs = {
-        gh.enable = true; # enable github cli
-
-        git = {
-          enable = true;
-          lfs.enable = true;
-          signing = {
-            key = config.sops.secrets.private_ssh_key.path;
-            signByDefault = true;
+      home.shellAliases = {
+        gr = "git restore";
+        gl = "git log --graph --pretty=format:'%Cred%h%Creset - %C(yellow)%d%Creset %s %C(green)(%cr)%C(bold blue) <%an>%Creset' --abbrev-commit";
+        gs = "git status";
+        gd = "git diff";
+        ga = "git add .";
+        gb = "git branch -a";
+      };
+      programs.gh.enable = true; # enable github cli
+      programs.git = {
+        enable = true;
+        lfs.enable = true;
+        signing = {
+          key = config.sops.secrets.private_ssh_key.path;
+          signByDefault = true;
+        };
+        settings = {
+          core = {
+            sshCommand = "ssh -i ${config.sops.secrets.private_ssh_key.path}";
+            editor = "nvim";
           };
-          settings = {
-            core = {
-              sshCommand = "ssh -i ${config.sops.secrets.private_ssh_key.path}";
-              editor = "nvim";
-            };
-            user = {
-              name = cfg.username;
-              email = cfg.email;
-            };
-            gpg.format = "ssh";
-
-            # FOSS-friendly settings
-            push.default = "simple"; # Match modern push behavior
-            credential.helper = "cache --timeout=7200";
-            init.defaultBranch = "main"; # Set default new branches to 'main'
-            log.decorate = "full"; # Show branch/tag info in git log
-            log.date = "iso"; # ISO 8601 date format
-            # Conflict resolution style for readable diffs
-            merge.conflictStyle = "diff3";
-
-            # Optional: FOSS-friendly Git aliases
-            alias = {
-              br = "branch --sort=-committerdate";
-              co = "checkout";
-              df = "diff";
-              com = "commit -a";
-              cl = "clone -c lfs.fetchexclude=*";
-              lg = "log --graph --pretty=format:'%Cred%h%Creset - %C(yellow)%d%Creset %s %C(green)(%cr)%C(bold blue) <%an>%Creset' --abbrev-commit";
-              st = "status";
-            };
+          user = {
+            name = cfg.username;
+            email = cfg.email;
           };
+          gpg.format = "ssh";
+          push.default = "simple"; # Match modern push behavior
+          credential.helper = "cache --timeout=7200";
+          init.defaultBranch = "main"; # Set default new branches to 'main'
+          log.decorate = "full"; # Show branch/tag info in git log
+          log.date = "iso"; # ISO 8601 date format
+          merge.conflictStyle = "diff3"; # Conflict resolution style for readable diffs
         };
       };
       programs.lazygit = {
