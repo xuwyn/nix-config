@@ -24,6 +24,7 @@ creation_rules:
         - *host_apricot
         - *host_mango
         - *host_puffin
+        - *host_lettuce
   - path_regex: access-tokens\.yaml$
     key_groups:
       - age:

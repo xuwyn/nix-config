@@ -5,10 +5,18 @@ in {
     system = "x86_64-linux";
     username = "wyn";
     modules = with config.modules.homeManager;
-      [nix-settings home sops yazi cli editors theme]
+      [nix-settings home sops yazi cli editors theme attic ssh]
       ++ [
         (_: {
           homeManager = {
+            ssh.hosts = {
+              apricot = {};
+              puffin = {};
+              potato = {};
+              "apricot.local" = {};
+              "puffin.local" = {};
+              "potato.local" = {};
+            };
             cli = {
               bash.enable = true;
               git = {
