@@ -8,6 +8,7 @@
     ...
   }: {
     imports = [inputs.nixos-wsl.nixosModules.default];
+    networking.networkmanager.enable = false;
     wsl = {
       enable = true;
       defaultUser = lib.head users;
