@@ -4,8 +4,11 @@
     config,
     lib,
     pkgs,
+    flake,
     ...
-  }: {
+  }: let
+    mkOutOfStoreSymlink = path: config.lib.file.mkOutOfStoreSymlink path;
+  in {
     imports = [
       inputs.dms.homeModules.dank-material-shell
       inputs.dms-plugin-registry.homeModules.default
@@ -20,13 +23,17 @@
     };
 
     config = {
+      home.file.".config/DankMaterialShell/settings.json".source =
+        mkOutOfStoreSymlink
+        "${config.home.homeDirectory}/${flake.homeRelativePath}/modules/home/dms/settings.json";
+
       programs.dank-material-shell = {
         enable = true;
-        # systemd.enable = true;
-        settings = import ./_settings.nix {inherit config;};
-        session = import ./_session.nix;
-        quickshell.package = inputs.quickshell.packages.${pkgs.stdenv.hostPlatform.system}.default;
-        dgop.package = inputs.dgop.packages.${pkgs.stdenv.hostPlatform.system}.default;
+        session = {
+          wallpaperTransition = "random";
+          wallpaperCyclingEnabled = true;
+          wallpaperCyclingRandom = true;
+        };
 
         # Core features
         enableSystemMonitoring = true; # System monitoring widgets (dgop)

@@ -25,6 +25,15 @@
     }
   )
 
+  # upstream hash mismatch, should be good to remove in a week (2026-09-04)
+  (final: prev: {
+    equicord = prev.equicord.overrideAttrs (old: {
+      pnpmDeps = old.pnpmDeps.overrideAttrs (_: {
+        outputHash = "sha256-WdSowp/yuPokdU7Sv/XBQOo/0JPs9AA5LRq6dx57Uyk=";
+      });
+    });
+  })
+
   # Firefox addons
   inputs.nur.overlays.default
 

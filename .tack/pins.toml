@@ -73,13 +73,10 @@ url = "github:noctalia-dev/noctalia/cachix"
 exclude_follow = ["nixpkgs"]
 
 [inputs.dms]
-url = "github:AvengeMedia/DankMaterialShell/v1.5.3"
+url = "github:AvengeMedia/DankMaterialShell/v1.6.0"
 
 [inputs.dms-plugin-registry]
 url = "github:AvengeMedia/dms-plugin-registry"
-
-[inputs.dgop]
-url = "github:AvengeMedia/dgop"
 
 [inputs.nixvim]
 url = "github:nix-community/nixvim"
@@ -113,9 +110,6 @@ exclude_follow = ["nixpkgs"]
 [inputs.silentSDDM]
 url = "github:uiriansan/SilentSDDM"
 
-[inputs.quickshell]
-url = "github:quickshell-mirror/quickshell"
-
 [inputs.mac-app-util]
 url = "github:hraban/mac-app-util"
 exclude_follow = ["nixpkgs"]
@@ -125,7 +119,6 @@ url = "github:nix-community/NixOS-WSL/main"
 
 [inputs.nur-expressions]
 url = "gitlab:rycee/nur-expressions"
-# url = "git+https://gitlab.com/rycee/nur-expressions"
 
 [inputs.disko]
 url = "github:nix-community/disko"

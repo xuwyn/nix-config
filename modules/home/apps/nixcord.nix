@@ -41,6 +41,7 @@
           # Choose your client (enable only one of these two)
           discord.vencord.enable = false; # Standard Vencord
           discord.equicord.enable = true; # Equicord (has more plugins)
+          discord.equicord.package = pkgs.equicord;
 
           # vesktop.enable = true;
           # dorian.enable = true;

@@ -15,14 +15,6 @@
     "narHash": "sha256-7sprixDLchHgjQt1yNoc91d0L0lnbd1VUb3OPZpsIJk=",
     "lastModified": 1788395115
   },
-  "dgop": {
-    "type": "github",
-    "owner": "AvengeMedia",
-    "repo": "dgop",
-    "rev": "4a6ae842f6bdb77bd588eba14a8672fc5ec4f1d0",
-    "narHash": "sha256-5oGojLTg8DjsKn97EurssiZJlpdUD9AvhaM/jXjK3+o=",
-    "lastModified": 1788455392
-  },
   "disko": {
     "type": "github",
     "owner": "nix-community",
@@ -35,9 +27,9 @@
     "type": "github",
     "owner": "AvengeMedia",
     "repo": "DankMaterialShell",
-    "rev": "069ddab041c738236a8910e4c39b65d9628d3018",
-    "narHash": "sha256-aTNuC9NDBnYAeEtFsleeUwmGX3AZlKOutbl+LQRPkmQ=",
-    "lastModified": 1785111455
+    "rev": "0bbe83380c9406d262d567581d64477d261c9ee5",
+    "narHash": "sha256-E4KUauS30dL2R/n/yABNENdTehhT+qHV7uemd/jxQfU=",
+    "lastModified": 1788454433
   },
   "dms-plugin-registry": {
     "type": "github",
@@ -220,14 +212,6 @@
     "rev": "93416f4614ad2dfed5b0dcf12f27e57d27a5ab11",
     "narHash": "sha256-mMI9IanU+Xw+pVogD2oT0I2kTmvz2Un/Apc5+CwUpEY=",
     "lastModified": 1757436102
-  },
-  "quickshell": {
-    "type": "github",
-    "owner": "quickshell-mirror",
-    "repo": "quickshell",
-    "rev": "2d3b3e9c70ef380dff751b61d334dc88df016c29",
-    "narHash": "sha256-6SUZyyALo19heYPa/Xmu2H4zV+wvdfVX4fTcqbgHRnI=",
-    "lastModified": 1787994703
   },
   "silentSDDM": {
     "type": "github",
