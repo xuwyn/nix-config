@@ -57,6 +57,7 @@ in {
               nixvim.enable = true;
             };
             terminals.kitty.enable = true;
+            desktop.fontSize = 10;
             theme = {
               fonts.enable = true;
               matugen = {

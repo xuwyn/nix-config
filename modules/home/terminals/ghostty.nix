@@ -45,12 +45,9 @@
             custom-shader-animation = "always";
             term = "xterm-256color";
             confirm-close-surface = "false";
-            font-family = "Maple Mono NF";
-            font-size = 8;
-            # adjust-cell-height = "0%";
+            font-family = config.homeManager.desktop.fontFamily;
+            font-size = config.homeManager.desktop.fontSize;
             window-theme = "dark";
-            # window-height = "32";
-            # window-width = "110";
             background-opacity = "1.00";
             background-blur-radius = "60";
             selection-background = "#2d3f76";

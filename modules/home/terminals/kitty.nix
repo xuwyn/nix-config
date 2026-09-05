@@ -32,8 +32,8 @@
           enable = true;
           package = pkgs.kitty;
           settings = {
-            font_family = "Maple Mono NF";
-            font_size = 8;
+            font_family = config.homeManager.desktop.fontFamily;
+            font_size = config.homeManager.desktop.fontSize;
             wheel_scroll_min_lines = 1;
             window_padding_width = 4;
             confirm_os_window_close = 0;

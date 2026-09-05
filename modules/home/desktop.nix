@@ -64,6 +64,16 @@
         default = "kitty";
         description = "Choose default terminal, does not install any terminal";
       };
+      fontFamily = lib.mkOption {
+        type = lib.types.str;
+        default = "Maple Mono NF";
+        description = "Set terminal font family";
+      };
+      fontSize = lib.mkOption {
+        type = lib.types.int;
+        default = 8;
+        description = "Set terminal font size";
+      };
       browser = lib.mkOption {
         type = lib.types.str;
         default = "firefox";
