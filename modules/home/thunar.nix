@@ -9,7 +9,7 @@
     options.homeManager.thunar = {
       terminal = lib.mkOption {
         type = lib.types.enum ["kitty" "alacritty" "foot" "wezterm" "ghostty"];
-        default = "kitty";
+        default = config.homeManager.desktop.terminal;
         description = "Set default terminal for thunar";
       };
     };
