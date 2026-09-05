@@ -12,6 +12,10 @@
       command = "dms ipc call brightness increment 5 ''''";
     }
     {
+      key = "SUPER + B";
+      command = "dms ipc call bar toggle index 0";
+    }
+    {
       key = "SUPER + A";
       command = "dms ipc call spotlight toggle";
     }
