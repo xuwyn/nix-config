@@ -2,11 +2,12 @@
   nixos.mango = {
     users = ["wyn" "deploy"];
     modules = with config.modules.nixos;
-      [./_disko.nix nix-settings preservation drivers boot hardware network]
+      [./_disko.nix nix-settings preservation drivers boot hardware network zram]
       ++ [system users desktop apps services sops tailscale deploy attic binfmt]
       ++ [
         ({pkgs, ...}: {
           nixos = {
+            zram.tmpMaxSize = "4096";
             drivers = {
               amdcpu.enable = true;
               nvidia.enable = true;

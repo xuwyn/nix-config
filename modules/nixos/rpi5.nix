@@ -21,9 +21,11 @@
 
     # To match with nvmd/nixos-raspberrypi image
     boot.loader.raspberry-pi.bootloader = "kernel";
-    boot.tmp.useTmpfs = true;
     networking = {
-      networkmanager.wifi.backend = "iwd";
+      networkmanager = {
+        wifi.backend = "iwd";
+        settings.device."wifi.iwd.autoconnect" = false;
+      };
       wireless.iwd = {
         enable = true;
         settings = {
@@ -31,19 +33,12 @@
             EnableIPv6 = true;
             RoutePriorityOffset = 300;
           };
-          General.EnableNetworkConfiguration = true;
-          Settings.AutoConnect = true;
         };
       };
     };
 
-    # Do not take down the network for too long when upgrading,
-    # This also prevents failures of services that are restarted instead of stopped.
-    # It will use `systemctl restart` rather than stopping it with `systemctl stop` followed by a delayed `systemctl start`.
-    systemd.services = {
-      systemd-networkd.stopIfChanged = false;
-      systemd-resolved.stopIfChanged = false;
-    };
+    # cgroup_disable=memory on this kernel (PSI unavailable)
+    systemd.oomd.enable = false;
 
     # Read: https://github.com/nvmd/nixos-raspberrypi-demo/blob/main/pi5-configtxt.nix
     hardware.raspberry-pi.config = {

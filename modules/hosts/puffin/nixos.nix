@@ -2,7 +2,7 @@
   nixos-rpi.puffin = {
     users = ["wyn" "deploy"];
     modules = with config.modules.nixos;
-      [rpi5 nix-settings network system users sops tailscale deploy services attic]
+      [rpi5 nix-settings network system users sops tailscale deploy services attic zram]
       ++ [
         {
           # micro sd card disk layout

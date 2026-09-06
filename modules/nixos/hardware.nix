@@ -18,21 +18,6 @@
       i2c.enable = true;
     };
 
-    zramSwap = {
-      enable = true;
-      algorithm = "zstd";
-      memoryPercent = 50; # % of RAM
-      priority = 100; # higher than disk swap
-    };
-    boot.kernel.sysctl."vm.swappiness" = 180;
-
-    systemd.oomd = {
-      enable = true;
-      enableSystemSlice = true;
-      enableRootSlice = true;
-      enableUserSlices = true;
-    };
-
     services = {
       libinput.enable = true; # Input Handling
       fstrim.enable = true; # SSD Optimizer
