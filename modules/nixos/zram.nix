@@ -2,6 +2,8 @@
   modules.nixos.zram = {
     config,
     lib,
+    inputs,
+    pkgs,
     ...
   }: let
     cfg = config.nixos.zram;
@@ -20,6 +22,9 @@
         memoryPercent = 50; # % of RAM
         priority = 100; # higher than disk swap
       };
+
+      # for hydra cache hit
+      services.zram-generator.package = inputs.nixpkgs.legacyPackages.${pkgs.stdenv.hostPlatform.system}.zram-generator;
 
       # high swappiness is ideal for ram swap
       boot.kernel.sysctl."vm.swappiness" = 180;

@@ -51,6 +51,8 @@
     homeManager.attic = {
       config,
       lib,
+      inputs,
+      pkgs,
       ...
     }: let
       cfg = config.homeManager.attic;
@@ -69,6 +71,7 @@
         {
           programs.attic-client = {
             enable = true;
+            package = inputs.nixpkgs.legacyPackages.${pkgs.stdenv.hostPlatform.system}.attic-client;
             settings = {
               default-server = cfg.defaultServer;
               servers = {

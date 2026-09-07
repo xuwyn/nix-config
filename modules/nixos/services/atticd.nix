@@ -118,6 +118,7 @@
       # setup nginx for tailscale
       services.nginx = {
         enable = true;
+        package = unstableNixpkgs.nginxMainline;
         recommendedProxySettings = true;
         recommendedTlsSettings = true;
         recommendedGzipSettings = true;
