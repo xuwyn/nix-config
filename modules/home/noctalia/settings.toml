@@ -18,7 +18,6 @@ panel_overlap = 0
 radius = 20
 radius_top_left = 8
 radius_top_right = 8
-scale = 1.1000000000000001
 shadow = false
 start = [ "workspaces", "media", "audio_visualizer" ]
 
@@ -372,7 +371,7 @@ wallpaper_scheme = "m3-tonal-spot"
         post_hook = "pkill -SIGUSR1 nvim"
 
 [wallpaper]
-directory = "/home/wyn/Pictures/Wallpapers"
+directory = "~/Pictures/Wallpapers"
 
     [wallpaper.automation]
     enabled = true

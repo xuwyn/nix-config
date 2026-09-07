@@ -17,18 +17,20 @@
         settings = {
           default_tool = "pen";
           remember_last_tool = true;
-          stroke_width = 5.0;
-          default_color = "#FF0000";
+          stroke_size = 5.0;
+          default_color = "#E84046";
           feedback_duration_ms = 500;
+          clear_on_escape = true;
+          default_fill_shapes = false;
           palette = [
-            "#FF0000"
-            "#FFFF00"
-            "#00FF00"
-            "#00FFFF"
-            "#0000FF"
-            "#FF00FF"
-            "#FFFFFF"
-            "#000000"
+            "#E84046"
+            "#EF8F4F"
+            "#EED14D"
+            "#4DD54F"
+            "#0483FA"
+            "#7C58EA"
+            "#EBEBEB"
+            "#141414"
           ];
         };
       };
