@@ -35,9 +35,9 @@
     "type": "github",
     "owner": "AvengeMedia",
     "repo": "dms-plugin-registry",
-    "rev": "19542da8a622bda767d13404d7b47dbce75b2b89",
-    "narHash": "sha256-YX/v7jDEmN56LDRdfepMtLIn1ROanXuPM2lYed+U3EM=",
-    "lastModified": 1788574084
+    "rev": "2b925025e9a12ce42ae92036e26baead544612a2",
+    "narHash": "sha256-54tgm3sfIHTv29IJRPoAIa9Px7KnNz3wcLXji6dGASs=",
+    "lastModified": 1788688273
   },
   "home-manager": {
     "type": "github",
