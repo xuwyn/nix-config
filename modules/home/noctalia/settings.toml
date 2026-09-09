@@ -127,7 +127,6 @@ auto_locate = true
 
 [lockscreen]
 blur_intensity = 0.0
-wallpaper = "/home/wyn/Pictures/Wallpapers/Embraced_A.png"
 
 [lockscreen_widgets]
 enabled = true
@@ -348,7 +347,7 @@ screen_time_enabled = true
     countdown_seconds = 0.0
     enabled = true
     shortcut = "6"
-    variant = "destructive"
+    variant = "default"
 
 [system.monitor]
 cpu_poll_seconds = 1

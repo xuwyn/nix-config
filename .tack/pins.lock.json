@@ -213,6 +213,14 @@
     "narHash": "sha256-mMI9IanU+Xw+pVogD2oT0I2kTmvz2Un/Apc5+CwUpEY=",
     "lastModified": 1757436102
   },
+  "rs-key": {
+    "type": "github",
+    "owner": "TheMaxMur",
+    "repo": "RS-Key",
+    "rev": "2b001b7ed4ff199c88e3276b96611e9b53125d7a",
+    "narHash": "sha256-nY3nJly8mIDlmko19CwMCfd8FKJFllvpNE0fvFOPomg=",
+    "lastModified": 1788565057
+  },
   "silentSDDM": {
     "type": "github",
     "owner": "uiriansan",

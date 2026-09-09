@@ -19,11 +19,8 @@
       cfg = config.nixos.system;
     in {
       options.nixos.system = commonSystemOptions lib;
-
       config = {
         system.stateVersion = "26.05";
-
-        # Localization
         time.timeZone = cfg.timeZone;
         i18n = {
           defaultLocale = "en_US.UTF-8";
@@ -39,11 +36,7 @@
             LC_TIME = "en_US.UTF-8";
           };
         };
-
-        programs = {
-          mtr.enable = true; # ping and traceroute
-        };
-
+        programs.mtr.enable = true; # ping and traceroute
         environment.systemPackages = with pkgs;
           [
             inxi # system summary
@@ -63,13 +56,9 @@
       cfg = config.darwin.system;
     in {
       options.darwin.system = commonSystemOptions lib;
-
       config = {
-        # $ darwin-rebuild changelog
-        system.stateVersion = 6;
-
+        system.stateVersion = 6; # $ darwin-rebuild changelog
         time.timeZone = cfg.timeZone;
-
         environment.systemPackages = commonPackages pkgs;
       };
     };

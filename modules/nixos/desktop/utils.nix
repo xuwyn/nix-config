@@ -63,10 +63,7 @@
         tumbler.enable = true; # Image/video preview
         gnome.gnome-keyring.enable = true;
         smartd = {
-          enable =
-            if config ? nixos.drivers.vm.enable
-            then !(config.nixos.drivers.vm.enable)
-            else true;
+          enable = true;
           autodetect = true;
         };
         pipewire = {

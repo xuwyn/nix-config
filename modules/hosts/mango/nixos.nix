@@ -3,7 +3,7 @@
     users = ["wyn" "deploy"];
     modules = with config.modules.nixos;
       [./_disko.nix nix-settings preservation drivers boot hardware network zram]
-      ++ [system users desktop apps services sops tailscale deploy attic binfmt]
+      ++ [system users desktop apps services sops tailscale deploy attic binfmt rs-key]
       ++ [
         ({pkgs, ...}: {
           nixos = {

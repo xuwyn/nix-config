@@ -140,3 +140,6 @@ url = "github:manic-systems/tack"
 
 [inputs.deploy-rs]
 url = "github:serokell/deploy-rs"
+
+[inputs.rs-key]
+url = "github:TheMaxMur/RS-Key"

@@ -39,4 +39,7 @@
 
   # cachyOS kernel (pinned version for cache hit)
   inputs.nix-cachyos-kernel.overlays.pinned
+
+  # rs-key patch for ccid-rs-key
+  inputs.rs-key.overlays.ccid-rs-key
 ]
