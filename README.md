@@ -15,39 +15,14 @@ so most features are in Home Manager for portability.
 <details>
 <summary>Niri + Noctalia</summary>
 
-<table align="center" style="width: 600px;">
-  <tr>
-    <td align="center">
-      <img src="https://media.githubusercontent.com/media/xuwyn/nix-config/refs/heads/main/assets/previews/niri-noctalia.png" width="100%" />
-    </td>
-  </tr>
-</table>
+<img src="https://media.githubusercontent.com/media/xuwyn/nix-config/refs/heads/main/assets/previews/niri-noctalia.png" width="100%" />
 
 </details>
 
 <details>
 <summary>Hyprland + DankMaterialShell</summary>
 
-<table align="center" style="width: 600px;">
-  <tr>
-    <td align="center">
-      <img src="https://media.githubusercontent.com/media/xuwyn/nix-config/refs/heads/main/assets/previews/hyprland-dms.png" width="100%" />
-    </td>
-  </tr>
-</table>
-
-</details>
-
-<details>
-<summary>i3 + Polybar</summary>
-
-<table align="center" style="width: 600px;">
-  <tr>
-    <td align="center">
-      <img src="https://media.githubusercontent.com/media/xuwyn/nix-config/refs/heads/main/assets/previews/i3-polybar.png" width="100%" />
-    </td>
-  </tr>
-</table>
+<img src="https://media.githubusercontent.com/media/xuwyn/nix-config/refs/heads/main/assets/previews/hyprland-dms.png" width="100%" />
 
 </details>
 
@@ -109,14 +84,13 @@ since they are a bit overkill for what I need.
 
 ## Hosts
 
-| Host                                  | Platform         | OS            | Modules                | DE                                                                 |
-| ------------------------------------- | ---------------- | ------------- | ---------------------- | ------------------------------------------------------------------ |
-| [apricot](./modules/hosts/apricot/)   | `aarch64-darwin` | MacOS         | `darwin`+`homeManager` | [OmniWM](https://github.com/BarutSRB/OmniWM)                       |
-| [capybara](./modules/hosts/capybara/) | `x86_64-linux`   | CachyOS       | `homeManager`          | Hyprland + [DMS](https://github.com/AvengeMedia/DankMaterialShell) |
-| [lettuce](./modules/hosts/lettuce/)   | `x86_64-linux`   | WSL           | `nixos`+`homeManager`  |
-| [mango](./modules/hosts/mango/)       | `x86_64-linux`   | NixOS         | `nixos`+`homeManager`  | Niri + [Noctalia](https://github.com/noctalia-dev/noctalia)        |
-| [potato](./modules/hosts/potato/)     | `x86_64-linux`   | Debian Trixie | `homeManager`          | i3 + Polybar                                                       |
-| [puffin](./modules/hosts/puffin/)     | `aarch64-linux`  | NixOS         | `nixos`+`homeManager`  |                                                                    |
+| Host                                  | Platform         | OS      | Modules                | DE                                                                 |
+| ------------------------------------- | ---------------- | ------- | ---------------------- | ------------------------------------------------------------------ |
+| [apricot](./modules/hosts/apricot/)   | `aarch64-darwin` | MacOS   | `darwin`+`homeManager` | [OmniWM](https://github.com/BarutSRB/OmniWM)                       |
+| [capybara](./modules/hosts/capybara/) | `x86_64-linux`   | CachyOS | `homeManager`          | Hyprland + [DMS](https://github.com/AvengeMedia/DankMaterialShell) |
+| [lettuce](./modules/hosts/lettuce/)   | `x86_64-linux`   | WSL     | `nixos`+`homeManager`  |
+| [mango](./modules/hosts/mango/)       | `x86_64-linux`   | NixOS   | `nixos`+`homeManager`  | Niri + [Noctalia](https://github.com/noctalia-dev/noctalia)        |
+| [puffin](./modules/hosts/puffin/)     | `aarch64-linux`  | NixOS   | `nixos`+`homeManager`  |                                                                    |
 
 ## Acknowledgement
 
