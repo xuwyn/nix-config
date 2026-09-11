@@ -58,6 +58,8 @@ in {
           home-manager = {
             useGlobalPkgs = false;
             useUserPackages = true;
+            backupFileExtension = "bak";
+            overwriteBackup = true;
             extraSpecialArgs = {
               inherit inputs self username;
               inherit (config) flake;
