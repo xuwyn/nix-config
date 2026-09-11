@@ -3,6 +3,7 @@
     lib,
     config,
     pkgs,
+    inputs,
     ...
   }: let
     cfg = config.homeManager.cli.search;
@@ -26,7 +27,9 @@
       # fuzzy search
       programs.fzf = {
         enable = true;
+        package = inputs.nixpkgs.legacyPackages.${pkgs.stdenv.hostPlatform.system}.fzf;
         enableZshIntegration = true;
+        enableBashIntegration = true;
         defaultOptions = [
           "--margin=1"
           "--layout=reverse"

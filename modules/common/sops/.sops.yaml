@@ -13,10 +13,10 @@ creation_rules:
     key_groups:
       - age:
         - *host_mango
-  - path_regex: apricot\.yaml$
+  - path_regex: lettuce\.yaml$
     key_groups:
       - age:
-        - *host_apricot
+        - *host_lettuce
   - path_regex: puffin\.yaml$
     key_groups:
       - age:
@@ -35,6 +35,12 @@ creation_rules:
         - *host_apricot
         - *host_puffin
         - *host_lettuce
+        - *user_wyn
+  - path_regex: ssh\.yaml$
+    key_groups:
+      - age:
+        - *host_lettuce
+        - *host_puffin
         - *user_wyn
   - path_regex: wyn\.yaml$
     key_groups:

@@ -64,8 +64,8 @@
         defaultSopsFile = ./${config.home.username}.yaml;
         defaultSopsFormat = "yaml";
         secrets = {
-          private_ssh_key = {};
-          public_ssh_key = {};
+          private_ssh_key.sopsFile = ./ssh.yaml;
+          public_ssh_key.sopsFile = ./ssh.yaml;
         };
       };
     };

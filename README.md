@@ -6,7 +6,7 @@
   <a href="./docs/TROUBLESHOOT.md"><strong>Troubleshoot</strong></a>
 </p>
 
-My personal config for nixos, nix-darwin and home-manager (standalone) running on `x86_64-linux`, `aarch64-linux` and `aarch64-darwin`.
+My personal config for nixos, nix-darwin and home-manager running on `x86_64-linux`, `aarch64-linux` and `aarch64-darwin`.
 I currently have no desire to fully transform every hosts I have into NixOS,
 so most features are in Home Manager for portability.
 
@@ -84,13 +84,13 @@ since they are a bit overkill for what I need.
 
 ## Hosts
 
-| Host                                  | Platform         | OS      | Modules                | DE                                                                 |
-| ------------------------------------- | ---------------- | ------- | ---------------------- | ------------------------------------------------------------------ |
-| [apricot](./modules/hosts/apricot/)   | `aarch64-darwin` | MacOS   | `darwin`+`homeManager` | [OmniWM](https://github.com/BarutSRB/OmniWM)                       |
-| [capybara](./modules/hosts/capybara/) | `x86_64-linux`   | CachyOS | `homeManager`          | Hyprland + [DMS](https://github.com/AvengeMedia/DankMaterialShell) |
-| [lettuce](./modules/hosts/lettuce/)   | `x86_64-linux`   | WSL     | `nixos`+`homeManager`  |
-| [mango](./modules/hosts/mango/)       | `x86_64-linux`   | NixOS   | `nixos`+`homeManager`  | Niri + [Noctalia](https://github.com/noctalia-dev/noctalia)        |
-| [puffin](./modules/hosts/puffin/)     | `aarch64-linux`  | NixOS   | `nixos`+`homeManager`  |                                                                    |
+| Host                                  | Platform         | OS      | Config          | DE                                                                 |
+| ------------------------------------- | ---------------- | ------- | --------------- | ------------------------------------------------------------------ |
+| [apricot](./modules/hosts/apricot/)   | `aarch64-darwin` | MacOS   | `darwin`+`home` | [OmniWM](https://github.com/BarutSRB/OmniWM)                       |
+| [capybara](./modules/hosts/capybara/) | `x86_64-linux`   | CachyOS | `home`          | Hyprland + [DMS](https://github.com/AvengeMedia/DankMaterialShell) |
+| [lettuce](./modules/hosts/lettuce/)   | `x86_64-linux`   | WSL     | `nixos`         |
+| [mango](./modules/hosts/mango/)       | `x86_64-linux`   | NixOS   | `nixos`+`home`  | Niri + [Noctalia](https://github.com/noctalia-dev/noctalia)        |
+| [puffin](./modules/hosts/puffin/)     | `aarch64-linux`  | NixOS   | `nixos`         |                                                                    |
 
 ## Acknowledgement
 

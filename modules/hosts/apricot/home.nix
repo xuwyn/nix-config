@@ -23,11 +23,9 @@ in {
               puffin = {};
               mango = {};
               capybara = {};
-              potato = {};
               "puffin.local" = {};
               "mango.local" = {};
               "capybara.local" = {};
-              "potato.local" = {};
             };
             cli = {
               zsh.enable = true;

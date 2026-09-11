@@ -31,7 +31,7 @@
     };
 
     config = {
-      sops.secrets.openssh_key = {};
+      sops.secrets.openssh_key.sopsFile = ../common/sops/ssh.yaml;
       programs.ssh = {
         enable = true;
         enableDefaultConfig = false;
