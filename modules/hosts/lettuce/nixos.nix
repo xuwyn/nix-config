@@ -18,10 +18,12 @@ in {
             ${username} = {
               isAdmin = true;
               sshKeys = [../../common/keys/openssh_key.pub];
+              shell = "bash";
             };
             deploy = {
               isDeployer = true;
               sshKeys = [../../common/keys/deploy_key.pub];
+              shell = "bash";
             };
           };
 
