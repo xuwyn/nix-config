@@ -50,10 +50,14 @@ in {
             };
           };
 
-          sops.secrets.openssh_key = {
-            sopsFile = ../../common/sops/ssh.yaml;
-            owner = username;
-          };
+          sops.secrets =
+            lib.mapAttrs (name: sopsFile: {
+              inherit sopsFile;
+              owner = username;
+            }) {
+              openssh_key = ../../common/sops/ssh.yaml;
+              attic_token = ../../common/sops/access-tokens.yaml;
+            };
 
           home-manager = {
             useGlobalPkgs = false;
@@ -75,23 +79,19 @@ in {
               };
 
               imports = with config.modules.homeManager;
-                [home ssh cli]
+                [home ssh cli attic]
                 ++ [
                   {
                     # not using homeManager.sops cause I dont want to use rs-key here
-                    options.sops.secrets = lib.mkOption {
-                      type = lib.types.attrsOf (lib.types.submodule {
+                    options.sops = lib.mkOption {
+                      type = lib.types.submodule {
                         freeformType = lib.types.attrsOf lib.types.anything;
-                        options.path = lib.mkOption {type = lib.types.str;};
-                      });
+                      };
                     };
                   }
                 ];
-
-              # point to sops.secrets from nixos so home modules can find them
-              sops.secrets =
-                lib.genAttrs ["openssh_key"]
-                (name: {path = osConfig.sops.secrets.${name}.path;});
+              # point config.sops to osConfig.sops
+              sops = {inherit (osConfig.sops) secrets placeholder;};
 
               homeManager = {
                 ssh.hosts = {

@@ -28,11 +28,15 @@ in {
           };
 
           sops.secrets =
-            lib.genAttrs ["openssh_key" "public_ssh_key" "private_ssh_key"]
-            (name: {
-              sopsFile = ../../common/sops/ssh.yaml;
+            lib.mapAttrs (name: sopsFile: {
+              inherit sopsFile;
               owner = username;
-            });
+            }) {
+              openssh_key = ../../common/sops/ssh.yaml;
+              public_ssh_key = ../../common/sops/ssh.yaml;
+              private_ssh_key = ../../common/sops/ssh.yaml;
+              attic_token = ../../common/sops/access-tokens.yaml;
+            };
 
           home-manager = {
             useGlobalPkgs = true;
@@ -45,23 +49,19 @@ in {
             };
             users.${username} = {osConfig, ...}: {
               imports = with config.modules.homeManager;
-                [home yazi cli editors theme ssh]
+                [home yazi cli editors theme ssh attic]
                 ++ [
                   {
                     # not using homeManager.sops cause I dont want to use rs-key on WSL
-                    options.sops.secrets = lib.mkOption {
-                      type = lib.types.attrsOf (lib.types.submodule {
+                    options.sops = lib.mkOption {
+                      type = lib.types.submodule {
                         freeformType = lib.types.attrsOf lib.types.anything;
-                        options.path = lib.mkOption {type = lib.types.str;};
-                      });
+                      };
                     };
                   }
                 ];
-
-              # point to sops.secrets from nixos so home modules can find them
-              sops.secrets =
-                lib.genAttrs ["openssh_key" "public_ssh_key" "private_ssh_key"]
-                (name: {path = osConfig.sops.secrets.${name}.path;});
+              # point config.sops to osConfig.sops
+              sops = {inherit (osConfig.sops) secrets placeholder;};
 
               homeManager = {
                 ssh.hosts = {
