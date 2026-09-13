@@ -69,6 +69,10 @@ in {
               inherit (config) flake;
             };
             users.${username} = {osConfig, ...}: {
+              manual.html.enable = false;
+              manual.json.enable = false;
+              manual.manpages.enable = false;
+
               # use inputs.nixpkgs instead of nixpkgs from nixos-raspberrypi
               _module.args = {
                 pkgs = lib.mkForce (import inputs.nixpkgs {
