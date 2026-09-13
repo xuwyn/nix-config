@@ -33,6 +33,15 @@
   "dockBorderEnabled": true,
   "osdPowerProfileEnabled": true,
   "powerMenuGridLayout": true,
+  "connectedFrameBarStyleBackups": {
+    "default": {
+      "shadowIntensity": 0,
+      "squareCorners": false,
+      "attachToScreenEdge": false,
+      "gothCornersEnabled": false,
+      "borderEnabled": false
+    }
+  },
   "barConfigs": [
     {
       "id": "default",
@@ -160,6 +169,5 @@
   "frameThickness": 10,
   "frameRounding": 15,
   "frameColor": "surface",
-  "frameMode": "separate",
-  "configVersion": 17
+  "configVersion": 18
 }

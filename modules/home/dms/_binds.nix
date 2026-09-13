@@ -1,6 +1,7 @@
 {config, ...}: let
   inherit (config.homeManager.desktop) wallpaper;
   wallpaperName = builtins.baseNameOf (toString wallpaper);
+  homeDir = config.home.homeDirectory;
 
   dmsBinds = [
     {
@@ -53,27 +54,27 @@
     }
     {
       key = "SUPER + C";
-      command = "dms ipc call profile setImage $HOME/.face && dms ipc call dash toggle overview";
+      command = "dms ipc call profile setImage ${homeDir}/.face && dms ipc call dash toggle overview";
     }
     {
       key = "SUPER + SHIFT + C";
-      command = "dms ipc call profile setImage $HOME/.face && dms ipc call control-center toggle";
+      command = "dms ipc call profile setImage ${homeDir}/.face && dms ipc call control-center toggle";
     }
     {
       key = "SUPER + CTRL + C";
-      command = "dms ipc call profile setImage $HOME/.face && dms ipc call settings toggle";
+      command = "dms ipc call profile setImage ${homeDir}/.face && dms ipc call settings toggle";
     }
     {
       key = "SUPER + SHIFT + R";
-      command = "dms restart && sleep 1 && dms ipc call wallpaper set $HOME/Pictures/Wallpapers/${wallpaperName}";
+      command = "dms restart && sleep 3 && dms ipc call wallpaper set ${homeDir}/Pictures/Wallpapers/${wallpaperName}";
     }
     {
       key = "SUPER + CTRL + S";
-      command = "dms screenshot full -d ~/Pictures/Screenshots";
+      command = "dms screenshot full -d ${homeDir}/Pictures/Screenshots";
     }
     {
       key = "SUPER + SHIFT + S";
-      command = "dms screenshot -d ~/Pictures/Screenshots";
+      command = "dms screenshot -d ${homeDir}/Pictures/Screenshots";
     }
     {
       key = "SUPER + E";

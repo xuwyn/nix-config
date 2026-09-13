@@ -29,6 +29,7 @@
 
       programs.dank-material-shell = {
         enable = true;
+        package = pkgs.dms-shell;
         session = {
           wallpaperTransition = "random";
           wallpaperCyclingEnabled = true;

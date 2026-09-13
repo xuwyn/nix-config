@@ -6,7 +6,7 @@
     if bar == "noctalia"
     then [["noctalia &"]]
     else if bar == "dms"
-    then [["dms run -d && sleep 2 && dms ipc call wallpaper set $HOME/Pictures/Wallpapers/${wallpaperName}"]]
+    then [["dms run -d && sleep 2 && dms ipc call wallpaper set ${config.home.homeDirectory}/Pictures/Wallpapers/${wallpaperName}"]]
     else [];
 in {
   wayland.windowManager.niri.settings.spawn-sh-at-startup =

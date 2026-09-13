@@ -12,7 +12,7 @@
       hl.exec_cmd("noctalia &")''
     else if bar == "dms"
     then ''
-      hl.exec_cmd("dms run -d && sleep 2 && dms ipc call wallpaper set $HOME/Pictures/Wallpapers/${wallpaperName}")''
+      hl.exec_cmd("dms run -d && sleep 2 && dms ipc call wallpaper set ${config.home.homeDirectory}/Pictures/Wallpapers/${wallpaperName}")''
     else '''';
 in {
   wayland.windowManager.hyprland.settings = {

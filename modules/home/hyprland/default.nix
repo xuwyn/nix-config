@@ -3,7 +3,6 @@
     config,
     pkgs,
     lib,
-    inputs,
     ...
   }: {
     options.homeManager.hyprland = {
@@ -48,8 +47,6 @@
       wayland.windowManager.hyprland = {
         enable = true;
         configType = "lua";
-        package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
-        portalPackage = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
         systemd = {
           enable = true;
           enableXdgAutostart = true;
@@ -159,12 +156,7 @@
               no_update_news = false;
             };
 
-            render = {
-              # Disabling as no longer supported
-              #explicit_sync = 1; # Change to 1 to disable
-              #explicit_sync_kms = 1;
-              direct_scanout = 0;
-            };
+            render.direct_scanout = 0;
 
             master = {
               new_status = "slave";
