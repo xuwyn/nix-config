@@ -100,16 +100,13 @@ thanks to the nixpkgs maintainers, as well as the authors and contributors of al
 
 ### References
 
-- **[Zaney/zaneyos](https://gitlab.com/Zaney/zaneyos):** Best starting point for beginners (especially for non-coders like me 🥲)
-- **[linusammon/nixos-config](https://github.com/linusammon/nixos-config):** Tips to migrate away from `flake-parts` and `import-tree`
-- **[iynaix/dotfiles](https://github.com/iynaix/dotfiles):** where I learned about cool stuffs like `tack`, `nvfetcher`, `nix repl`, `nixpkgs-multiverse`
-- **[iStellanova/Stellyrland](https://github.com/iStellanova/Stellyrland):** Tips to set up `preservation` and `homebrew`
-- **[rysieko.pl/nixossmth](https://tangled.org/rysieko.pl/nixossmth):** Tips to set up `preservation`
+- **[linusammon/nixos-config](https://github.com/linusammon/nixos-config):** Migrate away from `flake-parts` and `import-tree`
+- **[iynaix/dotfiles](https://github.com/iynaix/dotfiles):** Helpful tools like `tack`, `nvfetcher`, `nix repl`, `nixpkgs-multiverse`
+- **[iStellanova/Stellyrland](https://github.com/iStellanova/Stellyrland):** Set up `preservation`, `homebrew` and `OmniWM`
+- **[rysieko.pl/nixossmth](https://tangled.org/rysieko.pl/nixossmth):** Set up `preservation`
 - **[eljangus/nixos](https://github.com/eljangus/nixos):** Pretty cursor and fastfetch themes
-- **[samiser/nix-configs](https://github.com/samiser/nix-configs):** Self-host cache with Attic
+- **[samiser/nix-configs](https://github.com/samiser/nix-configs):** Self-host cache with `attic` and CI cache push
 - **[LucasOe/nixos-config](https://github.com/LucasOe/nixos-config):** Home Manager globbing mimeApps
-- **[Doc-Steve/dendritic-design-with-flake-parts](https://github.com/Doc-Steve/dendritic-design-with-flake-parts):** Guide to setup dendritic pattern
-- **[Vortriz/dotfiles](https://github.com/Vortriz/dotfiles):** Custom zed theme using stylix colors
-- **[AlexNabokikh/nix-config](https://github.com/AlexNabokikh/nix-config):** Simple dendritic structure
-- **[MatthiasBenaets/nix-config](https://github.com/MatthiasBenaets/nix-config):** Dev shell layout and Aerospace WM
 - **[Baitinq/nixos-config](https://github.com/Baitinq/nixos-config):** Remote deployment with `deploy-rs`
+- **[Zaney/zaneyos](https://gitlab.com/Zaney/zaneyos):** My starting point (non-dendritic flake)
+- **[Doc-Steve/dendritic-design-with-flake-parts](https://github.com/Doc-Steve/dendritic-design-with-flake-parts):** Guide to setup dendritic pattern
