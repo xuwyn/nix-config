@@ -16,7 +16,6 @@
           dejavu_fonts
           maple-mono.NF
           nerd-fonts.jetbrains-mono
-          nerd-fonts.noto
           noto-fonts
           noto-fonts-monochrome-emoji
           noto-fonts-color-emoji

@@ -29,7 +29,7 @@
       home.packages = with pkgs;
         [
           maple-mono.NF
-          nerd-fonts.noto
+          nerd-fonts.jetbrains-mono
           noto-fonts
           noto-fonts-monochrome-emoji
           noto-fonts-color-emoji

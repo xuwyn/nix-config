@@ -4,7 +4,6 @@
     config,
     lib,
     flake,
-    inputs,
     ...
   }: {
     options.homeManager.noctalia._module_marker = lib.mkOption {
@@ -16,13 +15,10 @@
       description = "Internal: marks that this module was imported. Do not set manually.";
     };
 
-    imports = [inputs.noctalia.homeModules.default];
-
     config = {
       home.packages = [pkgs.evtest]; # for bongocat
       programs.noctalia = {
         enable = true;
-        package = inputs.noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default;
         systemd.enable = true;
         settings = {
           bar.default = {
