@@ -27,17 +27,17 @@
     "type": "github",
     "owner": "AvengeMedia",
     "repo": "DankMaterialShell",
-    "rev": "0bbe83380c9406d262d567581d64477d261c9ee5",
-    "narHash": "sha256-E4KUauS30dL2R/n/yABNENdTehhT+qHV7uemd/jxQfU=",
-    "lastModified": 1788454433
+    "rev": "fe293b7379a51f62a4db7043fc09df71f78e72ef",
+    "narHash": "sha256-MAbxGEomcpGomFfw+WYurNkSKBIh7PKEc1U5OV0X6oU=",
+    "lastModified": 1788959433
   },
   "dms-plugin-registry": {
     "type": "github",
     "owner": "AvengeMedia",
     "repo": "dms-plugin-registry",
-    "rev": "97b02e11746d6772874a20ef3b1f79f74ae24b3a",
-    "narHash": "sha256-xw1vLBbV2/y3W7ZFWwkFm2vGjbNk8FlomxiofZlGow8=",
-    "lastModified": 1789170735
+    "rev": "2ce695acf096e7ebc4d702e0e5af62f414d0fae7",
+    "narHash": "sha256-kc6sjFmtqh3mtJTXZWdV9AiTXjz/8wMcJUHal7TMUrw=",
+    "lastModified": 1789260507
   },
   "home-manager": {
     "type": "github",

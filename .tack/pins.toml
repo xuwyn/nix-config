@@ -69,12 +69,10 @@ exclude_follow = ["nixpkgs"]
 url = "github:nix-community/stylix"
 
 [inputs.dms]
-url = "github:AvengeMedia/DankMaterialShell/v1.6.0"
-exclude_follow = ["nixpkgs"]
+url = "github:AvengeMedia/DankMaterialShell/stable"
 
 [inputs.dms-plugin-registry]
 url = "github:AvengeMedia/dms-plugin-registry"
-exclude_follow = ["nixpkgs"]
 
 [inputs.nixvim]
 url = "github:nix-community/nixvim"
