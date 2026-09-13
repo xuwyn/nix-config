@@ -97,5 +97,26 @@
             "type": "github"
         },
         "version": "v0.1.6"
+    },
+    "waydroid-script": {
+        "cargoLock": null,
+        "date": "2026-09-11",
+        "extract": null,
+        "name": "waydroid-script",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "casualsnek",
+            "repo": "waydroid_script",
+            "rev": "48dbfaf34a6ddbe78688c530f9ba1c26522aafb2",
+            "sha256": "sha256-UBbnYhiRCf4sMwpEDMlpJuTEsN66B2hZ8BPz6cCGXAc=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "48dbfaf34a6ddbe78688c530f9ba1c26522aafb2"
     }
 }

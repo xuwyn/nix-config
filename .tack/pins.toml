@@ -101,10 +101,6 @@ url = "github:Mic92/sops-nix"
 [inputs.nur]
 url = "github:nix-community/NUR"
 
-[inputs.nixcord]
-url = "github:FlameFlag/nixcord"
-exclude_follow = ["nixpkgs"]
-
 [inputs.spicetify-nix]
 url = "github:Gerg-L/spicetify-nix"
 exclude_follow = ["nixpkgs"]
@@ -135,11 +131,14 @@ url = "github:greyxp1/ncr"
 [inputs.vellum]
 url = "github:greyxp1/vellum"
 
-[inputs.tack]
-url = "github:manic-systems/tack"
-
 [inputs.deploy-rs]
-url = "github:serokell/deploy-rs"
+url = "github:serokell/deploy-rs/16901271e5b30b591e56f7a84f25f186fb20f3e1"
 
 [inputs.rs-key]
 url = "github:TheMaxMur/RS-Key"
+
+[inputs.multiverse]
+url = "github:fzakaria/nixpkgs-multiverse"
+
+[inputs.nixcord]
+url = "github:4evy/nixcord"

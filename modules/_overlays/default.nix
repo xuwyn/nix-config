@@ -1,37 +1,25 @@
-{inputs, ...}: [
+{inputs, ...}: let
+  multiverseOverlays = pkgs: final: prev:
+    builtins.listToAttrs (map
+      (p: {
+        name = p.name;
+        value = inputs.multiverse.multiverse.${final.stdenv.hostPlatform.system}.version p.name p.version;
+      })
+      pkgs);
+in [
+  (multiverseOverlays [
+    {
+      # This is fixed upstream not released on nixpkgs yet (2026-09-12)
+      name = "xwayland-satellite";
+      version = "0.8.1";
+    }
+  ])
+
   # nvfetcher sources
   (final: prev: {
     sources = import ../../_sources/generated.nix {
       inherit (final) fetchFromGitHub fetchurl fetchgit dockerTools;
     };
-  })
-
-  (
-    # xwayland-satellite breaks steam dropdown menu (2026-09-03)
-    final: prev: let
-      xwaylandSatelliteSrc = final.fetchFromGitHub {
-        owner = "Supreeeme";
-        repo = "xwayland-satellite";
-        rev = "a879e5e0896a326adc79c474bf457b8b99011027";
-        hash = "sha256-wToKwH7IgWdGLMSIWksEDs4eumR6UbbsuPQ42r0oTXQ=";
-      };
-    in {
-      xwayland-satellite = prev.xwayland-satellite.overrideAttrs (old: {
-        src = xwaylandSatelliteSrc;
-        cargoDeps = final.rustPlatform.importCargoLock {
-          lockFile = "${xwaylandSatelliteSrc}/Cargo.lock";
-        };
-      });
-    }
-  )
-
-  # upstream hash mismatch, should be good to remove in a week (2026-09-04)
-  (final: prev: {
-    equicord = prev.equicord.overrideAttrs (old: {
-      pnpmDeps = old.pnpmDeps.overrideAttrs (_: {
-        outputHash = "sha256-WdSowp/yuPokdU7Sv/XBQOo/0JPs9AA5LRq6dx57Uyk=";
-      });
-    });
   })
 
   # Firefox addons

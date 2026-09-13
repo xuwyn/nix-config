@@ -69,4 +69,16 @@
       };
     };
   };
+  waydroid-script = {
+    pname = "waydroid-script";
+    version = "48dbfaf34a6ddbe78688c530f9ba1c26522aafb2";
+    src = fetchFromGitHub {
+      owner = "casualsnek";
+      repo = "waydroid_script";
+      rev = "48dbfaf34a6ddbe78688c530f9ba1c26522aafb2";
+      fetchSubmodules = false;
+      sha256 = "sha256-UBbnYhiRCf4sMwpEDMlpJuTEsN66B2hZ8BPz6cCGXAc=";
+    };
+    date = "2026-09-11";
+  };
 }

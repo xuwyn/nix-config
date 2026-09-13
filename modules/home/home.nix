@@ -20,15 +20,14 @@
       sessionVariables = {
         TACK_NIX_CONF_TOKENS = "1";
       };
-      packages = [
-        inputs.tack.packages.${pkgs.stdenv.hostPlatform.system}.default
-        pkgs.nvfetcher
+      packages = with pkgs; [
+        tack
+        nvfetcher
+        inputs.multiverse.packages.${pkgs.stdenv.hostPlatform.system}.mvs
       ];
     };
-
-    programs.home-manager.enable = true;
-
     programs = {
+      home-manager.enable = true;
       nix-index.enable = true;
       nix-index-database.comma.enable = true;
     };

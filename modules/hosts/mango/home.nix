@@ -6,7 +6,7 @@ in {
     username = "wyn";
     modules = with config.modules.homeManager;
       [nix-settings home sops ssh deploy attic syncthing]
-      ++ [cli terminals apps editors desktop xdg theme niri noctalia thunar yazi]
+      ++ [cli terminals apps editors desktop xdg theme niri noctalia thunar yazi maa]
       ++ [
         (_: {
           homeManager = {

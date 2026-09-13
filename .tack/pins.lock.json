@@ -11,9 +11,9 @@
     "type": "github",
     "owner": "serokell",
     "repo": "deploy-rs",
-    "rev": "414ac5f35d79aabe5a0bf52451d8cf61eadf6c88",
-    "narHash": "sha256-qb9sL86UCUEd3SYAda4ItN1NV0vhMSdbpA64WckvVI0=",
-    "lastModified": 1788879443
+    "rev": "16901271e5b30b591e56f7a84f25f186fb20f3e1",
+    "narHash": "sha256-IxaZkb9rCGEZ+yGndxKXONeIEcKMzoFUsvLTB5G/caw=",
+    "lastModified": 1786361680
   },
   "disko": {
     "type": "github",
@@ -87,6 +87,14 @@
     "narHash": "sha256-AhQbhkLLdo+34IPn8b8Uino2HYbiisBSU5OHvIe+elw=",
     "lastModified": 1787395013
   },
+  "multiverse": {
+    "type": "github",
+    "owner": "fzakaria",
+    "repo": "nixpkgs-multiverse",
+    "rev": "42f7c1a841ef59db94001175ec8bd897ad0d1c7b",
+    "narHash": "sha256-nJUM/VbN/vpaLH5SoqD2lhF/BQi28UJ9xsHce8d0zYI=",
+    "lastModified": 1789237730
+  },
   "ncr": {
     "type": "github",
     "owner": "greyxp1",
@@ -145,11 +153,11 @@
   },
   "nixcord": {
     "type": "github",
-    "owner": "FlameFlag",
+    "owner": "4evy",
     "repo": "nixcord",
-    "rev": "18cbaf44db84ff3fab939e1346720f1fcee7c43a",
-    "narHash": "sha256-u4rOhYDh+SwbcrPnW7u0pFH8Jl/+8myFj6Br0jlC/PQ=",
-    "lastModified": 1789180639
+    "rev": "bcd64126461f68e4107c64761dd6e5310d800d18",
+    "narHash": "sha256-7U8PDAm7XsUE5tKqToLW1vFUnrf3RPu/VAwqFeaPE+Q=",
+    "lastModified": 1789204800
   },
   "nixos-raspberrypi": {
     "type": "github",
@@ -252,14 +260,6 @@
     "rev": "5e3809851f486e7fc7e84b40f174c74b60ecc784",
     "narHash": "sha256-DkkJSBOXWV/mja5Vy8az5g1KpZlsbUwlmH0BsQhowaQ=",
     "lastModified": 1787771653
-  },
-  "tack": {
-    "type": "github",
-    "owner": "manic-systems",
-    "repo": "tack",
-    "rev": "d9c0516ff654c8a48dd4294dd183db51154ffad2",
-    "narHash": "sha256-GxJX6df+SqpZv3fkH+5oLQOVT/wI5CovnMaGGhtpvT0=",
-    "lastModified": 1789107241
   },
   "vellum": {
     "type": "github",
