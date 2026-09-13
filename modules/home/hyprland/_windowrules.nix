@@ -170,14 +170,6 @@
     }
 
     {
-      name = "rofi";
-      match = {
-        class = "^([Rr]ofi)$";
-      };
-      tag = "+settings";
-    }
-
-    {
       name = "FileRoller";
       match = {
         class = "^(file-roller|org.gnome.FileRoller)$";

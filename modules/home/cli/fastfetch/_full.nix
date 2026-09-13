@@ -55,13 +55,6 @@ in {
     }
     {
       type = "command";
-      key = " ├  ";
-      keyColor = colors.wm;
-      text = "polybar -v | head -n 1";
-      outputColor = colors.wm;
-    }
-    {
-      type = "command";
       key = " ├ 󰏒 ";
       keyColor = colors.wm;
       text = "noctalia --version";
