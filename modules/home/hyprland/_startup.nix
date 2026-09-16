@@ -5,7 +5,6 @@
 }: let
   inherit (config.homeManager.desktop) bar wallpaper startupCommands;
   wallpaperName = builtins.baseNameOf (toString wallpaper);
-
   barExec =
     if bar == "noctalia"
     then ''

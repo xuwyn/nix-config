@@ -19,7 +19,6 @@
         speed = 7;
         bezier = "Bezier";
       }
-
       {
         leaf = "windowsOut";
         enabled = true;
@@ -27,28 +26,24 @@
         bezier = "default";
         style = "popin 80%";
       }
-
       {
         leaf = "border";
         enabled = true;
         speed = 10;
         bezier = "default";
       }
-
       {
         leaf = "borderangle";
         enabled = true;
         speed = 8;
         bezier = "default";
       }
-
       {
         leaf = "fade";
         enabled = true;
         speed = 7;
         bezier = "default";
       }
-
       {
         leaf = "workspaces";
         enabled = true;
