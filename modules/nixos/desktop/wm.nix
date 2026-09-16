@@ -11,6 +11,7 @@
     options.nixos.desktop = {
       hyprland.enable = lib.mkEnableOption "Enable Hyprland WM";
       niri.enable = lib.mkEnableOption "Enable Niri WM";
+      umbriel.enable = lib.mkEnableOption "Enable Umbriel WM";
     };
     imports = [inputs.niri-nix.nixosModules.default];
     config = {
@@ -25,6 +26,7 @@
           withUWSM = cfg.niri.enable;
           package = pkgs.niri;
         };
+        umbriel.enable = cfg.umbriel.enable;
       };
     };
   };

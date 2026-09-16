@@ -19,7 +19,7 @@ in {
       name = mkOption {
         type = types.str;
         readOnly = true;
-        default = baseNameOf config.homeRelativePath;
+        default = baseNameOf config.flake.homeRelativePath;
         description = "Flake directory name, derived from flake.homeRelativePath";
       };
     };

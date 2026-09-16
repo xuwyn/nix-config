@@ -81,10 +81,6 @@ url = "github:nix-community/nixvim"
 url = "git+https://codeberg.org/BANanaD3V/niri-nix"
 exclude_follow = ["nixpkgs"]
 
-[inputs.zed]
-url = "github:zed-industries/zed"
-exclude_follow = ["nixpkgs"]
-
 [inputs.sops-nix]
 url = "github:Mic92/sops-nix"
 
@@ -132,3 +128,7 @@ url = "github:fzakaria/nixpkgs-multiverse"
 
 [inputs.nixcord]
 url = "github:4evy/nixcord"
+
+[inputs.umbriel]
+url = "github:noctalia-dev/umbriel"
+exclude_follow = ["nixpkgs"]

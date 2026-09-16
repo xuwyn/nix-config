@@ -88,7 +88,7 @@
     command = "noctalia msg brightness-up";
   }
   {
-    key = "SUPER + L";
+    key = "SUPER + ALT + L";
     command = "noctalia msg session lock";
   }
 ]

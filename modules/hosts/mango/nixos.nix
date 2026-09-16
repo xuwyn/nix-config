@@ -5,6 +5,7 @@
       [./_disko.nix nix-settings preservation drivers boot hardware network zram]
       ++ [system users desktop apps services sops tailscale deploy attic binfmt rs-key]
       ++ [
+        ({pkgs, ...}: {boot.kernelPackages = pkgs.cachyosKernels.linuxPackages-cachyos-bore-lto-zen4;})
         ({pkgs, ...}: {
           nixos = {
             zram.tmpMaxSize = "4096";
@@ -17,10 +18,6 @@
                 nvidiaBusId = "PCI:1:0:0";
                 amdgpuBusId = "PCI:15:0:0";
               };
-            };
-            boot.cachyOSKernel = {
-              enable = true;
-              package = pkgs.cachyosKernels.linuxPackages-cachyos-bore-lto-zen4;
             };
             users = {
               wyn = {
@@ -59,7 +56,7 @@
                 enable = true;
                 mode = "silent";
               };
-              niri.enable = true;
+              umbriel.enable = true;
               fonts.enable = true;
               thunar.enable = true;
               utils.enable = true;

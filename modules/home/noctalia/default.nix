@@ -314,7 +314,7 @@
             source = "wallpaper";
             wallpaper_scheme = "m3-tonal-spot";
             templates = {
-              builtin_ids = ["btop" "cava" "gtk3" "gtk4" "ghostty" "hyprland" "kitty" "niri" "qt"];
+              builtin_ids = ["btop" "cava" "gtk3" "gtk4" "ghostty" "hyprland" "kitty" "niri" "umbriel" "qt"];
               community_ids = ["pywalfox" "discord" "zed"];
               user."nvim-base16" = {
                 input_path = "~/.config/nvim/lua/matugen-template.lua";

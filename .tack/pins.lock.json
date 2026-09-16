@@ -245,6 +245,14 @@
     "narHash": "sha256-DkkJSBOXWV/mja5Vy8az5g1KpZlsbUwlmH0BsQhowaQ=",
     "lastModified": 1787771653
   },
+  "umbriel": {
+    "type": "github",
+    "owner": "noctalia-dev",
+    "repo": "umbriel",
+    "rev": "186ce23cd8f48e16e8e1e3dabc49527a38c12b84",
+    "narHash": "sha256-d/QycjvF+AOmCNHw69sCxGbFfdkOhNbPYeT0WVllqNA=",
+    "lastModified": 1789438928
+  },
   "vellum": {
     "type": "github",
     "owner": "greyxp1",
@@ -252,13 +260,5 @@
     "rev": "6f427b7b9b76b9bad6f471ed51b9808ea60dd98e",
     "narHash": "sha256-sEhKQUjgiFcV3tFqjWtb1Pp+fO2hGZ6/1S69rC1ELQQ=",
     "lastModified": 1789139556
-  },
-  "zed": {
-    "type": "github",
-    "owner": "zed-industries",
-    "repo": "zed",
-    "rev": "a7c7219d5bfd0fa7c59edb7198b6c26a58ba6116",
-    "narHash": "sha256-bh8I0xHpW0Ngwbdml3otHrZRAfNWi7WwHct59J5VEpI=",
-    "lastModified": 1789191485
   }
 }
