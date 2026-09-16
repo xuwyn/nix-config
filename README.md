@@ -13,16 +13,23 @@ so most features are in Home Manager for portability.
 ## Previews
 
 <details>
+<summary>Umbriel + Noctalia</summary>
+
+<img src="https://media.githubusercontent.com/media/xuwyn/nix-config/main/assets/previews/umbriel-noctalia.png" width="100%" />
+
+</details>
+
+<details>
 <summary>Niri + Noctalia</summary>
 
-<img src="https://media.githubusercontent.com/media/xuwyn/nix-config/refs/heads/main/assets/previews/niri-noctalia.png" width="100%" />
+<img src="https://media.githubusercontent.com/media/xuwyn/nix-config/main/assets/previews/niri-noctalia.png" width="100%" />
 
 </details>
 
 <details>
 <summary>Hyprland + DankMaterialShell</summary>
 
-<img src="https://media.githubusercontent.com/media/xuwyn/nix-config/refs/heads/main/assets/previews/hyprland-dms.png" width="100%" />
+<img src="https://media.githubusercontent.com/media/xuwyn/nix-config/main/assets/previews/hyprland-dms.png" width="100%" />
 
 </details>
 
@@ -84,13 +91,13 @@ since they are a bit overkill for what I need.
 
 ## Hosts
 
-| Host                                  | Platform         | OS      | Config          | DE                                                                 |
-| ------------------------------------- | ---------------- | ------- | --------------- | ------------------------------------------------------------------ |
-| [apricot](./modules/hosts/apricot/)   | `aarch64-darwin` | MacOS   | `darwin`+`home` | [OmniWM](https://github.com/BarutSRB/OmniWM)                       |
-| [capybara](./modules/hosts/capybara/) | `x86_64-linux`   | CachyOS | `home`          | Hyprland + [DMS](https://github.com/AvengeMedia/DankMaterialShell) |
+| Host                                  | Platform         | OS      | Config          | DE                                                                                                        |
+| ------------------------------------- | ---------------- | ------- | --------------- | --------------------------------------------------------------------------------------------------------- |
+| [apricot](./modules/hosts/apricot/)   | `aarch64-darwin` | MacOS   | `darwin`+`home` | [OmniWM](https://github.com/BarutSRB/OmniWM)                                                              |
+| [capybara](./modules/hosts/capybara/) | `x86_64-linux`   | CachyOS | `home`          | Hyprland + [DMS](https://github.com/AvengeMedia/DankMaterialShell)                                        |
 | [lettuce](./modules/hosts/lettuce/)   | `x86_64-linux`   | WSL     | `nixos`         |
-| [mango](./modules/hosts/mango/)       | `x86_64-linux`   | NixOS   | `nixos`+`home`  | Niri + [Noctalia](https://github.com/noctalia-dev/noctalia)        |
-| [puffin](./modules/hosts/puffin/)     | `aarch64-linux`  | NixOS   | `nixos`         |                                                                    |
+| [mango](./modules/hosts/mango/)       | `x86_64-linux`   | NixOS   | `nixos`+`home`  | [Umbriel](https://github.com/noctalia-dev/umbriel) + [Noctalia](https://github.com/noctalia-dev/noctalia) |
+| [puffin](./modules/hosts/puffin/)     | `aarch64-linux`  | NixOS   | `nixos`         |                                                                                                           |
 
 ## Acknowledgement
 

@@ -22,22 +22,25 @@
         systemd.enable = true;
         settings = {
           bar.default = {
-            background_opacity = 0.65;
+            background_opacity = 1;
             capsule = true;
             capsule_border = "primary";
             capsule_foreground = "primary";
-            start = ["workspaces" "media" "audio_visualizer"];
-            center = ["group:g3"];
+            start = ["launcher" "workspaces" "media"];
+            center = ["audio_visualizer" "spacer_0" "group:g3" "spacer_0" "audio_visualizer"];
             end = ["recorder" "todo" "nix-monitor" "group:g1" "group:g2"];
             font_family = "Maple Mono NF";
             margin_edge = 0;
-            margin_ends = 20;
+            margin_ends = 0;
             padding = 6;
             panel_overlap = 0;
             radius = 20;
-            radius_top_left = 8;
-            radius_top_right = 8;
+            radius_bottom_left = 10;
+            radius_bottom_right = 10;
+            radius_top_left = 0;
+            radius_top_right = 0;
             shadow = false;
+            thickness = 32;
             capsule_group = [
               {
                 border = "primary";
@@ -192,6 +195,7 @@
               // (mkPerMonitorWidgets "lockscreen-audio-visualizer" lockscreenAudioVisualizer);
           };
           plugin_settings = {
+            "noctalia/screen_recorder".video_encoder = "cpu"; # nvidia driver is a bit behind
             "avivbintangaringga/nix-monitor" = {
               clean_command = "nh clean all";
               update_command = "cd ~/${flake.homeRelativePath} && tack update";
@@ -253,7 +257,7 @@
             };
             screen_corners = {
               enabled = true;
-              size = 40;
+              size = 20;
             };
             session.actions = [
               {
@@ -331,9 +335,10 @@
             };
           };
           widget = {
+            spacer_0.type = "spacer";
             audio_visualizer = {
               centered = false;
-              width = 100.0;
+              width = 120;
             };
             cat = {
               audio_spectrum = true;
