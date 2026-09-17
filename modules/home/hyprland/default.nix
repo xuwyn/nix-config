@@ -14,10 +14,6 @@
         visible = false;
         description = "Internal: marks that this module was imported. Do not set manually.";
       };
-      barThemeEnabled = lib.mkOption {
-        type = lib.types.bool;
-        default = config.homeManager.desktop.barThemeEnabled or false;
-      };
     };
 
     imports = [

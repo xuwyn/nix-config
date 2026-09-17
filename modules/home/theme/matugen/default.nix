@@ -101,10 +101,6 @@
             input_path = ./templates/nvim.lua;
             output_path = ["$HOME/.config/nvim/lua/matugen-colors.lua"];
           };
-          hyprland = {
-            input_path = ./templates/hyprland-colors.lua;
-            output_path = ["$HOME/.config/hypr/matugen.lua"];
-          };
           gtk3 = {
             input_path = ./templates/gtk-colors.css;
             output_path = ["$HOME/.config/gtk-3.0/matugen-colors.css"];
@@ -163,9 +159,6 @@
         ".config/nvim/lua/matugen-colors.lua" = lib.mkIf (homeModules ? editors
           && homeModules.editors.nixvim.enable) {
           source = "${matugenDir}/.config/nvim/lua/matugen-colors.lua";
-        };
-        ".config/hypr/matugen.lua" = lib.mkIf (homeModules ? hyprland) {
-          source = "${matugenDir}/.config/hypr/matugen.lua";
         };
         ".config/gtk-3.0/matugen-colors.css" = lib.mkIf (homeModules ? theme
           && homeModules.theme.gtk.enable) {
