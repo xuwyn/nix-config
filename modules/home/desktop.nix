@@ -7,13 +7,13 @@
   }: let
     cfg = config.homeManager.desktop;
     isDarwin = pkgs.stdenv.hostPlatform.isDarwin;
-    activeWM = lib.filter (n: config.homeManager.${n}._module_marker or false) ["hyprland" "niri" "umbriel" "omniwm"];
+    activeWM = lib.filter (n: config.homeManager.${n}._module_marker or false) ["hyprland" "umbriel" "omniwm"];
     activeBar = lib.filter (n: config.homeManager.${n}._module_marker or false) ["noctalia" "dms"];
   in {
     # Placeholders for desktop environments
     options.homeManager.desktop = {
       wm = lib.mkOption {
-        type = lib.types.nullOr (lib.types.enum ["hyprland" "niri" "umbriel" "omniwm"]);
+        type = lib.types.nullOr (lib.types.enum ["hyprland" "umbriel" "omniwm"]);
         default = lib.head (activeWM ++ [null]);
         readOnly = true;
         description = "Currently active window manager, derived from which WM module is imported.";

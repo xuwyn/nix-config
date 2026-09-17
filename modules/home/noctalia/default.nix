@@ -243,7 +243,6 @@
             screenshot.directory = "${config.home.homeDirectory}/Pictures/Screenshots";
             date_format = "%A, %Y %b %d";
             font_family = "Maple Mono NF";
-            niri_overview_type_to_launch_enabled = true;
             password_style = "random";
             polkit_agent = true;
             screen_time_enabled = true;
@@ -318,7 +317,7 @@
             source = "wallpaper";
             wallpaper_scheme = "m3-tonal-spot";
             templates = {
-              builtin_ids = ["btop" "cava" "gtk3" "gtk4" "ghostty" "hyprland" "kitty" "niri" "umbriel" "qt"];
+              builtin_ids = ["btop" "cava" "gtk3" "gtk4" "ghostty" "hyprland" "kitty" "umbriel" "qt"];
               community_ids = ["pywalfox" "discord" "zed"];
               user."nvim-base16" = {
                 input_path = "~/.config/nvim/lua/matugen-template.lua";

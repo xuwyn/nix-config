@@ -62,16 +62,9 @@ in {
     }
     {
       type = "command";
-      key = " ├  ";
+      key = " ├  ";
       keyColor = colors.wm;
       text = "dms version | cut -d'+' -f1";
-      outputColor = colors.wm;
-    }
-    {
-      type = "command";
-      key = " ├  ";
-      keyColor = colors.wm;
-      text = "caelestia --version | awk '/caelestia-shell/ {printf \"%s v%s\\n\",$1,$2; exit}'";
       outputColor = colors.wm;
     }
     {

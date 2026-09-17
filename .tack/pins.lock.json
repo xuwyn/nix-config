@@ -95,14 +95,6 @@
     "narHash": "sha256-InTctj5a8hDfIg5N6v+fXE8qxMHT+/cdGZIWRL8U/ps=",
     "lastModified": 1786878948
   },
-  "niri-nix": {
-    "type": "git",
-    "url": "https://codeberg.org/BANanaD3V/niri-nix",
-    "ref": "HEAD",
-    "rev": "6cf8c98bdf186587870f75157390cc9562681da2",
-    "narHash": "sha256-lB48JnQXwiTSGYFRXPLPCv9FKfdcxToLhyKu2zGioBc=",
-    "lastModified": 1789084948
-  },
   "nix-cachyos-kernel": {
     "type": "github",
     "owner": "xddxdd",

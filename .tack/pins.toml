@@ -77,10 +77,6 @@ url = "github:AvengeMedia/dms-plugin-registry"
 [inputs.nixvim]
 url = "github:nix-community/nixvim"
 
-[inputs.niri-nix]
-url = "git+https://codeberg.org/BANanaD3V/niri-nix"
-exclude_follow = ["nixpkgs"]
-
 [inputs.sops-nix]
 url = "github:Mic92/sops-nix"
 

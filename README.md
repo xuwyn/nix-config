@@ -20,13 +20,6 @@ so most features are in Home Manager for portability.
 </details>
 
 <details>
-<summary>Niri + Noctalia</summary>
-
-<img src="https://media.githubusercontent.com/media/xuwyn/nix-config/main/assets/previews/niri-noctalia.png" width="100%" />
-
-</details>
-
-<details>
 <summary>Hyprland + DankMaterialShell</summary>
 
 <img src="https://media.githubusercontent.com/media/xuwyn/nix-config/main/assets/previews/hyprland-dms.png" width="100%" />
