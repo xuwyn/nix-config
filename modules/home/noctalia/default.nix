@@ -204,11 +204,12 @@
             "yocraft/web-launcher" = {
               icon_provider = "duckduckgo";
               links = [
+                "Umbriel|https://docs.noctalia.dev/umbriel/"
+                "Hyprland|https://wiki.hypr.land/"
                 "Noctalia|https://docs.noctalia.dev/v5/"
                 "DankMaterialShell|https://danklinux.com/docs/"
                 "GitHub|https://github.com"
                 "GitLab|https://gitlab.com"
-                "Codeberg|https://codeberg.org"
                 "YouTube|https://youtube.com"
               ];
             };

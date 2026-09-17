@@ -13,19 +13,6 @@ jobs:
       contents: write
     steps:
       - uses: actions/checkout@v6
-
-      - name: Generate .netrc for tack
-        env:
-          CODEBERG_TOKEN: ${{ secrets.CODEBERG_TOKEN }}
-        run: |
-          set -Eeuo pipefail
-          {
-            echo "machine codeberg.org"
-            echo "login oauth2"
-            echo "password $CODEBERG_TOKEN"
-          } > "$HOME/.netrc"
-          chmod 600 "$HOME/.netrc"
-
       - uses: cachix/install-nix-action@v31
         with:
           extra_nix_config: |
