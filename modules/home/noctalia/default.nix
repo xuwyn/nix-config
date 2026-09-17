@@ -312,11 +312,9 @@
             network_poll_seconds = 1;
           };
           theme = {
-            builtin = "Ayu";
-            custom_palette = "m3-content";
             mode = "dark";
             source = "wallpaper";
-            wallpaper_scheme = "m3-tonal-spot";
+            wallpaper_scheme = "soft";
             templates = {
               builtin_ids = ["btop" "cava" "gtk3" "gtk4" "ghostty" "hyprland" "kitty" "umbriel" "qt"];
               community_ids = ["pywalfox" "discord" "zed"];

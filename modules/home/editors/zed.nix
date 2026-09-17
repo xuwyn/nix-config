@@ -33,14 +33,10 @@
 
       programs.zed-editor = {
         enable = true;
-        extensions = [
-          "nix"
-          "yaml"
-          "toml"
-          "lua"
-        ];
-
+        extensions = ["nix" "yaml" "toml" "lua"];
         userSettings = {
+          buffer_font_size = 10;
+          ui_font_size = 12;
           theme =
             if cfg.barThemeEnabled
             then barThemes.${bar}

@@ -27,7 +27,6 @@
   {
     match.title = ''^([Bb]top)$'';
     default_floating = true;
-    default_maximize = false;
     default_size = [942 800];
     default_position = {
       x = 0;
@@ -38,7 +37,6 @@
   {
     match.title = ''^([Yy]azi)$'';
     default_floating = true;
-    default_maximize = false;
     default_size = [942 709];
     default_position = {
       x = 0;
@@ -86,6 +84,12 @@
     match.app_id = ''^(waydroid\.com\.YoStarEN\.Arknights)$'';
     default_floating = false;
     default_size = [1600 900];
+  }
+  {
+    match.app_id = ''^(xdg-desktop-portal-gtk)$'';
+    default_floating = true;
+    default_size = [764 489];
+    opacity = 0.90;
   }
   {
     match = {
