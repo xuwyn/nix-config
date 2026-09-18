@@ -51,9 +51,6 @@ type = "fetch"
 url = "github:BarutSRB/homebrew-tap"
 type = "fetch"
 
-[inputs.nix-flatpak]
-url = "github:gmodena/nix-flatpak/latest"
-
 [inputs.nix-cachyos-kernel]
 url = "github:xddxdd/nix-cachyos-kernel/release"
 exclude_follow = ["nixpkgs"]

@@ -111,14 +111,6 @@
     "narHash": "sha256-oQFip+v0luP8NIxJzmiW4Wu8bILsbFWom5l0zonl8hQ=",
     "lastModified": 1786845137
   },
-  "nix-flatpak": {
-    "type": "github",
-    "owner": "gmodena",
-    "repo": "nix-flatpak",
-    "rev": "440818969ac2cbd77bfe025e884d0aa528991374",
-    "narHash": "sha256-7ZCulYUD9RmJIDULTRkGLSW1faMpDlPKcbWJLYHoXcs=",
-    "lastModified": 1767983141
-  },
   "nix-homebrew": {
     "type": "github",
     "owner": "zhaofengli",

@@ -48,7 +48,6 @@ in {
               nh.enable = true;
               tealdeer.enable = true;
               nix-search-tv.enable = true;
-              television.enable = true;
               search.enable = true;
               styling.enable = true;
               utils.enable = true;
