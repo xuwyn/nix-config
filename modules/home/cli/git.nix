@@ -73,9 +73,6 @@
           };
           gui = {
             theme = {
-              activeBorderColor = ["#89b4fa" "bold"];
-              inactiveBorderColor = ["#585b70"];
-              searchingActiveBorderColor = ["#94e2d5" "bold"];
               optionsTextColor = ["#89b4fa"];
               selectedLineBgColor = ["#45475a"];
               inactiveViewSelectedLineBgColor = ["bold"];

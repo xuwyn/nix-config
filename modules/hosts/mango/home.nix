@@ -21,15 +21,7 @@ in {
               barThemeEnabled = true;
               monitors = [
                 {
-                  name = "DP-2";
-                  width = 1920;
-                  height = 1080;
-                  x = 0;
-                  y = 0;
-                  refresh = 164.955;
-                }
-                {
-                  name = "DP-5";
+                  name = "DP-1";
                   width = 1920;
                   height = 1080;
                   x = 0;
