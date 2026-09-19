@@ -6,7 +6,6 @@
     ...
   }: let
     cfg = config.homeManager.theme.gtk;
-    matugenEnabled = config.programs.matugen.enable or false;
     bar = config.homeManager.desktop.bar or null;
     barThemes = {
       dms = "dank-colors.css";
@@ -36,34 +35,18 @@
               package = pkgs.adw-gtk3;
             };
             iconTheme = {
-              package =
-                if matugenEnabled
-                then config.homeManager.theme.matugen.papirusPackage
-                else pkgs.papirus-icon-theme;
+              package = pkgs.papirus-icon-theme;
               name = "Papirus-Dark";
             };
           }
-          // (
-            if cfg.barThemeEnabled
-            then {
-              gtk3.extraCss = ''
-                @import url("${barThemes.${bar}}");
-              '';
-              gtk4.extraCss = ''
-                @import url("${barThemes.${bar}}");
-              '';
-            }
-            else if matugenEnabled
-            then {
-              gtk3.extraCss = ''
-                @import url("matugen-colors.css");
-              '';
-              gtk4.extraCss = ''
-                @import url("matugen-colors.css");
-              '';
-            }
-            else {}
-          );
+          // lib.optionalAttrs cfg.barThemeEnabled {
+            gtk3.extraCss = ''
+              @import url("${barThemes.${bar}}");
+            '';
+            gtk4.extraCss = ''
+              @import url("${barThemes.${bar}}");
+            '';
+          };
       }
     ]);
   };

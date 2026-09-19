@@ -2,9 +2,7 @@
   config,
   inputs,
   ...
-}: let
-  wallpaper = ../../../assets/wallpapers/Amiya-Birthday-Skin-Promote.png;
-in {
+}: {
   home."wyn@apricot" = {
     system = "aarch64-darwin";
     username = "wyn";
@@ -55,14 +53,7 @@ in {
             };
             terminals.kitty.enable = true;
             desktop.fontSize = 10;
-            theme = {
-              fonts.enable = true;
-              matugen = {
-                enable = true;
-                inherit wallpaper;
-                cachedThemeFile = ./_theme.json;
-              };
-            };
+            theme.fonts.enable = true;
           };
         })
       ];

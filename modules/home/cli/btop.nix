@@ -6,13 +6,12 @@
     ...
   }: let
     cfg = config.homeManager.cli.btop;
-    matugenEnabled = config.programs.matugen.enable or false;
   in {
     options.homeManager.cli.btop = {
       enable = lib.mkEnableOption "Enable btop";
       theme = lib.mkOption {
         type = lib.types.str;
-        default = "";
+        default = "dracula";
         description = "Set theme for btop";
       };
     };
@@ -30,27 +29,21 @@
             }
           else pkgs.btop;
 
-        settings =
-          {
-            vim_keys = true;
-            rounded_corners = true;
-            proc_tree = true;
-            show_gpu_info = "on";
-            show_uptime = true;
-            show_coretemp = true;
-            cpu_sensor = "auto";
-            show_disks = true;
-            only_physical = true;
-            io_mode = true;
-            io_graph_combined = false;
-          }
-          // (
-            if cfg.theme != ""
-            then {color_theme = cfg.theme;}
-            else if matugenEnabled
-            then {color_theme = "matugen";}
-            else {color_theme = "dracula";}
-          );
+        settings = {
+          color_theme = cfg.theme;
+          theme_background = false;
+          vim_keys = true;
+          rounded_corners = true;
+          proc_tree = true;
+          show_gpu_info = "on";
+          show_uptime = true;
+          show_coretemp = true;
+          cpu_sensor = "auto";
+          show_disks = true;
+          only_physical = true;
+          io_mode = true;
+          io_graph_combined = false;
+        };
       };
     };
   };

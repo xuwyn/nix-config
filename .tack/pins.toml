@@ -58,10 +58,6 @@ exclude_follow = ["nixpkgs"]
 [inputs.nix-index-database]
 url = "github:nix-community/nix-index-database"
 
-[inputs.matugen]
-url = "github:InioX/Matugen"
-exclude_follow = ["nixpkgs"]
-
 [inputs.stylix]
 url = "github:nix-community/stylix"
 

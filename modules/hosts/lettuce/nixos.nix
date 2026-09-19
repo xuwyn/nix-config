@@ -4,7 +4,6 @@
   self,
   ...
 }: let
-  wallpaper = ../../../assets/wallpapers/IS-Mysterious_Banquet.png;
   username = "wyn";
 in {
   nixos.lettuce = {lib, ...}: {
@@ -88,11 +87,6 @@ in {
                 editors = {
                   nano.enable = true;
                   nixvim.enable = true;
-                };
-                theme.matugen = {
-                  enable = true;
-                  inherit wallpaper;
-                  cachedThemeFile = ./_theme.json;
                 };
               };
             };

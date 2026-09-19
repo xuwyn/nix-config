@@ -71,14 +71,6 @@
     "narHash": "sha256-7IteXipJZfFepi5zakxe0jQ5i3vRBQguk0+Gtte1Fu4=",
     "lastModified": 1783182903
   },
-  "matugen": {
-    "type": "github",
-    "owner": "InioX",
-    "repo": "Matugen",
-    "rev": "826e16b8f34402f67de86d9374bd6fd1040e7304",
-    "narHash": "sha256-AhQbhkLLdo+34IPn8b8Uino2HYbiisBSU5OHvIe+elw=",
-    "lastModified": 1787395013
-  },
   "multiverse": {
     "type": "github",
     "owner": "fzakaria",

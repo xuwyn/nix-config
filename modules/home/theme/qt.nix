@@ -5,7 +5,6 @@
     ...
   }: let
     cfg = config.homeManager.theme.qt;
-    matugenEnabled = config.programs.matugen.enable or false;
     bar = config.homeManager.desktop.bar or null;
 
     barThemes = {
@@ -16,8 +15,6 @@
     themeName =
       if cfg.barThemeEnabled
       then barThemes.${bar}
-      else if matugenEnabled
-      then "matugen-colors"
       else null;
 
     commonAppearance = {
@@ -41,13 +38,13 @@
 
         qt5ctSettings.Appearance =
           commonAppearance
-          // lib.optionalAttrs (themeName != null) {
+          // lib.optionalAttrs (themeName != null && cfg.barThemeEnabled) {
             color_scheme_path = "${config.xdg.configHome}/qt5ct/colors/${themeName}.conf";
           };
 
         qt6ctSettings.Appearance =
           commonAppearance
-          // lib.optionalAttrs (themeName != null) {
+          // lib.optionalAttrs (themeName != null && cfg.barThemeEnabled) {
             color_scheme_path = "${config.xdg.configHome}/qt6ct/colors/${themeName}.conf";
           };
       };

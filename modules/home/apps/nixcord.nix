@@ -7,7 +7,6 @@
     ...
   }: let
     cfg = config.homeManager.apps.nixcord;
-    matugenEnabled = config.programs.matugen.enable or false;
   in {
     options.homeManager.apps.nixcord = {
       enable = lib.mkEnableOption "Enble Nixcord";
@@ -27,12 +26,6 @@
           run ln -sf "$HOME/.config/Vencord/themes/dank-discord.css" "$HOME/.config/Equicord/themes/dank-discord.css"
         '';
       })
-      (lib.mkIf (matugenEnabled && pkgs.stdenv.hostPlatform.isDarwin) {
-        home.activation.linkVencordThemes = lib.hm.dag.entryAfter ["writeBoundary"] ''
-          run mkdir -p "$HOME/Library/Application Support/Equicord/themes"
-          run ln -sf "$HOME/.config/Equicord/themes/midnight-discord.css" "$HOME/Library/Application Support/Equicord/themes/midnight-discord.css"
-        '';
-      })
       {
         # Nixcord options: https://flameflag.github.io/nixcord/
         programs.nixcord = {
@@ -46,12 +39,8 @@
           # legcord.enable = true;
 
           config = {
-            enabledThemes =
-              if cfg.themes != []
-              then cfg.themes
-              else if matugenEnabled
-              then ["midnight-discord.css"]
-              else [];
+            enabledThemes = cfg.themes;
+            enabledThemeLinks = lib.optionals (cfg.themes == []) ["https://raw.githubusercontent.com/catppuccin/discord/main/themes/mocha.theme.css"];
             plugins = {
               alwaysAnimate.enable = true;
               betterGifAltText.enable = true;

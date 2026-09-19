@@ -89,12 +89,6 @@ in {
               nixvim.enable = true;
             };
             theme = {
-              matugen = {
-                enable = true;
-                inherit wallpaper;
-                cachedThemeFile = ./_theme.json;
-                type = "scheme-fidelity";
-              };
               cursor.enable = true;
               qt.enable = true;
               gtk.enable = true;

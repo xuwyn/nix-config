@@ -6,7 +6,6 @@
     ...
   }: let
     cfg = config.homeManager.cli.cava;
-    matugenEnabled = config.programs.matugen.enable or false;
   in {
     options.homeManager.cli.cava = {
       enable = lib.mkEnableOption "Enable cava";
@@ -29,7 +28,6 @@
               source = "BlackHole 2ch";
             }
             else {};
-
           general = {
             bar_spacing = 1;
             bar_width = 2;
@@ -38,8 +36,6 @@
           color =
             if cfg.theme != ""
             then {theme = cfg.theme;}
-            else if matugenEnabled
-            then {theme = "matugen";}
             else {
               # Catppuccin Macchiato default
               gradient = 1;

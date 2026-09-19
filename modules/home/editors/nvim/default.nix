@@ -7,7 +7,6 @@
     ...
   }: let
     cfg = config.homeManager.editors.nixvim;
-    matugenEnabled = config.programs.matugen.enable or false;
     bar = config.homeManager.desktop.bar or null;
 
     barThemes = {
@@ -19,32 +18,11 @@
       '';
     };
 
-    matugenTheme = ''
-      local matugen_path = vim.fn.stdpath("config") .. "/lua/matugen-colors.lua"
-      local function apply_matugen_theme()
-        if vim.uv.fs_stat(matugen_path) then
-          local ok, err = pcall(dofile, matugen_path)
-          if not ok then
-            vim.notify("Failed to load matugen theme: " .. tostring(err), vim.log.levels.ERROR)
-            return
-          end
-        end
-      end
-      apply_matugen_theme()
-      local signal = vim.uv.new_signal()
-      signal:start('sigusr1', vim.schedule_wrap(function()
-        vim.defer_fn(apply_matugen_theme, 50)
-      end))
-    '';
-
     themeInitLua =
       if cfg.barThemeEnabled
       then (barThemes.${bar} or "")
-      else if matugenEnabled
-      then matugenTheme
       else "";
 
-    customThemeEnabled = cfg.barThemeEnabled || matugenEnabled;
     noctaliaTemplateEnabled = bar == "noctalia";
   in {
     options.homeManager.editors.nixvim = {
@@ -94,7 +72,7 @@
           };
 
           colorschemes.catppuccin = {
-            enable = !customThemeEnabled;
+            enable = !cfg.barThemeEnabled;
             settings = {
               flavour = "mocha"; # "latte", "mocha", "frappe", "macchiato", "auto"
               transparent_background = true;
@@ -122,15 +100,6 @@
               enable = true;
               settings = {
                 options = {theme = "auto";};
-              };
-            };
-            bufferline = {
-              enable = false;
-              settings = {
-                options = {
-                  show_tab_indicators = false;
-                  show_close_icon = false;
-                };
               };
             };
             indent-blankline.enable = true;

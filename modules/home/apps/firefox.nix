@@ -9,7 +9,6 @@
   }: let
     cfg = config.homeManager.apps.firefox;
     bar = config.homeManager.desktop.bar or null;
-    matugenEnabled = config.programs.matugen.enable or false;
 
     nurExpressions = import inputs.nur-expressions {inherit pkgs;};
     buildMozillaXpiAddon = nurExpressions.lib.mozilla.mkBuildMozillaXpiAddon {
@@ -55,12 +54,6 @@
         home.activation.linkPywalfoxColors = lib.hm.dag.entryAfter ["writeBoundary"] ''
           run mkdir -p "$HOME/.cache/wal"
           run ln -sf "$HOME/.cache/wal/dank-pywalfox.json" "$HOME/.cache/wal/colors.json"
-        '';
-      })
-      (lib.mkIf (!cfg.barThemeEnabled && matugenEnabled) {
-        home.activation.linkPywalfoxColors = lib.hm.dag.entryAfter ["writeBoundary"] ''
-          run mkdir -p "$HOME/.cache/wal"
-          run ln -sf "$HOME/.cache/wal/matugen-colors.json" "$HOME/.cache/wal/colors.json"
         '';
       })
       {

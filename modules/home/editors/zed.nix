@@ -6,7 +6,6 @@
     ...
   }: let
     cfg = config.homeManager.editors.zed;
-    matugenEnabled = config.programs.matugen.enable or false;
     bar = config.homeManager.desktop.bar or null;
     barThemes = {
       noctalia = "Noctalia Dark Transparent";
@@ -40,8 +39,6 @@
           theme =
             if cfg.barThemeEnabled
             then barThemes.${bar}
-            else if matugenEnabled
-            then "Matugen Dark"
             else "Ayu Mirage";
 
           lsp.nil = {

@@ -96,11 +96,11 @@ curl -sL https://raw.githubusercontent.com/xuwyn/nix-config/main/scripts/fix-nix
 sudo sh /tmp/fix.sh; rm -f /tmp/fix.sh
 ```
 
-## Avoid IFD for Remote Deployment
+## Avoid IFD for Cross-Platform Deployment
 
 [deploy-rs](https://github.com/serokell/deploy-rs) cannot deploy configurations with
 [IFD](https://nix.dev/manual/nix/2.35/language/import-from-derivation#illustration) (build-during-eval)
-across different platforms (even with `remoteBuild` enabled) since it always runs `nix eval`
+across different platforms (even with `remoteBuild` enabled) since it always evaluates
 locally before building remotely (the local eval can't produce a derivation for a different platform).
 
 At the time of writing this (2026/08/13), the only module with IFD in my config is [matugen](https://github.com/InioX/matugen). The module
@@ -111,9 +111,9 @@ build/switch time. Unfortunately, `theme.colors` is embedded in quite a few of m
 (rather than a major refactoring) is the easier option.
 
 The patch works by adding another option, `cachedThemeFile`, to populate `programs.matugen.theme.colors`
-with a pre-generated theme file (see [\_patched-module.nix](../modules/home/theme/matugen/_patched-module.nix)).
+with a pre-generated theme file (see [\_patched-module.nix](https://github.com/xuwyn/nix-config/blob/29dfba834650393b264765a4ba9afe98e06b415b/modules/home/theme/matugen/_patched-module.nix)).
 To apply the patch, the upstream [module.nix](https://github.com/InioX/matugen/blob/133e410751c7c484a9fdddc299851d4494e59871/module.nix)
-is disabled and the patched module (as a local copy) is imported (see [matugen/default.nix](../modules/home/theme/matugen/default.nix)).
+is disabled and the patched module (as a local copy) is imported (see [matugen/default.nix](https://github.com/xuwyn/nix-config/blob/29dfba834650393b264765a4ba9afe98e06b415b/modules/home/theme/matugen/default.nix#L48)).
 It is done this way to avoid using IFD to patch an imported module, which defeats the whole purpose of the patch in the first place.
 
 ```nix

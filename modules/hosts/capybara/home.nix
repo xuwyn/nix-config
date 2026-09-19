@@ -69,11 +69,6 @@ in {
             };
             terminals.kitty.enable = true;
             theme = {
-              matugen = {
-                enable = true;
-                inherit wallpaper;
-                cachedThemeFile = ./_theme.json;
-              };
               fonts.enable = true;
               cursor.enable = true;
               qt.enable = true;

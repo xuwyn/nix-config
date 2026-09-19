@@ -6,7 +6,6 @@
     ...
   }: let
     cfg = config.homeManager.terminals.ghostty;
-    matugenEnabled = config.programs.matugen.enable or false;
     bar = config.homeManager.desktop.bar or null;
     ghostHome = "${config.xdg.configHome}/ghostty";
     shaderFile = "${ghostHome}/shaders/shader.glsl";
@@ -36,8 +35,6 @@
           (
             if cfg.barThemeEnabled
             then {theme = barThemes.${bar};}
-            else if matugenEnabled
-            then {theme = "matugen";}
             else {theme = "Catppuccin Mocha";}
           )
           // {
