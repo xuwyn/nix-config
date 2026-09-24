@@ -16,7 +16,12 @@
     };
 
     config = {
-      home.packages = [pkgs.evtest]; # for bongocat
+      home.packages = with pkgs; [
+        evtest # bongocat
+        grim # ocr
+        slurp # ocr
+        tesseract # ocr
+      ];
       programs.noctalia = {
         enable = true;
         systemd.enable = true;
@@ -26,9 +31,9 @@
             capsule = true;
             capsule_border = "primary";
             capsule_foreground = "primary";
-            start = ["launcher" "workspaces" "media"];
+            start = ["launcher" "workspaces" "media" "radio_2"];
             center = ["audio_visualizer" "spacer_0" "group:g3" "spacer_0" "audio_visualizer"];
-            end = ["recorder" "todo" "nix-monitor" "group:g1" "group:g2"];
+            end = ["group:g4" "todo" "bar" "nix-monitor" "group:g1" "group:g2"];
             font_family = "Maple Mono NF";
             margin_edge = 0;
             margin_ends = 0;
@@ -43,6 +48,8 @@
             thickness = 32;
             capsule_group = [
               {
+                accordion = false;
+                accordion_direction = "end";
                 border = "primary";
                 enabled = true;
                 fill = "surface_variant";
@@ -53,22 +60,38 @@
                 padding = 6.0;
               }
               {
+                accordion = true;
+                accordion_direction = "start";
                 border = "primary";
                 enabled = true;
                 fill = "surface_variant";
                 foreground = "primary";
                 id = "g2";
-                members = ["network" "bluetooth"];
+                members = ["network" "bar_2" "bluetooth"];
                 opacity = 1.0;
                 padding = 6.0;
               }
               {
+                accordion = false;
+                accordion_direction = "end";
                 border = "primary";
                 enabled = true;
                 fill = "surface_variant";
                 foreground = "primary";
                 id = "g3";
                 members = ["tray" "notifications" "clock" "cat"];
+                opacity = 1.0;
+                padding = 6.0;
+              }
+              {
+                accordion = true;
+                accordion_direction = "start";
+                border = "primary";
+                enabled = true;
+                fill = "surface_variant";
+                foreground = "primary";
+                id = "g4";
+                members = ["recorder" "ocr"];
                 opacity = 1.0;
                 padding = 6.0;
               }
@@ -206,7 +229,7 @@
               links = [
                 "Umbriel|https://docs.noctalia.dev/umbriel/"
                 "Hyprland|https://wiki.hypr.land/"
-                "Noctalia|https://docs.noctalia.dev/v5/"
+                "Noctalia|https://docs.noctalia.dev/noctalia/"
                 "DankMaterialShell|https://danklinux.com/docs/"
                 "GitHub|https://github.com"
                 "GitLab|https://gitlab.com"
@@ -217,7 +240,6 @@
           plugins = {
             enabled = [
               "noctalia/screen_recorder"
-              "noctalia/wallhaven"
               "noctalia/bongocat"
               "noctalia/notes"
               "noctalia/kaomoji"
@@ -225,6 +247,12 @@
               "avivbintangaringga/nix-monitor"
               "nightwatch75/todo"
               "yocraft/web-launcher"
+              "noctalia/world_clock"
+              "nilsonlinux/world-radio"
+              "ashur-d/wallpaper-widget"
+              "rylos/tailnet"
+              "srounce/systemd"
+              "fel/ocr"
             ];
             source = [
               {
@@ -333,6 +361,18 @@
             };
           };
           widget = {
+            bar = {
+              type = "noctalia/world_clock:bar";
+            };
+            bar_2 = {
+              type = "rylos/tailnet:bar";
+            };
+            ocr = {
+              type = "fel/ocr:ocr";
+            };
+            radio_2 = {
+              type = "nilsonlinux/world-radio:radio";
+            };
             spacer_0.type = "spacer";
             audio_visualizer = {
               centered = false;

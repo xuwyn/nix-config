@@ -1,4 +1,20 @@
 {
+  "adios": {
+    "type": "github",
+    "owner": "llakala",
+    "repo": "lladios",
+    "rev": "31034490bd414b75231f2368b7424fe3b1663874",
+    "narHash": "sha256-nX8TYhQIk6UJZjaGH48+kEkAHFBZQkwKZKuyvWaB41g=",
+    "lastModified": 1788143893
+  },
+  "adios-wrappers": {
+    "type": "github",
+    "owner": "llakala",
+    "repo": "adios-wrappers",
+    "rev": "bb2f3db20a330104392f62c8d142ea9489c2f3b7",
+    "narHash": "sha256-y6RRfKlV7ZsaEkUZ6FsojZUszfwdtBOgWIiHtGVw/v0=",
+    "lastModified": 1789851294
+  },
   "barutsrb-tap": {
     "type": "github",
     "owner": "BarutSRB",

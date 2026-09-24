@@ -20,6 +20,8 @@
       then "Tab"
       else if p == "DELETE"
       then "Delete"
+      else if p == "ESCAPE"
+      then "Escape"
       else p;
   in
     lib.concatStringsSep "+" (map rename parts);

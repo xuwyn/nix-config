@@ -5,8 +5,26 @@
       [./_disko.nix nix-settings preservation drivers boot hardware network zram]
       ++ [system users desktop apps services sops tailscale deploy attic binfmt rs-key]
       ++ [
-        ({pkgs, ...}: {boot.kernelPackages = pkgs.cachyosKernels.linuxPackages-cachyos-bore-lto-zen4;})
-        ({pkgs, ...}: {
+        ({
+          self,
+          pkgs,
+          lib,
+          ...
+        }: let
+          wm = self.wrapperModules.${pkgs.stdenv.hostPlatform.system};
+        in {
+          environment.systemPackages = [
+            (wm.zsh {})
+            (wm.bash {})
+            (wm.ff {})
+            (wm.tealdeer {})
+            (wm.bottom {})
+            (wm.ns {})
+            (wm.nh {username = "wyn";})
+            (wm.cava {theme = "noctalia";})
+            (wm.btop {extraSettings = {color_theme = "noctalia";};})
+          ];
+          boot.kernelPackages = pkgs.cachyosKernels.linuxPackages-cachyos-bore-lto-zen4;
           nixos = {
             zram.tmpMaxSize = "4096";
             drivers = {
@@ -23,10 +41,12 @@
               wyn = {
                 isAdmin = true;
                 sshKeys = [../../common/keys/openssh_key.pub];
+                shell = lib.getExe (wm.zsh {});
               };
               deploy = {
                 isDeployer = true;
                 sshKeys = [../../common/keys/deploy_key.pub];
+                shell = lib.getExe (wm.bash {});
               };
             };
             preservation.users.wyn = {

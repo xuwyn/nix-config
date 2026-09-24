@@ -21,7 +21,7 @@
     inherit (lib) hasSuffix hasPrefix splitString filesystem genAttrs evalModules;
     inherit (builtins) any concatMap isPath filter readFileType;
 
-    systems = ["x86_64-linux" "aarch64-darwin" "aarch64-linux"];
+    systems = ["x86_64-linux" "x86_64-darwin" "aarch64-darwin" "aarch64-linux"];
     perSystem = f: genAttrs systems (system: f inputs.nixpkgs.legacyPackages.${system} system);
 
     # Thanks llakala
@@ -49,10 +49,24 @@
       })
       config
       ;
+
+    wrapperModules = perSystem (pkgs: _: let
+      inherit (inputs.adios) adios;
+      root.modules = adios.lib.inject [
+        inputs.adios-wrappers.wrapperModules
+        (adios.lib.importModules {
+          directory = ./modules/_wrappers;
+          args = adios // {flakeInputs = inputs;};
+        })
+      ];
+    in
+      (adios root {options."/nixpkgs" = {inherit pkgs;};}).modules);
   in
     {
       inherit (config) nixosConfigurations darwinConfigurations homeConfigurations;
+      inherit wrapperModules;
       formatter = perSystem (pkgs: _: pkgs.alejandra);
+      wrappers = builtins.mapAttrs (_: builtins.mapAttrs (_: module: module {})) wrapperModules;
     }
     // import ./deploy.nix {
       inherit inputs lib config;

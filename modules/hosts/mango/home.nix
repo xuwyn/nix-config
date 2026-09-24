@@ -8,7 +8,12 @@ in {
       [nix-settings home sops ssh deploy attic syncthing]
       ++ [cli terminals apps editors desktop xdg theme umbriel noctalia thunar yazi maa]
       ++ [
-        (_: {
+        ({
+          self,
+          pkgs,
+          ...
+        }: {
+          home.packages = [];
           homeManager = {
             ssh.hosts = {
               apricot = {};
@@ -48,30 +53,13 @@ in {
               vellum.enable = true;
             };
             terminals.kitty.enable = true;
-            # terminals.ghostty.enable = true;
+            terminals.ghostty.enable = true;
             cli = {
-              zsh.enable = true;
-              bash.enable = true;
               git = {
                 enable = true;
                 username = "wyn";
                 email = "173407133+xuwyn@users.noreply.github.com";
               };
-              btop = {
-                enable = true;
-                theme = "noctalia";
-              };
-              cava = {
-                enable = true;
-                theme = "noctalia";
-              };
-              fastfetch.enable = true;
-              bottom.enable = true;
-              nh.enable = true;
-              tealdeer.enable = true;
-              nix-search-tv.enable = true;
-              search.enable = true;
-              styling.enable = true;
               utils.enable = true;
               eyecandy.enable = true;
             };

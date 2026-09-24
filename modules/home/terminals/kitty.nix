@@ -52,7 +52,7 @@
           macos_titlebar_color = "background";
           background_opacity = "0.85";
           background_blur = 20;
-          shell = "${pkgs.zsh}/bin/zsh";
+          # shell = "${pkgs.zsh}/bin/zsh";
         };
 
         shellIntegration.enableZshIntegration = true;

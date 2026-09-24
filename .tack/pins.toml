@@ -121,3 +121,10 @@ url = "github:4evy/nixcord"
 [inputs.umbriel]
 url = "github:noctalia-dev/umbriel"
 exclude_follow = ["nixpkgs"]
+
+[inputs.adios]
+url = "github:llakala/lladios"
+
+[inputs.adios-wrappers]
+url = "github:llakala/adios-wrappers"
+follows = {adios = "adios"}
