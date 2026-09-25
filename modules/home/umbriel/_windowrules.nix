@@ -69,7 +69,6 @@
   {
     match.app_id = ''^([Ss]team)$'';
     default_floating = false;
-    default_size = [1850 1024];
   }
   {
     match.app_id = ''^(gamescope)$'';
@@ -77,6 +76,7 @@
   }
   {
     match.app_id = ''^(Waydroid)$'';
+    default_maximize = false;
     default_floating = false;
     default_size = [1600 900];
   }
@@ -86,6 +86,7 @@
   }
   {
     match.app_id = ''^(waydroid\.com\.YoStarEN\.Arknights)$'';
+    default_maximize = false;
     default_floating = false;
     default_size = [1600 900];
   }

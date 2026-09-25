@@ -128,3 +128,7 @@ url = "github:llakala/lladios"
 [inputs.adios-wrappers]
 url = "github:llakala/adios-wrappers"
 follows = {adios = "adios"}
+
+[inputs.noctalia]
+url = "github:noctalia-dev/noctalia/cachix"
+exclude_follow = ["nixpkgs"]

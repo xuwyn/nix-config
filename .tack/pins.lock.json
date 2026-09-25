@@ -173,6 +173,14 @@
     "narHash": "sha256-c25hFVF7muJOFNfvLWyXZh+W9b5rW7mcZ2tTij1jrP8=",
     "lastModified": 1789740794
   },
+  "noctalia": {
+    "type": "github",
+    "owner": "noctalia-dev",
+    "repo": "noctalia",
+    "rev": "99993ffa90c9c0c6a905904bb854148ca14115a4",
+    "narHash": "sha256-rSbzaQCkeGiiUbkQ2ZQha31uitFef+rdKl3tiBeq21Q=",
+    "lastModified": 1790279492
+  },
   "nur": {
     "type": "github",
     "owner": "nix-community",

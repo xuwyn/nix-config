@@ -53,7 +53,6 @@ in
     "Mod+J" = "window-focus-or-workspace-down";
     "Mod+K" = "window-focus-or-workspace-up";
     "Mod+L" = "window-focus-right";
-    "Alt+Tab" = "window-focus-last";
 
     # Window state and layout
     "Mod+Shift+F" = "window-toggle-floating";

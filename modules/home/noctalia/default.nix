@@ -4,6 +4,7 @@
     config,
     lib,
     flake,
+    inputs,
     ...
   }: {
     options.homeManager.noctalia._module_marker = lib.mkOption {
@@ -24,6 +25,7 @@
       ];
       programs.noctalia = {
         enable = true;
+        package = inputs.noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default;
         systemd.enable = true;
         settings = {
           bar.default = {
@@ -268,6 +270,11 @@
             ];
           };
           shell = {
+            window_switcher = {
+              mru = true;
+              show_caption = false;
+            };
+            umbriel_overview_type_to_launch_enabled = true;
             avatar_path = "${config.home.homeDirectory}/.face";
             screenshot.directory = "${config.home.homeDirectory}/Pictures/Screenshots";
             date_format = "%A, %Y %b %d";

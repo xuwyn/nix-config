@@ -9,6 +9,7 @@
           self,
           pkgs,
           lib,
+          users,
           ...
         }: let
           wm = self.wrapperModules.${pkgs.stdenv.hostPlatform.system};
@@ -23,6 +24,16 @@
             (wm.nh {username = "wyn";})
             (wm.cava {theme = "noctalia";})
             (wm.btop {extraSettings = {color_theme = "noctalia";};})
+            # (wm.git {
+            #   sshKeyPath = config.sops.secrets.private_ssh_key.path;
+            #   extraSettings = {
+            #     user = {
+            #       name = "wyn";
+            #       email = "173407133+xuwyn@users.noreply.github.com";
+            #       signingkey = config.sops.secrets.private_ssh_key.path;
+            #     };
+            #   };
+            # })
           ];
           boot.kernelPackages = pkgs.cachyosKernels.linuxPackages-cachyos-bore-lto-zen4;
           nixos = {

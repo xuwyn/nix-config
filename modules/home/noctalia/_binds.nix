@@ -1,5 +1,9 @@
 [
   {
+    key = "ALT + TAB";
+    command = "noctalia msg window-switcher";
+  }
+  {
     key = "SUPER + A";
     command = "noctalia msg panel-toggle launcher";
   }
