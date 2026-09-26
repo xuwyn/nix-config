@@ -135,3 +135,7 @@ exclude_follow = ["nixpkgs"]
 
 [inputs.hjem]
 url = "github:feel-co/hjem"
+
+[inputs.assets]
+url = "github:xuwyn/assets"
+type = "fetch"

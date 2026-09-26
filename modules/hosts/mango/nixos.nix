@@ -16,7 +16,6 @@
           wm = self.wrapperModules.${pkgs.stdenv.hostPlatform.system};
         in {
           environment.systemPackages = [
-            pkgs.git-lfs
             (wm.zsh {})
             (wm.bash {})
             (wm.ff {})

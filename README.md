@@ -6,40 +6,9 @@
   <a href="./docs/TROUBLESHOOT.md"><strong>Troubleshoot</strong></a>
 </p>
 
-My personal config for nixos, nix-darwin and home-manager running on `x86_64-linux`, `aarch64-linux` and `aarch64-darwin`.
-I currently have no desire to fully transform every hosts I have into NixOS,
-so most features are in Home Manager for portability.
+My personal config for NixOS and nix-darwin running on `x86_64-linux`, `aarch64-linux` and `aarch64-darwin`.
 
-## Previews
-
-<details>
-<summary>Umbriel + Noctalia</summary>
-
-<img src="https://media.githubusercontent.com/media/xuwyn/nix-config/main/assets/previews/umbriel-noctalia.png" width="100%" />
-
-</details>
-
-<details>
-<summary>Hyprland + DankMaterialShell</summary>
-
-<img src="https://media.githubusercontent.com/media/xuwyn/nix-config/main/assets/previews/hyprland-dms.png" width="100%" />
-
-</details>
-
-## Overview
-
-This flake implements a half-baked dendritic pattern. Why half-baked?
-Because mixing different classes (i.e., `nixos`, `darwin`, and `homeManager`)
-into the same aspect doesn't feel right to me.
-From what I learned, there are two main ways to set up dendritic pattern:
-
-- **`<class>.<aspect>`** which is the standard [flake-parts](https://flake.parts)
-- **`<aspect>.<class>`** which can be achieved with [den](https://github.com/denful/den)
-  or just [flake-aspects](https://github.com/denful/flake-aspects)
-
-I went with **`<class>.<aspect>`** since it's easier to separate aspects by class this way.
-As a disclaimer, **none** of tools listed above are actually implemented in my current config
-since they are a bit overkill for what I need.
+<img src="https://media.githubusercontent.com/media/xuwyn/nix-config/main/docs/screenshots/umbriel-noctalia.png" width="100%" />
 
 ## Layout
 
@@ -52,7 +21,6 @@ since they are a bit overkill for what I need.
 ├── deploy.nix             # remote deployment via deploy-rs
 ├── ci.nix                 # ciMatrix for cache push
 ├── scripts/               # custom shell scripts
-├── assets/                # screenshots, wallpapers, etc.
 └── modules/
     ├── lib/
     │   ├── options.nix    # options declaration for dendritic structure

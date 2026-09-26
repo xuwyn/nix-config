@@ -1,6 +1,4 @@
-{config, ...}: let
-  wallpaper = ../../../assets/wallpapers/Embraced_A.png;
-in {
+{config, ...}: {
   home."wyn@mango" = {
     system = "x86_64-linux";
     username = "wyn";
@@ -27,6 +25,14 @@ in {
               monitors = [
                 {
                   name = "DP-1";
+                  width = 1920;
+                  height = 1080;
+                  x = 0;
+                  y = 0;
+                  refresh = 164.955;
+                }
+                {
+                  name = "DP-4";
                   width = 1920;
                   height = 1080;
                   x = 0;

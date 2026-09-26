@@ -1,6 +1,4 @@
-{config, ...}: let
-  wallpaper = ../../../assets/wallpapers/interlude_RinLen_5.png;
-in {
+{config, ...}: {
   home."wyn@capybara" = {
     system = "x86_64-linux";
     username = "wyn";
@@ -8,10 +6,10 @@ in {
       [./_gpu.nix nix-settings home sops cli syncthing]
       ++ [desktop hyprland dms theme xdg thunar yazi apps terminals editors attic]
       ++ [
-        (_: {
+        ({inputs}: {
           homeManager = {
             desktop = {
-              inherit wallpaper;
+              wallpaper = "${inputs.assets}/wallpapers/interlude_RinLen_5.png";
               barThemeEnabled = true;
               monitors = [
                 {

@@ -3,6 +3,7 @@
     config,
     lib,
     pkgs,
+    inputs,
     ...
   }: let
     cfg = config.homeManager.desktop;
@@ -111,10 +112,10 @@
         ];
         home.file = {
           "Pictures/Wallpapers" = {
-            source = ../../assets/wallpapers;
+            source = "${inputs.assets}/wallpapers";
             force = true;
           };
-          ".face".source = ../../assets/face.jpg;
+          ".face".source = "${inputs.assets}/face.jpg";
         };
       })
     ];

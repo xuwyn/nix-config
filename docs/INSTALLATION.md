@@ -17,9 +17,7 @@ vi modules/hosts/new-host/configuration.nix
   <summary>Example of host configuration</summary>
 
 ```nix
-{config, ...}: let
-  wallpaper = ../../../assets/wallpapers/default.png;
-in {
+{config, ...}: {
   nixos.new-host = {
     system = "x86_64-linux";
     users = ["new-user"];
@@ -39,34 +37,6 @@ in {
               };
             };
             desktop.hyprland.enable = true;
-          };
-        })
-      ];
-  };
-
-  home."new-user@new-host" = {
-    system = "x86_64-linux";
-    username = "new-user";
-    modules = with config.modules.homeManager;
-      [home sops ssh cli terminals desktop hyprland noctalia theme]
-      ++ [
-        (_: {
-          homeManager = {
-            cli = {
-              zsh.enable = true;
-              git = {
-                enable = true;
-                username = "git-username";
-                email = "email@example.com";
-              };
-            };
-            terminals.kitty.enable = true;
-            theme = {
-              matugen = {
-                enable = true;
-                inherit wallpaper;
-              };
-            };
           };
         })
       ];
@@ -236,12 +206,6 @@ Run initial build with `nixos-rebuild`
 
 ```sh
 cd /path/to/flake
-
-# (Optional) fetch assets/ on fresh install (no git-lfs)
-nix-shell -p git git-lfs
-git lfs install
-git lfs fetch
-git lfs checkout
 
 # use `dry-activate` to preview changes without applying them
 sudo nixos-rebuild dry-activate --flake .#host

@@ -19,6 +19,7 @@
     variables = {
       type = types.attrs;
       mergeFunc = adios.lib.merge.attrs.recursively;
+      default = import ./shell/env.nix;
     };
     extraAliases = {
       type = types.attrs;

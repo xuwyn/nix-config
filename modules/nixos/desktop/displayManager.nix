@@ -63,10 +63,10 @@
             enable = true;
             theme = "silvia";
             backgrounds = {
-              cyTus = ../../../assets/sddm/cyTus.mp4;
-              frame-1 = ../../../assets/sddm/frame-1.png;
+              cyTus = "${inputs.assets}/sddm/cyTus.mp4";
+              frame-1 = "${inputs.assets}/sddm/frame-1.png";
             };
-            profileIcons = lib.genAttrs users (name: cfg.profileIcons.${name} or ../../../assets/face.jpg);
+            profileIcons = lib.genAttrs users (name: cfg.profileIcons.${name} or "${inputs.assets}/face.jpg");
             settings = {
               "General" = {
                 scale = 1.0;

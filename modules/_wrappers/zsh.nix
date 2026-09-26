@@ -24,10 +24,12 @@
       sharehistory = true;
     };
 
-    variables.default = {
-      HISTSIZE = 10000;
-      SAVEHIST = 10000;
-    };
+    variables.default =
+      import ./shell/env.nix
+      // {
+        HISTSIZE = 10000;
+        SAVEHIST = 10000;
+      };
 
     zshrc.defaultFunc = {inputs}: let
       inherit (inputs.nixpkgs) pkgs;
