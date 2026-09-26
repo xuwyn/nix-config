@@ -1,3 +1,3 @@
-{
-  TACK_NIX_CONF_TOKENS = 1;
-}
+''
+  export TACK_NIX_CONF_TOKENS=1
+''

@@ -24,12 +24,10 @@
       sharehistory = true;
     };
 
-    variables.default =
-      import ./shell/env.nix
-      // {
-        HISTSIZE = 10000;
-        SAVEHIST = 10000;
-      };
+    variables.default = {
+      HISTSIZE = 10000;
+      SAVEHIST = 10000;
+    };
 
     zshrc.defaultFunc = {inputs}: let
       inherit (inputs.nixpkgs) pkgs;
@@ -63,11 +61,7 @@
   };
 
   mutations."/zsh".extraZshrc = _: ''
-    bindkey "\eh" backward-word
-    bindkey "\ej" down-line-or-history
-    bindkey "\ek" up-line-or-history
-    bindkey "\el" forward-word
-
+    ${import ./shell/env.nix}
     fastfetch
   '';
 }

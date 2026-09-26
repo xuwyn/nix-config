@@ -6,9 +6,7 @@
   <a href="./docs/TROUBLESHOOT.md"><strong>Troubleshoot</strong></a>
 </p>
 
-My personal config for NixOS and nix-darwin running on `x86_64-linux`, `aarch64-linux` and `aarch64-darwin`.
-
-<img src="https://media.githubusercontent.com/media/xuwyn/nix-config/main/docs/screenshots/umbriel-noctalia.png" width="100%" />
+![Desktop Screenshot](./docs/screenshots/umbriel-noctalia.png)
 
 ## Layout
 
