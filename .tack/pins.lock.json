@@ -16,9 +16,9 @@
     "lastModified": 1790387933
   },
   "assets": {
-    "type": "git",
-    "url": "ssh://git@github.com/xuwyn/assets.git",
-    "ref": "HEAD",
+    "type": "github",
+    "owner": "xuwyn",
+    "repo": "assets",
     "rev": "79f8fba39de6ef0c1fcfcd7b71e4c3eb3edca54f",
     "narHash": "sha256-JRSd0kRgxWKTigxIfiz01NFuC0YfrYERKcFaPe0BPLI=",
     "lastModified": 1790432228
