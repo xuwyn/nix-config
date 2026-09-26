@@ -5,32 +5,51 @@
       variables.SOPS_AGE_KEY_CMD = "ssh-to-age -private-key -i /etc/ssh/ssh_host_ed25519_key";
     };
 
-    commonSopsSettings = host: {
+    commonSopsSettings = host: users: config: lib: pkgs: {
       age.sshKeyPaths = ["/etc/ssh/ssh_host_ed25519_key"];
       defaultSopsFile = ./${host}.yaml;
       defaultSopsFormat = "yaml";
+      secrets = let
+        owner = lib.head users;
+        sopsFile = ./ssh.yaml;
+      in {
+        private_ssh_key = {
+          inherit owner sopsFile;
+          path = "${config.hj.directory}/.ssh/id_ed25519";
+        };
+        public_ssh_key = {
+          inherit owner sopsFile;
+          path = "${config.hj.directory}/.ssh/id_ed25519.pub";
+        };
+      };
     };
   in {
     nixos.sops = {
       inputs,
       pkgs,
       host,
+      users,
+      config,
+      lib,
       ...
     }: {
       imports = [inputs.sops-nix.nixosModules.sops];
       environment = commonSopsEnv pkgs;
-      sops = commonSopsSettings host;
+      sops = commonSopsSettings host users config lib pkgs;
     };
 
     darwin.sops = {
       inputs,
       pkgs,
       host,
+      users,
+      config,
+      lib,
       ...
     }: {
       imports = [inputs.sops-nix.darwinModules.sops];
       environment = commonSopsEnv pkgs;
-      sops = commonSopsSettings host;
+      sops = commonSopsSettings host users config lib pkgs;
       # remove home's sops-nix decrypted secrets on log out
       # once secrets are decrypted in a login session, they stay there until a reboot
       launchd.user.agents.hm-secrets-cleanup = {

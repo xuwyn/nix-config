@@ -1,8 +1,5 @@
 {types, ...}: {
   options = {
-    sshKeyPath = {
-      type = types.str;
-    };
     extraSettings = {
       type = types.attrs;
       default = {};
@@ -10,11 +7,12 @@
 
     settings.defaultFunc = {options}:
       {
-        core = {
-          sshCommand = "ssh -i ${options.sshKeyPath}";
-          editor = "nvim";
+        user = {
+          name = "wyn";
+          email = "173407133+xuwyn@users.noreply.github.com";
+          signingkey = "~/.ssh/id_ed25519.pub";
         };
-        user.signingkey = options.sshKeyPath;
+        core.editor = "nvim";
         commit.gpgsign = true;
         gpg.format = "ssh";
         push.default = "simple";

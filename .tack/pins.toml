@@ -132,3 +132,6 @@ follows = {adios = "adios"}
 [inputs.noctalia]
 url = "github:noctalia-dev/noctalia/cachix"
 exclude_follow = ["nixpkgs"]
+
+[inputs.hjem]
+url = "github:feel-co/hjem"

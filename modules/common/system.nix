@@ -7,7 +7,7 @@
         description = "Set Timezone";
       };
     };
-    commonPackages = pkgs: with pkgs; [wget git home-manager];
+    commonPackages = pkgs: with pkgs; [wget home-manager];
   in {
     nixos.system = {
       lib,

@@ -55,6 +55,14 @@
     "narHash": "sha256-wld0pFHD32MTdvNHWTHBHPsQc/4GylszA4vkm/mPhg0=",
     "lastModified": 1789784497
   },
+  "hjem": {
+    "type": "github",
+    "owner": "feel-co",
+    "repo": "hjem",
+    "rev": "cef02450f2c18a7e2b9297ea8d366f9a597254f7",
+    "narHash": "sha256-tycoVCB2KSVdy9ERT1lJGHdP9Hf4FHanaEY25hUxylw=",
+    "lastModified": 1790081753
+  },
   "home-manager": {
     "type": "github",
     "owner": "nix-community",

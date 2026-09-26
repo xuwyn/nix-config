@@ -26,7 +26,6 @@
 
       # Extra software
       programs = {
-        seahorse.enable = true;
         localsend.enable = true;
         dconf.enable = true;
       };

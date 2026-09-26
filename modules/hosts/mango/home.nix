@@ -6,7 +6,7 @@ in {
     username = "wyn";
     modules = with config.modules.homeManager;
       [nix-settings home sops ssh deploy attic syncthing]
-      ++ [cli terminals apps editors desktop xdg theme umbriel noctalia thunar yazi maa]
+      ++ [terminals apps editors desktop xdg theme umbriel noctalia thunar yazi maa]
       ++ [
         ({
           self,
@@ -54,15 +54,6 @@ in {
             };
             terminals.kitty.enable = true;
             terminals.ghostty.enable = true;
-            cli = {
-              git = {
-                enable = true;
-                username = "wyn";
-                email = "173407133+xuwyn@users.noreply.github.com";
-              };
-              utils.enable = true;
-              eyecandy.enable = true;
-            };
             editors = {
               zed.enable = true;
               nano.enable = true;

@@ -2,12 +2,13 @@
   nixos.mango = {
     users = ["wyn" "deploy"];
     modules = with config.modules.nixos;
-      [./_disko.nix nix-settings preservation drivers boot hardware network zram]
+      [./_disko.nix nix-settings preservation drivers boot hardware network zram hjem]
       ++ [system users desktop apps services sops tailscale deploy attic binfmt rs-key]
       ++ [
         ({
           self,
           pkgs,
+          config,
           lib,
           users,
           ...
@@ -15,26 +16,22 @@
           wm = self.wrapperModules.${pkgs.stdenv.hostPlatform.system};
         in {
           environment.systemPackages = [
+            pkgs.git-lfs
             (wm.zsh {})
             (wm.bash {})
             (wm.ff {})
             (wm.tealdeer {})
             (wm.bottom {})
             (wm.ns {})
-            (wm.nh {username = "wyn";})
+            (wm.nh {username = lib.head users;})
             (wm.cava {theme = "noctalia";})
             (wm.btop {extraSettings = {color_theme = "noctalia";};})
-            # (wm.git {
-            #   sshKeyPath = config.sops.secrets.private_ssh_key.path;
-            #   extraSettings = {
-            #     user = {
-            #       name = "wyn";
-            #       email = "173407133+xuwyn@users.noreply.github.com";
-            #       signingkey = config.sops.secrets.private_ssh_key.path;
-            #     };
-            #   };
-            # })
+            (wm.git {})
           ];
+          sops.age = {
+            keyFile = "${config.hj.directory}/.config/sops/age/keys.txt";
+            plugins = [pkgs.age-plugin-yubikey];
+          };
           boot.kernelPackages = pkgs.cachyosKernels.linuxPackages-cachyos-bore-lto-zen4;
           nixos = {
             zram.tmpMaxSize = "4096";
