@@ -7,13 +7,7 @@
       })
       pkgs);
 in [
-  (multiverseOverlays [
-    {
-      # This is fixed upstream but not released on nixpkgs yet (2026-09-12)
-      name = "xwayland-satellite";
-      version = "0.8.1";
-    }
-  ])
+  (multiverseOverlays [])
 
   # nvfetcher sources
   (final: prev: {

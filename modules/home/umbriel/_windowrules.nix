@@ -10,18 +10,27 @@
   {
     match.app_id = "^dev.noctalia.Noctalia$";
     default_floating = true;
-    default_size = [1020 900];
+    default_floating_size_px = {
+      width = 1020;
+      height = 900;
+    };
   }
   {
     match.app_id = "^dev.noctalia.UmbrielSharePicker$";
     default_floating = true;
-    default_size = [800 600];
+    default_floating_size_px = {
+      width = 800;
+      height = 600;
+    };
   }
   {
     match.title = "^(Picture-in-Picture|Picture in picture)$";
     default_floating = true;
     default_maximize = false;
-    default_size = [426 240];
+    default_floating_size_px = {
+      width = 426;
+      height = 240;
+    };
     default_position = {
       x = 20;
       y = 20;
@@ -31,7 +40,10 @@
   {
     match.title = ''^([Bb]top)$'';
     default_floating = true;
-    default_size = [942 800];
+    default_floating_size_px = {
+      width = 942;
+      height = 800;
+    };
     default_position = {
       x = 0;
       y = 0;
@@ -41,7 +53,10 @@
   {
     match.title = ''^([Yy]azi)$'';
     default_floating = true;
-    default_size = [942 709];
+    default_floating_size_px = {
+      width = 942;
+      height = 709;
+    };
     default_position = {
       x = 0;
       y = 0;
@@ -78,7 +93,10 @@
     match.app_id = ''^(Waydroid)$'';
     default_maximize = false;
     default_floating = false;
-    default_size = [1600 900];
+    default_floating_size_px = {
+      width = 1600;
+      height = 900;
+    };
   }
   {
     match.app_id = ''^(com\.jaoushingan\.WaydroidHelper)$'';
@@ -88,12 +106,18 @@
     match.app_id = ''^(waydroid\.com\.YoStarEN\.Arknights)$'';
     default_maximize = false;
     default_floating = false;
-    default_size = [1600 900];
+    default_floating_size_px = {
+      width = 1600;
+      height = 900;
+    };
   }
   {
     match.app_id = ''^(xdg-desktop-portal-gtk)$'';
     default_floating = true;
-    default_size = [764 489];
+    default_floating_size_px = {
+      width = 764;
+      height = 489;
+    };
     opacity = 0.90;
   }
   {

@@ -136,7 +136,7 @@
           layout = {
             mode = "scrolling"; # scrolling, dwindle, or master
             gap = 8; # Logical pixels between tiles, 0-500
-            width_presets = [0.333 0.5 0.667]; # Width and height cycling fractions
+            extent_presets = [0.333 0.5 0.667]; # Width and height cycling fractions
             struts = {
               left = 0; # -65535 to 65535
               right = 0;
@@ -145,7 +145,7 @@
             };
             scrolling = {
               # The strip axis is perpendicular to the output's workspace_axis.
-              default_width_fraction = 0.5; # Initial width for new columns, 0.1-1.0
+              default_extent_fraction = 0.5; # Initial width for new columns, 0.1-1.0
               center_underfull_strip = true; # Center a strip narrower than the viewport
             };
             dwindle = {

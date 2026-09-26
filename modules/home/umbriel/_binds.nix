@@ -120,10 +120,10 @@ in
     "Mod+Ctrl+Space" = "window-restore-from-scratchpad";
 
     # Window Resize
-    "Mod+Minus" = "window-modify-width:-0.1";
-    "Mod+Equal" = "window-modify-width:0.1";
-    "Mod+Alt+Minus" = "window-modify-height:-0.1";
-    "Mod+Alt+Equal" = "window-modify-height:0.1";
+    "Mod+Minus" = "window-modify-width-right:-0.1";
+    "Mod+Equal" = "window-modify-width-right:0.1";
+    "Mod+Alt+Minus" = "window-modify-height-down:-0.1";
+    "Mod+Alt+Equal" = "window-modify-height-down:0.1";
 
     # Media and brightness
     "XF86AudioRaiseVolume" = "spawn:wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+";

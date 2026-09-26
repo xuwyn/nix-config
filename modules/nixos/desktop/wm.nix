@@ -19,7 +19,10 @@
           enable = cfg.hyprland.enable;
           withUWSM = cfg.hyprland.enable;
         };
-        umbriel.enable = cfg.umbriel.enable;
+        umbriel = {
+          enable = cfg.umbriel.enable;
+          package = inputs.umbriel.packages.${pkgs.stdenv.hostPlatform.system}.default;
+        };
       };
     };
   };
