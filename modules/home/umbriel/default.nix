@@ -20,7 +20,7 @@
     imports = [inputs.umbriel.homeModules.default];
     config = {
       programs.umbriel = {
-        enable = true;
+        # enable = true;
         settings = {
           environment = import ./_env.nix {inherit config;};
           animation = import ./_animation.nix;
@@ -33,7 +33,7 @@
               blur = true;
               blur_ignore_alpha = 0.5;
               blur_popups = true;
-              blur_optimized = false;
+              blur_optimized = true;
             }
           ];
 

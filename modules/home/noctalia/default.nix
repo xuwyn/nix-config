@@ -17,14 +17,14 @@
     };
 
     config = {
-      home.packages = with pkgs; [
-        evtest # bongocat
-        grim # ocr
-        slurp # ocr
-        tesseract # ocr
-      ];
+      # home.packages = with pkgs; [
+      #   evtest # bongocat
+      #   grim # ocr
+      #   slurp # ocr
+      #   tesseract # ocr
+      # ];
       programs.noctalia = {
-        enable = true;
+        # enable = true;
         package = inputs.noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default;
         systemd.enable = true;
         settings = {

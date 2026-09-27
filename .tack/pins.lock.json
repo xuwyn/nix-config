@@ -193,9 +193,9 @@
     "type": "github",
     "owner": "noctalia-dev",
     "repo": "noctalia",
-    "rev": "c0d9a3a4fdfb0d2a9f1618a507427f33b04bbc6d",
-    "narHash": "sha256-m0mmslhsM9kL7ZQkfuNjyVnUzcN204iDiwH2ddLzVJ0=",
-    "lastModified": 1790437317
+    "rev": "08c30392b1350b4f3d3fb77e23732560559f1638",
+    "narHash": "sha256-Z8SuI0YgAZaF0sumKPBF85PxPtTjpo8jvtphbgoITv8=",
+    "lastModified": 1790523212
   },
   "nur": {
     "type": "github",
@@ -249,9 +249,9 @@
     "type": "github",
     "owner": "Gerg-L",
     "repo": "spicetify-nix",
-    "rev": "e96330757db4c93b10c31b85feb23ffa693f7b2d",
-    "narHash": "sha256-SmeXQetF/hQbhz0qVv3qv7QxvfKhhrJ+tgYQLYkFJZk=",
-    "lastModified": 1790025920
+    "rev": "d508ccfa23820d032589bd65345bf5b6d9ea842f",
+    "narHash": "sha256-eR6P8ZCyYqrdvuOANIOE78t4qqm6wSTBKLP/aW8nwJE=",
+    "lastModified": 1790502898
   },
   "stylix": {
     "type": "github",
@@ -265,9 +265,9 @@
     "type": "github",
     "owner": "noctalia-dev",
     "repo": "umbriel",
-    "rev": "fadcb66475f8030571e31a0ef96737439075e043",
-    "narHash": "sha256-y9tf2P50N/Vfgv9IYbk130CtZI5Y/SzW2qY8YZEq2zo=",
-    "lastModified": 1790442821
+    "rev": "6bf03a0a7dde8d46e1efc729eb2303e9d245a2ae",
+    "narHash": "sha256-TYKQmt0PViiUk0rHL9DYYhSag6WtUROF08SbteyX3T4=",
+    "lastModified": 1790524796
   },
   "vellum": {
     "type": "github",

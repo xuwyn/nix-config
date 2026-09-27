@@ -11,22 +11,34 @@
           config,
           lib,
           users,
+          inputs,
           ...
         }: let
           wm = self.wrapperModules.${pkgs.stdenv.hostPlatform.system};
         in {
-          environment.systemPackages = [
-            (wm.zsh {})
-            (wm.bash {})
-            (wm.ff {})
-            (wm.tealdeer {})
-            (wm.bottom {})
-            (wm.ns {})
-            (wm.nh {username = lib.head users;})
-            (wm.cava {theme = "noctalia";})
-            (wm.btop {extraSettings = {color_theme = "noctalia";};})
-            (wm.git {})
-          ];
+          environment.systemPackages =
+            (with wm; [
+              (zsh {})
+              (bash {})
+              (ff {})
+              (tealdeer {})
+              (bottom {})
+              (ns {})
+              (nh {username = lib.head users;})
+              (cava {theme = "noctalia";})
+              (btop {extraSettings = {color_theme = "noctalia";};})
+              (git {})
+              (noctalia {
+                monitors = ["DP-1" "DP-4"];
+                package = inputs.noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default;
+              })
+            ])
+            ++ (with pkgs; [
+              evtest # bongocat
+              grim # ocr
+              slurp # ocr
+              tesseract # ocr
+            ]);
           sops.age = {
             keyFile = "/persist${config.hj.directory}/.config/sops/age/keys.txt";
             plugins = [pkgs.age-plugin-yubikey];
@@ -84,6 +96,7 @@
                 mode = "silent";
               };
               umbriel.enable = true;
+              hyprland.enable = true;
               fonts.enable = true;
               thunar.enable = true;
               utils.enable = true;
