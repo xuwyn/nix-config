@@ -35,7 +35,11 @@
     }: {
       imports = [inputs.sops-nix.nixosModules.sops];
       environment = commonSopsEnv pkgs;
-      sops = commonSopsSettings host users config lib pkgs;
+      sops =
+        commonSopsSettings host users config lib pkgs
+        // {
+          useSystemdActivation = true;
+        };
     };
 
     darwin.sops = {

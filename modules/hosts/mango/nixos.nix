@@ -28,7 +28,7 @@
             (wm.git {})
           ];
           sops.age = {
-            keyFile = "${config.hj.directory}/.config/sops/age/keys.txt";
+            keyFile = "/persist${config.hj.directory}/.config/sops/age/keys.txt";
             plugins = [pkgs.age-plugin-yubikey];
           };
           boot.kernelPackages = pkgs.cachyosKernels.linuxPackages-cachyos-bore-lto-zen4;

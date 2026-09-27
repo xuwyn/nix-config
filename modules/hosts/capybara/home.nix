@@ -6,7 +6,7 @@
       [./_gpu.nix nix-settings home sops cli syncthing]
       ++ [desktop hyprland dms theme xdg thunar yazi apps terminals editors attic]
       ++ [
-        ({inputs}: {
+        ({inputs, ...}: {
           homeManager = {
             desktop = {
               wallpaper = "${inputs.assets}/wallpapers/interlude_RinLen_5.png";
