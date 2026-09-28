@@ -193,7 +193,7 @@
       // (mkPerMonitorWidgets "lockscreen-audio-visualizer" lockscreenAudioVisualizer);
   };
   plugin_settings = {
-    # "noctalia/screen_recorder".video_encoder = "cpu"; # nvidia driver is a bit behind
+    "noctalia/screen_recorder".video_encoder = "cpu"; # nvidia driver is a bit behind
     "avivbintangaringga/nix-monitor" = {
       clean_command = "nh clean all";
     };
