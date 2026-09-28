@@ -11,7 +11,6 @@
           pkgs,
           ...
         }: {
-          home.packages = [];
           homeManager = {
             ssh.hosts = {
               apricot = {};
@@ -21,28 +20,6 @@
             };
             desktop = {
               barThemeEnabled = true;
-              monitors = [
-                {
-                  name = "DP-1";
-                  width = 1920;
-                  height = 1080;
-                  x = 0;
-                  y = 0;
-                  refresh = 164.955;
-                }
-                {
-                  name = "DP-4";
-                  width = 1920;
-                  height = 1080;
-                  x = 0;
-                  y = 0;
-                  refresh = 164.955;
-                }
-              ];
-              startupCommands = [
-                "fcitx5 -d -r"
-                "pkill openrgb; sleep 1; openrgb --startminimized --profile purple;"
-              ];
             };
             apps = {
               firefox.enable = true;
@@ -57,8 +34,6 @@
               spicetify.enable = true;
               vellum.enable = true;
             };
-            terminals.kitty.enable = true;
-            terminals.ghostty.enable = true;
             editors = {
               zed.enable = true;
               nano.enable = true;

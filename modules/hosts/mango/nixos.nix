@@ -27,6 +27,8 @@
               (nh {username = lib.head users;})
               (cava {theme = "noctalia";})
               (btop {extraSettings = {color_theme = "noctalia";};})
+              (kitty {noctaliaThemeEnabled = true;})
+              (ghostty {noctaliaThemeEnabled = true;})
               (git {})
               (noctalia {
                 monitors = ["DP-1" "DP-4"];
