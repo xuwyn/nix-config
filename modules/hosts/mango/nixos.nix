@@ -100,6 +100,28 @@
               fonts.enable = true;
               thunar.enable = true;
               utils.enable = true;
+              monitors = [
+                {
+                  name = "DP-1";
+                  width = 1920;
+                  height = 1080;
+                  x = 0;
+                  y = 0;
+                  refresh = 164.955;
+                }
+                {
+                  name = "DP-4";
+                  width = 1920;
+                  height = 1080;
+                  x = 0;
+                  y = 0;
+                  refresh = 164.955;
+                }
+              ];
+              startupCommands = [
+                "fcitx5 -d -r"
+                "pkill openrgb; sleep 1; openrgb --startminimized --profile purple;"
+              ];
             };
             apps = {
               gpu-screen-recorder.enable = true;

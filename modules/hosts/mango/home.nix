@@ -20,7 +20,6 @@
               "puffin.local" = {};
             };
             desktop = {
-              inherit wallpaper;
               barThemeEnabled = true;
               monitors = [
                 {
