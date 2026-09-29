@@ -30,10 +30,8 @@
               (kitty {noctaliaThemeEnabled = true;})
               (ghostty {noctaliaThemeEnabled = true;})
               (yazi {})
-              (noctalia {
-                monitors = ["DP-1" "DP-4"];
-                package = inputs.noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default;
-              })
+              (noctalia {monitors = ["DP-1" "DP-4"];})
+              (spicetify {})
             ])
             ++ (with pkgs; [
               evtest # bongocat

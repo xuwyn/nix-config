@@ -25,8 +25,8 @@
                 enable = true;
                 themes = ["noctalia.theme.css"];
               };
-              spicetify.enable = true;
-              vellum.enable = true;
+              # spicetify.enable = true;
+              # vellum.enable = true;
             };
             editors = {
               zed.enable = true;
