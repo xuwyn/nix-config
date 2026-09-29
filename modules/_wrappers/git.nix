@@ -14,6 +14,7 @@
         };
         core.editor = "nvim";
         commit.gpgsign = true;
+        tag.gpgsign = true;
         gpg.format = "ssh";
         push.default = "simple";
         credential.helper = "cache --timeout=7200";
