@@ -3,7 +3,7 @@
     system = "x86_64-linux";
     username = "wyn";
     modules = with config.modules.homeManager;
-      [nix-settings home sops deploy attic syncthing]
+      [nix-settings home sops deploy]
       ++ [terminals apps editors desktop xdg theme thunar maa noctalia hyprland]
       ++ [
         ({
