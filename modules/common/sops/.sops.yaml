@@ -45,9 +45,9 @@ creation_rules:
   - path_regex: git\.yaml$
     key_groups:
       - age:
-          - *host_lettuce
-          - *user_wyn
-  - path_regex: wyn\.yaml$
+        - *host_lettuce
+        - *user_wyn
+  - path_regex: deploy\.yaml$
     key_groups:
       - age:
         - *user_wyn

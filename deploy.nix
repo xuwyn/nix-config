@@ -7,7 +7,7 @@
   systemProfile = {
     user = "root";
     sshUser = "deploy";
-    sshOpts = ["-i" "~/.config/sops-nix/secrets/deploy_key" "-o" "IdentitiesOnly=yes"];
+    sshOpts = ["-i" "~/.ssh/deploy_key" "-o" "IdentitiesOnly=yes"];
   };
 
   mkNixosProfile = nixosConfig:

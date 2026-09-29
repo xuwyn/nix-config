@@ -42,7 +42,7 @@
         extra-trusted-public-keys = ["${cfg.cacheName}:${cfg.publicKey}"];
       };
       environment.systemPackages = [pkgs.attic-client];
-      hj.xdg.config.files."attic/config.toml".source = tomlFormat.generate "config.toml" {
+      hj.xdg.config.files."attic/config.toml".source = tomlFormat.generate "attic-config.toml" {
         default-server = "tailscale";
         servers.tailscale = {
           endpoint = "https://${cfg.tailscaleDomain}";

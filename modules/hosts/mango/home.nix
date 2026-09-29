@@ -3,8 +3,8 @@
     system = "x86_64-linux";
     username = "wyn";
     modules = with config.modules.homeManager;
-      [nix-settings home sops deploy]
-      ++ [terminals apps editors desktop xdg theme thunar maa noctalia hyprland]
+      [nix-settings home sops]
+      ++ [apps editors desktop xdg theme thunar maa noctalia hyprland]
       ++ [
         ({
           self,
