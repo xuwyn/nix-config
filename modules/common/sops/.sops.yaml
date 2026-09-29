@@ -42,6 +42,11 @@ creation_rules:
         - *host_lettuce
         - *host_puffin
         - *user_wyn
+  - path_regex: git\.yaml$
+    key_groups:
+      - age:
+          - *host_lettuce
+          - *user_wyn
   - path_regex: wyn\.yaml$
     key_groups:
       - age:

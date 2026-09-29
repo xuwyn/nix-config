@@ -9,19 +9,6 @@
       age.sshKeyPaths = ["/etc/ssh/ssh_host_ed25519_key"];
       defaultSopsFile = ./${host}.yaml;
       defaultSopsFormat = "yaml";
-      secrets = let
-        owner = lib.head users;
-        sopsFile = ./ssh.yaml;
-      in {
-        private_ssh_key = {
-          inherit owner sopsFile;
-          path = "${config.hj.directory}/.ssh/id_ed25519";
-        };
-        public_ssh_key = {
-          inherit owner sopsFile;
-          path = "${config.hj.directory}/.ssh/id_ed25519.pub";
-        };
-      };
     };
   in {
     nixos.sops = {
@@ -86,10 +73,6 @@
         age.plugins = [pkgs.age-plugin-yubikey];
         defaultSopsFile = ./${config.home.username}.yaml;
         defaultSopsFormat = "yaml";
-        secrets = {
-          private_ssh_key.sopsFile = ./ssh.yaml;
-          public_ssh_key.sopsFile = ./ssh.yaml;
-        };
       };
     };
   };

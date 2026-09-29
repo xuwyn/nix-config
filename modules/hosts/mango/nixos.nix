@@ -2,8 +2,8 @@
   nixos.mango = {
     users = ["wyn" "deploy"];
     modules = with config.modules.nixos;
-      [./_disko.nix nix-settings preservation drivers boot hardware network zram hjem]
-      ++ [system users desktop apps services sops tailscale deploy attic binfmt rs-key]
+      [./_disko.nix nix-settings preservation drivers boot hardware network zram hjem ssh]
+      ++ [system users desktop apps services sops tailscale deploy attic binfmt rs-key git]
       ++ [
         ({
           self,
@@ -29,7 +29,6 @@
               (btop {extraSettings = {color_theme = "noctalia";};})
               (kitty {noctaliaThemeEnabled = true;})
               (ghostty {noctaliaThemeEnabled = true;})
-              (git {})
               (yazi {})
               (noctalia {
                 monitors = ["DP-1" "DP-4"];
@@ -48,6 +47,12 @@
           };
           boot.kernelPackages = pkgs.cachyosKernels.linuxPackages-cachyos-bore-lto-zen4;
           nixos = {
+            ssh.hosts = {
+              apricot = {};
+              puffin = {};
+              "apricot.local" = {};
+              "puffin.local" = {};
+            };
             zram.tmpMaxSize = "4096";
             drivers = {
               amdcpu.enable = true;

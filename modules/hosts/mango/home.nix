@@ -3,7 +3,7 @@
     system = "x86_64-linux";
     username = "wyn";
     modules = with config.modules.homeManager;
-      [nix-settings home sops ssh deploy attic syncthing]
+      [nix-settings home sops deploy attic syncthing]
       ++ [terminals apps editors desktop xdg theme thunar maa noctalia hyprland]
       ++ [
         ({
@@ -12,12 +12,6 @@
           ...
         }: {
           homeManager = {
-            ssh.hosts = {
-              apricot = {};
-              puffin = {};
-              "apricot.local" = {};
-              "puffin.local" = {};
-            };
             desktop = {
               barThemeEnabled = true;
             };

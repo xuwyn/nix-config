@@ -92,10 +92,15 @@
   {
     match.app_id = ''^(Waydroid)$'';
     default_maximize = false;
-    default_floating = false;
+    default_floating = true;
     default_floating_size_px = {
       width = 1600;
       height = 900;
+    };
+    default_position = {
+      x = 0;
+      y = 0;
+      anchor = "center";
     };
   }
   {
@@ -105,10 +110,15 @@
   {
     match.app_id = ''^(waydroid\.com\.YoStarEN\.Arknights)$'';
     default_maximize = false;
-    default_floating = false;
+    default_floating = true;
     default_floating_size_px = {
       width = 1600;
       height = 900;
+    };
+    default_position = {
+      x = 0;
+      y = 0;
+      anchor = "center";
     };
   }
   {
