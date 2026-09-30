@@ -133,6 +133,10 @@
               gpu-screen-recorder.enable = true;
               openrgb.enable = true;
               steam.enable = true;
+              nixcord = {
+                enable = true;
+                themes = ["noctalia.theme.css"];
+              };
             };
             services = {
               scheduler = {

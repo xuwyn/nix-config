@@ -21,10 +21,10 @@
                 enable = true;
                 fpsLimit = 165;
               };
-              nixcord = {
-                enable = true;
-                themes = ["noctalia.theme.css"];
-              };
+              # nixcord = {
+              #   enable = true;
+              #   themes = ["noctalia.theme.css"];
+              # };
               # spicetify.enable = true;
               # vellum.enable = true;
             };
