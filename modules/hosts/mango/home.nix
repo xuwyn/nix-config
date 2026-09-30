@@ -17,10 +17,10 @@
             };
             apps = {
               firefox.enable = true;
-              mangohud = {
-                enable = true;
-                fpsLimit = 165;
-              };
+              # mangohud = {
+              #   enable = true;
+              #   fpsLimit = 165;
+              # };
               # nixcord = {
               #   enable = true;
               #   themes = ["noctalia.theme.css"];
