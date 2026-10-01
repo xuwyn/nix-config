@@ -16,7 +16,7 @@
               barThemeEnabled = true;
             };
             apps = {
-              firefox.enable = true;
+              # firefox.enable = true;
               # mangohud = {
               #   enable = true;
               #   fpsLimit = 165;

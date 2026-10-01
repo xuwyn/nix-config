@@ -31,6 +31,7 @@
               (ghostty {noctaliaThemeEnabled = true;})
               (yazi {})
               (noctalia {monitors = ["DP-1" "DP-4"];})
+              (firefox {})
               (spicetify {})
             ])
             ++ (with pkgs; [
