@@ -54,11 +54,19 @@
 
     wrapperModules = perSystem (pkgs: _: let
       inherit (inputs.adios) adios;
+      sources = import ./_sources/generated.nix {
+        inherit (pkgs) fetchFromGitHub fetchurl fetchgit dockerTools;
+      };
       root.modules = adios.lib.inject [
         inputs.adios-wrappers.wrapperModules
         (adios.lib.importModules {
           directory = ./modules/_wrappers;
-          args = adios // {flakeInputs = inputs;};
+          args =
+            adios
+            // {
+              flakeInputs = inputs;
+              inherit sources;
+            };
         })
       ];
     in

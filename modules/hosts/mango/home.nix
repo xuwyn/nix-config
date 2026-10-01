@@ -4,7 +4,7 @@
     username = "wyn";
     modules = with config.modules.homeManager;
       [nix-settings home sops]
-      ++ [apps editors desktop xdg theme thunar maa noctalia hyprland]
+      ++ [editors desktop xdg theme thunar noctalia hyprland]
       ++ [
         ({
           self,
@@ -14,19 +14,6 @@
           homeManager = {
             desktop = {
               barThemeEnabled = true;
-            };
-            apps = {
-              # firefox.enable = true;
-              # mangohud = {
-              #   enable = true;
-              #   fpsLimit = 165;
-              # };
-              # nixcord = {
-              #   enable = true;
-              #   themes = ["noctalia.theme.css"];
-              # };
-              # spicetify.enable = true;
-              # vellum.enable = true;
             };
             editors = {
               zed.enable = true;

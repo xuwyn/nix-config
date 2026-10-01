@@ -33,6 +33,7 @@
               (noctalia {monitors = ["DP-1" "DP-4"];})
               (firefox {})
               (spicetify {})
+              (maa-cli {})
             ])
             ++ (with pkgs; [
               evtest # bongocat
