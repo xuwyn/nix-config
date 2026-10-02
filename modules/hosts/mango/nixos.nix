@@ -2,7 +2,7 @@
   nixos.mango = {
     users = ["wyn" "deploy"];
     modules = with config.modules.nixos;
-      [./_disko.nix nix-settings preservation drivers boot hardware network zram hjem ssh]
+      [./_disko.nix nix-settings preservation drivers boot hardware network zram hjem ssh xdg]
       ++ [system users desktop apps services sops tailscale deploy attic binfmt rs-key git]
       ++ [
         ({

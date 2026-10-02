@@ -4,7 +4,7 @@
     username = "wyn";
     modules = with config.modules.homeManager;
       [nix-settings home sops]
-      ++ [editors desktop xdg theme thunar noctalia hyprland]
+      ++ [editors desktop theme noctalia hyprland]
       ++ [
         ({
           self,

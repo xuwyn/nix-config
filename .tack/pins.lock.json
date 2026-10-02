@@ -193,9 +193,9 @@
     "type": "github",
     "owner": "noctalia-dev",
     "repo": "noctalia",
-    "rev": "437239dfa8e202386b6b34c46d38cb7cf6f32d5a",
-    "narHash": "sha256-EKcAGmFQAqbA43z+UEVzyZ3h3mgn5BQRtq8q3WFJhzI=",
-    "lastModified": 1790624248
+    "rev": "63685992f8cfef008de338ff769c8f44df3bcdaa",
+    "narHash": "sha256-zjTq+MSL+B7GpRx/gEpj3y+OqonsdZBuA1OGrBQdlXw=",
+    "lastModified": 1790967847
   },
   "nur": {
     "type": "github",
@@ -265,9 +265,9 @@
     "type": "github",
     "owner": "noctalia-dev",
     "repo": "umbriel",
-    "rev": "6bf03a0a7dde8d46e1efc729eb2303e9d245a2ae",
-    "narHash": "sha256-TYKQmt0PViiUk0rHL9DYYhSag6WtUROF08SbteyX3T4=",
-    "lastModified": 1790524796
+    "rev": "1265718192279ada0baee3cdc2498d08fa52bee6",
+    "narHash": "sha256-wludujGFP4ATqcjNYhXBV5IusmE6cQ5YvpWT/bgtnTU=",
+    "lastModified": 1790953396
   },
   "vellum": {
     "type": "github",
