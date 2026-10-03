@@ -27,6 +27,7 @@
     match.title = "^(Picture-in-Picture|Picture in picture)$";
     default_floating = true;
     default_maximize = false;
+    default_pinned = true;
     default_floating_size_px = {
       width = 426;
       height = 240;
