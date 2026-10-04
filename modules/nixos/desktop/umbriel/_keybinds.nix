@@ -35,8 +35,8 @@ in
     "Mod+Z" = "spawn:zeditor";
     "Mod+O" = "spawn:obs";
     "Mod+T" = "spawn:thunar";
-    "Mod+Y" = "spawn:${terminal} yazi";
-    "Mod+Shift+Escape" = "spawn:${terminal} btop";
+    "Mod+Y" = "scratchpad-toggle:yazi";
+    "Mod+Shift+Escape" = "scratchpad-toggle:btop";
     "Mod+Ctrl+A" = "spawn:vellum toggle";
     "Mod+Q" = "window-close";
     "Mod+Delete" = "session-quit";
@@ -115,9 +115,9 @@ in
     "Mod+Shift+9" = "window-move-to-workspace:9";
 
     # Scratchpads
-    "Mod+Shift+Space" = "window-move-to-scratchpad";
-    "Mod+Space" = "scratchpad-toggle";
-    "Mod+Ctrl+Space" = "window-restore-from-scratchpad";
+    "Mod+Shift+Space" = "window-move-to-scratchpad:empty";
+    "Mod+Space" = "scratchpad-toggle:empty";
+    "Mod+Ctrl+Space" = "window-restore-from-scratchpad:empty";
 
     # Window Resize
     "Mod+Minus" = "window-modify-width-right:-0.1";

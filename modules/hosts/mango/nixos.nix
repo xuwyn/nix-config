@@ -16,31 +16,23 @@
         }: let
           wm = self.wrapperModules.${pkgs.stdenv.hostPlatform.system};
         in {
-          environment.systemPackages =
-            (with wm; [
-              (zsh {})
-              (bash {})
-              (ff {})
-              (tealdeer {})
-              (bottom {})
-              (ns {})
-              (nh {username = lib.head users;})
-              (cava {theme = "noctalia";})
-              (btop {extraSettings = {color_theme = "noctalia";};})
-              (kitty {noctaliaThemeEnabled = true;})
-              (ghostty {noctaliaThemeEnabled = true;})
-              (yazi {})
-              (noctalia {monitors = ["DP-1" "DP-4"];})
-              (firefox {})
-              (spicetify {})
-              (maa-cli {})
-            ])
-            ++ (with pkgs; [
-              evtest # bongocat
-              grim # ocr
-              slurp # ocr
-              tesseract # ocr
-            ]);
+          environment.systemPackages = with wm; [
+            (zsh {})
+            (bash {})
+            (ff {})
+            (tealdeer {})
+            (bottom {})
+            (ns {})
+            (nh {username = lib.head users;})
+            (cava {theme = "noctalia";})
+            (btop {extraSettings = {color_theme = "noctalia";};})
+            (kitty {noctaliaThemeEnabled = true;})
+            (ghostty {noctaliaThemeEnabled = true;})
+            (yazi {})
+            (firefox {})
+            (spicetify {})
+            (maa-cli {})
+          ];
           sops.age = {
             keyFile = "/persist${config.hj.directory}/.config/sops/age/keys.txt";
             plugins = [pkgs.age-plugin-yubikey];
@@ -105,7 +97,11 @@
               };
               umbriel.enable = true;
               hyprland.enable = true;
+              noctalia.enable = true;
               fonts.enable = true;
+              gtk.enable = true;
+              qt.enable = true;
+              cursor.enable = true;
               thunar.enable = true;
               utils.enable = true;
               monitors = [

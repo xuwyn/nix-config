@@ -5,9 +5,9 @@
     lib,
     ...
   }: let
-    cfg = config.nixos.desktop.umbriel;
+    cfg = config.nixos.desktop;
   in {
-    config = lib.mkIf cfg.enable {
+    config = lib.mkIf cfg.umbriel.enable {
       hjem.extraModules = [inputs.umbriel.hjemModules.default];
       hj.programs.umbriel = {
         enable = true;
@@ -16,7 +16,17 @@
           animation = import ./_animation.nix;
           keybinds = import ./_keybinds.nix {inherit config lib;};
           window_rule = import ./_windowrules.nix;
-
+          scratchpad = [
+            {name = "empty";}
+            {
+              name = "btop";
+              spawn_when_empty = "${cfg.terminal} btop";
+            }
+            {
+              name = "yazi";
+              spawn_when_empty = "${cfg.terminal} yazi";
+            }
+          ];
           layer_rule = [
             {
               match.namespace = ''^noctalia-(bar-[^"]+|notification|dock|panel|attached-panel|osd|desktop-widget-[^"]*)$'';
@@ -30,7 +40,7 @@
           include.files = ["noctalia.toml"];
 
           general = {
-            autostart = ["noctalia &" "vellum &"] ++ config.nixos.desktop.startupCommands;
+            autostart = ["noctalia &" "vellum &"] ++ cfg.startupCommands;
             mod_key = "Super"; # Force Super instead of nested-session Alt
             xwayland = true; # Requires xwayland-satellite; restart to change
             show_cheatsheet = false; # Show the keybind overlay on startup
@@ -66,7 +76,7 @@
               };
             };
           in
-            builtins.listToAttrs (map mkOutput config.nixos.desktop.monitors);
+            builtins.listToAttrs (map mkOutput cfg.monitors);
 
           input = {
             middle_click_paste = true; # Primary-selection paste; applies on reload

@@ -4,7 +4,7 @@
     username = "wyn";
     modules = with config.modules.homeManager;
       [nix-settings home sops]
-      ++ [editors desktop theme noctalia hyprland]
+      ++ [editors desktop noctalia hyprland]
       ++ [
         ({
           self,
@@ -19,11 +19,6 @@
               zed.enable = true;
               nano.enable = true;
               nixvim.enable = true;
-            };
-            theme = {
-              cursor.enable = true;
-              qt.enable = true;
-              gtk.enable = true;
             };
           };
         })

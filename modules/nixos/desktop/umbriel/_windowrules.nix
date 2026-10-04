@@ -40,10 +40,12 @@
   }
   {
     match.title = ''^([Bb]top)$'';
+    # default_scratchpad = "btop"; # default_position doesnt work in scratchpad
     default_floating = true;
-    default_floating_size_px = {
-      width = 942;
-      height = 800;
+    default_focused = true;
+    default_floating_size = {
+      width = 0.6;
+      height = 0.7;
     };
     default_position = {
       x = 0;
@@ -53,10 +55,12 @@
   }
   {
     match.title = ''^([Yy]azi)$'';
+    # default_scratchpad = "yazi";
     default_floating = true;
-    default_floating_size_px = {
-      width = 942;
-      height = 709;
+    default_focused = true;
+    default_floating_size = {
+      width = 0.6;
+      height = 0.7;
     };
     default_position = {
       x = 0;

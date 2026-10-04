@@ -4,11 +4,13 @@
     config,
     lib,
     inputs,
+    self,
     ...
   }: let
     cfg = config.nixos.desktop;
   in {
     options.nixos.desktop = {
+      noctalia.enable = lib.mkEnableOption "Enable Noctalia";
       hyprland.enable = lib.mkEnableOption "Enable Hyprland WM";
       umbriel.enable = lib.mkEnableOption "Enable Umbriel WM";
       startupCommands = lib.mkOption {
@@ -60,6 +62,18 @@
     };
     config = {
       environment.variables.NIXOS_OZONE_WL = "1";
+      environment.systemPackages =
+        lib.optionals cfg.noctalia.enable
+        [
+          (self.wrapperModules.${pkgs.stdenv.hostPlatform.system}.noctalia
+            {monitors = map (m: m.name) cfg.monitors;})
+        ]
+        ++ (with pkgs; [
+          evtest # bongocat
+          grim # ocr
+          slurp # ocr
+          tesseract # ocr
+        ]);
       programs = {
         hyprland = {
           enable = cfg.hyprland.enable;
