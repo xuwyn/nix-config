@@ -1,4 +1,4 @@
-{types, ...}: {
+{types, ...} @ adios: {
   inputs.zsh.from = {parent}: parent.zsh;
   options = {
     fontFamily = {
@@ -17,7 +17,7 @@
       type = types.string;
       default = "";
     };
-    configFile.defaultFunc = {
+    configFile.default = adios.promise ({
       options,
       inputs,
     }: let
@@ -110,6 +110,6 @@
           then "include ~/.config/kitty/themes/noctalia.conf"
           else ""
         }
-      '';
+      '');
   };
 }

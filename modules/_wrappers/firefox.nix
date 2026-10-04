@@ -2,7 +2,7 @@
   types,
   flakeInputs,
   ...
-}: {
+} @ adios: {
   options = {
     extraPolicies = {
       type = types.attrs;
@@ -10,7 +10,7 @@
       description = "Host-specific policies, shallow-merged over the defaults";
     };
 
-    policies.defaultFunc = {
+    policies.default = adios.promise ({
       inputs,
       options,
     }: let
@@ -106,6 +106,6 @@
 
         ExtensionSettings = builtins.listToAttrs (map mkExtension extensions);
       }
-      // options.extraPolicies;
+      // options.extraPolicies);
   };
 }

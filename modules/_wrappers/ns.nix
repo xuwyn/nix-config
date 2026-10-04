@@ -1,4 +1,4 @@
-{types, ...}: {
+{types, ...} @ adios: {
   inputs = {
     nixpkgs.from = {parent}: parent.nixpkgs;
   };
@@ -6,11 +6,11 @@
   options = {
     package = {
       type = types.derivation;
-      defaultFunc = {inputs}: inputs.nixpkgs.pkgs.nix-search-tv;
+      default = adios.promise ({inputs}: inputs.nixpkgs.pkgs.nix-search-tv);
     };
   };
 
-  impl = {
+  result = adios.promise ({
     options,
     inputs,
   }: let
@@ -20,5 +20,5 @@
       name = "ns";
       runtimeInputs = [fzf options.package];
       text = builtins.readFile "${options.package.src}/nixpkgs.sh";
-    };
+    });
 }

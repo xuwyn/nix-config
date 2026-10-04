@@ -1,4 +1,4 @@
-{types, ...}: {
+{types, ...} @ adios: {
   inputs.zsh.from = {parent}: parent.zsh;
 
   options = {
@@ -14,7 +14,7 @@
       type = types.attrs;
       default = {};
     };
-    settings.defaultFunc = {
+    settings.default = adios.promise ({
       options,
       inputs,
     }: let
@@ -90,6 +90,6 @@
           "alt+s>e=equalize_splits"
         ];
       }
-      // options.extraSettings;
+      // options.extraSettings);
   };
 }

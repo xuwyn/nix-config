@@ -1,11 +1,11 @@
-{types, ...}: {
+{types, ...} @ adios: {
   options = {
     extraSettings = {
       type = types.attrs;
       default = {};
     };
 
-    settings.defaultFunc = {options}:
+    settings.default = adios.promise ({options}:
       {
         color_theme = "dracula";
         theme_background = false;
@@ -21,9 +21,9 @@
         io_mode = true;
         io_graph_combined = false;
       }
-      // options.extraSettings;
+      // options.extraSettings);
 
-    package.defaultFunc = {inputs}: let
+    package.default = adios.promise ({inputs}: let
       inherit (inputs.nixpkgs) pkgs;
     in
       if !pkgs.stdenv.hostPlatform.isDarwin
@@ -32,6 +32,6 @@
           rocmSupport = true;
           cudaSupport = true;
         }
-      else pkgs.btop;
+      else pkgs.btop);
   };
 }

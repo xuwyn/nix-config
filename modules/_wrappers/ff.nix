@@ -5,7 +5,7 @@
     nixpkgs.from = {parent}: parent.nixpkgs;
   };
 
-  impl = {
+  result = adios.promise ({
     inputs,
     options,
   }: let
@@ -28,5 +28,5 @@
           exit 1
           ;;
       esac
-    '';
+    '');
 }

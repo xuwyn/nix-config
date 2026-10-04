@@ -2,14 +2,15 @@
   types,
   flakeInputs,
   ...
-}: {
+} @ adios: {
   inputs.nixpkgs.from = {parent}: parent.nixpkgs;
 
   options = {
     theme = {
       type = types.attrs;
-      defaultFunc = {inputs}:
-        (flakeInputs.spicetify-nix.legacyPackages.${inputs.nixpkgs.pkgs.stdenv.hostPlatform.system}).themes.catppuccin;
+      default =
+        adios.promise ({inputs}:
+          (flakeInputs.spicetify-nix.legacyPackages.${inputs.nixpkgs.pkgs.stdenv.hostPlatform.system}).themes.catppuccin);
     };
     colorScheme = {
       type = types.string;
@@ -17,12 +18,12 @@
     };
     enabledExtensions = {
       type = types.listOf types.attrs;
-      defaultFunc = {inputs}:
+      default = adios.promise ({inputs}:
         with (flakeInputs.spicetify-nix.legacyPackages.${inputs.nixpkgs.pkgs.stdenv.hostPlatform.system}).extensions; [
           adblockify
           hidePodcasts
           shuffle
-        ];
+        ]);
     };
     extraSettings = {
       type = types.attrs;
@@ -30,7 +31,7 @@
     };
   };
 
-  impl = {
+  result = adios.promise ({
     options,
     inputs,
   }: let
@@ -42,5 +43,5 @@
     flakeInputs.spicetify-nix.lib.mkSpicetify unfreePkgs ({
         inherit (options) theme colorScheme enabledExtensions;
       }
-      // options.extraSettings);
+      // options.extraSettings));
 }

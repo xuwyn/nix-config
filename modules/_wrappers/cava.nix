@@ -1,4 +1,4 @@
-{types, ...}: {
+{types, ...} @ adios: {
   inputs = {
     mkWrapper.from = {parent}: parent.mkWrapper;
     nixpkgs.from = {parent}: parent.nixpkgs;
@@ -20,11 +20,11 @@
     };
     package = {
       type = types.derivation;
-      defaultFunc = {inputs}: inputs.nixpkgs.pkgs.cava;
+      default = adios.promise ({inputs}: inputs.nixpkgs.pkgs.cava);
     };
   };
 
-  options.settings.defaultFunc = {
+  options.settings.default = adios.promise ({
     options,
     inputs,
   }: let
@@ -58,8 +58,9 @@
         gradient_color_7 = "'#ee99a0'";
         gradient_color_8 = "'#ed8796'";
       };
-  };
-  impl = {
+  });
+
+  result = adios.promise ({
     options,
     inputs,
   }: let
@@ -75,5 +76,5 @@
     inputs.mkWrapper {
       inherit (options) package;
       flags = optionals (options ? configFile || options ? settings) ["-p" "${configPath}"];
-    };
+    });
 }

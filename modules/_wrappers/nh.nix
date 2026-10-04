@@ -1,4 +1,4 @@
-{types, ...}: {
+{types, ...} @ adios: {
   inputs = {
     mkWrapper.from = {parent}: parent.mkWrapper;
     nixpkgs.from = {parent}: parent.nixpkgs;
@@ -16,11 +16,11 @@
     };
     package = {
       type = types.derivation;
-      defaultFunc = {inputs}: inputs.nixpkgs.pkgs.nh;
+      default = adios.promise ({inputs}: inputs.nixpkgs.pkgs.nh);
     };
   };
 
-  impl = {
+  result = adios.promise ({
     options,
     inputs,
   }: let
@@ -33,5 +33,5 @@
     inputs.mkWrapper {
       inherit (options) package;
       environment.NH_FLAKE = "${homeDirectory}/${options.flakePath}";
-    };
+    });
 }

@@ -1,11 +1,11 @@
-{types, ...}: {
+{types, ...} @ adios: {
   options = {
     extraSettings = {
       type = types.attrs;
       default = {};
     };
 
-    settings.defaultFunc = {options}:
+    settings.default = adios.promise ({options}:
       {
         user = {
           name = "wyn";
@@ -26,6 +26,6 @@
         merge.conflictStyle = "diff3";
         pull.rebase = true;
       }
-      // options.extraSettings;
+      // options.extraSettings);
   };
 }

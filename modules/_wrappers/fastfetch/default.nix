@@ -1,8 +1,8 @@
-_: {
-  options.settings.defaultFunc = {inputs}: let
+adios: {
+  options.settings.default = adios.promise ({inputs}: let
     logos = import ./logos.nix inputs.nixpkgs.pkgs;
   in
-    import ./profiles/mini.nix logos.nixos;
+    import ./profiles/mini.nix logos.nixos);
 
-  mutations."/zsh".extraPackages = {options}: [(options {})];
+  mutations."/zsh".extraPackages = adios.promise ({options}: [(options {})]);
 }

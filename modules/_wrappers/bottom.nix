@@ -1,11 +1,11 @@
-{types, ...}: {
+{types, ...} @ adios: {
   options = {
     extraSettings = {
       type = types.attrs;
       default = {};
     };
 
-    settings.defaultFunc = {options}:
+    settings.default = adios.promise ({options}:
       {
         enable_gpu = true;
         theme = "nord";
@@ -36,6 +36,6 @@
           }
         ];
       }
-      // options.extraSettings;
+      // options.extraSettings);
   };
 }

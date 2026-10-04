@@ -1,7 +1,7 @@
-{sources, ...}: {
+{sources, ...} @ adios: {
   inputs.nixpkgs.from = {parent}: parent.nixpkgs;
 
-  impl = {inputs, ...}: let
+  result = adios.promise ({inputs, ...}: let
     pkgs = inputs.nixpkgs.pkgs;
     lib = pkgs.lib;
     src = sources.maa-cli;
@@ -30,5 +30,5 @@
           --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [pkgs.stdenv.cc.cc.lib pkgs.zlib]} \
           --set MAA_CONFIG_DIR ${configDir}
       '';
-    };
+    });
 }
