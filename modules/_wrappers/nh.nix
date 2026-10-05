@@ -7,7 +7,7 @@
   options = {
     username = {
       type = types.string;
-      description = "Username on this host";
+      default = "wyn";
     };
     flakePath = {
       type = types.string;

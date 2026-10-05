@@ -23,15 +23,16 @@
             (tealdeer {})
             (bottom {})
             (ns {})
-            (nh {username = lib.head users;})
-            (cava {theme = "noctalia";})
-            (btop {extraSettings = {color_theme = "noctalia";};})
+            (nh {})
+            (cava {noctaliaThemeEnabled = true;})
+            (btop {noctaliaThemeEnabled = true;})
             (kitty {noctaliaThemeEnabled = true;})
             (ghostty {noctaliaThemeEnabled = true;})
             (yazi {})
             (firefox {})
             (spicetify {})
             (maa-cli {})
+            (helix {noctaliaThemeEnabled = true;})
           ];
           sops.age = {
             keyFile = "/persist${config.hj.directory}/.config/sops/age/keys.txt";

@@ -4,10 +4,16 @@
       type = types.attrs;
       default = {};
     };
-
+    noctaliaThemeEnabled = {
+      type = types.bool;
+      default = false;
+    };
     settings.default = adios.promise ({options}:
       {
-        color_theme = "dracula";
+        color_theme =
+          if options.noctaliaThemeEnabled
+          then "noctalia"
+          else "dracula";
         theme_background = false;
         vim_keys = true;
         rounded_corners = true;

@@ -48,7 +48,6 @@
         duckduckgo-no-ai-search
         sink-it-for-reddit
         rycee.ublock-origin
-        rycee.tree-style-tab
         rycee.don-t-fuck-with-paste
         rycee.return-youtube-dislikes
         rycee.youtube-nonstop

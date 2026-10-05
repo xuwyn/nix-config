@@ -13,6 +13,10 @@
       type = types.pathLike;
       description = "Path to config file (INI)";
     };
+    noctaliaThemeEnabled = {
+      type = types.bool;
+      default = false;
+    };
     theme = {
       type = types.string;
       default = "";
@@ -45,7 +49,9 @@
     };
 
     color =
-      if options.theme != ""
+      if options.noctaliaThemeEnabled
+      then {theme = "noctalia";}
+      else if options.theme != ""
       then {theme = options.theme;}
       else {
         gradient = 1;
