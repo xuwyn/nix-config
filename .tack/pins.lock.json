@@ -265,9 +265,9 @@
     "type": "github",
     "owner": "noctalia-dev",
     "repo": "umbriel",
-    "rev": "f1d99f8f96e5d809ec87645f4780a4bfaaf08f13",
-    "narHash": "sha256-Xf0ntJsGdw/OX+gJXlpJ/iR6pJz5skDU1ol6mOuGWec=",
-    "lastModified": 1790996288
+    "rev": "6adcbc043c7462871874e87d12587082f77d78f3",
+    "narHash": "sha256-vhaVNM/GM1fZcY3lsggNcr+NrwUmoCd/zBJz09vwjc8=",
+    "lastModified": 1791162319
   },
   "vellum": {
     "type": "github",

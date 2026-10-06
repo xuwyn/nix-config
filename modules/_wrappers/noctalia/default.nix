@@ -4,9 +4,9 @@
   ...
 } @ adios: {
   options = {
-    monitors = {
-      type = types.listOf types.string;
-      description = "Monitor names used for per-monitor lockscreen widgets.";
+    desktop = {
+      type = types.attrs;
+      default = {};
     };
     package.default = adios.promise ({inputs}: flakeInputs.noctalia.packages.${inputs.nixpkgs.pkgs.stdenv.hostPlatform.system}.default);
     settings.default = adios.promise ({
@@ -14,7 +14,7 @@
       inputs,
     }:
       import ./settings.nix {
-        inherit (options) monitors;
+        monitors = map (m: m.name) options.desktop.monitors;
         inherit (inputs.nixpkgs) lib;
       });
   };
