@@ -32,7 +32,7 @@
             (firefox {})
             (spicetify {})
             (maa-cli {})
-            (helix {noctaliaThemeEnabled = true;})
+            (helix {})
           ];
           sops.age = {
             keyFile = "/persist${config.hj.directory}/.config/sops/age/keys.txt";

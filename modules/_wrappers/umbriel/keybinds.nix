@@ -1,10 +1,10 @@
 {
-  config,
+  desktop,
   lib,
   ...
 }: let
-  inherit (config.nixos.desktop) browser terminal;
-  noctaliaBinds = import ../_noctalia-keybinds.nix;
+  inherit (desktop) browser terminal;
+  noctaliaBinds = import ./noctalia-keybinds.nix;
   toUmbrielKey = key: let
     parts = lib.splitString " + " key;
     rename = p:
