@@ -119,7 +119,7 @@ url = "github:fzakaria/nixpkgs-multiverse"
 url = "github:4evy/nixcord"
 
 [inputs.umbriel]
-url = "github:noctalia-dev/umbriel"
+url = "github:noctalia-dev/umbriel/cachix"
 exclude_follow = ["nixpkgs"]
 
 [inputs.adios]
