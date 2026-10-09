@@ -1,4 +1,8 @@
-{types, ...} @ adios: {
+{
+  types,
+  flakeInputs,
+  ...
+} @ adios: {
   options = {
     package.default = adios.promise ({inputs}: inputs.nixpkgs.pkgs.evil-helix);
     extraSettings = {
@@ -9,28 +13,26 @@
       type = types.attrs;
       default = {};
     };
-    username = {
-      type = types.string;
-      default = "wyn";
-    };
-    noctaliaThemeEnabled = {
-      type = types.bool;
-      default = false;
-    };
     themeDir.default = adios.promise ({
       options,
       inputs,
-    }:
-      if inputs.nixpkgs.pkgs.stdenv.hostPlatform.isDarwin
-      then "/Users/${options.username}/.config/helix/themes"
-      else "/home/${options.username}/.config/helix/themes");
+    }: let
+      pkgs = inputs.nixpkgs.pkgs;
+      mocha = builtins.fromTOML (builtins.readFile "${flakeInputs.catppuccin-helix}/themes/default/catppuccin_mocha.toml");
+      transparent =
+        (pkgs.formats.toml {}).generate "catppuccin_transparent.toml"
+        (mocha // {"ui.background" = {};});
+    in
+      pkgs.linkFarm "helix-themes" [
+        {
+          name = "catppuccin_transparent.toml";
+          path = transparent;
+        }
+      ]);
 
     settings.default = adios.promise ({options}:
       {
-        theme =
-          if options.noctaliaThemeEnabled
-          then "noctalia"
-          else "catppuccin_mocha";
+        theme = "catppuccin_transparent";
         editor.evil = true;
         keys = {
           insert.j.k = "normal_mode";
@@ -52,7 +54,6 @@
         lua-language-server
         stylua
         yaml-language-server
-        vscode-langservers-extracted
         prettier
         marksman
         clang-tools

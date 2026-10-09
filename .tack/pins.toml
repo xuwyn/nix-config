@@ -27,7 +27,7 @@ nixpkgs = "nixpkgs"
 url = "https://channels.nixos.org/nixos-unstable/nixexprs.tar.xz"
 
 [inputs.nixos-raspberrypi]
-url = "github:nvmd/nixos-raspberrypi/main"
+url            = "github:nvmd/nixos-raspberrypi/main"
 exclude_follow = ["nixpkgs"]
 
 [inputs.home-manager]
@@ -40,19 +40,19 @@ url = "github:nix-darwin/nix-darwin/master"
 url = "github:zhaofengli/nix-homebrew"
 
 [inputs.homebrew-core]
-url = "github:homebrew/homebrew-core"
+url  = "github:homebrew/homebrew-core"
 type = "fetch"
 
 [inputs.homebrew-cask]
-url = "github:homebrew/homebrew-cask"
+url  = "github:homebrew/homebrew-cask"
 type = "fetch"
 
 [inputs.barutsrb-tap]
-url = "github:BarutSRB/homebrew-tap"
+url  = "github:BarutSRB/homebrew-tap"
 type = "fetch"
 
 [inputs.nix-cachyos-kernel]
-url = "github:xddxdd/nix-cachyos-kernel/release"
+url            = "github:xddxdd/nix-cachyos-kernel/release"
 exclude_follow = ["nixpkgs"]
 
 [inputs.nix-index-database]
@@ -77,14 +77,14 @@ url = "github:Mic92/sops-nix"
 url = "github:nix-community/NUR"
 
 [inputs.spicetify-nix]
-url = "github:Gerg-L/spicetify-nix"
+url            = "github:Gerg-L/spicetify-nix"
 exclude_follow = ["nixpkgs"]
 
 [inputs.silentSDDM]
 url = "github:uiriansan/SilentSDDM"
 
 [inputs.mac-app-util]
-url = "github:hraban/mac-app-util"
+url            = "github:hraban/mac-app-util"
 exclude_follow = ["nixpkgs"]
 
 [inputs.nixos-wsl]
@@ -94,7 +94,7 @@ url = "github:nix-community/NixOS-WSL/main"
 url = "gitlab:rycee/nur-expressions"
 
 [inputs.disko]
-url = "github:nix-community/disko"
+url            = "github:nix-community/disko"
 exclude_follow = ["nixpkgs"]
 
 [inputs.preservation]
@@ -119,23 +119,30 @@ url = "github:fzakaria/nixpkgs-multiverse"
 url = "github:4evy/nixcord"
 
 [inputs.umbriel]
-url = "github:noctalia-dev/umbriel/cachix"
+url            = "github:noctalia-dev/umbriel/cachix"
 exclude_follow = ["nixpkgs"]
 
 [inputs.adios]
 url = "github:llakala/lladios"
 
 [inputs.adios-wrappers]
-url = "github:llakala/adios-wrappers"
-follows = {adios = "adios"}
+url     = "github:llakala/adios-wrappers"
+follows = { adios = "adios" }
 
 [inputs.noctalia]
-url = "github:noctalia-dev/noctalia/cachix"
+url            = "github:noctalia-dev/noctalia/cachix"
 exclude_follow = ["nixpkgs"]
 
 [inputs.hjem]
 url = "github:feel-co/hjem"
 
 [inputs.assets]
-url = "github:xuwyn/assets"
+url  = "github:xuwyn/assets"
+type = "fetch"
+
+[inputs.nvf]
+url = "github:notashelf/nvf"
+
+[inputs.catppuccin-helix]
+url  = "github:catppuccin/helix"
 type = "fetch"

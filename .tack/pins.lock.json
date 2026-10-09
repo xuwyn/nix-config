@@ -31,6 +31,14 @@
     "narHash": "sha256-+HrnxHGLg3vGh2HzWZ+891f5QBRon5cvM7Rr9lV2kvw=",
     "lastModified": 1788753221
   },
+  "catppuccin-helix": {
+    "type": "github",
+    "owner": "catppuccin",
+    "repo": "helix",
+    "rev": "91e071bf9b9b2b8ae176a5581fcb61c789c55cab",
+    "narHash": "sha256-F05ohJp7c9Pdnjq8+srfhAt1ogHjjBz50k1ftHOHGVg=",
+    "lastModified": 1771425236
+  },
   "deploy-rs": {
     "type": "github",
     "owner": "serokell",
@@ -212,6 +220,14 @@
     "rev": "50e98bb0f5c5e7fddb26c26b044f0f363f53584c",
     "narHash": "sha256-2dSW/+UbvXUSyIhsKVVNqCYu3eGKlqhPa75a8zD27bw=",
     "lastModified": 1790913743
+  },
+  "nvf": {
+    "type": "github",
+    "owner": "notashelf",
+    "repo": "nvf",
+    "rev": "b5a8011df7e743d5bd992d25983d548f99e9ff83",
+    "narHash": "sha256-GBC/HfZM1Bh5dM/B0csBr8YoVGk3DTmCF/Qx646kThE=",
+    "lastModified": 1791215772
   },
   "preservation": {
     "type": "github",

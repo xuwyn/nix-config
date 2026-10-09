@@ -33,6 +33,7 @@
             (spicetify {})
             (maa-cli {})
             (helix {})
+            (nvf {})
           ];
           sops.age = {
             keyFile = "/persist${config.hj.directory}/.config/sops/age/keys.txt";

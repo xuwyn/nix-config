@@ -3,7 +3,7 @@
     system = "x86_64-linux";
     username = "wyn";
     modules = with config.modules.homeManager;
-      [nix-settings home sops]
+      [home]
       ++ [editors desktop noctalia hyprland]
       ++ [
         ({
@@ -18,7 +18,7 @@
             editors = {
               zed.enable = true;
               nano.enable = true;
-              nixvim.enable = true;
+              # nixvim.enable = true;
             };
           };
         })
