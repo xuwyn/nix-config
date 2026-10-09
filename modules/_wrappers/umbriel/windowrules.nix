@@ -88,7 +88,13 @@
   }
   {
     match.app_id = ''^([Ss]team)$'';
+    match.title = ''^([Ss]team)$'';
     default_floating = false;
+  }
+  {
+    match.app_id = ''^([Ss]team)$'';
+    match.title = ''^(?![Ss]team$|Friends List$)'';
+    default_floating = true;
   }
   {
     match.app_id = ''^(gamescope)$'';

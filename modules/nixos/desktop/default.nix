@@ -60,18 +60,22 @@
         description = "Choose default editor";
       };
     };
+    imports = [inputs.umbriel.nixosModules.default];
     config = let
       wm = self.wrapperModules.${pkgs.stdenv.hostPlatform.system};
       noctalia = wm.noctalia {inherit (config.nixos) desktop;};
+      umbriel = wm.umbriel {inherit (config.nixos) desktop;};
     in {
-      environment.variables.NIXOS_OZONE_WL = "1"; # TODO: why is this here???
-      environment.systemPackages = lib.optionals cfg.noctalia.enable [
-        noctalia
-        pkgs.evtest # bongocat
-        pkgs.grim # ocr
-        pkgs.slurp # ocr
-        pkgs.tesseract # ocr
-      ];
+      # environment.variables.NIXOS_OZONE_WL = "1"; # TODO: duplicated with WM's environment
+      environment.systemPackages =
+        lib.optionals cfg.noctalia.enable [
+          noctalia
+          pkgs.evtest # bongocat
+          pkgs.grim # ocr
+          pkgs.slurp # ocr
+          pkgs.tesseract # ocr
+        ]
+        ++ lib.optionals cfg.umbriel.enable [umbriel];
       programs = {
         hyprland = {
           enable = cfg.hyprland.enable;
@@ -79,9 +83,11 @@
         };
         umbriel = {
           enable = cfg.umbriel.enable;
-          package = inputs.umbriel.packages.${pkgs.stdenv.hostPlatform.system}.default;
+          package = umbriel;
         };
       };
+      # TODO: move this somewhere else that makes more sense
+      hj.xdg.config.files."umbriel/config.toml".source = umbriel.configFile;
     };
   };
 }

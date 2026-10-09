@@ -1,5 +1,5 @@
-{config, ...}: let
-  inherit (config.nixos.desktop) editor terminal;
+{desktop, ...}: let
+  inherit (desktop) editor terminal;
 in {
   ELECTRON_OZONE_PLATFORM_HINT = "auto";
   SDL_VIDEODRIVER = "wayland";
