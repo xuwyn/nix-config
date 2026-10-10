@@ -13,6 +13,15 @@
       type = types.attrs;
       default = {};
     };
+    username = {
+      type = types.string;
+      default = "wyn";
+    };
+    noctaliaThemeEnabled = {
+      type = types.bool;
+      default = false;
+    };
+
     themeDir.default = adios.promise ({
       options,
       inputs,
@@ -23,16 +32,22 @@
         (pkgs.formats.toml {}).generate "catppuccin_transparent.toml"
         (mocha // {"ui.background" = {};});
     in
-      pkgs.linkFarm "helix-themes" [
-        {
-          name = "catppuccin_transparent.toml";
-          path = transparent;
-        }
-      ]);
+      if options.noctaliaThemeEnabled
+      then "/home/${options.username}/.config/helix/themes"
+      else
+        pkgs.linkFarm "helix-themes" [
+          {
+            name = "catppuccin_transparent.toml";
+            path = transparent;
+          }
+        ]);
 
     settings.default = adios.promise ({options}:
       {
-        theme = "catppuccin_transparent";
+        theme =
+          if options.noctaliaThemeEnabled
+          then "noctalia"
+          else "catppuccin_transparent";
         editor.evil = true;
         keys = {
           insert.j.k = "normal_mode";

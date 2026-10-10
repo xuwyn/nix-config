@@ -33,7 +33,7 @@
             (firefox {})
             (spicetify {})
             (maa-cli {})
-            (helix {})
+            (helix {noctaliaThemeEnabled = true;})
             (nvf {})
           ];
           sops.age = {

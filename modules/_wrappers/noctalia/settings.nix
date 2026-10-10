@@ -331,9 +331,9 @@
   theme = {
     mode = "dark";
     source = "wallpaper";
-    wallpaper_scheme = "soft";
+    wallpaper_scheme = "faithful";
     templates = {
-      builtin_ids = ["btop" "cava" "gtk3" "gtk4" "ghostty" "hyprland" "kitty" "umbriel" "qt"];
+      builtin_ids = ["btop" "cava" "gtk3" "gtk4" "helix" "ghostty" "hyprland" "kitty" "umbriel" "qt"];
       community_ids = ["pywalfox" "discord" "zed" "neovim"];
     };
   };
