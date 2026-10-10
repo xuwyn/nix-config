@@ -37,7 +37,6 @@ in
     "Mod+T" = "spawn:thunar";
     "Mod+Y" = "scratchpad-toggle:yazi";
     "Mod+Shift+Escape" = "scratchpad-toggle:btop";
-    "Mod+Ctrl+A" = "spawn:vellum toggle";
     "Mod+Q" = "window-close";
     "Mod+Delete" = "session-quit";
     "Mod+Slash" = "cheatsheet-toggle";

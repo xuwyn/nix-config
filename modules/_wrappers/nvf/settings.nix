@@ -27,13 +27,6 @@
       };
     };
 
-    theme = {
-      enable = true;
-      name = "catppuccin";
-      style = "mocha";
-      transparent = true;
-    };
-
     options = {
       cursorline = true;
       gdefault = true; # replace all by default

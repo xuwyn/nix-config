@@ -8,6 +8,14 @@
     command = "noctalia msg panel-toggle launcher";
   }
   {
+    key = "SUPER + CTRL + A";
+    command = "noctalia msg screenshot-annotate";
+  }
+  {
+    key = "SUPER + SHIFT + A";
+    command = "noctalia msg panel-toggle launcher /win";
+  }
+  {
     key = "SUPER + V";
     command = "noctalia msg panel-toggle clipboard";
   }
@@ -55,10 +63,6 @@
   {
     key = "SUPER + E";
     command = "noctalia msg panel-toggle launcher /emo";
-  }
-  {
-    key = "SUPER + SHIFT + A";
-    command = "noctalia msg panel-toggle launcher /win";
   }
   {
     key = "SUPER + SHIFT + E";

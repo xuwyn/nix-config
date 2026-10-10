@@ -318,13 +318,23 @@
     cpu_poll_seconds = 1;
     network_poll_seconds = 1;
   };
+  notification = {
+    filter_order = ["no_sound"];
+    filter.no_sound = {
+      enabled = true;
+      match_content = ".*";
+      show_toast = true;
+      save_history = true;
+      play_sound = false;
+    };
+  };
   theme = {
     mode = "dark";
     source = "wallpaper";
     wallpaper_scheme = "soft";
     templates = {
       builtin_ids = ["btop" "cava" "gtk3" "gtk4" "ghostty" "hyprland" "kitty" "umbriel" "qt"];
-      community_ids = ["pywalfox" "discord" "zed"];
+      community_ids = ["pywalfox" "discord" "zed" "neovim"];
     };
   };
   wallpaper = {
