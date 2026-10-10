@@ -1,4 +1,4 @@
-_: {
+adios: {
   options.flags.default = [
     "--group-directories-first"
     "--no-quotes"
@@ -9,6 +9,6 @@ _: {
     "--classify" # append indicator (/, *, =, @, |)
     "--hyperlink" # make paths clickable in some terminals
   ];
-  mutations."/bash".extraPackages = {options}: [(options {})];
-  mutations."/zsh".extraPackages = {options}: [(options {})];
+  mutations."/bash".extraPackages = adios.promise ({options}: [(options {})]);
+  mutations."/zsh".extraPackages = adios.promise ({options}: [(options {})]);
 }

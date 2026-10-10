@@ -2,6 +2,7 @@
   # Binary caches
   nixConfig = {
     extra-substituters = [
+      "https://umbriel.cachix.org"
       "https://noctalia.cachix.org"
       "https://nix-community.cachix.org"
       "https://cache.xinux.uz"
@@ -9,6 +10,7 @@
       "https://cache.nixos.org"
     ];
     extra-trusted-public-keys = [
+      "umbriel.cachix.org-1:JfNq/2yg2S6D6z4Z2dVSZrZlDPQTKtexB6GAVLD98nw="
       "noctalia.cachix.org-1:pCOR47nnMEo5thcxNDtzWpOxNFQsBRglJzxWPp3dkU4="
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
       "cache.xinux.uz:BXCrtqejFjWzWEB9YuGB7X2MV4ttBur1N8BkwQRdH+0="
@@ -54,11 +56,19 @@
 
     wrapperModules = perSystem (pkgs: _: let
       inherit (inputs.adios) adios;
+      sources = import ./_sources/generated.nix {
+        inherit (pkgs) fetchFromGitHub fetchurl fetchgit dockerTools;
+      };
       root.modules = adios.lib.inject [
         inputs.adios-wrappers.wrapperModules
         (adios.lib.importModules {
           directory = ./modules/_wrappers;
-          args = adios // {flakeInputs = inputs;};
+          args =
+            adios
+            // {
+              flakeInputs = inputs;
+              inherit sources;
+            };
         })
       ];
     in

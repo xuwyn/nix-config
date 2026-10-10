@@ -3,30 +3,50 @@
     activateRsCommand = "/nix/store/*/activate-rs";
     canaryRmGlob = "/tmp/deploy-rs-canary-*";
 
-    mkDeployUserAssertion = platform: users: {
+    mkDeployUserAssertion = users: {
       assertion = users ? deploy;
       message = ''
         deploy-rs requires a user named "deploy" to be declared in
-        modules.${platform}.users, but none was found.
+        this host's users, but none was found.
       '';
     };
-  in {
-    homeManager.deploy = {
-      inputs,
-      pkgs,
-      ...
-    }: {
-      home.packages = [inputs.deploy-rs.packages.${pkgs.stdenv.hostPlatform.system}.default];
-      sops.secrets.deploy_key = {};
-    };
 
-    nixos.deploy = {
+    mkDeployCommonConfig = {
       config,
       lib,
+      inputs,
+      pkgs,
+      users,
       ...
     }: {
-      assertions = [(mkDeployUserAssertion "nixos" config.nixos.users)];
+      environment.systemPackages = [inputs.deploy-rs.packages.${pkgs.stdenv.hostPlatform.system}.default];
+      sops.secrets.deploy_key = {
+        owner = lib.head users;
+        sopsFile = ./sops/deploy.yaml;
+        path = "${config.hj.directory}/.ssh/deploy_key";
+      };
+    };
 
+    mkSystemDeployModule = extra: {
+      config,
+      lib,
+      inputs,
+      pkgs,
+      users,
+      ...
+    } @ args:
+      lib.mkMerge [
+        (mkDeployCommonConfig args)
+        (extra args)
+      ];
+  in {
+    nixos.deploy = mkSystemDeployModule ({
+      config,
+      lib,
+      users,
+      ...
+    }: {
+      assertions = [(mkDeployUserAssertion config.nixos.users)];
       security.sudo.extraRules =
         lib.optional
         (lib.any (u: u.isDeployer) (lib.attrValues config.nixos.users))
@@ -43,17 +63,10 @@
             }
           ];
         };
-    };
+    });
 
-    darwin.deploy = {
-      config,
-      lib,
-      ...
-    }: {
-      assertions = [(mkDeployUserAssertion "darwin" config.darwin.users)];
-
-      # Reactivate home manager at login
-      # deploy-home.sh can't activate all services if user is logout
+    darwin.deploy = mkSystemDeployModule ({config, ...}: {
+      assertions = [(mkDeployUserAssertion config.darwin.users)];
       launchd.user.agents.hm-activation = {
         serviceConfig = {
           ProgramArguments = [
@@ -64,11 +77,9 @@
           WatchPaths = ["/nix/var/nix/daemon-socket/socket"];
         };
       };
-
-      # give deploy limited sudo to commands that deploy-rs needs
       environment.etc."sudoers.d/deploy".text = ''
         deploy ALL=(root) NOPASSWD: ${activateRsCommand}, /bin/rm ${canaryRmGlob}
       '';
-    };
+    });
   };
 }

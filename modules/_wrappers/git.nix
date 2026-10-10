@@ -1,11 +1,11 @@
-{types, ...}: {
+{types, ...} @ adios: {
   options = {
     extraSettings = {
       type = types.attrs;
       default = {};
     };
 
-    settings.defaultFunc = {options}:
+    settings.default = adios.promise ({options}:
       {
         user = {
           name = "wyn";
@@ -14,6 +14,7 @@
         };
         core.editor = "nvim";
         commit.gpgsign = true;
+        tag.gpgsign = true;
         gpg.format = "ssh";
         push.default = "simple";
         credential.helper = "cache --timeout=7200";
@@ -25,6 +26,6 @@
         merge.conflictStyle = "diff3";
         pull.rebase = true;
       }
-      // options.extraSettings;
+      // options.extraSettings);
   };
 }

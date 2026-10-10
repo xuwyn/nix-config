@@ -18,13 +18,21 @@
       };
     };
 
-    mkAtticPullConfig = {
+    mkAtticConfig = {
       config,
       lib,
       cfg,
-    }: {
-      # TODO: Every caches use the same token... ¯\_(ツ)_/¯
-      sops.secrets.attic_token.sopsFile = ./sops/access-tokens.yaml;
+      pkgs,
+      users,
+      ...
+    }: let
+      tomlFormat = pkgs.formats.toml {};
+    in {
+      # TODO: Every host uses the same token for all caches... ¯\_(ツ)_/¯
+      sops.secrets.attic_token = {
+        owner = lib.head users;
+        sopsFile = ./sops/access-tokens.yaml;
+      };
       sops.templates.".netrc".content = ''
         machine ${cfg.tailscaleDomain}
         password ${config.sops.placeholder.attic_token}
@@ -33,61 +41,30 @@
         extra-substituters = ["https://${cfg.tailscaleDomain}/${cfg.cacheName}"];
         extra-trusted-public-keys = ["${cfg.cacheName}:${cfg.publicKey}"];
       };
+      environment.systemPackages = [pkgs.attic-client];
+      hj.xdg.config.files."attic/config.toml".source = tomlFormat.generate "attic-config.toml" {
+        default-server = "tailscale";
+        servers.tailscale = {
+          endpoint = "https://${cfg.tailscaleDomain}";
+          token-file = config.sops.secrets.attic_token.path;
+        };
+      };
     };
 
     mkSystemAtticModule = class: {
       config,
       lib,
+      pkgs,
+      users,
       ...
     }: let
       cfg = config.${class}.attic;
     in {
       options.${class}.attic = mkAtticOptions lib;
-      config = mkAtticPullConfig {inherit config lib cfg;};
+      config = mkAtticConfig {inherit config lib cfg pkgs users;};
     };
   in {
     nixos.attic = mkSystemAtticModule "nixos";
     darwin.attic = mkSystemAtticModule "darwin";
-    homeManager.attic = {
-      config,
-      lib,
-      inputs,
-      pkgs,
-      ...
-    }: let
-      cfg = config.homeManager.attic;
-    in {
-      options.homeManager.attic =
-        {
-          defaultServer = lib.mkOption {
-            type = lib.types.enum ["tailscale"];
-            default = "tailscale";
-          };
-        }
-        // mkAtticOptions lib;
-
-      config = lib.mkMerge [
-        (mkAtticPullConfig {inherit config lib cfg;})
-        {
-          programs.attic-client = {
-            enable = true;
-            package = inputs.nixpkgs.legacyPackages.${pkgs.stdenv.hostPlatform.system}.attic-client;
-            settings = {
-              default-server = cfg.defaultServer;
-              servers = {
-                tailscale = {
-                  endpoint = "https://${cfg.tailscaleDomain}";
-                  token-file = config.sops.secrets.attic_token.path;
-                };
-              };
-            };
-          };
-          home.shellAliases = {
-            ap-system = "attic push main /run/current-system";
-            ap-home = "attic push main $(readlink -f ~/.local/state/nix/profiles/home-manager)";
-          };
-        }
-      ];
-    };
   };
 }

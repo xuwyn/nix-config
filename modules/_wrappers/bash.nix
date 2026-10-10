@@ -27,7 +27,7 @@
     aliases = {
       type = types.attrsOf types.string;
       mergeFunc = adios.lib.merge.attrs.recursively;
-      defaultFunc = {options}: import ./shell/aliases.nix // options.extraAliases;
+      default = adios.promise ({options}: import ./shell/aliases.nix // options.extraAliases);
     };
     extraPackages = {
       type = types.listOf types.derivation;
@@ -36,26 +36,26 @@
     };
     package = {
       type = types.derivation;
-      defaultFunc = {inputs}: inputs.nixpkgs.pkgs.bashInteractive;
+      default = adios.promise ({inputs}: inputs.nixpkgs.pkgs.bashInteractive);
     };
   };
 
-  mutations."/bash".extraPackages = {inputs}: [
+  mutations."/bash".extraPackages = adios.promise ({inputs}: [
     inputs.nixpkgs.pkgs.bash-completion
     inputs.nixpkgs.pkgs.microfetch
-  ];
+  ]);
 
-  mutations."/bash".bashrc = {inputs}: ''
+  mutations."/bash".bashrc = adios.promise ({inputs}: ''
     [ -r "${inputs.nixpkgs.pkgs.bash-completion}/etc/profile.d/bash_completion.sh" ] && \
       source "${inputs.nixpkgs.pkgs.bash-completion}/etc/profile.d/bash_completion.sh"
-  '';
+  '');
 
-  mutations."/bash".extraBashrc = _: ''
+  mutations."/bash".extraBashrc = ''
     ${import ./shell/env.nix}
     microfetch
   '';
 
-  impl = {
+  result = adios.promise ({
     options,
     inputs,
   }: let
@@ -91,5 +91,5 @@
         "$out/.bashrc" = writeText ".bashrc" bashrc;
       };
       flags = ["--rcfile" "$out/.bashrc"];
-    };
+    });
 }

@@ -2,8 +2,8 @@
   nixos.mango = {
     users = ["wyn" "deploy"];
     modules = with config.modules.nixos;
-      [./_disko.nix nix-settings preservation drivers boot hardware network zram hjem]
-      ++ [system users desktop apps services sops tailscale deploy attic binfmt rs-key]
+      [./_disko.nix nix-settings preservation drivers boot hardware network zram hjem ssh xdg]
+      ++ [system users desktop apps services sops tailscale deploy attic binfmt rs-key git]
       ++ [
         ({
           self,
@@ -11,21 +11,30 @@
           config,
           lib,
           users,
+          inputs,
           ...
         }: let
           wm = self.wrapperModules.${pkgs.stdenv.hostPlatform.system};
         in {
-          environment.systemPackages = [
-            (wm.zsh {})
-            (wm.bash {})
-            (wm.ff {})
-            (wm.tealdeer {})
-            (wm.bottom {})
-            (wm.ns {})
-            (wm.nh {username = lib.head users;})
-            (wm.cava {theme = "noctalia";})
-            (wm.btop {extraSettings = {color_theme = "noctalia";};})
-            (wm.git {})
+          environment.systemPackages = with wm; [
+            (zsh {})
+            (bash {})
+            (ff {})
+            (tealdeer {})
+            (bottom {})
+            (ns {})
+            (nh {})
+            (cava {noctaliaThemeEnabled = true;})
+            (btop {noctaliaThemeEnabled = true;})
+            (kitty {noctaliaThemeEnabled = true;})
+            (ghostty {noctaliaThemeEnabled = true;})
+            (zed-editor {noctaliaThemeEnabled = true;})
+            (yazi {})
+            (firefox {})
+            (spicetify {})
+            (maa-cli {})
+            (helix {})
+            (nvf {})
           ];
           sops.age = {
             keyFile = "/persist${config.hj.directory}/.config/sops/age/keys.txt";
@@ -33,6 +42,12 @@
           };
           boot.kernelPackages = pkgs.cachyosKernels.linuxPackages-cachyos-bore-lto-zen4;
           nixos = {
+            ssh.hosts = {
+              apricot = {};
+              puffin = {};
+              "apricot.local" = {};
+              "puffin.local" = {};
+            };
             zram.tmpMaxSize = "4096";
             drivers = {
               amdcpu.enable = true;
@@ -84,14 +99,45 @@
                 mode = "silent";
               };
               umbriel.enable = true;
+              hyprland.enable = true;
+              noctalia.enable = true;
               fonts.enable = true;
+              gtk.enable = true;
+              qt.enable = true;
+              cursor.enable = true;
               thunar.enable = true;
               utils.enable = true;
+              monitors = [
+                {
+                  name = "DP-1";
+                  width = 1920;
+                  height = 1080;
+                  x = 0;
+                  y = 0;
+                  refresh = 164.955;
+                }
+                {
+                  name = "DP-4";
+                  width = 1920;
+                  height = 1080;
+                  x = 0;
+                  y = 0;
+                  refresh = 164.955;
+                }
+              ];
+              startupCommands = [
+                "fcitx5 -d -r"
+                "pkill openrgb; sleep 1; openrgb --startminimized --profile purple;"
+              ];
             };
             apps = {
               gpu-screen-recorder.enable = true;
               openrgb.enable = true;
               steam.enable = true;
+              nixcord = {
+                enable = true;
+                themes = ["noctalia.theme.css"];
+              };
             };
             services = {
               scheduler = {

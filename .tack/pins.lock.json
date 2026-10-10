@@ -31,6 +31,14 @@
     "narHash": "sha256-+HrnxHGLg3vGh2HzWZ+891f5QBRon5cvM7Rr9lV2kvw=",
     "lastModified": 1788753221
   },
+  "catppuccin-helix": {
+    "type": "github",
+    "owner": "catppuccin",
+    "repo": "helix",
+    "rev": "91e071bf9b9b2b8ae176a5581fcb61c789c55cab",
+    "narHash": "sha256-F05ohJp7c9Pdnjq8+srfhAt1ogHjjBz50k1ftHOHGVg=",
+    "lastModified": 1771425236
+  },
   "deploy-rs": {
     "type": "github",
     "owner": "serokell",
@@ -213,6 +221,14 @@
     "narHash": "sha256-wPE66J6tYQHoa5DOB4lg+aVTJTdEQnc7SoSjwkGaZUY=",
     "lastModified": 1791518578
   },
+  "nvf": {
+    "type": "github",
+    "owner": "notashelf",
+    "repo": "nvf",
+    "rev": "b5a8011df7e743d5bd992d25983d548f99e9ff83",
+    "narHash": "sha256-GBC/HfZM1Bh5dM/B0csBr8YoVGk3DTmCF/Qx646kThE=",
+    "lastModified": 1791215772
+  },
   "preservation": {
     "type": "github",
     "owner": "nix-community",
@@ -268,13 +284,5 @@
     "rev": "692b0d3df21be55f54327b93d5accfa0d79a89bf",
     "narHash": "sha256-v6MJ1NgD5QjEucofkfz85jkWbHNpG3GpjLp/YgSc5Xk=",
     "lastModified": 1791602863
-  },
-  "vellum": {
-    "type": "github",
-    "owner": "greyxp1",
-    "repo": "vellum",
-    "rev": "d08fc2b95e23420ad11f1a9d98507cdc2546dfe7",
-    "narHash": "sha256-54QS1CbDJCHleFmfEutnXsuNBE9qBfa5r3SSrRKTuvQ=",
-    "lastModified": 1791457010
   }
 }

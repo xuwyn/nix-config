@@ -5,18 +5,18 @@
       default = {};
     };
 
-    aliases.defaultFunc = {options}: import ./shell/aliases.nix // options.extraAliases;
+    aliases.default = adios.promise ({options, ...}: import ./shell/aliases.nix // options.extraAliases);
 
     extraPackages.mutators = ["/eza" "/zoxide" "/starship" "/fastfetch"];
 
-    plugins.defaultFunc = {inputs}: let
+    plugins.default = adios.promise ({inputs, ...}: let
       inherit (inputs.nixpkgs) pkgs;
     in
       with pkgs; [
         zsh-autosuggestions
         zsh-history-substring-search
         zsh-syntax-highlighting
-      ];
+      ]);
 
     settings.default = {
       histignoredups = true;
@@ -29,7 +29,7 @@
       SAVEHIST = 10000;
     };
 
-    zshrc.defaultFunc = {inputs}: let
+    zshrc.default = adios.promise ({inputs, ...}: let
       inherit (inputs.nixpkgs) pkgs;
     in ''
       HISTFILE="$HOME/.zsh_history"
@@ -51,16 +51,15 @@
 
       # must be set before zsh-syntax-highlighting is sourced
       ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern regexp root line)
-    '';
+    '');
 
-    # copy from: https://github.com/llakala/adios-wrappers/blob/bb2f3db20a330104392f62c8d142ea9489c2f3b7/modules/nushell.nix#L16
     extraZshrc = {
       mutators = ["/zsh" "/starship" "/zoxide"];
       mergeFunc = adios.lib.merge.strings.concatLines;
     };
   };
 
-  mutations."/zsh".extraZshrc = _: ''
+  mutations."/zsh".extraZshrc = ''
     ${import ./shell/env.nix}
     fastfetch
   '';

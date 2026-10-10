@@ -1,13 +1,19 @@
-{types, ...}: {
+{types, ...} @ adios: {
   options = {
     extraSettings = {
       type = types.attrs;
       default = {};
     };
-
-    settings.defaultFunc = {options}:
+    noctaliaThemeEnabled = {
+      type = types.bool;
+      default = false;
+    };
+    settings.default = adios.promise ({options}:
       {
-        color_theme = "dracula";
+        color_theme =
+          if options.noctaliaThemeEnabled
+          then "noctalia"
+          else "dracula";
         theme_background = false;
         vim_keys = true;
         rounded_corners = true;
@@ -21,9 +27,9 @@
         io_mode = true;
         io_graph_combined = false;
       }
-      // options.extraSettings;
+      // options.extraSettings);
 
-    package.defaultFunc = {inputs}: let
+    package.default = adios.promise ({inputs}: let
       inherit (inputs.nixpkgs) pkgs;
     in
       if !pkgs.stdenv.hostPlatform.isDarwin
@@ -32,6 +38,6 @@
           rocmSupport = true;
           cudaSupport = true;
         }
-      else pkgs.btop;
+      else pkgs.btop);
   };
 }

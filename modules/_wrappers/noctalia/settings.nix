@@ -1,0 +1,389 @@
+{
+  monitors,
+  lib,
+}: {
+  bar.default = {
+    background_opacity = 0.75;
+    capsule = true;
+    capsule_border = "primary";
+    capsule_foreground = "primary";
+    start = ["launcher" "workspaces" "media" "radio_2"];
+    center = ["audio_visualizer" "spacer_0" "group:g3" "spacer_0" "audio_visualizer"];
+    end = ["group:g4" "todo" "bar" "nix-monitor" "group:g1" "group:g2"];
+    font_family = "Maple Mono NF";
+    margin_edge = 0;
+    margin_ends = 0;
+    padding = 6;
+    panel_overlap = 0;
+    radius = 20;
+    radius_bottom_left = 10;
+    radius_bottom_right = 10;
+    radius_top_left = 0;
+    radius_top_right = 0;
+    shadow = false;
+    thickness = 32;
+    capsule_group = [
+      {
+        accordion = false;
+        accordion_direction = "end";
+        border = "primary";
+        enabled = true;
+        fill = "surface_variant";
+        foreground = "primary";
+        id = "g1";
+        members = ["temp" "cpu" "ram" "sysmon"];
+        opacity = 1.0;
+        padding = 6.0;
+      }
+      {
+        accordion = true;
+        accordion_direction = "start";
+        border = "primary";
+        enabled = true;
+        fill = "surface_variant";
+        foreground = "primary";
+        id = "g2";
+        members = ["network" "bar_2" "bluetooth"];
+        opacity = 1.0;
+        padding = 6.0;
+      }
+      {
+        accordion = false;
+        accordion_direction = "end";
+        border = "primary";
+        enabled = true;
+        fill = "surface_variant";
+        foreground = "primary";
+        id = "g3";
+        members = ["tray" "notifications" "clock" "cat"];
+        opacity = 1.0;
+        padding = 6.0;
+      }
+      {
+        accordion = true;
+        accordion_direction = "start";
+        border = "primary";
+        enabled = true;
+        fill = "surface_variant";
+        foreground = "primary";
+        id = "g4";
+        members = ["recorder" "ocr"];
+        opacity = 1.0;
+        padding = 6.0;
+      }
+    ];
+  };
+  brightness.enable_ddcutil = true;
+  control_center = {
+    sidebar_section = "none";
+    shortcuts = [
+      {type = "wifi";}
+      {type = "bluetooth";}
+      {type = "dark_mode";}
+      {type = "caffeine";}
+      {type = "audio";}
+      {type = "notification";}
+    ];
+  };
+  dock = {
+    auto_hide = true;
+    background_opacity = 0.65;
+    enabled = true;
+    icon_size = 35;
+    inactive_opacity = 0.60;
+    item_spacing = 8;
+    reserve_space = false;
+    shadow = false;
+    show_dots = true;
+    show_instance_count = false;
+  };
+  idle = {
+    behavior_order = ["lock" "screen-off" "lock-and-suspend"];
+    behavior = {
+      lock = {
+        action = "lock";
+        enabled = true;
+        timeout = 600.0;
+      };
+      "lock-and-suspend" = {
+        action = "lock_and_suspend";
+        enabled = false;
+        timeout = 900.0;
+      };
+      "screen-off" = {
+        action = "screen_off";
+        enabled = false;
+        timeout = 660.0;
+      };
+    };
+  };
+  keybinds.cancel = ["Delete" "Escape"];
+  location.auto_locate = true;
+  lockscreen.blur_intensity = 0.0;
+  lockscreen_widgets = let
+    lockscreenLoginBox = {
+      box_height = 196.0;
+      box_width = 810.0;
+      cx = 960.0;
+      cy = 910.0;
+      placement_height = 1080.0;
+      placement_width = 1920.0;
+      rotation = 0.0;
+      type = "login_box";
+      settings = {
+        background_color = "surface_variant";
+        background_opacity = 0.88;
+        background_radius = 12.0;
+        center_password_text = true;
+        input_opacity = 1.0;
+        input_radius = 6.0;
+        layout = "regular";
+        show_caps_lock = true;
+        show_keyboard_layout = true;
+        show_login_button = true;
+        show_media = true;
+        show_session_buttons = true;
+        show_unlock_hint = false;
+        show_weather = true;
+      };
+    };
+    lockscreenAudioVisualizer = {
+      box_height = 288.0;
+      box_width = 816.0;
+      cx = 960.0;
+      cy = 668.0;
+      placement_height = 1080.0;
+      placement_width = 1920.0;
+      rotation = 0.0;
+      type = "audio_visualizer";
+      settings = {
+        background = false;
+        background_color = "surface";
+        background_opacity = 0.80;
+        background_padding = 10;
+        background_radius = 12;
+        bands = 52;
+        centered = false;
+        color_1 = "primary";
+        color_2 = "primary";
+        mirrored = true;
+        reversed = false;
+        show_when_idle = false;
+      };
+    };
+    mkPerMonitorWidgets = prefix: base:
+      lib.listToAttrs (map (name: {
+          name = "${prefix}@${name}";
+          value = base // {output = name;};
+        })
+        monitors);
+  in {
+    enabled = true;
+    schema_version = 1;
+    widget_order =
+      (map (name: "lockscreen-login-box@${name}") monitors)
+      ++ (map (name: "lockscreen-audio-visualizer@${name}") monitors);
+    grid = {
+      cell_size = 16;
+      major_interval = 4;
+      visible = true;
+    };
+    widget =
+      (mkPerMonitorWidgets "lockscreen-login-box" lockscreenLoginBox)
+      // (mkPerMonitorWidgets "lockscreen-audio-visualizer" lockscreenAudioVisualizer);
+  };
+  plugin_settings = {
+    "noctalia/screen_recorder".video_encoder = "cpu"; # nvidia driver is a bit behind
+    "avivbintangaringga/nix-monitor" = {
+      clean_command = "nh clean all";
+    };
+    "noctalia/notes".panel_open_near_click = true;
+    "yocraft/web-launcher" = {
+      icon_provider = "duckduckgo";
+      links = [
+        "Umbriel|https://docs.noctalia.dev/umbriel/"
+        "Hyprland|https://wiki.hypr.land/"
+        "Noctalia|https://docs.noctalia.dev/noctalia/"
+        "DankMaterialShell|https://danklinux.com/docs/"
+        "GitHub|https://github.com"
+        "GitLab|https://gitlab.com"
+        "YouTube|https://youtube.com"
+      ];
+    };
+  };
+  plugins = {
+    enabled = [
+      "noctalia/screen_recorder"
+      "noctalia/bongocat"
+      "noctalia/notes"
+      "noctalia/kaomoji"
+      "noctalia/translator"
+      "avivbintangaringga/nix-monitor"
+      "nightwatch75/todo"
+      "yocraft/web-launcher"
+      "noctalia/world_clock"
+      "nilsonlinux/world-radio"
+      "ashur-d/wallpaper-widget"
+      "rylos/tailnet"
+      "srounce/systemd"
+      "fel/ocr"
+    ];
+    source = [
+      {
+        kind = "git";
+        location = "https://github.com/noctalia-dev/official-plugins";
+        name = "official";
+      }
+      {
+        kind = "git";
+        location = "https://github.com/noctalia-dev/community-plugins";
+        name = "community";
+      }
+    ];
+  };
+  shell = {
+    window_switcher = {
+      mru = true;
+      show_caption = false;
+    };
+    umbriel_overview_type_to_launch_enabled = true;
+    avatar_path = "~/.face";
+    screenshot.directory = "~/Pictures/Screenshots";
+    date_format = "%A, %Y %b %d";
+    font_family = "Maple Mono NF";
+    password_style = "random";
+    polkit_agent = true;
+    screen_time_enabled = true;
+    panel = {
+      control_center_placement = "attached";
+      open_near_click_control_center = true;
+      session_placement = "floating";
+      session_position = "center";
+      transparency_mode = "glass";
+      wallpaper_placement = "attached";
+    };
+    screen_corners = {
+      enabled = true;
+      size = 20;
+    };
+    session.actions = [
+      {
+        action = "lock";
+        countdown_seconds = 0.0;
+        enabled = true;
+        shortcut = "1";
+        variant = "default";
+      }
+      {
+        action = "logout";
+        countdown_seconds = 0.0;
+        enabled = true;
+        shortcut = "2";
+        variant = "default";
+      }
+      {
+        action = "lock_and_suspend";
+        countdown_seconds = 0.0;
+        enabled = true;
+        shortcut = "3";
+        variant = "default";
+      }
+      {
+        action = "reboot";
+        countdown_seconds = 0.0;
+        enabled = true;
+        shortcut = "4";
+        variant = "default";
+      }
+      {
+        action = "command";
+        command = "systemctl reboot --firmware-setup";
+        countdown_seconds = 0.0;
+        enabled = true;
+        glyph = "cpu";
+        label = "UEFI Reboot";
+        shortcut = "5";
+        variant = "default";
+      }
+      {
+        action = "shutdown";
+        countdown_seconds = 0.0;
+        enabled = true;
+        shortcut = "6";
+        variant = "default";
+      }
+    ];
+  };
+  system.monitor = {
+    cpu_poll_seconds = 1;
+    network_poll_seconds = 1;
+  };
+  notification = {
+    filter_order = ["no_sound"];
+    filter.no_sound = {
+      enabled = true;
+      match_content = ".*";
+      show_toast = true;
+      save_history = true;
+      play_sound = false;
+    };
+  };
+  theme = {
+    mode = "dark";
+    source = "wallpaper";
+    wallpaper_scheme = "soft";
+    templates = {
+      builtin_ids = ["btop" "cava" "gtk3" "gtk4" "ghostty" "hyprland" "kitty" "umbriel" "qt"];
+      community_ids = ["pywalfox" "discord" "zed" "neovim"];
+    };
+  };
+  wallpaper = {
+    directory = "~/Pictures/Wallpapers";
+    automation = {
+      enabled = true;
+      interval_seconds = 300;
+    };
+  };
+  widget = {
+    todo.label = "";
+    bar = {
+      type = "noctalia/world_clock:bar";
+    };
+    bar_2 = {
+      type = "rylos/tailnet:bar";
+    };
+    ocr = {
+      type = "fel/ocr:ocr";
+    };
+    radio_2 = {
+      type = "nilsonlinux/world-radio:radio";
+    };
+    spacer_0.type = "spacer";
+    audio_visualizer = {
+      centered = false;
+      width = 120;
+    };
+    cat = {
+      audio_spectrum = true;
+      scale = 1.45;
+      tappy_mode = true;
+      type = "noctalia/bongocat:cat";
+    };
+    media = {
+      hide_when_no_media = true;
+      title_scroll = "always";
+    };
+    network.show_label = false;
+    "nix-monitor" = {
+      show_text = false;
+      type = "avivbintangaringga/nix-monitor:nix-monitor";
+    };
+    recorder.type = "noctalia/screen_recorder:recorder";
+    sysmon.stat = "disk_used_pct";
+    todo.type = "nightwatch75/todo:todo";
+    tray = {
+      drawer = true;
+      hidden = ["network" "blueman"];
+    };
+  };
+}
