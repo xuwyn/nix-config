@@ -1,59 +1,32 @@
 {
-  modules = let
-    commonNixSettings = {config, ...}: {
-      sops = {
-        secrets = {
-          github_token.sopsFile = ./sops/access-tokens.yaml;
-          gitlab_token.sopsFile = ./sops/access-tokens.yaml;
-        };
-        templates = {
-          "nix-access-tokens.conf".content = ''
-            access-tokens = github.com=${config.sops.placeholder.github_token} gitlab.com=PAT:${config.sops.placeholder.gitlab_token}
-          '';
-        };
-      };
-      nix = {
-        optimise.automatic = true;
-        settings = {
-          experimental-features = [
-            "nix-command"
-            "flakes"
-          ];
-          netrc-file = config.sops.templates.".netrc".path;
-        };
-        extraOptions = ''
-          !include ${config.sops.templates."nix-access-tokens.conf".path}
-        '';
-      };
+  config,
+  users,
+  ...
+}: {
+  sops = {
+    secrets = {
+      github_token.sopsFile = ./sops/access-tokens.yaml;
+      gitlab_token.sopsFile = ./sops/access-tokens.yaml;
     };
-  in {
-    nixos.nix-settings = {users, ...}: {
-      imports = [commonNixSettings];
-      nix.settings = {
-        download-buffer-size = 200000000;
-        # auto-optimise-store = true;
-        allowed-users = users;
-        trusted-users = users;
-      };
-    };
+    templates."nix-access-tokens.conf".content = ''
+      access-tokens = github.com=${config.sops.placeholder.github_token} gitlab.com=PAT:${config.sops.placeholder.gitlab_token}
+    '';
+  };
 
-    darwin.nix-settings = {users, ...}: {
-      imports = [commonNixSettings];
-      nix.settings = {
-        # auto-optimise-store = true;
-        allowed-users = users;
-        trusted-users = users;
-      };
+  nix = {
+    optimise.automatic = true;
+    settings = {
+      experimental-features = [
+        "nix-command"
+        "flakes"
+        "pipe-operators"
+      ];
+      netrc-file = config.sops.templates.".netrc".path;
+      allowed-users = users;
+      trusted-users = users;
     };
-
-    homeManager.nix-settings = {
-      pkgs,
-      config,
-      ...
-    }: {
-      imports = [commonNixSettings];
-      nix.package = pkgs.nix;
-      sops.templates.".netrc".path = "${config.home.homeDirectory}/.netrc";
-    };
+    extraOptions = ''
+      !include ${config.sops.templates."nix-access-tokens.conf".path}
+    '';
   };
 }

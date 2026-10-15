@@ -1,14 +1,23 @@
 {
-  modules.nixos.wsl = {
+  tags = ["wsl"];
+  platforms = ["linux"];
+  module = {
     lib,
-    config,
     users,
     host,
     inputs,
     ...
   }: {
     imports = [inputs.nixos-wsl.nixosModules.default];
+
+    # override hardware/service defaults
     networking.networkmanager.enable = false;
+    hardware = {
+      enableRedistributableFirmware = false;
+      i2c.enable = false;
+    };
+    services.fstrim.enable = false;
+
     wsl = {
       enable = true;
       defaultUser = lib.head users;

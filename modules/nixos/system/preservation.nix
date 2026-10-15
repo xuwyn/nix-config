@@ -1,5 +1,6 @@
 {
-  modules.nixos.preservation = {
+  platforms = ["linux"];
+  module = {
     flake,
     config,
     lib,
@@ -7,10 +8,17 @@
     users,
     ...
   }: let
-    cfg = config.nixos.preservation;
-    inherit (lib) types mkOption mapAttrs nameValuePair;
+    cfg = config.custom.preservation;
+    inherit (lib) types mkOption mapAttrs;
   in {
-    options.nixos.preservation = {
+    imports = [inputs.preservation.nixosModules.preservation];
+
+    options.custom.preservation = {
+      enable = mkOption {
+        type = types.bool;
+        default = true;
+        description = "btrfs root wipe on boot, with /persist preserved";
+      };
       directories = mkOption {
         type = types.listOf (types.either types.str (types.attrsOf types.anything));
         default = [];
@@ -36,9 +44,7 @@
       };
     };
 
-    imports = [inputs.preservation.nixosModules.preservation];
-
-    config = {
+    config = lib.mkIf cfg.enable {
       # fix user ownership in /home
       systemd.tmpfiles.rules = map (userName: "d /home/${userName} 0700 ${userName} users -") users;
 
@@ -130,40 +136,6 @@
           umount /btrfs_tmp
         '';
       };
-
-      # Activate home manager symlink
-      systemd.services = let
-        mkHomeManagerActivation = userName: let
-          homeDir = config.users.users.${userName}.home;
-          activationScript = "${homeDir}/.local/state/nix/profiles/home-manager/activate";
-        in
-          nameValuePair "home-manager-activate-${userName}" {
-            description = "Activate current Home Manager generation for ${userName}";
-            wantedBy = ["multi-user.target"];
-
-            after = ["local-fs.target"];
-            unitConfig = {
-              RequiresMountsFor = [
-                "${homeDir}/.local/state/nix"
-                "${homeDir}/.local/state/home-manager"
-              ];
-              ConditionPathExists = activationScript;
-            };
-
-            serviceConfig = {
-              Type = "oneshot";
-              RemainAfterExit = true;
-              User = userName;
-              Group = "users";
-              ExecStart = activationScript;
-              Environment = [
-                "HOME=${homeDir}"
-                "USER=${userName}"
-              ];
-            };
-          };
-      in
-        lib.listToAttrs (map mkHomeManagerActivation users);
     };
   };
 }

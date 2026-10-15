@@ -1,14 +1,12 @@
 {
-  modules.nixos.rpi5 = {
-    lib,
-    config,
-    pkgs,
-    nixos-raspberrypi,
-    ...
-  }: {
+  tags = ["rpi5"];
+  platforms = ["linux"];
+  module = {inputs, ...}: let
+    rpi = inputs.nixos-raspberrypi;
+  in {
     # Read: https://github.com/nvmd/nixos-raspberrypi/blob/develop/README.md
-    imports = with nixos-raspberrypi.nixosModules; [
-      nixos-raspberrypi.lib.inject-overlays-global
+    imports = with rpi.nixosModules; [
+      rpi.lib.inject-overlays-global
       nixpkgs-rpi
       # trusted-nix-caches # duplicated with flake
       usb-gadget-ethernet

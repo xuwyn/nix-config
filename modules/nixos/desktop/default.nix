@@ -1,18 +1,25 @@
 {
-  modules.nixos.desktop = {
+  tags = ["desktop"];
+  platforms = ["linux"];
+  module = {
     pkgs,
     config,
     lib,
     inputs,
     self,
+    system,
     ...
   }: let
-    cfg = config.nixos.desktop;
+    cfg = config.custom.desktop;
   in {
-    options.nixos.desktop = {
-      noctalia.enable = lib.mkEnableOption "Enable Noctalia";
-      hyprland.enable = lib.mkEnableOption "Enable Hyprland WM";
-      umbriel.enable = lib.mkEnableOption "Enable Umbriel WM";
+    imports = [inputs.umbriel.nixosModules.default];
+
+    options.custom.desktop = {
+      noctalia.enable = lib.mkOption {
+        type = lib.types.bool;
+        default = true;
+        description = "Enable Noctalia";
+      };
       startupCommands = lib.mkOption {
         type = lib.types.listOf lib.types.str;
         default = [];
@@ -60,32 +67,32 @@
         description = "Choose default editor";
       };
     };
-    imports = [inputs.umbriel.nixosModules.default];
+
     config = let
-      wm = self.wrapperModules.${pkgs.stdenv.hostPlatform.system};
-      noctalia = wm.noctalia {inherit (config.nixos) desktop;};
-      umbriel = wm.umbriel {inherit (config.nixos) desktop;};
+      wm = self.wrapperModules.${system};
+      noctalia = wm.noctalia {inherit (config.custom) desktop;};
+      umbriel = wm.umbriel {inherit (config.custom) desktop;};
     in {
-      # environment.variables.NIXOS_OZONE_WL = "1"; # TODO: duplicated with WM's environment
       environment.systemPackages =
-        lib.optionals cfg.noctalia.enable [
+        [
+          pkgs.eog
+          pkgs.mpv
+          pkgs.rhythmbox
+        ]
+        ++ lib.optionals cfg.noctalia.enable [
           noctalia
           pkgs.evtest # bongocat
           pkgs.grim # ocr
           pkgs.slurp # ocr
           pkgs.tesseract # ocr
         ]
-        ++ lib.optionals cfg.umbriel.enable [umbriel];
-      programs = {
-        hyprland = {
-          enable = cfg.hyprland.enable;
-          withUWSM = cfg.hyprland.enable;
-        };
-        umbriel = {
-          enable = cfg.umbriel.enable;
-          package = umbriel;
-        };
+        ++ lib.optionals config.programs.umbriel.enable [umbriel];
+
+      programs.umbriel = {
+        enable = lib.mkDefault true;
+        package = umbriel;
       };
+
       # TODO: move this somewhere else that makes more sense
       hj.xdg.config.files."umbriel/config.toml".source = umbriel.configFile;
 

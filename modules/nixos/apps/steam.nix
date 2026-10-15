@@ -1,30 +1,25 @@
 {
-  modules.nixos.apps = {
+  tags = ["desktop"];
+  platforms = ["linux"];
+  module = {
     pkgs,
-    inputs,
     users,
     config,
     lib,
     ...
   }: let
-    cfg = config.nixos.apps.steam;
+    cfg = config.custom.steam;
   in {
-    options.nixos.apps.steam = {
-      enable = lib.mkEnableOption "Enable steam";
-      fpsLimit = lib.mkOption {
-        type = lib.types.ints.positive;
-        default = 144;
-        description = "Maximum fps for games (must be greater than 0)";
-      };
+    options.custom.steam.fpsLimit = lib.mkOption {
+      type = lib.types.ints.positive;
+      default = 144;
+      description = "Maximum fps for games (must be greater than 0)";
     };
-    config = lib.mkIf cfg.enable {
-      users.users = lib.genAttrs users (name: {
-        extraGroups = ["gamemode"];
-      });
 
-      programs = {
-        steam = {
-          enable = true;
+    config = lib.mkMerge [
+      {
+        programs.steam = {
+          enable = lib.mkDefault true;
           package = pkgs.steam.override {
             extraPkgs = pkgs: [pkgs.mangohud];
             extraEnv = {
@@ -39,10 +34,16 @@
             pkgs.proton-ge-bin
           ];
         };
-        gamemode = {
-          enable = true;
-        };
-        gamescope = {
+      }
+
+      (lib.mkIf config.programs.steam.enable {
+        users.users = lib.genAttrs users (name: {
+          extraGroups = ["gamemode"];
+        });
+
+        programs.gamemode.enable = true;
+
+        programs.gamescope = {
           enable = true;
           capSysNice = true;
           args = [
@@ -50,7 +51,7 @@
             "--expose-wayland"
           ];
         };
-      };
-    };
+      })
+    ];
   };
 }

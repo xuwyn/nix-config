@@ -1,20 +1,20 @@
-_: let
-  mkHjemModule = module: {
-    inputs,
-    users,
-    lib,
-    ...
-  }: {
-    imports = [
-      inputs.hjem.${module}.default
-      (lib.mkAliasOptionModule ["hj"] ["hjem" "users" (lib.head users)])
-    ];
-    hjem.clobberByDefault = true;
-    hj.enable = true;
-  };
+{
+  inputs,
+  users,
+  lib,
+  system,
+  ...
+}: let
+  class =
+    if lib.hasSuffix "-darwin" system
+    then "darwinModules"
+    else "nixosModules";
 in {
-  modules = {
-    nixos.hjem = mkHjemModule "nixosModules";
-    darwin.hjem = mkHjemModule "darwinModules";
-  };
+  imports = [
+    inputs.hjem.${class}.default
+    (lib.mkAliasOptionModule ["hj"] ["hjem" "users" (lib.head users)])
+  ];
+
+  hjem.clobberByDefault = true;
+  hj.enable = true;
 }

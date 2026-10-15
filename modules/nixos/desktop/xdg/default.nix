@@ -1,7 +1,8 @@
 {
-  modules.nixos.xdg = {
+  tags = ["desktop"];
+  platforms = ["linux"];
+  module = {
     pkgs,
-    config,
     lib,
     ...
   }: let
@@ -14,7 +15,12 @@
       SCREENSHOTS = "Pictures/Screenshots";
     };
   in {
-    options.nixos.xdg.mimeApps = lib.mkOption {
+    imports = [
+      ./_portal.nix
+      ./_mimeapps.nix
+    ];
+
+    options.custom.xdg.mimeApps = lib.mkOption {
       type = lib.types.attrsOf (lib.types.listOf lib.types.str);
       default = {};
       example = {
@@ -22,11 +28,6 @@
         "image/jpeg" = ["org.gnome.eog.desktop"];
       };
     };
-
-    imports = [
-      ./_portal.nix
-      ./_mimeapps.nix
-    ];
 
     config = {
       environment.systemPackages = with pkgs; [

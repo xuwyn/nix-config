@@ -1,6 +1,7 @@
 {
-  modules.darwin.omniwm = {
-    lib,
+  tags = ["desktop"];
+  platforms = ["darwin"];
+  module = {
     config,
     inputs,
     flake,

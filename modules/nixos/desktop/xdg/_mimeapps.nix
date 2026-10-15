@@ -4,7 +4,7 @@
   pkgs,
   ...
 }: let
-  inherit (config.nixos.xdg) mimeApps;
+  inherit (config.custom.xdg) mimeApps;
 in {
   hj.xdg.mime-apps.default-applications = let
     # See: https://github.com/LucasOe/nixos-config/blob/main/modules/home-manager/xdg.nix

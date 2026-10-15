@@ -1,21 +1,28 @@
 {
-  modules.nixos.zram = {
+  platforms = ["linux"];
+  module = {
     config,
     lib,
     inputs,
-    pkgs,
+    system,
     ...
   }: let
-    cfg = config.nixos.zram;
+    cfg = config.custom.zram;
   in {
-    options.nixos.zram = {
+    options.custom.zram = {
+      enable = lib.mkOption {
+        type = lib.types.bool;
+        default = true;
+        description = "zram swap, zram-backed /tmp, and systemd-oomd";
+      };
       tmpMaxSize = lib.mkOption {
         type = lib.types.str;
         default = "2048";
         description = "Size spec for the /tmp zram-backed filesystem";
       };
     };
-    config = {
+
+    config = lib.mkIf cfg.enable {
       zramSwap = {
         enable = true;
         algorithm = "zstd";
@@ -24,7 +31,7 @@
       };
 
       # for hydra cache hit
-      services.zram-generator.package = inputs.nixpkgs.legacyPackages.${pkgs.stdenv.hostPlatform.system}.zram-generator;
+      services.zram-generator.package = inputs.nixpkgs.legacyPackages.${system}.zram-generator;
 
       # high swappiness is ideal for ram swap
       boot.kernel.sysctl."vm.swappiness" = 180;

@@ -1,16 +1,18 @@
 {
-  modules.nixos.services = {
+  tags = ["server"];
+  platforms = ["linux"];
+  module = {
     config,
     lib,
     inputs,
-    pkgs,
+    system,
     ...
   }: let
-    cfg = config.nixos.services.atticd;
-    unstableNixpkgs = inputs.nixpkgs.legacyPackages.${pkgs.stdenv.hostPlatform.system};
+    cfg = config.custom.atticd;
+    domain = config.custom.attic.tailscaleDomain;
+    unstableNixpkgs = inputs.nixpkgs.legacyPackages.${system};
   in {
-    options.nixos.services.atticd = {
-      enable = lib.mkEnableOption "Enable Attic cache server";
+    options.custom.atticd = {
       device = lib.mkOption {
         type = lib.types.str;
         description = "Disk UUID for atticd storage";
@@ -20,13 +22,9 @@
         default = 8080;
         description = "Port atticd listens on (internal, behind nginx)";
       };
-      tailscaleDomain = lib.mkOption {
-        type = lib.types.str;
-        description = "Tailscale domain to serve the cache on";
-      };
     };
 
-    config = lib.mkIf cfg.enable {
+    config = {
       # attic-server
       environment.systemPackages = [unstableNixpkgs.attic-server];
       sops.secrets.atticd_env = {};
@@ -93,7 +91,7 @@
           ${unstableNixpkgs.tailscale}/bin/tailscale cert \
             --cert-file /var/lib/atticd-certs/tailscale.crt \
             --key-file /var/lib/atticd-certs/tailscale.key \
-            ${cfg.tailscaleDomain}
+            ${domain}
           chown root:${config.services.nginx.group} /var/lib/atticd-certs/tailscale.key
           chmod 640 /var/lib/atticd-certs/tailscale.key
         '';
@@ -125,7 +123,7 @@
         recommendedOptimisation = true;
         sslCiphers = "AES256+EECDH:AES256+EDH:!aNULL";
         virtualHosts = {
-          ${cfg.tailscaleDomain} = {
+          ${domain} = {
             onlySSL = true;
             sslCertificate = "/var/lib/atticd-certs/tailscale.crt";
             sslCertificateKey = "/var/lib/atticd-certs/tailscale.key";

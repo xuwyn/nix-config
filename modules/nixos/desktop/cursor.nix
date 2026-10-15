@@ -1,14 +1,15 @@
 {
-  modules.nixos.desktop = {
+  tags = ["desktop"];
+  platforms = ["linux"];
+  module = {
     pkgs,
     config,
     lib,
     ...
   }: let
-    cfg = config.nixos.desktop.cursor;
+    cfg = config.custom.cursor;
   in {
-    options.nixos.desktop.cursor = {
-      enable = lib.mkEnableOption "Set the pointer cursor";
+    options.custom.cursor = {
       name = lib.mkOption {
         type = lib.types.str;
         default = "Bibata-Modern-Ice";
@@ -26,20 +27,20 @@
       };
     };
 
-    config = lib.mkIf cfg.enable {
+    config = {
       environment.systemPackages = [cfg.package];
       environment.sessionVariables = {
         XCURSOR_THEME = cfg.name;
         XCURSOR_SIZE = toString cfg.size;
       };
 
-      hj = {
-        files.".icons/default/index.theme".text = ''
+      hj.files = {
+        ".icons/default/index.theme".text = ''
           [Icon Theme]
           Name=Default
           Inherits=${cfg.name}
         '';
-        files.".Xresources".text = ''
+        ".Xresources".text = ''
           Xcursor.theme: ${cfg.name}
           Xcursor.size: ${toString cfg.size}
         '';
