@@ -70,6 +70,11 @@
       vim.api.nvim_create_autocmd("FocusLost", { pattern = "*",
         command = "silent! wa",
       })
+
+      -- drop default gr* maps so plain `gr` fires instantly
+      for _, k in ipairs({ "grn", "grr", "gra", "gri", "grt", "grx" }) do
+        pcall(vim.keymap.del, { "n", "x" }, k)
+      end
     '';
 
     lsp = {
@@ -79,8 +84,8 @@
         goToDeclaration = "gD";
         listImplementations = "gi";
         listReferences = null;
-        renameSymbol = "rn";
-        codeAction = "ca";
+        renameSymbol = "<leader>rn";
+        codeAction = "<leader>ca";
       };
       formatOnSave = true;
       lspkind.enable = false; # redundant with blink
@@ -168,6 +173,9 @@
           navbuddy.enable = false;
           lspsaga.enable = false;
         };
+        setupOpts.sections.lualine_c = [
+          (lib.generators.mkLuaInline ''{ "filename", path = 1 }'')
+        ];
       };
     };
 
@@ -185,8 +193,26 @@
 
     git = {
       enable = true;
-      gitsigns.enable = true;
+      gitsigns = {
+        enable = true;
+        mappings = {
+          stageHunk = null;
+          undoStageHunk = null;
+          resetHunk = null;
+          stageBuffer = null;
+          resetBuffer = null;
+          previewHunk = null;
+          diffThis = null;
+          diffProject = null;
+          blameLine = null;
+          toggleBlame = null;
+          toggleDeleted = null;
+          nextHunk = null;
+          previousHunk = null;
+        };
+      };
     };
+
     filetree = {
       neo-tree = {
         enable = true;
@@ -194,12 +220,15 @@
     };
 
     treesitter = {
-      context.enable = true;
+      context.enable = false;
       autotagHtml = true;
     };
 
     binds = {
-      whichKey.enable = true;
+      whichKey = {
+        enable = true;
+        register."<leader>h" = null;
+      };
       cheatsheet.enable = true;
     };
 
@@ -210,6 +239,8 @@
         liveGrep = "<leader>fg";
         buffers = "<leader>fb";
         lspReferences = "gr";
+        lspDocumentSymbols = "<leader>fs";
+        lspWorkspaceSymbols = "<leader>fS";
       };
     };
 
@@ -230,7 +261,7 @@
       direnv.enable = true;
       diffview-nvim.enable = true;
       surround.enable = true;
-      multicursors.enable = true;
+      multicursors.enable = false;
       smart-splits.enable = true;
       undotree.enable = true;
       grug-far-nvim.enable = true;
@@ -248,7 +279,14 @@
     notes = {
       neorg.enable = false;
       orgmode.enable = false;
-      todo-comments.enable = true;
+      todo-comments = {
+        enable = true;
+        mappings = {
+          quickFix = null;
+          telescope = null;
+          trouble = null;
+        };
+      };
     };
 
     terminal = {
