@@ -42,11 +42,11 @@
 
       nixos = {
         mango.tags = ["desktop" "nvidia" "amd"];
-        lettuce.tags = ["wsl"];
+        # lettuce.tags = ["wsl"];
       };
-      rpi.puffin = {
-        tags = ["rpi5" "server"];
-      };
+      # rpi.puffin = {
+      #   tags = ["rpi5" "server"];
+      # };
       darwin.apricot = {
         tags = ["desktop"];
       };
@@ -54,6 +54,11 @@
 
     deployOutputs = import ./deploy.nix {
       inherit inputs lib;
+      inherit (laminaOutputs) nixosConfigurations darwinConfigurations;
+    };
+
+    ci = import ./ci.nix {
+      inherit lib;
       inherit (laminaOutputs) nixosConfigurations darwinConfigurations;
     };
 
@@ -79,8 +84,9 @@
   in {
     inherit (laminaOutputs) nixosConfigurations darwinConfigurations;
     inherit (deployOutputs) deploy checks;
-
+    inherit (ci) ciChecks ciMatrix;
     inherit wrapperModules;
+
     formatter = perSystem (pkgs: _: pkgs.alejandra);
     wrappers = builtins.mapAttrs (_: builtins.mapAttrs (_: module: module {})) wrapperModules;
   };

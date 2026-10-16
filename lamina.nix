@@ -87,7 +87,7 @@
 
     builder = args.builder or (import "${nixpkgs}/nixos/lib/eval-config.nix");
   in
-    builder {
+    (builder {
       inherit system;
       specialArgs =
         (hostInfo.specialArgs or {})
@@ -100,7 +100,9 @@
         map (m: m.module) filteredModules
         # extraModules are never filtered (overlays, allowUnfree...)
         ++ (args.extraModules or []);
-    };
+    })
+    # used by ci to read system per config without eval
+    // {lamina = {inherit system;};};
 
   # Build an attrset of hosts that share `defaults`. Per-host values win,
   # except modules / extraModules (concatenated) and specialArgs (merged).

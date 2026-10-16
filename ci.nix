@@ -1,36 +1,33 @@
 {
-  config,
   lib,
-  ...
+  nixosConfigurations,
+  darwinConfigurations,
 }: let
-  categories = {
-    nixosConfigurations = {
-      specs = config.nixos // config.nixos-rpi;
-      valueOf = cfg: cfg.config.system.build.toplevel;
-    };
-    darwinConfigurations = {
-      specs = config.darwin;
-      valueOf = cfg: cfg.config.system.build.toplevel;
-    };
-    homeConfigurations = {
-      specs = config.home;
-      valueOf = cfg: cfg.activationPackage;
-    };
-  };
+  hosts =
+    [nixosConfigurations darwinConfigurations]
+    |> lib.concatMap (lib.mapAttrsToList (name: cfg: {
+      inherit name;
+      inherit (cfg.lamina) system;
+      toplevel = cfg.config.system.build.toplevel;
+    }));
 
-  mkGroup = attr: cat:
-    lib.foldl' (
-      acc: name: let
-        system = cat.specs.${name}.system;
-        cfg = config.${attr}.${name};
-      in
-        acc // {${system} = (acc.${system} or {}) // {${name} = cat.valueOf cfg;};}
-    ) {} (builtins.attrNames cat.specs);
+  # { <system> = { <host> = <toplevel>; ... }; ... }
+  ciChecks =
+    hosts
+    |> builtins.groupBy (host: host.system)
+    |> builtins.mapAttrs (_: hostsOnSystem:
+      hostsOnSystem
+      |> map (host: lib.nameValuePair host.name host.toplevel)
+      |> builtins.listToAttrs);
 
-  checks = lib.foldl' lib.recursiveUpdate {} (lib.mapAttrsToList mkGroup categories);
+  # [ { name; system; } ... ]
+  ciMatrix =
+    ciChecks
+    |> lib.mapAttrsToList (system: checks:
+      checks
+      |> builtins.attrNames
+      |> map (name: {inherit name system;}))
+    |> lib.concatLists;
 in {
-  ciChecks = checks;
-  ciMatrix = lib.concatMap (
-    system: map (name: {inherit name system;}) (builtins.attrNames checks.${system})
-  ) (builtins.attrNames checks);
+  inherit ciChecks ciMatrix;
 }

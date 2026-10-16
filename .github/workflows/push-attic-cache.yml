@@ -28,7 +28,7 @@ jobs:
         id: discover
         run: |
           set -Eeuo pipefail
-          matrix="$(nix eval --json .#ciMatrix | jq -c '
+          matrix="$(nix eval --extra-experimental-features pipe-operators --json .#ciMatrix | jq -c '
             {"x86_64-linux": "ubuntu-latest",
              "aarch64-linux": "ubuntu-24.04-arm",
              "x86_64-darwin": "macos-13",
@@ -83,6 +83,7 @@ jobs:
           extra_nix_config: |
             extra-substituters = ${{ env.ATTIC_ENDPOINT }}/${{ env.ATTIC_CACHE }}
             extra-trusted-public-keys = ${{ env.ATTIC_PUBLICKEY }}
+            extra-experimental-features = flakes nix-command pipe-operators
             accept-flake-config = true
             access-tokens = github.com=${{ secrets.GITHUB_TOKEN }} gitlab.com=PAT:${{ secrets.GITLAB_TOKEN }}
             netrc-file = ${{ runner.temp }}/.netrc
