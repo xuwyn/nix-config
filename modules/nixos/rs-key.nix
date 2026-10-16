@@ -32,20 +32,6 @@
         ];
       };
 
-      # udev rules that grant access to the FIDO hidraw node. The stock yubico
-      # rules match VID 0x1050 only, so the default RS-Key identity (0x1209) needs
-      # its own rule; build VIDPID=Yubikey5 instead if you want to reuse the stock
-      # yubico rules unchanged.
-      services.udev.packages = [
-        pkgs.yubikey-personalization
-        pkgs.libfido2
-      ];
-      services.udev.extraRules = ''
-        # RS-Key own identity (pid.codes 0x1209:0x0001) — FIDO HID + CCID access.
-        SUBSYSTEM=="hidraw", ATTRS{idVendor}=="1209", ATTRS{idProduct}=="0001", TAG+="uaccess"
-        SUBSYSTEM=="usb", ATTRS{idVendor}=="1209", ATTRS{idProduct}=="0001", TAG+="uaccess"
-      '';
-
       # Let a non-root user (e.g. over SSH) talk to pcscd. Without this, CCID works
       # only as root and `ykman`/`gpg --card-status` fail from an SSH session.
       security.polkit.extraConfig = ''
@@ -57,6 +43,25 @@
           }
         });
       '';
+
+      # Yubikey is used as key for sops-nix's user secrets
+      # needs a systemd service to restart sops-nix decryption if key is detected
+      services.udev.extraRules = ''
+        ACTION=="add", SUBSYSTEM=="usb", ENV{DEVTYPE}=="usb_device", \
+          ENV{ID_VENDOR_ID}=="1050", ENV{ID_SMARTCARD_READER}=="1", \
+          TAG+="systemd", ENV{SYSTEMD_WANTS}+="sops-yubikey.service"
+      '';
+
+      systemd.services.sops-yubikey = {
+        description = "Decrypt sops secrets when a YubiKey is plugged in";
+        wants = ["pcscd.service"];
+        after = ["pcscd.service"];
+        serviceConfig = {
+          Type = "oneshot";
+          ExecStartPre = "${pkgs.coreutils}/bin/sleep 2"; # let pcscd enumerate the card
+          ExecStart = "${config.systemd.package}/bin/systemctl restart sops-install-secrets.service";
+        };
+      };
     };
   };
 }

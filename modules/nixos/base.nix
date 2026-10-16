@@ -18,5 +18,8 @@
         LC_TIME = "en_US.UTF-8";
       };
     };
+
+    # surely every nixos needs sops-nix?
+    sops.useSystemdActivation = true;
   };
 }
