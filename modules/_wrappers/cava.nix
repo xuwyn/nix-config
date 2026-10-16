@@ -71,11 +71,11 @@
     inputs,
   }: let
     inherit (inputs.nixpkgs.pkgs) writeText;
-    inherit (inputs.nixpkgs.lib) optionals optionalString;
-    generator = inputs.nixpkgs.pkgs.formats.ini {};
+    inherit (inputs.nixpkgs) lib;
+    inherit (lib) optionals optionalString;
 
     configFileText = optionalString (options ? configFile) (builtins.readFile options.configFile + "\n");
-    settingsText = optionalString (options ? settings) (builtins.readFile (generator.generate "config" options.settings));
+    settingsText = optionalString (options ? settings) (lib.generators.toINI {} options.settings);
 
     configPath = writeText "config" (configFileText + settingsText);
   in

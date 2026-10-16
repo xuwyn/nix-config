@@ -32,6 +32,31 @@
       inherit (args) self;
     };
 
+    laminaOutputs = lamina.mkLaminaOutputs {
+      modules = [./modules];
+      overlays = import ./modules/_overlays {inherit inputs;};
+      specialArgs = {
+        users = ["wyn" "deploy"];
+        flake.homeRelativePath = "nix-config";
+      };
+
+      nixos = {
+        mango.tags = ["desktop" "nvidia" "amd"];
+        lettuce.tags = ["wsl"];
+      };
+      rpi.puffin = {
+        tags = ["rpi5" "server"];
+      };
+      darwin.apricot = {
+        tags = ["desktop"];
+      };
+    };
+
+    deployOutputs = import ./deploy.nix {
+      inherit inputs lib;
+      inherit (laminaOutputs) nixosConfigurations darwinConfigurations;
+    };
+
     wrapperModules = perSystem (pkgs: _: let
       inherit (inputs.adios) adios;
       sources = import ./_sources/generated.nix {
@@ -52,29 +77,8 @@
     in
       (adios root {options."/nixpkgs" = {inherit pkgs;};}).modules);
   in {
-    inherit
-      (lamina.mkLaminaOutputs {
-        modules = [./modules];
-        overlays = import ./modules/_overlays {inherit inputs;};
-        specialArgs = {
-          users = ["wyn" "deploy"];
-          flake.homeRelativePath = "nix-config";
-        };
-
-        nixos = {
-          mango.tags = ["desktop" "nvidia" "amd"];
-          lettuce.tags = ["wsl"];
-        };
-        rpi.puffin = {
-          tags = ["rpi5" "server"];
-        };
-        darwin.apricot = {
-          tags = ["desktop"];
-        };
-      })
-      nixosConfigurations
-      darwinConfigurations
-      ;
+    inherit (laminaOutputs) nixosConfigurations darwinConfigurations;
+    inherit (deployOutputs) deploy checks;
 
     inherit wrapperModules;
     formatter = perSystem (pkgs: _: pkgs.alejandra);

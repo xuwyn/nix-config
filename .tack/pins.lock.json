@@ -79,14 +79,6 @@
     "narHash": "sha256-JdmZVrzGDRRcOAwsYujnE7f/d1YZ9Xtk4z/1MWmQXxM=",
     "lastModified": 1791289048
   },
-  "home-manager": {
-    "type": "github",
-    "owner": "nix-community",
-    "repo": "home-manager",
-    "rev": "427c74a88a93cc9f856c8bb99bf6b4a5187a6b33",
-    "narHash": "sha256-/2gb2WTztITD/JU1XUCg63vDsIfJGLr0LDsjSCTTJc8=",
-    "lastModified": 1791600313
-  },
   "homebrew-cask": {
     "type": "github",
     "owner": "homebrew",

@@ -3,14 +3,15 @@ monitorDwindleOverrides = []
 monitorGapOverrides = []
 monitorNiriOverrides = []
 monitorOrientationOverrides = []
-schemaVersion = 3
+schemaVersion = 4
 
 [appearance]
 mode = "dark"
+tabRailAppIcons = false
 
 [borders]
 enabled = true
-width = 3.0
+width = 2.0
 
 [borders.color]
 alpha = 1.0
@@ -18,8 +19,25 @@ blue = 0.9842121005058289
 green = 0.7958608269691467
 red = 0.6081004738807678
 
+[borders.gradient]
+direction = "topLeftToBottomRight"
+enabled = true
+
+[borders.gradient.end]
+alpha = 1.0
+blue = 0.7
+green = 1.0
+red = 0.0
+
+[borders.gradient.start]
+alpha = 1.0
+blue = 1.0
+green = 0.4
+red = 0.0
+
 [clipboard]
 historyEnabled = true
+ignoredTypes = []
 maxItemBytes = 8388608
 maxItems = 200
 maxTotalBytes = 67108864
@@ -52,6 +70,7 @@ right = 0.0
 top = 0.0
 
 [general]
+animationSpeed = 1.0
 animationsEnabled = true
 defaultLayoutType = "niri"
 hotkeysEnabled = true
@@ -66,10 +85,17 @@ fingerCount = 3
 invertDirection = true
 mouseMoveModifierKey = "option"
 mouseResizeModifierKey = "option"
+overviewGestureEnabled = false
+overviewGestureFingerCount = 4
 scrollEnabled = true
 scrollModifierKey = "optionShift"
 scrollSensitivity = 5.0
 trackpadScrollStyle = "snap"
+windowGestureSensitivity = 1.0
+windowMoveEnabled = false
+windowMoveFingerCount = 4
+windowResizeEnabled = false
+windowResizeFingerCount = 3
 workspaceSwipeAxis = "vertical"
 workspaceSwipeEnabled = false
 workspaceSwipeFingerCount = 3
@@ -89,11 +115,17 @@ alwaysCenterSingleColumn = false
 centerFocusedColumn = "never"
 containerPrimarySpanPresets = [0.3333333333333333, 0.5, 0.6666666666666666]
 defaultContainerPrimarySpan = 0.5
+edgeGaps = true
 infiniteLoop = false
+resizeStepPercent = 5
 singleWindowFit = "fill"
 visibleContainerCount = 2
 
 [overview]
+enabled = true
+invertScrollDirection = false
+matchFocusBorder = true
+mouseScrollSpeed = 1.0
 zoom = 1.0
 
 [overview.backdrop]
@@ -144,10 +176,14 @@ mode = "macOS"
 
 [statusBar]
 showAppNames = true
+showIcon = true
 showWorkspaceName = true
 useWorkspaceId = true
 
 [workspaceBar]
+autoHide = false
+autoHideHideDelayMilliseconds = 0.0
+autoHideRevealDelayMilliseconds = 0.0
 backgroundOpacity = 0.1
 deduplicateAppIcons = false
 enabled = true
@@ -155,15 +191,22 @@ excludedBundleIDs = []
 height = 24.0
 hideEmptyWorkspaces = false
 hideInNativeFullscreen = false
+hoverPreviewsEnabled = true
 notchActiveZoneWidth = 180.0
 notchMode = "moveBelowMenuBar"
+notificationBadgeRefreshIntervalSeconds = 5.0
+notificationBadges = "off"
 position = "overlappingMenuBar"
 reserveLayoutSpace = false
 revealHoldMilliseconds = 200.0
 revealModifier = "off"
+showAccentHighlights = true
 showFloatingWindows = true
+showItemBackgrounds = true
 showLabels = false
+solidBlackBackground = false
 systemStatsButton = false
+transparentBackground = false
 windowLevel = "popup"
 xOffset = 0.0
 yOffset = 0.0
@@ -912,6 +955,10 @@ id = "raiseAllFloatingWindows"
 
 [[hotkeys]]
 binding = "Unassigned"
+id = "toggleFloatingFocus"
+
+[[hotkeys]]
+binding = "Unassigned"
 id = "rescueOffscreenWindows"
 
 [[hotkeys]]
@@ -925,6 +972,14 @@ id = "closeFocusedWindow"
 [[hotkeys]]
 binding = "Unassigned"
 id = "openMenuAnywhere"
+
+[[hotkeys]]
+binding = "Unassigned"
+id = "setWindowMark"
+
+[[hotkeys]]
+binding = "Unassigned"
+id = "removeWindowMark"
 
 [[hotkeys]]
 binding = "Control+Space"

@@ -83,10 +83,11 @@
       name = "zed-editor-wrapped";
       paths = [pkgs.zed-editor];
       nativeBuildInputs = [pkgs.makeWrapper];
+      passthru.settingsFile = settingsFile; # expose for hjem on darwin
       postBuild = ''
         wrapProgram $out/bin/zeditor \
           --set ZED_ALLOW_EMULATED_GPU 1 \
-          --run 'cfg="''${XDG_CONFIG_HOME:-$HOME/.config}/zed"; mkdir -p "$cfg"; ln -sfT ${settingsFile} "$cfg/settings.json"'
+          --run 'cfg="''${XDG_CONFIG_HOME:-$HOME/.config}/zed"; mkdir -p "$cfg"; ln -sf ${settingsFile} "$cfg/settings.json"'
       '';
     });
 }

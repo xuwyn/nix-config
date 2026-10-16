@@ -78,6 +78,7 @@
           pkgs.eog
           pkgs.mpv
           pkgs.rhythmbox
+          pkgs.playerctl
         ]
         ++ lib.optionals cfg.noctalia.enable [
           noctalia

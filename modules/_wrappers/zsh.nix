@@ -59,8 +59,18 @@
     };
   };
 
-  mutations."/zsh".extraZshrc = ''
+  mutations."/zsh".extraZshrc = adios.promise ({
+    options,
+    inputs,
+  }: let
+    inherit (inputs.nixpkgs) lib;
+  in ''
     ${import ./shell/env.nix}
+
+    # fix for MacOS losing wrapped tools when kitty is launched from Spotlight
+    typeset -U path PATH
+    export PATH="${lib.makeBinPath options.extraPackages}:$PATH"
+
     fastfetch
-  '';
+  '');
 }

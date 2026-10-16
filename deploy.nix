@@ -1,56 +1,37 @@
 {
   inputs,
   lib,
-  config,
-  self,
+  nixosConfigurations,
+  darwinConfigurations,
 }: let
+  systemOf = cfg: cfg.pkgs.stdenv.hostPlatform.system;
+
   systemProfile = {
     user = "root";
     sshUser = "deploy";
     sshOpts = ["-i" "~/.ssh/deploy_key" "-o" "IdentitiesOnly=yes"];
   };
 
-  mkNixosProfile = nixosConfig:
-    systemProfile // {path = inputs.deploy-rs.lib.${nixosConfig.pkgs.stdenv.hostPlatform.system}.activate.nixos nixosConfig;};
+  mkNixosProfile = cfg:
+    systemProfile // {path = inputs.deploy-rs.lib.${systemOf cfg}.activate.nixos cfg;};
 
-  mkDarwinProfile = darwinConfig:
-    systemProfile // {path = inputs.deploy-rs.lib.${darwinConfig.pkgs.stdenv.hostPlatform.system}.activate.darwin darwinConfig;};
-
-  # connect as the actual user, not `deploy` for home profile
-  mkHomeProfile = homeConfig: {
-    user = homeConfig.config.home.username;
-    sshUser = homeConfig.config.home.username;
-    path = inputs.deploy-rs.lib.${homeConfig.pkgs.stdenv.hostPlatform.system}.activate.home-manager homeConfig;
-  };
-
-  nixosConfigAttrs = config.nixosConfigurations;
-  darwinConfigAttrs = config.darwinConfigurations;
-  homeConfigAttrs = config.homeConfigurations or {};
-
-  homeConfigHostname = name: lib.last (lib.splitString "@" name);
-  homeConfigsByHost = lib.listToAttrs (map (name: {
-    name = homeConfigHostname name;
-    value = homeConfigAttrs.${name};
-  }) (lib.attrNames homeConfigAttrs));
+  mkDarwinProfile = cfg:
+    systemProfile // {path = inputs.deploy-rs.lib.${systemOf cfg}.activate.darwin cfg;};
 
   allHostnames = lib.unique (
-    lib.attrNames nixosConfigAttrs
-    ++ lib.attrNames darwinConfigAttrs
-    ++ lib.attrNames homeConfigsByHost
+    lib.attrNames nixosConfigurations ++ lib.attrNames darwinConfigurations
   );
 
   mkNode = name: let
-    nixosConfig = nixosConfigAttrs.${name} or null;
-    darwinConfig = darwinConfigAttrs.${name} or null;
-    homeConfig = homeConfigsByHost.${name} or null;
+    nixosConfig = nixosConfigurations.${name} or null;
+    darwinConfig = darwinConfigurations.${name} or null;
   in {
     hostname = name;
     profiles =
       lib.optionalAttrs (nixosConfig != null) {nixos = mkNixosProfile nixosConfig;}
-      // lib.optionalAttrs (darwinConfig != null) {darwin = mkDarwinProfile darwinConfig;}
-      // lib.optionalAttrs (homeConfig != null) {home = mkHomeProfile homeConfig;};
+      // lib.optionalAttrs (darwinConfig != null) {darwin = mkDarwinProfile darwinConfig;};
   };
-in {
+
   deploy = {
     interactiveSudo = false;
     fastConnection = false;
@@ -59,20 +40,18 @@ in {
     autoRollback = true;
     nodes = lib.genAttrs allHostnames mkNode;
   };
-  # prevent flake check from checking incompatible platform
+in {
+  inherit deploy;
+
   checks =
     builtins.mapAttrs (
       system: deployLib: let
         nodeSystemOf = name:
-          if nixosConfigAttrs ? ${name}
-          then nixosConfigAttrs.${name}.pkgs.stdenv.hostPlatform.system
-          else if darwinConfigAttrs ? ${name}
-          then darwinConfigAttrs.${name}.pkgs.stdenv.hostPlatform.system
-          else homeConfigsByHost.${name}.pkgs.stdenv.hostPlatform.system;
+          systemOf (nixosConfigurations.${name} or darwinConfigurations.${name});
       in
         deployLib.deployChecks {
-          inherit (self.deploy) magicRollback autoRollback interactiveSudo fastConnection remoteBuild;
-          nodes = lib.filterAttrs (name: _: nodeSystemOf name == system) self.deploy.nodes;
+          inherit (deploy) magicRollback autoRollback interactiveSudo fastConnection remoteBuild;
+          nodes = lib.filterAttrs (name: _: nodeSystemOf name == system) deploy.nodes;
         }
     )
     inputs.deploy-rs.lib;
