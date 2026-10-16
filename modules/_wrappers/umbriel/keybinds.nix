@@ -86,6 +86,16 @@ in
     "Mod+Alt+Down" = "workspace-move-down";
     "Mod+Alt+Up" = "workspace-move-up";
 
+    # Tab groups
+    "Mod+Period" = {
+      action = "column-toggle-tabbed";
+      repeat = false;
+    };
+    "Mod+Alt+Right" = "column-focus-tab-next";
+    "Mod+Alt+Left" = "column-focus-tab-previous";
+    "Mod+Alt+L" = "column-focus-tab-next";
+    "Mod+Alt+H" = "column-focus-tab-previous";
+
     # Workspaces
     "Mod+Shift+Tab" = "workspace-set-layout:toggle";
     "Mod+WheelDown" = "workspace-next";

@@ -111,6 +111,15 @@ in {
       offset_x = 2; # Horizontal offset, -200 to 200
       offset_y = 2; # Vertical offset, -200 to 200
     };
+    tab_bar = {
+      style = "titles";
+      height = 24;
+      font = "sans 10";
+      visible = true;
+      hide_when_single = false;
+      max_tabs = 6;
+      overflow = "scroll";
+    };
   };
 
   layout = {
@@ -135,6 +144,13 @@ in {
       position = "left"; # left, right, or center master area
       default_width_fraction = 0.55; # Initial master area fraction, 0.1-0.9
       new_on_top = false; # Put new windows at the top of the stack
+    };
+    tabs = {
+      default_display = "normal";
+      new_tab_position = "after_active";
+      wrap_focus = true;
+      scroll_switches_tabs = true;
+      middle_click_closes = true;
     };
   };
 
