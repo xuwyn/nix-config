@@ -58,20 +58,8 @@ url = "github:nix-community/nix-index-database"
 [inputs.stylix]
 url = "github:nix-community/stylix"
 
-[inputs.dms]
-url = "github:AvengeMedia/DankMaterialShell/stable"
-
-[inputs.dms-plugin-registry]
-url = "github:AvengeMedia/dms-plugin-registry"
-
-[inputs.nixvim]
-url = "github:nix-community/nixvim"
-
 [inputs.sops-nix]
 url = "github:Mic92/sops-nix"
-
-[inputs.nur]
-url = "github:nix-community/NUR"
 
 [inputs.spicetify-nix]
 url            = "github:Gerg-L/spicetify-nix"

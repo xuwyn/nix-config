@@ -55,22 +55,6 @@
     "narHash": "sha256-uZkBR7yHdIKUFB5SZdfgh1qkGfI3XmYmI/lTiquxbck=",
     "lastModified": 1789770686
   },
-  "dms": {
-    "type": "github",
-    "owner": "AvengeMedia",
-    "repo": "DankMaterialShell",
-    "rev": "4a87e8227daf0840b3376fd5e7f891f5900165a6",
-    "narHash": "sha256-yDBOoDewH8LwfsZrG4x5vaCstmp6w2vV70j9hC6dIuk=",
-    "lastModified": 1791395223
-  },
-  "dms-plugin-registry": {
-    "type": "github",
-    "owner": "AvengeMedia",
-    "repo": "dms-plugin-registry",
-    "rev": "ed70da174da8d5a858dbf70c42cc3419c7c24026",
-    "narHash": "sha256-pRHWkX/MO0ltyxwgZVfQgbzn2AiC1XPd2C94v7BhVt0=",
-    "lastModified": 1791602763
-  },
   "hjem": {
     "type": "github",
     "owner": "feel-co",
@@ -181,14 +165,6 @@
     "rev": "e7439b6b14ad3cc35d05608ebca9bce01a25f5f8",
     "narHash": "sha256-gRZ/s8WQJ2CsXdhcDVQH34qxuL0MuMCOs3aBiK1Prsw="
   },
-  "nixvim": {
-    "type": "github",
-    "owner": "nix-community",
-    "repo": "nixvim",
-    "rev": "2c6d56d2df7c159ef629871cfd673de237e1fc38",
-    "narHash": "sha256-hZbiKS5wzcqoKR0xwzxhJAyp1JuTL2CloYON040FJNk=",
-    "lastModified": 1791574898
-  },
   "noctalia": {
     "type": "github",
     "owner": "noctalia-dev",
@@ -196,14 +172,6 @@
     "rev": "b2e3ffb259c746606eb4477703ba7e9882ade37e",
     "narHash": "sha256-koepvlA8wY8gBTURAxdC5gLzSSsqV0bdrZFwQctGNP4=",
     "lastModified": 1791554119
-  },
-  "nur": {
-    "type": "github",
-    "owner": "nix-community",
-    "repo": "NUR",
-    "rev": "cb35afb347ec5eddd0c979a625339b8c42f05b96",
-    "narHash": "sha256-VDeo0lkN7RTQmx8MuAMLnxRbV3qhyasDcJhyZdc/jzs=",
-    "lastModified": 1791602274
   },
   "nur-expressions": {
     "type": "gitlab",
