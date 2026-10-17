@@ -44,6 +44,11 @@
         shell-integration-features = "cursor,sudo";
         focus-follows-mouse = "true";
         resize-overlay = "never";
+
+        # fix io_uring false report as IO wait by kernel
+        # https://github.com/ghostty-org/ghostty/discussions/9474
+        async-backend = "epoll";
+
         keybind = [
           # replaces clearDefaultKeybinds = true; must stay first
           "clear"

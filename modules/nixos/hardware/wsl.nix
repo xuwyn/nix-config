@@ -10,13 +10,8 @@
   }: {
     imports = [inputs.nixos-wsl.nixosModules.default];
 
-    # override hardware/service defaults
+    # wsl does not need this
     networking.networkmanager.enable = false;
-    hardware = {
-      enableRedistributableFirmware = false;
-      i2c.enable = false;
-    };
-    services.fstrim.enable = false;
 
     wsl = {
       enable = true;

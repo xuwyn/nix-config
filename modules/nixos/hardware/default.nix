@@ -1,4 +1,5 @@
 {
+  tags = ["desktop"];
   platforms = ["linux"];
   module = {lib, ...}: {
     hardware = {

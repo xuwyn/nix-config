@@ -44,12 +44,8 @@
         mango.tags = ["desktop" "nvidia" "amd"];
         # lettuce.tags = ["wsl"];
       };
-      # rpi.puffin = {
-      #   tags = ["rpi5" "server"];
-      # };
-      darwin.apricot = {
-        tags = ["desktop"];
-      };
+      rpi.puffin.tags = ["rpi5" "server"];
+      darwin.apricot.tags = ["desktop"];
     };
 
     deployOutputs = import ./deploy.nix {
