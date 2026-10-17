@@ -1,5 +1,6 @@
 {
   config,
+  lib,
   users,
   ...
 }: {
@@ -8,9 +9,12 @@
       github_token.sopsFile = ./sops/access-tokens.yaml;
       gitlab_token.sopsFile = ./sops/access-tokens.yaml;
     };
-    templates."nix-access-tokens.conf".content = ''
-      access-tokens = github.com=${config.sops.placeholder.github_token} gitlab.com=PAT:${config.sops.placeholder.gitlab_token}
-    '';
+    templates."nix-access-tokens.conf" = {
+      owner = lib.head users; # tack needs this to read the tokens
+      content = ''
+        access-tokens = github.com=${config.sops.placeholder.github_token} gitlab.com=PAT:${config.sops.placeholder.gitlab_token}
+      '';
+    };
   };
 
   nix = {
