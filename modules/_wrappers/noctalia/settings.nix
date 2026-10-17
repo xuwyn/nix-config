@@ -246,6 +246,10 @@
       mru = true;
       show_caption = false;
     };
+    launcher = {
+      category_icons_only = true;
+      layout = "simple";
+    };
     umbriel_overview_type_to_launch_enabled = true;
     avatar_path = "~/.face";
     screenshot.directory = "~/Pictures/Screenshots";

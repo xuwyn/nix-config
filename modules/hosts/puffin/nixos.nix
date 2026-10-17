@@ -36,7 +36,7 @@
       preservation.enable = false;
       scheduler.enable = false;
       printing.enable = false;
-      rs-key.enable = false;
+      yubikey.enable = false;
 
       ssh.hosts = {
         apricot = {};
@@ -60,10 +60,7 @@
         };
       };
 
-      atticd = {
-        device = "/dev/disk/by-label/cache";
-        tailscaleDomain = "puffin.tail9fb2b9.ts.net";
-      };
+      atticd.device = "/dev/disk/by-label/cache";
     };
   };
 }

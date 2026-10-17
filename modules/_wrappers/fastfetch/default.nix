@@ -4,5 +4,5 @@ adios: {
   in
     import ./profiles/mini.nix logos.nixos);
 
-  mutations."/zsh".extraPackages = adios.promise ({options}: [(options {})]);
+  mutations."/zsh".extraPackages = adios.promise ({result}: [result]);
 }

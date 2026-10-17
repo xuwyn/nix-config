@@ -9,6 +9,7 @@ adios: {
     "--classify" # append indicator (/, *, =, @, |)
     "--hyperlink" # make paths clickable in some terminals
   ];
-  mutations."/bash".extraPackages = adios.promise ({options}: [(options {})]);
-  mutations."/zsh".extraPackages = adios.promise ({options}: [(options {})]);
+
+  mutations."/zsh".extraPackages = adios.promise ({result}: [result]);
+  mutations."/bash".extraPackages = adios.promise ({result}: [result]);
 }

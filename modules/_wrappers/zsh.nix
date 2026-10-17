@@ -73,4 +73,10 @@
 
     fastfetch
   '');
+
+  mutations."/kitty".shell = adios.promise ({
+    result,
+    inputs,
+  }:
+    inputs.nixpkgs.lib.getExe result);
 }

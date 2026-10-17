@@ -11,27 +11,24 @@
       // options.extraSettings);
   };
 
-  # copy from: https://github.com/llakala/adios-wrappers/blob/bb2f3db20a330104392f62c8d142ea9489c2f3b7/modules/starship.nix#L71
   mutations."/zsh".extraZshrc = adios.promise ({
-    options,
     inputs,
+    result,
   }: let
-    finalWrapper = options {};
     inherit (inputs.nixpkgs.lib) getExe;
   in ''
-    eval "$(${getExe finalWrapper} init zsh)"
+    eval "$(${getExe result} init zsh)"
   '');
 
   mutations."/bash".extraBashrc = adios.promise ({
-    options,
     inputs,
+    result,
   }: let
-    finalWrapper = options {};
     inherit (inputs.nixpkgs.lib) getExe;
   in ''
-    eval "$(${getExe finalWrapper} init bash)"
+    eval "$(${getExe result} init bash)"
   '');
 
-  mutations."/bash".extraPackages = adios.promise ({options}: [(options {})]);
-  mutations."/zsh".extraPackages = adios.promise ({options}: [(options {})]);
+  mutations."/zsh".extraPackages = adios.promise ({result}: [result]);
+  mutations."/bash".extraPackages = adios.promise ({result}: [result]);
 }

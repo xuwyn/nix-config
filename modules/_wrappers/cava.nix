@@ -66,7 +66,7 @@
       };
   });
 
-  result = adios.promise ({
+  inputs.mkWrapper.options = adios.promise ({
     options,
     inputs,
   }: let
@@ -78,9 +78,10 @@
     settingsText = optionalString (options ? settings) (lib.generators.toINI {} options.settings);
 
     configPath = writeText "config" (configFileText + settingsText);
-  in
-    inputs.mkWrapper {
-      inherit (options) package;
-      flags = optionals (options ? configFile || options ? settings) ["-p" "${configPath}"];
-    });
+  in {
+    inherit (options) package;
+    flags = optionals (options ? configFile || options ? settings) ["-p" "${configPath}"];
+  });
+
+  result = adios.promise ({results}: results.mkWrapper);
 }

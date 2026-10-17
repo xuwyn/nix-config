@@ -8,13 +8,13 @@
     system,
     ...
   }: {
-    options.custom.rs-key.enable = lib.mkOption {
+    options.custom.yubikey.enable = lib.mkOption {
       type = lib.types.bool;
       default = true;
-      description = "RS-Key support: pcscd with its CCID driver, udev rules, polkit rule, and key tooling";
+      description = "Enable yubikey support for sops-nix secrets";
     };
 
-    config = lib.mkIf config.custom.rs-key.enable {
+    config = lib.mkIf config.custom.yubikey.enable {
       # Read: https://themaxmur.github.io/RS-Key/linux.html#nixos-declarative
       environment.systemPackages = with pkgs; [
         yubikey-manager # ykman
@@ -24,13 +24,7 @@
         age-plugin-yubikey # age in yubikey format
       ];
 
-      # PC/SC daemon for the CCID applets (OpenPGP / PIV / OATH / OTP).
-      services.pcscd = {
-        enable = true;
-        plugins = lib.mkForce [
-          inputs.rs-key.packages.${system}.ccid-rs-key
-        ];
-      };
+      services.pcscd.enable = true;
 
       # Let a non-root user (e.g. over SSH) talk to pcscd. Without this, CCID works
       # only as root and `ykman`/`gpg --card-status` fail from an SSH session.

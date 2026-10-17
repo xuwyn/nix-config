@@ -20,7 +20,7 @@
     };
   };
 
-  result = adios.promise ({
+  inputs.mkWrapper.options = adios.promise ({
     options,
     inputs,
   }: let
@@ -29,9 +29,10 @@
       if isDarwin
       then "/Users/${options.username}"
       else "/home/${options.username}";
-  in
-    inputs.mkWrapper {
-      inherit (options) package;
-      environment.NH_FLAKE = "${homeDirectory}/${options.flakePath}";
-    });
+  in {
+    inherit (options) package;
+    environment.NH_FLAKE = "${homeDirectory}/${options.flakePath}";
+  });
+
+  result = adios.promise ({results}: results.mkWrapper);
 }

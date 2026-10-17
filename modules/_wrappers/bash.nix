@@ -55,7 +55,7 @@
     microfetch
   '';
 
-  result = adios.promise ({
+  inputs.mkWrapper.options = adios.promise ({
     options,
     inputs,
   }: let
@@ -80,16 +80,17 @@
       + variables
       + aliases
       + extraBashrcText;
-  in
-    inputs.mkWrapper {
-      inherit (options) package;
-      wrapperArgs =
-        if options ? extraPackages
-        then "--prefix PATH : ${makeBinPath options.extraPackages}"
-        else null;
-      symlinks = {
-        "$out/.bashrc" = writeText ".bashrc" bashrc;
-      };
-      flags = ["--rcfile" "$out/.bashrc"];
-    });
+  in {
+    inherit (options) package;
+    wrapperArgs =
+      if options ? extraPackages
+      then "--prefix PATH : ${makeBinPath options.extraPackages}"
+      else null;
+    symlinks = {
+      "$out/.bashrc" = writeText ".bashrc" bashrc;
+    };
+    flags = ["--rcfile" "$out/.bashrc"];
+  });
+
+  result = adios.promise ({results}: results.mkWrapper);
 }

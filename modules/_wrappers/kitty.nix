@@ -1,6 +1,10 @@
 {types, ...} @ adios: {
-  inputs.zsh.from = {parent}: parent.zsh;
   options = {
+    shell = {
+      type = types.string;
+      mutators = ["/zsh"];
+      mergeFunc = adios.lib.merge.strings.concatLines;
+    };
     fontFamily = {
       type = types.string;
       default = "Maple Mono NF";
@@ -22,7 +26,7 @@
       inputs,
     }: let
       inherit (inputs.nixpkgs) pkgs;
-      inherit (inputs.nixpkgs.lib) getExe;
+      inherit (inputs.nixpkgs.lib) optionalString;
     in
       pkgs.writeText "kitty.conf" ''
         include ${pkgs.kitty-themes}/share/kitty-themes/themes/Catppuccin-Mocha.conf
@@ -51,7 +55,7 @@
         macos_titlebar_color background
         background_opacity 0.85
         background_blur 20
-        shell ${getExe (inputs.zsh {})}
+        ${optionalString (options ? shell) "shell ${options.shell}"}
 
         symbol_map U+2190-U+21FF DejaVu Sans
         url_prefixes file ftp ftps gemini git gopher http https irc ircs kitty sftp ssh

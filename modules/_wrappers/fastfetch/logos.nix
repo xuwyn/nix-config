@@ -41,7 +41,7 @@ in {
         height = 40;
         width = 30;
         padding = {
-          top = 1;
+          top = 3;
           left = 0;
         };
       };
