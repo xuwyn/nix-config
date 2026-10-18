@@ -3,7 +3,6 @@
   module = {
     config,
     lib,
-    inputs,
     users,
     system,
     ...
@@ -27,8 +26,6 @@
           '';
         }
       ];
-
-      environment.systemPackages = [inputs.deploy-rs.packages.${system}.default];
 
       sops.secrets.deploy_key = {
         owner = lib.head users;

@@ -10,6 +10,32 @@
   }: let
     wm = self.wrapperModules.${system};
   in {
+    # overlays to disable check for pkgs with no cache
+    nixpkgs.overlays = [
+      (final: prev: {
+        pythonPackagesExtensions =
+          prev.pythonPackagesExtensions
+          ++ [
+            (pyFinal: pyPrev: let
+              noCheck = [
+                "rich"
+                "rich-argparse"
+                "remarshal"
+                "markdown-it-py"
+                "pytest-regressions"
+                "matplotlib"
+                "pillow"
+              ];
+            in
+              builtins.listToAttrs (map (name: {
+                  inherit name;
+                  value = pyPrev.${name}.overridePythonAttrs {doCheck = false;};
+                })
+                noCheck))
+          ];
+      })
+    ];
+
     # micro sd card disk layout
     fileSystems = {
       "/boot/firmware" = {

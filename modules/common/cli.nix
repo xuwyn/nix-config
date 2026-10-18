@@ -3,7 +3,6 @@
   system,
   inputs,
   lib,
-  pkgs,
   ...
 }: let
   isDarwin = lib.hasSuffix "-darwin" system;
@@ -23,8 +22,5 @@ in {
     (ff {})
     (ns {})
     (nh {})
-    pkgs.tack
-    pkgs.nvfetcher
-    inputs.multiverse.packages.${pkgs.stdenv.hostPlatform.system}.mvs
   ];
 }

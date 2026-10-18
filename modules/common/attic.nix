@@ -3,6 +3,8 @@
   lib,
   pkgs,
   users,
+  inputs,
+  system,
   ...
 }: let
   cfg = config.custom.attic;
@@ -42,7 +44,7 @@ in {
       extra-trusted-public-keys = ["${cfg.cacheName}:${cfg.publicKey}"];
     };
 
-    environment.systemPackages = [pkgs.attic-client];
+    environment.systemPackages = [inputs.nixpkgs.legacyPackages.${system}.attic-client];
 
     hj.xdg.config.files."attic/config.toml".source = tomlFormat.generate "attic-config.toml" {
       default-server = "tailscale";

@@ -7,6 +7,7 @@
     config,
     lib,
     system,
+    inputs,
     ...
   }: let
     wm = self.wrapperModules.${system};
@@ -18,12 +19,16 @@
       (btop {noctaliaThemeEnabled = true;})
       (kitty {noctaliaThemeEnabled = true;})
       (zed-editor {noctaliaThemeEnabled = true;})
+      (helix {noctaliaThemeEnabled = true;})
       (yazi {})
       (firefox {})
       (spicetify {})
       (maa-cli {})
-      (helix {noctaliaThemeEnabled = true;})
       (nvf {})
+      pkgs.tack
+      pkgs.nvfetcher
+      inputs.multiverse.packages.${pkgs.stdenv.hostPlatform.system}.mvs
+      inputs.deploy-rs.packages.${system}.default
     ];
 
     sops.age = {

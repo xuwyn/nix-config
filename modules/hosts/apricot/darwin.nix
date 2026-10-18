@@ -25,6 +25,10 @@
       (spicetify {})
       (maa-cli {})
       (nvf {})
+      pkgs.tack
+      pkgs.nvfetcher
+      inputs.multiverse.packages.${pkgs.stdenv.hostPlatform.system}.mvs
+      inputs.deploy-rs.packages.${system}.default
     ];
 
     # necessary for gui apps launched from Spotlight to load the correct config

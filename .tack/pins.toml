@@ -27,7 +27,7 @@ nixpkgs = "nixpkgs"
 url = "https://channels.nixos.org/nixos-unstable/nixexprs.tar.xz"
 
 [inputs.nixos-raspberrypi]
-url            = "github:nvmd/nixos-raspberrypi/develop"
+url            = "github:nvmd/nixos-raspberrypi/main"
 exclude_follow = ["nixpkgs"]
 
 [inputs.nix-darwin]
