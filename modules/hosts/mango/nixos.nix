@@ -56,6 +56,8 @@
         amdgpuBusId = "PCI:15:0:0";
       };
 
+      deploy.controller.enable = true;
+
       users = {
         wyn = {
           isAdmin = true;

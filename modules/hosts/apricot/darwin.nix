@@ -57,6 +57,8 @@
         "capybara.local" = {};
       };
 
+      deploy.controller.enable = true;
+
       users = {
         wyn = {
           sshKeys = [../../common/keys/openssh_key.pub];
