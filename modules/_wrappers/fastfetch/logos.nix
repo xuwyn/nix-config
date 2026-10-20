@@ -59,4 +59,9 @@ in {
       left = 0;
     };
   };
+
+  nun = {
+    source = ./logos/nun.txt;
+    padding = {left = 0;};
+  };
 }

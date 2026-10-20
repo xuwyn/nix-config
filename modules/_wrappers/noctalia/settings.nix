@@ -349,7 +349,7 @@
     };
   };
   widget = {
-    todo.label = "";
+    todo.show_label = false;
     bar = {
       type = "noctalia/world_clock:bar";
     };

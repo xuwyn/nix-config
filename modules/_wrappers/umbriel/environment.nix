@@ -10,6 +10,8 @@ in {
   MOZ_ENABLE_WAYLAND = "1";
   GDK_SCALE = "1";
   QT_SCALE_FACTOR = "1";
+  XCURSOR_THEME = "Bibata-Modern-Ice"; # duplicated (╯`Д´）╯︵ ┻━┻
+  XCURSOR_SIZE = "24";
   EDITOR = editor;
   TERMINAL = terminal;
   XDG_TERMINAL_EMULATOR = terminal;

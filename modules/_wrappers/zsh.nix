@@ -4,7 +4,10 @@
       type = types.attrs;
       default = {};
     };
-
+    hostZshrc = {
+      type = types.string;
+      default = "";
+    };
     aliases.default = adios.promise ({options, ...}: import ./shell/aliases.nix // options.extraAliases);
 
     extraPackages.mutators = ["/eza" "/zoxide" "/starship" "/fastfetch"];
@@ -49,7 +52,8 @@
       DISABLE_AUTO_UPDATE="true"
       source "$ZSH/oh-my-zsh.sh"
 
-      # must be set before zsh-syntax-highlighting is sourced
+      # must be set before zsh-autosuggestions/zsh-syntax-highlighting is sourced
+      ZSH_AUTOSUGGEST_STRATEGY=(history completion)
       ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern regexp root line)
     '');
 
@@ -70,6 +74,8 @@
     # fix for MacOS losing wrapped tools when kitty is launched from Spotlight
     typeset -U path PATH
     export PATH="${lib.makeBinPath options.extraPackages}:$PATH"
+
+    ${options.hostZshrc}
 
     fastfetch
   '');

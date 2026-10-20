@@ -39,8 +39,9 @@
     };
   }
   {
+    match.app_id = "^scratchpad-kitty$";
     match.title = ''^([Bb]top)$'';
-    # default_scratchpad = "btop"; # default_position doesnt work in scratchpad
+    default_scratchpad = "btop";
     default_floating = true;
     default_focused = true;
     default_floating_size = {
@@ -54,8 +55,9 @@
     };
   }
   {
+    match.app_id = "^scratchpad-kitty$";
     match.title = ''^([Yy]azi)$'';
-    # default_scratchpad = "yazi";
+    default_scratchpad = "yazi";
     default_floating = true;
     default_focused = true;
     default_floating_size = {

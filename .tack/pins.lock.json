@@ -169,9 +169,9 @@
     "type": "github",
     "owner": "noctalia-dev",
     "repo": "noctalia",
-    "rev": "e37d7145b95a51b801db9bb20d1c600f35111e0b",
-    "narHash": "sha256-+9RYq8m94AI/xU9gtUwv0GHjo9tgBiDOjYIbAX3Hcns=",
-    "lastModified": 1792314209
+    "rev": "0982a0a465b9e059ed4de13fc9860cfc6c18f7b5",
+    "narHash": "sha256-O+O12jSKQupMbR8o5I2msm2S5BEKa38Kd/i7Uozi3T0=",
+    "lastModified": 1792496530
   },
   "nur-expressions": {
     "type": "gitlab",
@@ -233,8 +233,8 @@
     "type": "github",
     "owner": "noctalia-dev",
     "repo": "umbriel",
-    "rev": "ef51066637c1b36f3f9c7fc89dd6b691d8aa600b",
-    "narHash": "sha256-OvNjDAvRKv/1sYWk4IsjsG2Sj9eiV5Hfiws8nwsyYW8=",
-    "lastModified": 1792197239
+    "rev": "7b9ad2ed143e27d7939ef1445be63fc3fed8783b",
+    "narHash": "sha256-Hwtr7vOlXoAPDBp0pOXRRJLBjbhPZKFFzzt90RwxS1s=",
+    "lastModified": 1792466801
   }
 }

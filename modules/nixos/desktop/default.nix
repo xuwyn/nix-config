@@ -94,9 +94,6 @@
         package = umbriel;
       };
 
-      # TODO: move this somewhere else that makes more sense
-      hj.xdg.config.files."umbriel/config.toml".source = umbriel.configFile;
-
       # wallpapers and pfp
       hj.files = {
         "Pictures/Wallpapers".source = "${inputs.assets}/wallpapers";

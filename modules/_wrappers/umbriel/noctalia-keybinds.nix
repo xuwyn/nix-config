@@ -1,3 +1,4 @@
+# This weird format is leftover from when I have to share noctalia with more than 1 WMs
 [
   {
     key = "ALT + TAB";
@@ -90,6 +91,10 @@
   }
   {
     key = "SUPER + ALT + S";
+    command = "noctalia msg screenshot-window";
+  }
+  {
+    key = "SUPER + CTRL + SHIFT + S";
     command = "noctalia msg plugin fel/ocr:ocr all ocr-region";
   }
   {

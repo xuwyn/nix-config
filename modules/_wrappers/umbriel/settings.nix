@@ -1,15 +1,15 @@
 {desktop, ...}: let
-  inherit (desktop) startupCommands monitors terminal;
+  inherit (desktop) startupCommands monitors;
 in {
   scratchpad = [
     {name = "empty";}
     {
       name = "btop";
-      spawn_when_empty = "${terminal} btop";
+      spawn_when_empty = "kitty --class scratchpad-kitty btop";
     }
     {
       name = "yazi";
-      spawn_when_empty = "${terminal} yazi";
+      spawn_when_empty = "kitty --class scratchpad-kitty yazi";
     }
   ];
   layer_rule = [

@@ -46,6 +46,7 @@
       };
       rpi.puffin.tags = ["rpi5" "server"];
       darwin.apricot.tags = ["desktop"];
+      hjem."wyn@capybara" = {};
     };
 
     deployOutputs = import ./deploy.nix {
@@ -78,7 +79,7 @@
     in
       (adios root {options."/nixpkgs" = {inherit pkgs;};}).modules);
   in {
-    inherit (laminaOutputs) nixosConfigurations darwinConfigurations;
+    inherit (laminaOutputs) nixosConfigurations darwinConfigurations hjemConfigurations;
     inherit (deployOutputs) deploy checks;
     inherit (ci) ciChecks ciMatrix;
     inherit wrapperModules;
