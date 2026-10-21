@@ -9,17 +9,10 @@
     self,
     system,
     ...
-  }: let
-    cfg = config.custom.desktop;
-  in {
+  }: {
     imports = [inputs.umbriel.nixosModules.default];
 
     options.custom.desktop = {
-      noctalia.enable = lib.mkOption {
-        type = lib.types.bool;
-        default = true;
-        description = "Enable Noctalia";
-      };
       startupCommands = lib.mkOption {
         type = lib.types.listOf lib.types.str;
         default = [];
@@ -73,32 +66,31 @@
       noctalia = wm.noctalia {inherit (config.custom) desktop;};
       umbriel = wm.umbriel {inherit (config.custom) desktop;};
     in {
-      environment.systemPackages =
-        [
-          pkgs.eog
-          pkgs.mpv
-          pkgs.rhythmbox
-          pkgs.playerctl
-        ]
-        ++ lib.optionals cfg.noctalia.enable [
-          noctalia
-          pkgs.evtest # bongocat
-          pkgs.grim # ocr
-          pkgs.slurp # ocr
-          pkgs.tesseract # ocr
-        ]
-        ++ lib.optionals config.programs.umbriel.enable [umbriel];
+      environment.systemPackages = with pkgs; [
+        umbriel
+        eog
+        mpv
+        rhythmbox
+        playerctl
+        bibata-cursors
+        noctalia
+        evtest # bongocat
+        grim # ocr
+        slurp # ocr
+        tesseract # ocr
+      ];
 
       programs.umbriel = {
         enable = lib.mkDefault true;
         package = umbriel;
       };
 
-      # wallpapers and pfp
-      hj.files = {
-        "Pictures/Wallpapers".source = "${inputs.assets}/wallpapers";
-        ".face".source = "${inputs.assets}/face.jpg";
-      };
+      hj.files =
+        {
+          "Pictures/Wallpapers".source = "${inputs.assets}/wallpapers";
+          ".face".source = "${inputs.assets}/face.jpg";
+        }
+        // lib.mapAttrs (_: text: {inherit text;}) (import ../../common/_desktop/cursor.nix).files;
     };
   };
 }

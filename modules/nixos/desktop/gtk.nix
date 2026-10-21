@@ -3,7 +3,6 @@
   platforms = ["linux"];
   module = {
     lib,
-    config,
     pkgs,
     ...
   }: let
@@ -15,9 +14,8 @@
       name = "Papirus-Dark";
       package = pkgs.papirus-icon-theme;
     };
-    cursor = config.custom.cursor;
+    cursor = import ../../common/_desktop/cursor.nix;
     noctaliaImport = ''@import url("noctalia.css");'';
-    noctaliaThemeEnabled = config.custom.desktop.noctalia.enable;
 
     settings = {
       gtk-theme-name = theme.name;
@@ -41,13 +39,11 @@
       # gtk4/libadwaita apps ignore gtk-theme-name, so import the theme's css
       "gtk-4.0/gtk.css".text = ''
         @import url("file://${theme.package}/share/themes/${theme.name}/gtk-4.0/gtk.css");
-        ${lib.optionalString noctaliaThemeEnabled noctaliaImport}
+        ${noctaliaImport}
       '';
 
       # gtk3 reads the theme from settings.ini, so gtk.css is only for noctalia
-      "gtk-3.0/gtk.css" = lib.mkIf noctaliaThemeEnabled {
-        text = noctaliaImport;
-      };
+      "gtk-3.0/gtk.css".text = noctaliaImport;
     };
 
     hj.files.".gtkrc-2.0".text = ''

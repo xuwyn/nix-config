@@ -9,9 +9,9 @@
     inputs,
     ...
   }: let
+    inherit (pkgs) lib;
     home = "/home/${user}";
     wm = self.wrapperModules.${system};
-
     desktop = {
       monitors = [
         {
@@ -39,43 +39,51 @@
   in {
     manifest = {
       version = 3;
-      files = [
-        {
-          type = "symlink";
-          source = (wm.umbriel {inherit desktop;}).configFile;
-          target = "${home}/.config/umbriel/config.toml";
-        }
-        {
-          type = "symlink";
-          source = "${wm.noctalia {inherit desktop;}}/noctalia/noctalia.toml";
-          target = "${home}/.config/noctalia/config.toml";
-        }
-        {
-          # TODO: cant update theme in runtime with adios autogen config
-          type = "copy";
-          source = pkgs.writeText "kitty.conf" ''
-            include ${wm.kitty {noctaliaThemeEnabled = true;}}/kitty/kitty.conf
-          '';
-          target = "${home}/.config/kitty/kitty.conf";
-        }
-        {
-          type = "symlink";
-          source = "${inputs.assets}/wallpapers";
-          target = "${home}/Pictures/Wallpapers";
-        }
-        {
-          type = "symlink";
-          source = "${inputs.assets}/face.jpg";
-          target = "${home}/.face";
-        }
-      ];
+      files =
+        [
+          {
+            type = "symlink";
+            source = (wm.umbriel {inherit desktop;}).configFile;
+            target = "${home}/.config/umbriel/config.toml";
+          }
+          {
+            # this pulls another copy of noctalia (not just the config) 😑
+            type = "symlink";
+            source = "${wm.noctalia {inherit desktop;}}/noctalia/noctalia.toml";
+            target = "${home}/.config/noctalia/config.toml";
+          }
+          {
+            # TODO: cant update theme in runtime with adios autogen config
+            type = "copy";
+            source = pkgs.writeText "kitty.conf" ''
+              include ${wm.kitty {noctaliaThemeEnabled = true;}}/kitty/kitty.conf
+            '';
+            target = "${home}/.config/kitty/kitty.conf";
+          }
+          {
+            type = "symlink";
+            source = "${inputs.assets}/wallpapers";
+            target = "${home}/Pictures/Wallpapers";
+          }
+          {
+            type = "symlink";
+            source = "${inputs.assets}/face.jpg";
+            target = "${home}/.face";
+          }
+        ]
+        ++ (lib.mapAttrsToList (path: text: {
+            type = "symlink";
+            source = pkgs.writeText (baseNameOf path) text;
+            target = "${home}/${path}";
+          })
+          (import ../../common/_desktop/cursor.nix).files);
     };
 
     packages = with wm;
       [
         (zsh {
           hostZshrc = ''
-            export PATH="$XDG_STATE_HOME/hjem/standalone/current-profile/bin:$PATH"
+            export PATH="${home}/.local/state/hjem/standalone/current-profile/bin:$PATH"
           '';
         })
         (git {})
