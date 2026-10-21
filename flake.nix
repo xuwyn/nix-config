@@ -26,6 +26,8 @@
     systems = ["x86_64-linux" "aarch64-darwin" "aarch64-linux"];
     perSystem = f: lib.genAttrs systems (system: f inputs.nixpkgs.legacyPackages.${system} system);
 
+    overlays = import ./modules/_overlays {inherit inputs;};
+
     # Thanks iynaix! <3
     lamina = import ./lamina.nix {
       inherit inputs;
@@ -34,7 +36,7 @@
 
     laminaOutputs = lamina.mkLaminaOutputs {
       modules = [./modules];
-      overlays = import ./modules/_overlays {inherit inputs;};
+      inherit overlays;
       specialArgs = {
         users = ["wyn" "deploy"];
         flake.homeRelativePath = "nix-config";
@@ -59,11 +61,13 @@
       inherit (laminaOutputs) nixosConfigurations darwinConfigurations;
     };
 
-    wrapperModules = perSystem (pkgs: _: let
-      inherit (inputs.adios) adios;
-      sources = import ./_sources/generated.nix {
-        inherit (pkgs) fetchFromGitHub fetchurl fetchgit dockerTools;
+    wrapperModules = perSystem (_: system: let
+      pkgs = import inputs.nixpkgs {
+        inherit system overlays;
+        config.allowUnfree = true;
       };
+      inherit (pkgs) sources; # from the nvfetcher overlay
+      inherit (inputs.adios) adios;
       root.modules = adios.lib.inject [
         inputs.adios-wrappers.wrapperModules
         (adios.lib.importModules {

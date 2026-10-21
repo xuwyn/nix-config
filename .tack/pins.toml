@@ -125,3 +125,6 @@ url = "github:notashelf/nvf"
 [inputs.catppuccin-helix]
 url  = "github:catppuccin/helix"
 type = "fetch"
+
+[inputs.nixpkgs-firefox]
+url = "github:NixOS/nixpkgs/46b97d70141600cc6829de9b047babf2a425017b"
