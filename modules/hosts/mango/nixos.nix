@@ -27,7 +27,6 @@
       (nvf {})
       pkgs.tack
       pkgs.nvfetcher
-      inputs.multiverse.packages.${pkgs.stdenv.hostPlatform.system}.mvs
       inputs.deploy-rs.packages.${system}.default
     ];
 

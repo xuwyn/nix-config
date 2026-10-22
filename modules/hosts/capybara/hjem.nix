@@ -43,7 +43,13 @@
         [
           {
             type = "symlink";
-            source = (wm.umbriel {inherit desktop;}).configFile;
+            source =
+              (wm.umbriel {
+                inherit desktop;
+                extraKeybinds = {
+                  "Mod+D" = "spawn:vesktop";
+                };
+              }).configFile;
             target = "${home}/.config/umbriel/config.toml";
           }
           {
@@ -94,6 +100,7 @@
         (btop {noctaliaThemeEnabled = true;})
         (yazi {})
         (firefox {})
+        (spicetify {})
         (nvf {extraSettings = {config.vim.extraPackages = with pkgs; [nodejs wl-clipboard];};})
       ]
       ++ (with inputs; [nix-index-database.packages.${system}.comma-with-db]);

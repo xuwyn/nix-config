@@ -1,13 +1,16 @@
 {
-  sv = "sudo -E nvim";
+  sv = ''sudo env "PATH=$PATH" nvim'';
   v = "nvim";
   c = "clear";
   ".." = "cd ..";
-  cow = "fortune | cowsay | lolcat";
+
+  cow = ", fortune | , cowsay | , lolcat";
+  mvs = "nix run github:fzakaria/nixpkgs-multiverse#mvs -- ";
+
+  hjgc = "hjem standalone expire-generations --keep-last 1";
   ncg = "nix-collect-garbage --delete-old && nix-collect-garbage -d && nix-store --gc && nix-store --optimise";
 
   apos = "attic push main /run/current-system";
-  aphm = "attic push main $(readlink -f ~/.local/state/nix/profiles/home-manager)";
   ainf = "attic cache info main";
 
   ls = "eza";

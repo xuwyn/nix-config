@@ -20,25 +20,42 @@
       type = types.attrs;
       default = {};
     };
+    extraWindowRules = {
+      type = types.listOf types.attrs;
+      default = [];
+    };
+    extraAnimation = {
+      type = types.attrs;
+      default = {};
+    };
+    extraEnvironment = {
+      type = types.attrs;
+      default = {};
+    };
+    extraKeybinds = {
+      type = types.attrs;
+      default = {};
+    };
     settings = {
       type = types.attrs;
       default = adios.promise ({
         options,
         inputs,
-      }:
-        import ./settings.nix {inherit (options) desktop;}
+      }: let
+        inherit (inputs.nixpkgs) lib;
+      in
+        (lib.recursiveUpdate (import ./settings.nix {inherit (options) desktop;}) options.extraSettings)
         // {
-          window_rule = import ./windowrules.nix;
-          animation = import ./animation.nix;
-          environment = import ./environment.nix {
-            inherit (options) desktop;
-          };
-          keybinds = import ./keybinds.nix {
-            inherit (options) desktop;
-            inherit (inputs.nixpkgs) lib;
-          };
-        }
-        // options.extraSettings);
+          window_rule = import ./windowrules.nix ++ options.extraWindowRules;
+          animation = lib.recursiveUpdate (import ./animation.nix) options.extraAnimation;
+          environment = lib.recursiveUpdate (import ./environment.nix {inherit (options) desktop;}) options.extraEnvironment;
+          keybinds =
+            lib.recursiveUpdate (import ./keybinds.nix {
+              inherit (options) desktop;
+              inherit lib;
+            })
+            options.extraKeybinds;
+        });
     };
   };
 
