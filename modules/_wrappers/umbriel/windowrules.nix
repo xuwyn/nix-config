@@ -39,35 +39,11 @@
     };
   }
   {
-    match.app_id = "^scratchpad-kitty$";
-    match.title = ''^([Bb]top)$'';
-    default_scratchpad = "btop";
-    default_floating = true;
-    default_focused = true;
+    # match.title does not work in scratchpads (2026-10-22)
+    match.app_id = "^(scratchpad-terminal)$";
     default_floating_size = {
-      width = 0.6;
-      height = 0.7;
-    };
-    default_position = {
-      x = 0;
-      y = 0;
-      anchor = "center";
-    };
-  }
-  {
-    match.app_id = "^scratchpad-kitty$";
-    match.title = ''^([Yy]azi)$'';
-    default_scratchpad = "yazi";
-    default_floating = true;
-    default_focused = true;
-    default_floating_size = {
-      width = 0.6;
-      height = 0.7;
-    };
-    default_position = {
-      x = 0;
-      y = 0;
-      anchor = "center";
+      width = 0.9;
+      height = 0.9;
     };
   }
   {

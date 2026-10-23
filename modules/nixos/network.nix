@@ -29,9 +29,9 @@
           enable = true;
           nssmdns4 = true;
           openFirewall = true; # port 5353
-          publish = {
-            enable = true;
-            addresses = true;
+          settings.publish = {
+            disable-publishing = false;
+            publish-addresses = true;
           };
         };
         openssh = {

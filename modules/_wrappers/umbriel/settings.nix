@@ -5,11 +5,11 @@ in {
     {name = "empty";}
     {
       name = "btop";
-      spawn_when_empty = "kitty --class scratchpad-kitty btop";
+      spawn_when_empty = "kitty --class scratchpad-terminal btop";
     }
     {
       name = "yazi";
-      spawn_when_empty = "kitty --class scratchpad-kitty yazi";
+      spawn_when_empty = "kitty --class scratchpad-terminal yazi";
     }
   ];
   layer_rule = [

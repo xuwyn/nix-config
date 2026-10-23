@@ -2,6 +2,7 @@ let
   name = "Bibata-Modern-Ice";
   size = 24;
 in {
+  inherit name size;
   files = {
     ".icons/default/index.theme" = ''
       [Icon Theme]

@@ -31,7 +31,6 @@
             # pkgs.hplipWithPlugin
           ];
         };
-        ipp-usb.enable = true;
       };
     };
   };

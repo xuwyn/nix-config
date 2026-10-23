@@ -18,6 +18,18 @@ in [
       }).firefox-unwrapped;
   })
 
+  # build failed (2026-10-21)
+  (final: prev: {
+    mozc = prev.mozc.overrideAttrs (old: {
+      postPatch =
+        (old.postPatch or "")
+        + ''
+          substituteInPlace src/gui/dictionary_tool/dictionary_tool.ui \
+            --replace-fail "::mozc::gui::" "mozc::gui::"
+        '';
+    });
+  })
+
   # nvfetcher sources
   (final: prev: {
     sources = import ../../_sources/generated.nix {

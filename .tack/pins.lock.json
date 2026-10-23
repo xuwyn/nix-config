@@ -107,9 +107,9 @@
     "type": "github",
     "owner": "xddxdd",
     "repo": "nix-cachyos-kernel",
-    "rev": "b1332396df6e880d7e3b6b451c6a74132ce8cf66",
-    "narHash": "sha256-ANcKKTLB5oitjAYPp+iWts5clpbowVbDPVvt03P7Hes=",
-    "lastModified": 1790564970
+    "rev": "1d8d2f0c10641bf5d424d4b09996cd9e84538833",
+    "narHash": "sha256-Lu/mirx0OQndYSEPqh7DlhFWUiq9LNzZb/1ephyBqa0=",
+    "lastModified": 1792616075
   },
   "nix-darwin": {
     "type": "github",
