@@ -147,9 +147,9 @@
     "type": "github",
     "owner": "nvmd",
     "repo": "nixos-raspberrypi",
-    "rev": "7e39508bcf9c1da82cf11c1e22f74f9d9fd0fe10",
-    "narHash": "sha256-KT/OleUMpSKsWgi0eTuqS/0GD4ucPQcvLgmvlw8ZuCM=",
-    "lastModified": 1785596452
+    "rev": "e96a8bd1654b609f1ba70e254bf46c01640633cc",
+    "narHash": "sha256-OOCLXUxSgh15+EE+7VEavEDDrqlrlhMBTf76+Ud/ZlE=",
+    "lastModified": 1792848340
   },
   "nixos-wsl": {
     "type": "github",
