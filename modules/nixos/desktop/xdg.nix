@@ -31,7 +31,7 @@
     xdg.portal = {
       enable = true;
       extraPortals = [pkgs.xdg-desktop-portal-gtk];
-      umbriel = {
+      config.umbriel = {
         # zed needs these
         "org.freedesktop.portal.FileChooser" = ["gtk"];
         "org.freedesktop.portal.OpenURI" = ["gtk"];
