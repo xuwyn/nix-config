@@ -1,4 +1,5 @@
 {
+  hjemCompat = true;
   tags = ["desktop"];
   platforms = ["linux"];
   module = {

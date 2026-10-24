@@ -29,7 +29,7 @@
     overlays = import ./modules/_overlays {inherit inputs;};
 
     # Thanks iynaix! <3
-    lamina = import ./lamina.nix {
+    lamina = import ./lib/lamina.nix {
       inherit inputs;
       inherit (args) self;
     };
@@ -48,7 +48,7 @@
       };
       rpi.puffin.tags = ["rpi5" "server"];
       darwin.apricot.tags = ["desktop"];
-      hjem."wyn@capybara" = {};
+      hjem."wyn@capybara".tags = ["desktop"];
     };
 
     deployOutputs = import ./deploy.nix {

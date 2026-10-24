@@ -1,6 +1,5 @@
 {
-  hosts = ["mango"];
-
+  targets = ["mango"];
   module = {
     self,
     pkgs,

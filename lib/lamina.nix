@@ -8,6 +8,7 @@
 }: let
   nixpkgs = inputs.nixpkgs;
   lib = nixpkgs.lib;
+  hjemShim = import ./hjem-shim.nix {inherit lib inputs;};
 
   # ---------------------------------------------------------------- discovery
   recursivelyImport = root:
@@ -22,37 +23,34 @@
         |> lib.all (part: !lib.hasPrefix "_" part)
     );
 
+  allowedKeys = ["module" "targets" "target" "tags" "tag" "platforms" "platform" "hjemCompat"];
+
   loadModules = dir:
     recursivelyImport dir
     |> map (
       path: let
         imported = import path;
-        isLamina = lib.isAttrs imported && imported ? module;
+        isLamina = lib.isAttrs imported && lib.any (k: imported ? ${k}) allowedKeys; # fail loudly for typo with `modules`
         unknown =
           lib.attrNames imported
-          |> lib.filter (k: !lib.elem k ["module" "hosts" "host" "tags" "tag" "platforms" "platform"]);
+          |> lib.filter (k: !lib.elem k allowedKeys);
 
         lamina =
           if isLamina
           then
-            assert lib.assertMsg (unknown == [])
-            "${toString path}: unknown key(s) ${toString unknown}; allowed: module, hosts, tags, platforms"; imported
+            assert lib.assertMsg (imported ? module && unknown == [])
+            "${toString path}: needs a `module` key, and no unknown keys (got: ${toString unknown}); allowed: ${toString allowedKeys}"; imported
           else {module = imported;};
       in
         lamina
         // {
-          # hjem hosts have no module system, so they use the module as written
-          raw = lamina.module;
           # wrap `module` so eval errors name this file instead of <unknown-file>.
           module = lib.setDefaultModuleLocation path lamina.module;
         }
     );
 
   # ---------------------------------------------------------------- filtering
-  # "aarch64-linux" -> [ "aarch64" "linux" "aarch64-linux" ]
-  platformsOf = system: lib.splitString "-" system ++ [system];
-
-  matchesHost = m: host: let
+  matchesTarget = m: target: let
     # Read a filter as a list, accepting either spelling:
     #   tags = [ "a" "b" ]   or   tag = "a"
     # Returns null when the module sets neither. If both are set, the plural wins.
@@ -63,111 +61,88 @@
       then [m.${singular}]
       else null;
 
-    hosts = pick "hosts" "host";
+    targets = pick "targets" "target";
     tags = pick "tags" "tag";
     platforms = pick "platforms" "platform";
 
-    hostOk =
-      if host.hjemOnly
-      then hosts != null && lib.elem host.name hosts
-      else hosts == null || lib.elem host.name hosts;
-
-    # hjem only look at `hosts`, tags and platforms don't apply, might regret this ¯\_(ツ)_/¯
-    tagsOk = host.hjemOnly || tags == null || lib.all (tag: lib.elem tag host.tags) tags;
-    platformOk = host.hjemOnly || platforms == null || lib.any (p: lib.elem p host.platforms) platforms;
+    # a target is a host name, or "user@host" on hjem-only hosts
+    # (a bare host name matches every user on that host)
+    targetOk = targets == null || lib.any (t: lib.elem t target.names) targets;
+    tagsOk = tags == null || lib.all (tag: lib.elem tag target.tags) tags;
+    platformOk = platforms == null || lib.any (p: lib.elem p target.platforms) platforms;
+    hjemOk = !target.isHjem || (m.hjemCompat or false);
   in
-    hostOk && tagsOk && platformOk;
-
-  # Merge plain-data fragments (used for hjem hosts, which have no module system):
-  #   attrsets  -> merged recursively
-  #   lists     -> concatenated
-  #   scalars   -> equal values collapse, differing values throw
-  mergeValues = path: a: b:
-    if lib.isAttrs a && !lib.isDerivation a && lib.isAttrs b && !lib.isDerivation b
-    then recursiveMergeAttrs path a b
-    else if lib.isList a && lib.isList b
-    then a ++ b
-    else if a == b
-    then a
-    else throw "lamina: conflicting values in hjem config at `${path |> lib.concatStringsSep "."}`";
-
-  # merge two attrsets: keys on one side pass through, shared keys go to mergeValues
-  recursiveMergeAttrs = path: lhs: rhs:
-    lhs
-    // rhs
-    // (
-      lib.intersectAttrs lhs rhs
-      |> lib.mapAttrs (name: value: mergeValues (path ++ [name]) lhs.${name} value)
-    );
-
-  recursiveMergeAttrsList = lib.foldl' (recursiveMergeAttrs []) {};
+    targetOk && tagsOk && platformOk && hjemOk;
 
   # ------------------------------------------------------------------ builders
-  mkHost = key: args: let
+  mkHost = target: args: let
     system = args.system or "x86_64-linux";
-    hjemOnly = args.hjemOnly or false;
+    isHjem = args.isHjem or false;
 
-    # hjem configs are keyed "user@host"
-    parsed =
-      if !hjemOnly
-      then null
-      else let
-        m = builtins.match "([^@]+)@([^@]+)" key;
-      in
-        if m == null
-        then throw ''lamina: hjem key "${key}" must look like "user@host"''
-        else {
-          user = lib.elemAt m 0;
-          host = lib.elemAt m 1;
-        };
+    parseHjem =
+      if isHjem
+      then
+        (let
+          m = builtins.match "([^@]+)@([^@]+)" target;
+        in
+          if m == null
+          then throw ''lamina: hjem target "${target}" must look like "user@host"''
+          else {
+            user = lib.elemAt m 0;
+            host = lib.elemAt m 1;
+          })
+      else null; # never reachable
 
-    # `name` is what `hosts = [...]` filters match against
-    name =
-      if hjemOnly
-      then parsed.host
-      else key;
+    host =
+      if isHjem
+      then parseHjem.host
+      else target;
 
-    hostInfo =
-      args
-      // {
-        inherit name system hjemOnly;
-        tags = args.tags or [];
-        platforms = platformsOf system;
-      };
+    tags = args.tags or [];
+
+    targetInfo = {
+      inherit system isHjem tags;
+      names = lib.unique [host target];
+      # "aarch64-linux" -> [ "aarch64" "linux" "aarch64-linux" ]
+      platforms = lib.splitString "-" system ++ [system];
+    };
 
     filteredModules =
       args.modules or []
       |> lib.concatMap loadModules
-      |> lib.filter (m: matchesHost m hostInfo);
+      |> lib.filter (m: matchesTarget m targetInfo);
 
     specialArgs =
       (args.specialArgs or {})
       // {
-        inherit system;
-        host = name;
+        inherit system tags host;
       }
-      // (
-        if hjemOnly
-        then {inherit (parsed) user;}
-        else {inherit (hostInfo) tags;}
-      );
+      // lib.optionalAttrs isHjem {
+        inherit (parseHjem) user;
+        users = [parseHjem.user];
+      };
+
+    # extraModules are never filtered (overlays, allowUnfree...)
+    modules = map (m: m.module) filteredModules ++ (args.extraModules or []);
   in
-    if hjemOnly
-    then let
-      # Each file is a plain function (or attrset), lamina only calls them and merges the results
-      callArgs = removeAttrs specialArgs ["users"] // {pkgs = args.mkPkgs system;};
-      call = m:
-        if lib.isFunction m
-        then m (lib.intersectAttrs (lib.functionArgs m) callArgs)
-        else m;
-    in
-      recursiveMergeAttrsList (map (m: call m.raw) filteredModules)
+    if isHjem
+    then
+      hjemShim {
+        inherit system specialArgs modules;
+        pkgs = args.mkPkgs system;
+        user = parseHjem.user;
+        home =
+          args.home
+          or (
+            if lib.hasSuffix "-darwin" system
+            then "/Users/${parseHjem.user}"
+            else "/home/${parseHjem.user}"
+          );
+      }
     else
       (
         (args.builder or (import "${nixpkgs}/nixos/lib/eval-config.nix")) {
-          inherit system specialArgs;
-          # extraModules are never filtered (overlays, allowUnfree...)
-          modules = map (m: m.module) filteredModules ++ (args.extraModules or []);
+          inherit system specialArgs modules;
         }
       )
       # used by ci to read system per config without eval
@@ -192,6 +167,7 @@
 
   # ------------------------------------------------------------------- presets
   # applyOverlays - whether the flake-level `overlays` list is applied
+  # isHjem        - built with ./hjem-shim.nix instead of a system builder
   presets = {
     nixos = {
       builder = nixpkgs.lib.nixosSystem;
@@ -209,7 +185,7 @@
       applyOverlays = true;
     };
     hjem = {
-      hjemOnly = true;
+      isHjem = true;
       system = "x86_64-linux";
       applyOverlays = true;
     };
@@ -232,7 +208,7 @@
   }: let
     mkPreset = name: hosts: let
       preset = presets.${name};
-      hjemOnly = preset.hjemOnly or false;
+      isHjem = preset.isHjem or false;
     in
       mkHosts (
         removeAttrs preset ["applyOverlays"]
@@ -240,12 +216,12 @@
           inherit modules;
           specialArgs = {inherit inputs self;} // specialArgs;
           # nixpkgs.* options don't exist outside a NixOS-style eval
-          extraModules = lib.optionals (!hjemOnly) (
+          extraModules = lib.optionals (!isHjem) (
             [{nixpkgs.config.allowUnfree = true;}]
             ++ lib.optional (preset.applyOverlays && overlays != []) {nixpkgs.overlays = overlays;}
           );
         }
-        // lib.optionalAttrs hjemOnly {
+        // lib.optionalAttrs isHjem {
           # hjem has no nixpkgs module, so pkgs is built here per host system
           mkPkgs = system:
             import nixpkgs {
@@ -259,12 +235,8 @@
   in {
     nixosConfigurations = mkPreset "nixos" nixos // mkPreset "rpi" rpi;
     darwinConfigurations = mkPreset "darwin" darwin;
-    hjemConfigurations = let
-      built = mkPreset "hjem" hjem;
-      userOf = key: lib.head (lib.splitString "@" key);
-    in
-      lib.mapAttrs' (key: cfg: lib.nameValuePair (userOf key) cfg) built;
+    hjemConfigurations = mkPreset "hjem" hjem;
   };
 in {
-  inherit recursivelyImport recursiveMergeAttrs recursiveMergeAttrsList mkHost mkHosts mkLaminaOutputs;
+  inherit recursivelyImport mkHost mkHosts mkLaminaOutputs;
 }

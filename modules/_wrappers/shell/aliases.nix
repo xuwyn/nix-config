@@ -7,6 +7,7 @@
   cow = ", fortune | , cowsay | , lolcat";
   mvs = "nix run github:fzakaria/nixpkgs-multiverse#mvs -- ";
 
+  hjsw = ''hjem standalone switch --flake-attr=hjemConfigurations.\"$USER@$HOST\" --flake=$HOME/nix-config'';
   hjgc = "hjem standalone expire-generations --keep-last 1";
   ncg = "nix-collect-garbage --delete-old && nix-collect-garbage -d && nix-store --gc && nix-store --optimise";
 

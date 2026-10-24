@@ -1,5 +1,5 @@
 {
-  hosts = ["apricot"];
+  targets = ["apricot"];
   module = {
     self,
     system,

@@ -1,4 +1,5 @@
 {
+  hjemCompat = true;
   tags = ["desktop"];
   platforms = ["linux"];
   module = {
@@ -19,7 +20,7 @@
       platformTheme = "qt5ct";
     };
 
-    hj.xdg.config.files = lib.mkIf config.qt.enable {
+    hj.xdg.config.files = {
       "qt5ct/qt5ct.conf" = {
         generator = lib.generators.toINI {};
         value.Appearance = mkAppearance 5;

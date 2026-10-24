@@ -1,4 +1,5 @@
 {
+  hjemCompat = true;
   tags = ["desktop"];
   platforms = ["linux"];
   module = {
@@ -14,14 +15,11 @@
       name = "Papirus-Dark";
       package = pkgs.papirus-icon-theme;
     };
-    cursor = import ../../common/_desktop/cursor.nix;
     noctaliaImport = ''@import url("noctalia.css");'';
 
     settings = {
       gtk-theme-name = theme.name;
       gtk-icon-theme-name = iconTheme.name;
-      gtk-cursor-theme-name = cursor.name;
-      gtk-cursor-theme-size = cursor.size;
     };
   in {
     environment.systemPackages = [theme.package iconTheme.package];
@@ -49,8 +47,6 @@
     hj.files.".gtkrc-2.0".text = ''
       gtk-theme-name = "${theme.name}"
       gtk-icon-theme-name = "${iconTheme.name}"
-      gtk-cursor-theme-name = "${cursor.name}"
-      gtk-cursor-theme-size = ${toString cursor.size}
     '';
   };
 }

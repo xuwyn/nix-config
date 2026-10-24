@@ -1,6 +1,5 @@
 {
-  hosts = ["puffin"];
-
+  targets = ["puffin"];
   module = {
     self,
     pkgs,

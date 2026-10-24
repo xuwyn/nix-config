@@ -1,5 +1,6 @@
 {
-  hosts = ["capybara"];
+  hjemCompat = true;
+  targets = ["capybara"];
   module = {
     self,
     pkgs,
@@ -9,8 +10,6 @@
     inputs,
     ...
   }: let
-    inherit (pkgs) lib;
-    home = "/home/${user}";
     wm = self.wrapperModules.${system};
     desktop = {
       monitors = [
@@ -37,59 +36,31 @@
       startupCommands = ["pkill openrgb; sleep 1; openrgb --startminimized --profile blue;"];
     };
   in {
-    manifest = {
-      version = 3;
-      files =
-        [
-          {
-            type = "symlink";
-            source =
-              (wm.umbriel {
-                inherit desktop;
-                extraKeybinds = {
-                  "Mod+D" = "spawn:vesktop";
-                };
-              }).configFile;
-            target = "${home}/.config/umbriel/config.toml";
-          }
-          {
-            # this pulls another copy of noctalia (not just the config) 😑
-            type = "symlink";
-            source = "${wm.noctalia {inherit desktop;}}/noctalia/noctalia.toml";
-            target = "${home}/.config/noctalia/config.toml";
-          }
-          {
-            # TODO: cant update theme in runtime with adios autogen config
-            type = "copy";
-            source = pkgs.writeText "kitty.conf" ''
-              include ${wm.kitty {noctaliaThemeEnabled = true;}}/kitty/kitty.conf
-            '';
-            target = "${home}/.config/kitty/kitty.conf";
-          }
-          {
-            type = "symlink";
-            source = "${inputs.assets}/wallpapers";
-            target = "${home}/Pictures/Wallpapers";
-          }
-          {
-            type = "symlink";
-            source = "${inputs.assets}/face.jpg";
-            target = "${home}/.face";
-          }
-        ]
-        ++ (lib.mapAttrsToList (path: text: {
-            type = "symlink";
-            source = pkgs.writeText (baseNameOf path) text;
-            target = "${home}/${path}";
-          })
-          (import ../../common/_desktop/cursor.nix).files);
+    hj.xdg.config.files = {
+      "umbriel/config.toml".source =
+        (wm.umbriel {
+          inherit desktop;
+          extraKeybinds = {
+            "Mod+D" = "spawn:vesktop";
+          };
+        }).configFile;
+
+      # this pulls another copy of noctalia (not just the config) 😑
+      "noctalia/config.toml".source = "${wm.noctalia {inherit desktop;}}/noctalia/noctalia.toml";
+
+      "kitty/kitty.conf" = {
+        type = "copy"; # cant update its theme in runtime if symlink
+        text = ''
+          include ${wm.kitty {noctaliaThemeEnabled = true;}}/kitty/kitty.conf
+        '';
+      };
     };
 
-    packages = with wm;
+    hj.packages = with wm;
       [
         (zsh {
           hostZshrc = ''
-            export PATH="${home}/.local/state/hjem/standalone/current-profile/bin:$PATH"
+            export PATH="''${XDG_STATE_HOME:-$HOME/.local/state}/hjem/standalone/current-profile/bin:$PATH"
           '';
         })
         (git {})
