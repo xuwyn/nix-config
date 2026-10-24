@@ -35,6 +35,12 @@
       };
     };
 
+    # repeat it here due to unstable options deprecation (2026-10-24)
+    services.avahi.publish = {
+      enable = true;
+      addresses = true;
+    };
+
     # cgroup_disable=memory on this kernel (PSI unavailable)
     systemd.oomd.enable = false;
 

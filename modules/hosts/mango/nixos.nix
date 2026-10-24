@@ -36,6 +36,12 @@
 
     boot.kernelPackages = pkgs.cachyosKernels.linuxPackages-cachyos-bore-lto-zen4;
 
+    # move it here due to nixos 26.05 (rpi) compat issue (2026-10-24)
+    services.avahi.settings.publish = {
+      disable-publishing = false;
+      publish-addresses = true;
+    };
+
     custom = {
       ssh.hosts = {
         apricot = {};
