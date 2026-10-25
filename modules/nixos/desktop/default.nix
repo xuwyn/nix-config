@@ -45,6 +45,7 @@
       rhythmbox
       playerctl
       noctalia
+      slurp # gsr region capture
       evtest # bongocat
       tesseract # ocr
     ];

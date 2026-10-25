@@ -244,5 +244,13 @@
     "rev": "5527c8ff76f33ed90eca7b7648bf731f6b522d7b",
     "narHash": "sha256-Emc7eWAmmTDOxrT5CTG0UTp+MHaNi+Dnj73iN1m0dgE=",
     "lastModified": 1792898649
+  },
+  "waydroid-script": {
+    "type": "github",
+    "owner": "casualsnek",
+    "repo": "waydroid_script",
+    "rev": "48dbfaf34a6ddbe78688c530f9ba1c26522aafb2",
+    "narHash": "sha256-UBbnYhiRCf4sMwpEDMlpJuTEsN66B2hZ8BPz6cCGXAc=",
+    "lastModified": 1789131396
   }
 }

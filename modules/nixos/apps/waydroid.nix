@@ -5,6 +5,7 @@
     config,
     lib,
     pkgs,
+    inputs,
     ...
   }: {
     # see: https://github.com/pioner14/Waydroid_on_NixOS/blob/main/Waydroid_Setup_Guide.md
@@ -26,7 +27,7 @@
           pkgs.android-tools # adb
           pkgs.wl-clipboard
           pkgs.waydroid-helper
-          (pkgs.callPackage "${pkgs.sources.waydroid-script.src}/package.nix" {})
+          (pkgs.callPackage "${inputs.waydroid-script}/package.nix" {})
         ];
         systemd = {
           packages = [pkgs.waydroid-helper];

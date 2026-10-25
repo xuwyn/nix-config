@@ -128,3 +128,7 @@ type = "fetch"
 
 [inputs.nixpkgs-firefox]
 url = "github:NixOS/nixpkgs/46b97d70141600cc6829de9b047babf2a425017b"
+
+[inputs.waydroid-script]
+url  = "github:casualsnek/waydroid_script"
+type = "fetch"
