@@ -161,17 +161,9 @@
   },
   "nixpkgs": {
     "type": "tarball",
-    "url": "https://releases.nixos.org/nixos/unstable/nixos-26.11pre1097682.02c087f3fe67/nixexprs.tar.xz",
-    "rev": "02c087f3fe673c9e317f206a627cb6b910336dbe",
-    "narHash": "sha256-ij8QUxzTOHovLrNOxVRx+RAhGQFOMsJbji0veiatH5k="
-  },
-  "nixpkgs-firefox": {
-    "type": "github",
-    "owner": "NixOS",
-    "repo": "nixpkgs",
-    "rev": "46b97d70141600cc6829de9b047babf2a425017b",
-    "narHash": "sha256-wCAXsZw1Z+DEZv/fpkw23kGfg5TrTigT9cHQQ/PPAhU=",
-    "lastModified": 1792519358
+    "url": "https://releases.nixos.org/nixos/unstable/nixos-26.11pre1100280.3ec636362e18/nixexprs.tar.xz",
+    "rev": "3ec636362e1816bc2f0888fa0fa2c69f1bc9e504",
+    "narHash": "sha256-17eNBI5Khe4JZaRkL5hRGPWf8MZ6qv+bWAr4V8YeKBw="
   },
   "noctalia": {
     "type": "github",
@@ -199,11 +191,11 @@
   },
   "preservation": {
     "type": "github",
-    "owner": "nix-community",
+    "owner": "mjm",
     "repo": "preservation",
-    "rev": "93416f4614ad2dfed5b0dcf12f27e57d27a5ab11",
-    "narHash": "sha256-mMI9IanU+Xw+pVogD2oT0I2kTmvz2Un/Apc5+CwUpEY=",
-    "lastModified": 1757436102
+    "rev": "ed8dbeaac0ad240341259c814cade7163a53fc1f",
+    "narHash": "sha256-HmqQ+/PpAkaIUjD+PkPs1FCcZ5N8dK2yC/5HCA9xm90=",
+    "lastModified": 1792605862
   },
   "silentSDDM": {
     "type": "github",
