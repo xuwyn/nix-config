@@ -95,7 +95,13 @@
   }
   {
     key = "SUPER + CTRL + SHIFT + S";
-    command = "noctalia msg plugin fel/ocr:ocr all ocr-region";
+    command = ''
+      noctalia msg screenshot-region \
+        --no-annotate --no-save-to-file --no-copy-to-clipboard \
+        --pipe-to-command \
+        --pipe-command 'sh -c "tesseract stdin stdout | wl-copy" && \
+        noctalia msg notification-show "Copied to clipboard"'
+    '';
   }
   {
     key = "SUPER + R";

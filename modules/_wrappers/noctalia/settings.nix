@@ -9,7 +9,7 @@
     capsule_foreground = "primary";
     start = ["launcher" "workspaces" "media" "radio_2"];
     center = ["audio_visualizer" "spacer_0" "group:g3" "spacer_0" "audio_visualizer"];
-    end = ["group:g4" "todo" "bar" "nix-monitor" "group:g1" "group:g2"];
+    end = ["recorder" "todo" "bar" "nix-monitor" "group:g1" "group:g2"];
     font_family = "Maple Mono NF";
     margin_edge = 0;
     margin_ends = 0;
@@ -56,18 +56,6 @@
         foreground = "primary";
         id = "g3";
         members = ["tray" "notifications" "clock" "cat"];
-        opacity = 1.0;
-        padding = 6.0;
-      }
-      {
-        accordion = true;
-        accordion_direction = "start";
-        border = "primary";
-        enabled = true;
-        fill = "surface_variant";
-        foreground = "primary";
-        id = "g4";
-        members = ["recorder" "ocr"];
         opacity = 1.0;
         padding = 6.0;
       }
@@ -226,7 +214,6 @@
       "ashur-d/wallpaper-widget"
       "rylos/tailnet"
       "srounce/systemd"
-      "fel/ocr"
     ];
     source = [
       {
@@ -248,7 +235,8 @@
     };
     launcher = {
       category_icons_only = true;
-      layout = "simple";
+      layout = "full";
+      show_navigation_labels = false;
     };
     umbriel_overview_type_to_launch_enabled = true;
     avatar_path = "~/.face";
@@ -355,9 +343,6 @@
     };
     bar_2 = {
       type = "rylos/tailnet:bar";
-    };
-    ocr = {
-      type = "fel/ocr:ocr";
     };
     radio_2 = {
       type = "nilsonlinux/world-radio:radio";
