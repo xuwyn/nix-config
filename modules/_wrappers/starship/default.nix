@@ -20,15 +20,5 @@
     eval "$(${getExe result} init zsh)"
   '');
 
-  mutations."/bash".extraBashrc = adios.promise ({
-    inputs,
-    result,
-  }: let
-    inherit (inputs.nixpkgs.lib) getExe;
-  in ''
-    eval "$(${getExe result} init bash)"
-  '');
-
   mutations."/zsh".extraPackages = adios.promise ({result}: [result]);
-  mutations."/bash".extraPackages = adios.promise ({result}: [result]);
 }

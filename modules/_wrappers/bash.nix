@@ -13,7 +13,7 @@
     };
     extraBashrc = {
       type = types.string;
-      mutators = ["/bash" "/starship" "/zoxide"];
+      mutators = ["/bash" "/zoxide"];
       mergeFunc = adios.lib.merge.strings.concatLines;
     };
     variables = {
@@ -31,7 +31,7 @@
     };
     extraPackages = {
       type = types.listOf types.derivation;
-      mutators = ["/bash" "/eza" "/starship" "/zoxide"];
+      mutators = ["/bash" "/eza" "/zoxide"];
       mergeFunc = adios.lib.merge.lists.concat;
     };
     package = {
@@ -52,7 +52,6 @@
 
   mutations."/bash".extraBashrc = ''
     ${import ./shell/env.nix}
-    microfetch
   '';
 
   inputs.mkWrapper.options = adios.promise ({
