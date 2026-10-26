@@ -55,17 +55,6 @@
       };
 
       deploy.controller.enable = true;
-
-      users = {
-        wyn = {
-          sshKeys = [../../common/keys/openssh_key.pub];
-          shell = lib.getExe (wm.zsh {});
-        };
-        deploy = {
-          sshKeys = [../../common/keys/deploy_key.pub];
-          shell = lib.getExe (wm.bash {});
-        };
-      };
     };
   };
 }

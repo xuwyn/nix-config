@@ -2,6 +2,7 @@
   "$declared": {
     "maa-cli": "github:MaaAssistantArknights/maa-cli",
     "sonora": "github:sonorahq/sonora",
+    "umbrella-fetch": "github:xuwyn/Umbrella-Fetch",
     "umbriel": "github:noctalia-dev/umbriel/cachix"
   },
   "adios": {
@@ -243,6 +244,14 @@
     "rev": "2856c4c6a845b9bec98828ef197abe176e4806bb",
     "narHash": "sha256-UMnLnZ3JlA7UTBNNNx1rNsXYoPP/cirXLCKGiQ/yDx8=",
     "lastModified": 1791574276
+  },
+  "umbrella-fetch": {
+    "type": "github",
+    "owner": "xuwyn",
+    "repo": "Umbrella-Fetch",
+    "rev": "fb3a209c8083031656327a9527408e4f1142a33e",
+    "narHash": "sha256-EXQoavyWNQKMD8zBEWVB/j7zZtMAlcTxf/XJmqwTVPs=",
+    "lastModified": 1793027592
   },
   "umbriel": {
     "type": "github",

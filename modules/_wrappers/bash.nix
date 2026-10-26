@@ -42,7 +42,6 @@
 
   mutations."/bash".extraPackages = adios.promise ({inputs}: [
     inputs.nixpkgs.pkgs.bash-completion
-    inputs.nixpkgs.pkgs.microfetch
   ]);
 
   mutations."/bash".bashrc = adios.promise ({inputs}: ''

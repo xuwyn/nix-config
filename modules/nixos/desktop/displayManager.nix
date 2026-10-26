@@ -52,6 +52,11 @@
         services.displayManager.sddm = {
           enable = lib.mkDefault true;
           wayland.enable = lib.mkForce false; # nvidia shenanigan
+          settings = {
+            General = {
+              DefaultSession = "umbriel";
+            };
+          };
           setupScript = ''
             ${pkgs.xrdb}/bin/xrdb -merge - <<EOF
             Xcursor.theme: Bibata-Modern-Ice

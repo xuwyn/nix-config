@@ -6,9 +6,7 @@
     lib,
     system,
     ...
-  }: let
-    wm = self.wrapperModules.${system};
-  in {
+  }: {
     # overlays to disable check for pkgs with no cache
     nixpkgs.overlays = [
       (final: prev: {
@@ -70,19 +68,6 @@
         "apricot.local" = {};
         "mango.local" = {};
         "capybara.local" = {};
-      };
-
-      users = {
-        wyn = {
-          isAdmin = true;
-          sshKeys = [../../common/keys/openssh_key.pub];
-          shell = lib.getExe (wm.zsh {});
-        };
-        deploy = {
-          isDeployer = true;
-          sshKeys = [../../common/keys/deploy_key.pub];
-          shell = lib.getExe (wm.bash {});
-        };
       };
 
       atticd.device = "/dev/disk/by-label/cache";

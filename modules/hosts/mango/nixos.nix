@@ -18,13 +18,14 @@
       (btop {noctaliaThemeEnabled = true;})
       (kitty {noctaliaThemeEnabled = true;})
       (zed-editor {noctaliaThemeEnabled = true;})
-      (helix {noctaliaThemeEnabled = true;})
+      (helix {})
       (sonora {noctaliaThemeEnabled = true;})
       (yazi {})
       (firefox {})
       (spicetify {})
       (maa-cli {})
       (nvf {})
+      inputs.umbrella-fetch.packages.${system}.default
     ];
 
     sops.age = {
@@ -59,19 +60,6 @@
       };
 
       deploy.controller.enable = true;
-
-      users = {
-        wyn = {
-          isAdmin = true;
-          sshKeys = [../../common/keys/openssh_key.pub];
-          shell = lib.getExe (wm.zsh {});
-        };
-        deploy = {
-          isDeployer = true;
-          sshKeys = [../../common/keys/deploy_key.pub];
-          shell = lib.getExe (wm.bash {});
-        };
-      };
 
       preservation.users.wyn = {
         directories = [

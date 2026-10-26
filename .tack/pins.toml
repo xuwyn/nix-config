@@ -134,3 +134,6 @@ url = "github:sonorahq/sonora"
 url  = "github:MaaAssistantArknights/maa-cli"
 type = "fetch"
 tag  = "v{version}"
+
+[inputs.umbrella-fetch]
+url = "github:xuwyn/Umbrella-Fetch"
