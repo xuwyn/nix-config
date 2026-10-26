@@ -34,7 +34,6 @@
           else ["catppuccin-mocha.theme.css"];
         enabledThemeLinks = lib.optionals (!cfg.noctaliaThemeEnabled) ["https://raw.githubusercontent.com/catppuccin/discord/main/themes/mocha.theme.css"];
         plugins = {
-          alwaysAnimate.enable = true;
           betterGifAltText.enable = true;
           clearUrls.enable = true;
           disableDeepLinks.enable = true;

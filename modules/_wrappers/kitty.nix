@@ -95,6 +95,7 @@
         map ctrl+shift+8        eighth_window
         map ctrl+shift+9        ninth_window
         map ctrl+shift+0        tenth_window
+        map ctrl+shift+escape   no_op
 
         # Tab management
         map ctrl+shift+right    next_tab

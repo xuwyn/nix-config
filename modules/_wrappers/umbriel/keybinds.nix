@@ -31,12 +31,12 @@ in
     "Mod+Return" = "spawn:${terminal}";
     "Mod+W" = "spawn:${browser}";
     "Mod+D" = "spawn:discord";
-    "Mod+S" = "spawn:spotify";
+    "Mod+S" = "spawn:sonora";
     "Mod+Z" = "spawn:zeditor";
     "Mod+O" = "spawn:obs";
     "Mod+T" = "spawn:thunar";
     "Mod+Y" = "scratchpad-toggle:yazi";
-    "Mod+Shift+Escape" = "scratchpad-toggle:btop";
+    "Ctrl+Shift+Escape" = "scratchpad-toggle:btop";
     "Mod+Q" = "window-close";
     "Mod+Delete" = "session-quit";
     "Mod+Slash" = "cheatsheet-toggle";
@@ -65,14 +65,14 @@ in
     };
 
     # Windows/columns movement
-    "Mod+Shift+Left" = "column-move-left";
+    "Mod+Shift+Left" = "window-move-left";
     "Mod+Shift+Down" = "window-move-or-workspace-down";
     "Mod+Shift+Up" = "window-move-or-workspace-up";
-    "Mod+Shift+Right" = "column-move-right";
-    "Mod+Shift+H" = "column-move-left";
+    "Mod+Shift+Right" = "window-move-right";
+    "Mod+Shift+H" = "window-move-left";
     "Mod+Shift+J" = "window-move-or-workspace-down";
     "Mod+Shift+K" = "window-move-or-workspace-up";
-    "Mod+Shift+L" = "column-move-right";
+    "Mod+Shift+L" = "window-move-right";
     "Mod+Ctrl+Shift+Up" = "window-move-to-workspace-previous";
     "Mod+Ctrl+Shift+Down" = "window-move-to-workspace-next";
     "Mod+Ctrl+Shift+K" = "window-move-to-workspace-previous";

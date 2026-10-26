@@ -33,17 +33,29 @@
       height = 240;
     };
     default_position = {
-      x = 20;
-      y = 20;
+      x = 10;
+      y = 10;
       anchor = "bottom_right";
+    };
+  }
+  {
+    match.title = "^([Ss]onora)$";
+    default_floating_size_px = {
+      width = 480;
+      height = 400;
+    };
+    default_position = {
+      x = 10;
+      y = 10;
+      anchor = "top_right";
     };
   }
   {
     # match.title does not work in scratchpads (2026-10-22)
     match.app_id = "^(scratchpad-terminal)$";
     default_floating_size = {
-      width = 0.9;
-      height = 0.9;
+      width = 0.8;
+      height = 0.8;
     };
   }
   {
@@ -121,14 +133,14 @@
   }
   {
     match = {
-      app_id = ''^(com.mitchellh.ghostty|org.wezfurlong.wezterm|Alacritty|kitty)$'';
+      app_id = ''^(com.mitchellh.ghostty|kitty|scratchpad-terminal)$'';
       is_focused = true;
     };
     opacity = 0.90;
   }
   {
     match = {
-      app_id = ''^(com.mitchellh.ghostty|org.wezfurlong.wezterm|Alacritty|kitty)$'';
+      app_id = ''^(com.mitchellh.ghostty|kitty|scratchpad-terminal)$'';
       is_focused = false;
     };
     opacity = 0.80;

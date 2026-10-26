@@ -1,4 +1,9 @@
 {
+  "$declared": {
+    "maa-cli": "github:MaaAssistantArknights/maa-cli",
+    "sonora": "github:sonorahq/sonora",
+    "umbriel": "github:noctalia-dev/umbriel/cachix"
+  },
   "adios": {
     "type": "github",
     "owner": "llakala",
@@ -78,6 +83,16 @@
     "rev": "7529a42ac51c0c04d456a6ae8378f428707c74c3",
     "narHash": "sha256-RRIZK4ZydQ3AxVbzvez7LSyoJi+A3hXtkbjwv2mdp3c=",
     "lastModified": 1792803948
+  },
+  "maa-cli": {
+    "type": "github",
+    "owner": "MaaAssistantArknights",
+    "repo": "maa-cli",
+    "rev": "557b2876677265e6d7da70544881bd31b7324856",
+    "narHash": "sha256-mV9RBqNyM8VD2b8k31d+Rydl8RxixM8DPhLUu61Tqx4=",
+    "lastModified": 1792360838,
+    "tag": "v0.7.7",
+    "version": "0.7.7"
   },
   "mac-app-util": {
     "type": "github",
@@ -197,6 +212,14 @@
     "narHash": "sha256-dFDDy25he3SkDOck7hG8AKY82SpnagW7o2sPJA6VBXQ=",
     "lastModified": 1791819358
   },
+  "sonora": {
+    "type": "github",
+    "owner": "sonorahq",
+    "repo": "sonora",
+    "rev": "8bac90bbd41de8dc9c7f93c9ff3c99818932f09b",
+    "narHash": "sha256-S1hgmQJUQLRfqGzpt2okMh2zYpnlowT07mDOULMatgY=",
+    "lastModified": 1792889559
+  },
   "sops-nix": {
     "type": "github",
     "owner": "Mic92",
@@ -225,9 +248,9 @@
     "type": "github",
     "owner": "noctalia-dev",
     "repo": "umbriel",
-    "rev": "5527c8ff76f33ed90eca7b7648bf731f6b522d7b",
-    "narHash": "sha256-Emc7eWAmmTDOxrT5CTG0UTp+MHaNi+Dnj73iN1m0dgE=",
-    "lastModified": 1792898649
+    "rev": "76477c29d864fa64069e443c350cf671f65bdc31",
+    "narHash": "sha256-XgSh+ceUnwPd7M5dzz45liHnJdLuBqjRBpEobFQfqnA=",
+    "lastModified": 1792980345
   },
   "waydroid-script": {
     "type": "github",

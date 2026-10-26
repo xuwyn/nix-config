@@ -21,7 +21,6 @@
       default = adios.promise ({inputs}:
         with (flakeInputs.spicetify-nix.legacyPackages.${inputs.nixpkgs.pkgs.stdenv.hostPlatform.system}).extensions; [
           adblockify
-          hidePodcasts
           shuffle
         ]);
     };

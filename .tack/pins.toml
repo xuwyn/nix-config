@@ -126,3 +126,11 @@ type = "fetch"
 [inputs.waydroid-script]
 url  = "github:casualsnek/waydroid_script"
 type = "fetch"
+
+[inputs.sonora]
+url = "github:sonorahq/sonora"
+
+[inputs.maa-cli]
+url  = "github:MaaAssistantArknights/maa-cli"
+type = "fetch"
+tag  = "v{version}"

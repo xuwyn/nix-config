@@ -326,7 +326,7 @@
     wallpaper_scheme = "faithful";
     templates = {
       builtin_ids = ["btop" "cava" "gtk3" "gtk4" "helix" "ghostty" "hyprland" "kitty" "umbriel" "qt"];
-      community_ids = ["pywalfox" "discord" "zed" "neovim" "papirus-icons"];
+      community_ids = ["sonora" "pywalfox" "discord" "zed" "neovim" "papirus-icons"];
     };
   };
   wallpaper = {

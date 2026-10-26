@@ -3,7 +3,7 @@ name: update flake
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 0 * * 6' # every Saturday at 00:00 UTC
+    - cron: "0 0 * * 6" # every Saturday at 00:00 UTC
 
 jobs:
   nix-flake-update:
@@ -22,7 +22,7 @@ jobs:
         env:
           TACK_NIX_CONF_TOKENS: 1
         run: |
-          log=$(nix run nixpkgs#tack -- update)
+          log=$(nix run github:manic-systems/tack -- update)
           delim=$(openssl rand -hex 8)
           {
             echo "TACK_LOG<<$delim"
@@ -31,12 +31,12 @@ jobs:
             echo "$log"
             echo "$delim"
           } >> $GITHUB_ENV
-      
+
       - name: Commit and Push
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          
+
           if [[ -n $(git status -s .tack/pins.lock.json) ]]; then
             git add .tack/pins.lock.json
             git commit -m "$TACK_LOG"

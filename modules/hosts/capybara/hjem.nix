@@ -72,6 +72,7 @@
         (yazi {})
         (firefox {})
         (spicetify {})
+        (sonora {noctaliaThemeEnabled = true;})
         (nvf {extraSettings = {config.vim.extraPackages = with pkgs; [nodejs wl-clipboard];};})
       ]
       ++ (with inputs; [nix-index-database.packages.${system}.comma-with-db]);

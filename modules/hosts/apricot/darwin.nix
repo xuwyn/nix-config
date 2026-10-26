@@ -11,13 +11,13 @@
   }: let
     wm = self.wrapperModules.${system};
     kitty = wm.kitty {fontSize = "10";};
-    # zed = wm.zed-editor {};
+    zed = wm.zed-editor {};
   in {
     imports = [inputs.mac-app-util.darwinModules.default];
 
     environment.systemPackages = with wm; [
       kitty
-      # zed
+      zed
       (cava {})
       (bottom {})
       (btop {})
@@ -25,12 +25,13 @@
       (spicetify {})
       (maa-cli {})
       (nvf {})
+      (sonora {})
     ];
 
     # necessary for gui apps launched from Spotlight to load the correct config
     hj.xdg.config.files = {
       "kitty/kitty.conf".source = "${kitty}/kitty/kitty.conf";
-      # "zed/settings.json".source = zed.settingsFile;
+      "zed/settings.json".source = zed.settingsFile;
     };
 
     sops = {

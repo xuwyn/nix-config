@@ -19,6 +19,7 @@
       (kitty {noctaliaThemeEnabled = true;})
       (zed-editor {noctaliaThemeEnabled = true;})
       (helix {noctaliaThemeEnabled = true;})
+      (sonora {noctaliaThemeEnabled = true;})
       (yazi {})
       (firefox {})
       (spicetify {})
