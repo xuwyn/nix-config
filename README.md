@@ -6,6 +6,10 @@
   <a href="./docs/TROUBLESHOOT.md"><strong>Troubleshoot</strong></a>
 </p>
 
+> [!WARNING]
+> Documentations are outdated, I'll update them whenever I'm done with this
+> rewrite
+
 ![Desktop Screenshot](./docs/screenshots/umbriel-noctalia.png)
 
 ## Layout
@@ -34,17 +38,21 @@
 <details>
 <summary>Design considerations for my half-baked dendritic set up</summary>
 
-- Naming scheme: **`modules.<class>.<aspect>`** with **`options.<class>.<aspect>.<feature>`**
+- Naming scheme: **`modules.<class>.<aspect>`** with
+  **`options.<class>.<aspect>.<feature>`**
   - **`<class>`**: `nixos` or `darwin` or `homeManager`
   - **`<aspect>`**: Usually the same as the folder name
-  - **`<feature>`**: Usually the same as the filename (some files have multiple features in them)
-  - If a file does not belong to any folder, its filename becomes the aspect, and there is no **`<feature>`** level
-    in its option path. These standalone aspects are also enabled by default
-- [modules/common](./modules/common/) stores aspects shared across multiple classes. The goal is to reduce code
-  duplication, so even if `darwin` and `nixos` both have `network.nix`, there's no real benefit to combining them into
-  a single file
-- `import-tree` does not import files and folders with underscore `_` prefix, so none of those should
-  contain aspect declaration (see [flake.nix](./flake.nix))
+  - **`<feature>`**: Usually the same as the filename (some files have multiple
+    features in them)
+  - If a file does not belong to any folder, its filename becomes the aspect,
+    and there is no **`<feature>`** level in its option path. These standalone
+    aspects are also enabled by default
+- [modules/common](./modules/common/) stores aspects shared across multiple
+  classes. The goal is to reduce code duplication, so even if `darwin` and
+  `nixos` both have `network.nix`, there's no real benefit to combining them
+  into a single file
+- `import-tree` does not import files and folders with underscore `_` prefix, so
+  none of those should contain aspect declaration (see [flake.nix](./flake.nix))
 
 </details>
 
@@ -54,25 +62,37 @@
 | ------------------------------------- | ---------------- | ------- | --------------- | --------------------------------------------------------------------------------------------------------- |
 | [apricot](./modules/hosts/apricot/)   | `aarch64-darwin` | MacOS   | `darwin`+`home` | [OmniWM](https://github.com/BarutSRB/OmniWM)                                                              |
 | [capybara](./modules/hosts/capybara/) | `x86_64-linux`   | CachyOS | `home`          | Hyprland + [DMS](https://github.com/AvengeMedia/DankMaterialShell)                                        |
-| [lettuce](./modules/hosts/lettuce/)   | `x86_64-linux`   | WSL     | `nixos`         |
+| [lettuce](./modules/hosts/lettuce/)   | `x86_64-linux`   | WSL     | `nixos`         |                                                                                                           |
 | [mango](./modules/hosts/mango/)       | `x86_64-linux`   | NixOS   | `nixos`+`home`  | [Umbriel](https://github.com/noctalia-dev/umbriel) + [Noctalia](https://github.com/noctalia-dev/noctalia) |
 | [puffin](./modules/hosts/puffin/)     | `aarch64-linux`  | NixOS   | `nixos`         |                                                                                                           |
 
 ## Acknowledgement
 
-Huge thanks to everyone whose configurations I have ~~stolen~~ referenced and incorporated into my setup,
-especially the folks in Noctalia Discord's **#nixos** channel. I also want to extend my sincere
-thanks to the nixpkgs maintainers, as well as the authors and contributors of all open-source projects!
+Huge thanks to everyone whose configurations I have ~~stolen~~ referenced and
+incorporated into my setup, especially the folks in Noctalia Discord's
+**#nixos** channel. I also want to extend my sincere thanks to the nixpkgs
+maintainers, as well as the authors and contributors of all open-source
+projects!
 
 ### References
 
-- **[linusammon/nixos-config](https://github.com/linusammon/nixos-config):** Migrate away from `flake-parts` and `import-tree`
-- **[iynaix/dotfiles](https://github.com/iynaix/dotfiles):** Helpful tools like `tack`, `nvfetcher`, `nix repl`, `nixpkgs-multiverse`
-- **[iStellanova/Stellyrland](https://github.com/iStellanova/Stellyrland):** Set up `preservation`, `homebrew` and `OmniWM`
-- **[rysieko.pl/nixossmth](https://tangled.org/rysieko.pl/nixossmth):** Set up `preservation`
-- **[eljangus/nixos](https://github.com/eljangus/nixos):** Pretty cursor and fastfetch themes
-- **[samiser/nix-configs](https://github.com/samiser/nix-configs):** Self-host cache with `attic` and CI cache push
-- **[LucasOe/nixos-config](https://github.com/LucasOe/nixos-config):** Home Manager globbing mimeApps
-- **[Baitinq/nixos-config](https://github.com/Baitinq/nixos-config):** Remote deployment with `deploy-rs`
-- **[Zaney/zaneyos](https://gitlab.com/Zaney/zaneyos):** My starting point (non-dendritic flake)
-- **[Doc-Steve/dendritic-design-with-flake-parts](https://github.com/Doc-Steve/dendritic-design-with-flake-parts):** Guide to setup dendritic pattern
+- **[linusammon/nixos-config](https://github.com/linusammon/nixos-config):**
+  Migrate away from `flake-parts` and `import-tree`
+- **[iynaix/dotfiles](https://github.com/iynaix/dotfiles):** Helpful tools like
+  `tack`, `nvfetcher`, `nix repl`, `nixpkgs-multiverse`
+- **[iStellanova/Stellyrland](https://github.com/iStellanova/Stellyrland):** Set
+  up `preservation`, `homebrew` and `OmniWM`
+- **[rysieko.pl/nixossmth](https://tangled.org/rysieko.pl/nixossmth):** Set up
+  `preservation`
+- **[eljangus/nixos](https://github.com/eljangus/nixos):** Pretty cursor and
+  fastfetch themes
+- **[samiser/nix-configs](https://github.com/samiser/nix-configs):** Self-host
+  cache with `attic` and CI cache push
+- **[LucasOe/nixos-config](https://github.com/LucasOe/nixos-config):** Home
+  Manager globbing mimeApps
+- **[Baitinq/nixos-config](https://github.com/Baitinq/nixos-config):** Remote
+  deployment with `deploy-rs`
+- **[Zaney/zaneyos](https://gitlab.com/Zaney/zaneyos):** My starting point
+  (non-dendritic flake)
+- **[Doc-Steve/dendritic-design-with-flake-parts](https://github.com/Doc-Steve/dendritic-design-with-flake-parts):**
+  Guide to setup dendritic pattern

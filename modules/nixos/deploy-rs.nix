@@ -5,6 +5,7 @@
     lib,
     users,
     system,
+    inputs,
     ...
   }: let
     activateRsCommand = "/nix/store/*/activate-rs";
@@ -55,6 +56,7 @@
 
       # Controller side: only hosts that deploy to others need the private key
       (lib.mkIf config.custom.deploy.controller.enable {
+        environment.systemPackages = [inputs.deploy-rs.packages.${system}.default];
         sops.secrets.deploy_key = {
           owner = lib.head users;
           sopsFile = ../common/sops/deploy.yaml;

@@ -66,18 +66,12 @@
         inherit system overlays;
         config.allowUnfree = true;
       };
-      inherit (pkgs) sources; # from the nvfetcher overlay
       inherit (inputs.adios) adios;
       root.modules = adios.lib.inject [
         inputs.adios-wrappers.wrapperModules
         (adios.lib.importModules {
           directory = ./modules/_wrappers;
-          args =
-            adios
-            // {
-              flakeInputs = inputs;
-              inherit sources;
-            };
+          args = adios // {flakeInputs = inputs;};
         })
       ];
     in

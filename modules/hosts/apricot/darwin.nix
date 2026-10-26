@@ -25,9 +25,6 @@
       (spicetify {})
       (maa-cli {})
       (nvf {})
-      pkgs.tack
-      pkgs.nvfetcher
-      inputs.deploy-rs.packages.${system}.default
     ];
 
     # necessary for gui apps launched from Spotlight to load the correct config

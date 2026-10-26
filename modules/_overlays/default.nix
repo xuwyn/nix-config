@@ -9,13 +9,6 @@
 in [
   (multiverseOverlays [])
 
-  # nvfetcher sources
-  (final: prev: {
-    sources = import ../../_sources/generated.nix {
-      inherit (final) fetchFromGitHub fetchurl fetchgit dockerTools;
-    };
-  })
-
   # cachyOS kernel (pinned version for cache hit)
   inputs.nix-cachyos-kernel.overlays.pinned
 ]

@@ -95,14 +95,6 @@
     "narHash": "sha256-PeS3ZPTAcGQo4pV+RdIqnAnwaKdBsTrs4/CahOHDEhg=",
     "lastModified": 1792776719
   },
-  "ncr": {
-    "type": "github",
-    "owner": "greyxp1",
-    "repo": "ncr",
-    "rev": "2337aeb2873ae2b23c797a3c3893ed87dda7e95a",
-    "narHash": "sha256-47vSzrNBOuL9WHkZF1yu7b6bQo6uLpuZs1piLB8EIR0=",
-    "lastModified": 1792425164
-  },
   "nix-cachyos-kernel": {
     "type": "github",
     "owner": "xddxdd",

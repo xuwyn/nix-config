@@ -24,9 +24,6 @@
       (spicetify {})
       (maa-cli {})
       (nvf {})
-      pkgs.tack
-      pkgs.nvfetcher
-      inputs.deploy-rs.packages.${system}.default
     ];
 
     sops.age = {
