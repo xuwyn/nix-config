@@ -49,9 +49,11 @@
         puffin = {};
         mango = {};
         capybara = {};
+        lettuce = {};
         "puffin.local" = {};
         "mango.local" = {};
         "capybara.local" = {};
+        "lettuce.local" = {};
       };
 
       deploy.controller.enable = true;

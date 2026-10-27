@@ -39,8 +39,8 @@
     };
 
     hj.xdg.mime-apps.default-applications = let
-      # See: https://github.com/LucasOe/nixos-config/blob/main/modules/home-manager/xdg.nix
-      # FIXME: might be IFD
+      # NOTE: This is IFD but harmless since the path is cached and eval just substitutes it
+      # IFD-free alternative is a runCommand that builds mimeapps.list
       allMimes = lib.splitString "\n" (builtins.readFile "${pkgs.shared-mime-info}/share/mime/types");
       matchingMimes = prefix: builtins.filter (mime: lib.hasPrefix prefix mime) allMimes;
       defaultsFor = prefix: app: lib.genAttrs (matchingMimes prefix) (_: app);

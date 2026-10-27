@@ -44,7 +44,7 @@
 
       nixos = {
         mango.tags = ["desktop" "nvidia" "amd"];
-        # lettuce.tags = ["wsl"];
+        lettuce.tags = ["wsl"];
       };
       rpi.puffin.tags = ["rpi5" "server"];
       darwin.apricot.tags = ["desktop"];

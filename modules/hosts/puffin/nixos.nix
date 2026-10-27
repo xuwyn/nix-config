@@ -33,6 +33,12 @@
       })
     ];
 
+    # Set avahi.publish here due to options deprecation in unstable (2026-10-24)
+    services.avahi.publish = {
+      enable = true;
+      addresses = true;
+    };
+
     # micro sd card disk layout
     fileSystems = {
       "/boot/firmware" = {
@@ -65,9 +71,11 @@
         apricot = {};
         mango = {};
         capybara = {};
+        lettuce = {};
         "apricot.local" = {};
         "mango.local" = {};
         "capybara.local" = {};
+        "lettuce.local" = {};
       };
 
       atticd.device = "/dev/disk/by-label/cache";

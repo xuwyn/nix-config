@@ -40,8 +40,6 @@
           ports = [22];
         };
       };
-
-      programs.mtr.enable = true; # ping and traceroute
     };
   };
 }
