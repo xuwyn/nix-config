@@ -11,7 +11,6 @@
   }: let
     wm = self.wrapperModules.${system};
   in {
-    imports = [./_disko.nix];
     environment.systemPackages = with wm; [
       (bottom {})
       (cava {noctaliaThemeEnabled = true;})
