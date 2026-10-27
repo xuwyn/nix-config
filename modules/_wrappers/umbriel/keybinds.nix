@@ -32,6 +32,7 @@ in
     "Mod+W" = "spawn:${browser}";
     "Mod+D" = "spawn:discord";
     "Mod+S" = "spawn:sonora";
+    "Mod+M" = "spawn:spotify";
     "Mod+Z" = "spawn:zeditor";
     "Mod+O" = "spawn:obs";
     "Mod+T" = "spawn:thunar";

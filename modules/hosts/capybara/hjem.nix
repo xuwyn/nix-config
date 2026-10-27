@@ -8,9 +8,44 @@
     flake,
     system,
     inputs,
+    lib,
     ...
   }: let
     wm = self.wrapperModules.${system};
+
+    nixglSrc = pkgs.applyPatches {
+      name = "nixgl-patched";
+      src = inputs.nixgl;
+      postPatch = ''
+        substituteInPlace nixGL.nix --replace-fail "kernel = null;" ""
+      '';
+    };
+    nixGLPkgs = import (nixglSrc + "/default.nix") {
+      inherit pkgs;
+      enable32bits = false;
+      nvidiaVersion = "615.78.08";
+      nvidiaHash = "sha256-Pj9t3cLudnoIGFMAr3vjyyhuznZpjS3eNSRZl4LQf/4=";
+    };
+    nixGL = nixGLPkgs.nixGLCommon nixGLPkgs.nixGLNvidia;
+
+    nixGLWrap = pkg:
+      pkgs.symlinkJoin {
+        name = "nixGL-${pkg.name}";
+        paths = [pkg];
+        postBuild = ''
+          for f in $out/bin/*; do
+            real=$(readlink -f "$f")
+            rm "$f"
+            printf '%s\n' \
+              '#!${pkgs.runtimeShell}' \
+              'export __EGL_EXTERNAL_PLATFORM_CONFIG_DIRS=${pkgs.egl-wayland}/share/egl/egl_external_platform.d' \
+              'exec ${nixGL}/bin/nixGL '"$real"' "$@"' \
+              > "$f"
+            chmod +x "$f"
+          done
+        '';
+      };
+
     desktop = {
       monitors = [
         {
@@ -44,16 +79,6 @@
             "Mod+D" = "spawn:vesktop";
           };
         }).configFile;
-
-      # this pulls another copy of noctalia (not just the config) 😑
-      "noctalia/config.toml".source = "${wm.noctalia {inherit desktop;}}/noctalia/noctalia.toml";
-
-      "kitty/kitty.conf" = {
-        type = "copy"; # cant update its theme in runtime if symlink
-        text = ''
-          include ${wm.kitty {noctaliaThemeEnabled = true;}}/kitty/kitty.conf
-        '';
-      };
     };
 
     hj.packages = with wm;
@@ -72,8 +97,11 @@
         (yazi {})
         (firefox {})
         (spicetify {})
-        (sonora {noctaliaThemeEnabled = true;})
+        (helix {})
         (nvf {extraSettings = {config.vim.extraPackages = with pkgs; [nodejs wl-clipboard];};})
+        (nixGLWrap (kitty {noctaliaThemeEnabled = true;}))
+        (nixGLWrap (sonora {noctaliaThemeEnabled = true;}))
+        (nixGLWrap (noctalia {inherit desktop;}))
       ]
       ++ (with inputs; [nix-index-database.packages.${system}.comma-with-db]);
   };

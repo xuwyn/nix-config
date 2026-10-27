@@ -137,3 +137,6 @@ tag  = "v{version}"
 
 [inputs.umbrella-fetch]
 url = "github:xuwyn/Umbrella-Fetch"
+
+[inputs.nixgl]
+url = "github:nix-community/nixGL"

@@ -42,7 +42,7 @@
     match.title = "^([Ss]onora)$";
     default_floating_size_px = {
       width = 480;
-      height = 400;
+      height = 480;
     };
     default_position = {
       x = 10;

@@ -1,6 +1,7 @@
 {
   "$declared": {
     "maa-cli": "github:MaaAssistantArknights/maa-cli",
+    "nixgl": "github:nix-community/nixGL",
     "sonora": "github:sonorahq/sonora",
     "umbrella-fetch": "github:xuwyn/Umbrella-Fetch",
     "umbriel": "github:noctalia-dev/umbriel/cachix"
@@ -150,6 +151,14 @@
     "rev": "8c965fec23fa2a3a53b42cd5cbee7bb9f8301034",
     "narHash": "sha256-cADYzEBhjESX8LsQmj6jSMi1so1sDsaMm8pAIjvVK6w=",
     "lastModified": 1792799469
+  },
+  "nixgl": {
+    "type": "github",
+    "owner": "nix-community",
+    "repo": "nixGL",
+    "rev": "b6105297e6f0cd041670c3e8628394d4ee247ed5",
+    "narHash": "sha256-fbRQzIGPkjZa83MowjbD2ALaJf9y6KMDdJBQMKFeY/8=",
+    "lastModified": 1762090880
   },
   "nixos-raspberrypi": {
     "type": "github",
