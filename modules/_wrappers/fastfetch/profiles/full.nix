@@ -1,8 +1,8 @@
 logo: let
   colors = {
-    os = "cyan";
-    wm = "blue";
-    hw = "dim_blue";
+    os = "36";
+    wm = "35";
+    hw = "34";
   };
 in {
   display.separator = " ➜  ";
@@ -58,13 +58,6 @@ in {
       key = " ├ 󰏒 ";
       keyColor = colors.wm;
       text = "noctalia --version";
-      outputColor = colors.wm;
-    }
-    {
-      type = "command";
-      key = " ├  ";
-      keyColor = colors.wm;
-      text = "dms version | cut -d'+' -f1";
       outputColor = colors.wm;
     }
     {

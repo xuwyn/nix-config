@@ -40,6 +40,7 @@
   }
   {
     match.title = "^([Ss]onora)$";
+    default_floating = true; # required to resize floating window with default_maximize as a global rule
     default_floating_size_px = {
       width = 480;
       height = 480;
