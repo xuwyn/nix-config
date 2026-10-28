@@ -4,6 +4,7 @@
   module = {
     pkgs,
     lib,
+    config,
     ...
   }: {
     # Keyboard input for other languages
@@ -27,6 +28,11 @@
 
     # security features only relevant on desktop
     security = {
+      pam.services = {
+        login.enableGnomeKeyring = true; # tty
+        sddm.enableGnomeKeyring = config.services.displayManager.sddm.enable;
+        ly.enableGnomeKeyring = config.services.displayManager.ly.enable;
+      };
       rtkit.enable = lib.mkDefault true;
       polkit = {
         enable = lib.mkDefault true;
