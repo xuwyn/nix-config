@@ -123,6 +123,10 @@ url = "github:notashelf/nvf"
 url  = "github:catppuccin/helix"
 type = "fetch"
 
+[inputs.catppuccin-yazi]
+url  = "github:yazi-rs/flavors"
+type = "fetch"
+
 [inputs.waydroid-script]
 url  = "github:casualsnek/waydroid_script"
 type = "fetch"

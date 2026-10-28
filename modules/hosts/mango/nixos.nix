@@ -17,12 +17,12 @@
       (btop {noctaliaThemeEnabled = true;})
       (kitty {noctaliaThemeEnabled = true;})
       (zed-editor {noctaliaThemeEnabled = true;})
-      (helix {})
       (sonora {noctaliaThemeEnabled = true;})
-      (yazi {})
+      (yazi {noctaliaThemeEnabled = true;})
       (firefox {})
       (spicetify {})
       (maa-cli {})
+      (helix {})
       (nvf {})
       inputs.umbrella-fetch.packages.${system}.default
     ];

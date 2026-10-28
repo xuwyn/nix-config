@@ -94,7 +94,7 @@
         (ns {})
         (cava {noctaliaThemeEnabled = true;})
         (btop {noctaliaThemeEnabled = true;})
-        (yazi {})
+        (yazi {noctaliaThemeEnabled = true;})
         (firefox {})
         (spicetify {})
         (helix {})

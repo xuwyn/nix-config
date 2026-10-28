@@ -98,11 +98,11 @@
         map ctrl+shift+escape   no_op
 
         # Tab management
-        map ctrl+shift+right    next_tab
-        map ctrl+shift+left     previous_tab
+        map ctrl+shift+l        next_tab
+        map ctrl+shift+h        previous_tab
         map ctrl+shift+t        new_tab
         map ctrl+shift+q        close_tab
-        map ctrl+shift+l        next_layout
+        map ctrl+alt+l          next_layout
         map ctrl+shift+.        move_tab_forward
         map ctrl+shift+,        move_tab_backward
 

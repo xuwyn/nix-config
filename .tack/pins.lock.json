@@ -1,5 +1,6 @@
 {
   "$declared": {
+    "catppuccin-yazi": "github:yazi-rs/flavors",
     "maa-cli": "github:MaaAssistantArknights/maa-cli",
     "nixgl": "github:nix-community/nixGL",
     "sonora": "github:sonorahq/sonora",
@@ -45,6 +46,14 @@
     "rev": "91e071bf9b9b2b8ae176a5581fcb61c789c55cab",
     "narHash": "sha256-F05ohJp7c9Pdnjq8+srfhAt1ogHjjBz50k1ftHOHGVg=",
     "lastModified": 1771425236
+  },
+  "catppuccin-yazi": {
+    "type": "github",
+    "owner": "yazi-rs",
+    "repo": "flavors",
+    "rev": "1183892c904f7f0efdf4473e856ed308b7bea98d",
+    "narHash": "sha256-E1OUF1+mT0V3crVxkewG2Y7hRu8fO+0oRl6NlINmw+o=",
+    "lastModified": 1790697555
   },
   "deploy-rs": {
     "type": "github",
