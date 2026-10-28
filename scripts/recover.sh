@@ -136,33 +136,8 @@ function restore_secrets() {
   fi
 }
 
-function github_ref_to_clone_url() {
-  local ref="$1"
-  if [[ "$ref" == github:* ]]; then
-    echo "https://github.com/${ref#github:}.git"
-  else
-    echo "$ref"
-  fi
-}
-
-function fetch_flake_with_lfs() {
-  local git_url="$1" rev="$2" clone_dir="$3"
-
-  echo "Cloning $git_url @ $rev to fetch real git-lfs content"
-
-  rm -rf "$clone_dir"
-
-  nix shell nixpkgs#git nixpkgs#git-lfs --command git clone "$git_url" "$clone_dir"
-  (
-    cd "$clone_dir"
-    nix shell nixpkgs#git nixpkgs#git-lfs --command git checkout "$rev"
-    nix shell nixpkgs#git nixpkgs#git-lfs --command git lfs pull
-    rm -rf "$clone_dir/.git"
-  )
-}
-
 function run_rebuild() {
-  local flake_ref host git_rev flake_uri use_lfs git_url clone_dir
+  local flake_ref host git_rev flake_uri
 
   read -rp "Enter flake path/URL (default: $DEFAULT_FLAKE): " flake_ref
   flake_ref="${flake_ref:-$DEFAULT_FLAKE}"
@@ -174,23 +149,13 @@ function run_rebuild() {
   fi
 
   if [[ "$flake_ref" == /* || "$flake_ref" == .* ]]; then
-    # relative path to flake on local host
-    # assume LFS content checked out, so no LFS handling needed
+    # path to flake on local host
     flake_uri="${flake_ref}#${host}"
   else
     # flake on remote repo
     read -rp "Enter git branch, tag, or commit to checkout (default: main): " git_rev
     git_rev="${git_rev:-main}"
-
-    use_lfs=$(yesno "Does this flake need git-lfs objects fetched?")
-    if [[ "$use_lfs" == "y" ]]; then
-      git_url=$(github_ref_to_clone_url "$flake_ref")
-      clone_dir="/tmp/nix-config-lfs"
-      fetch_flake_with_lfs "$git_url" "$git_rev" "$clone_dir"
-      flake_uri="${clone_dir}#${host}"
-    else
-      flake_uri="${flake_ref}/${git_rev}#${host}"
-    fi
+    flake_uri="${flake_ref}/${git_rev}#${host}"
   fi
 
   echo "Rebuilding: $flake_uri"

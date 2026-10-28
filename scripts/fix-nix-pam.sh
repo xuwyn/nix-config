@@ -2,7 +2,7 @@
 #
 # fix-nix-pam.sh
 #
-# Nix-built packages like DMS/quickshell (e.g. via home-manager on non-NixOS)
+# Nix-built packages like noctalia/dms (e.g. via home-manager on non-NixOS)
 # looks for unix_chkpwd at /run/wrappers/bin/unix_chkpwd (NixOS-only path),
 # causing lock screen/greeter auth to fail on non-NixOS distros
 #
