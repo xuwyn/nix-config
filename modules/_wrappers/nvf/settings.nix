@@ -9,7 +9,7 @@
   config.vim = {
     viAlias = true;
     vimAlias = true;
-    lineNumberMode = "number";
+    lineNumberMode = "relNumber";
     preventJunkFiles = true;
     searchCase = "smart";
 
@@ -85,6 +85,27 @@
         end,
         hide = vt.hide,
       }
+
+      -- absolute line numbers in insert mode, relative otherwise
+      vim.api.nvim_create_autocmd("InsertEnter", {
+        pattern = "*",
+        command = "set number norelativenumber",
+      })
+      vim.api.nvim_create_autocmd("InsertLeave", {
+        pattern = "*",
+        command = "set number relativenumber",
+      })
+
+      -- change number colours based on catppuccin to be more visible
+      local function number_hl()
+        local c = require("catppuccin.palettes").get_palette()
+        vim.api.nvim_set_hl(0, "LineNr", { fg = c.overlay2 })
+        vim.api.nvim_set_hl(0, "LineNrAbove", { fg = c.overlay2 })
+        vim.api.nvim_set_hl(0, "LineNrBelow", { fg = c.overlay2 })
+        vim.api.nvim_set_hl(0, "CursorLineNr", { fg = c.lavender, bold = true })
+      end
+      number_hl()
+      vim.api.nvim_create_autocmd("ColorScheme", { callback = number_hl })
     '';
 
     lsp = {

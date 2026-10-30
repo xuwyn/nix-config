@@ -3,17 +3,19 @@
   lib,
 }: {
   bar.default = {
-    background_opacity = 0.75;
+    background_opacity = 1;
     capsule = true;
+    capsule_border_width = 0.0;
+    capsule_opacity = 0.0;
     capsule_border = "primary";
     capsule_foreground = "primary";
-    start = ["launcher" "workspaces" "media" "radio_2"];
-    center = ["audio_visualizer" "spacer_0" "group:g3" "spacer_0" "audio_visualizer"];
-    end = ["recorder" "todo" "bar" "nix-monitor" "group:g1" "group:g2"];
+    start = ["group:g4" "group:g5"];
+    center = ["group:g8" "group:g6" "group:g7"];
+    end = ["bracket_left" "group:g9" "bracket_right" "group:g3" "group:g1" "group:g2"];
     font_family = "Maple Mono NF";
     margin_edge = 0;
     margin_ends = 0;
-    padding = 6;
+    padding = 15;
     panel_overlap = 0;
     radius = 20;
     radius_bottom_left = 10;
@@ -22,43 +24,48 @@
     radius_top_right = 0;
     shadow = false;
     thickness = 32;
-    capsule_group = [
-      {
+    capsule_group = let
+      group = id: members: {
+        inherit id members;
         accordion = false;
         accordion_direction = "end";
         border = "primary";
+        border_width = 0.0;
         enabled = true;
         fill = "surface_variant";
         foreground = "primary";
-        id = "g1";
-        members = ["temp" "cpu" "ram" "sysmon"];
-        opacity = 1.0;
-        padding = 6.0;
-      }
-      {
-        accordion = true;
-        accordion_direction = "start";
-        border = "primary";
-        enabled = true;
-        fill = "surface_variant";
-        foreground = "primary";
-        id = "g2";
-        members = ["network" "bar_2" "bluetooth"];
-        opacity = 1.0;
-        padding = 6.0;
-      }
-      {
-        accordion = false;
-        accordion_direction = "end";
-        border = "primary";
-        enabled = true;
-        fill = "surface_variant";
-        foreground = "primary";
-        id = "g3";
-        members = ["tray" "notifications" "clock" "cat"];
-        opacity = 1.0;
-        padding = 6.0;
-      }
+        opacity = 0.0;
+        padding = 0.0;
+      };
+    in [
+      (group "g1" [
+        "bracket_left"
+        "temp"
+        "slash"
+        "cpu"
+        "slash"
+        "ram"
+        "slash"
+        "sysmon"
+        "bracket_right"
+      ])
+      (group "g2" ["bracket_left" "network" "bluetooth" "bracket_right"])
+      (group "g3" ["bracket_left" "nix-monitor" "bracket_right"])
+      (group "g4" ["bracket_left" "workspaces" "bracket_right"])
+      (group "g5" ["bracket_left" "radio" "media" "bracket_right"])
+      (group "g6" ["bracket_left" "cat_2" "clock" "cat" "bracket_right"])
+      (group "g7" ["bracket_left" "audio_visualizer" "bracket_right"])
+      (group "g8" ["bracket_left" "audio_visualizer" "bracket_right"])
+      ((group "g9" [
+          "launcher"
+          "slash"
+          "recorder"
+          "slash"
+          "notifications"
+          "slash"
+          "tray"
+        ])
+        // {accordion = true;})
     ];
   };
   brightness.enable_ddcutil = true;
@@ -336,43 +343,100 @@
       interval_seconds = 300;
     };
   };
-  widget = {
-    todo.show_label = false;
-    bar = {
-      type = "noctalia/world_clock:bar";
-    };
-    bar_2 = {
-      type = "rylos/tailnet:bar";
-    };
-    radio_2 = {
-      type = "nilsonlinux/world-radio:radio";
-    };
-    spacer_0.type = "spacer";
-    audio_visualizer = {
-      centered = false;
-      width = 120;
-    };
-    cat = {
-      audio_spectrum = true;
-      scale = 1.45;
-      tappy_mode = true;
-      type = "noctalia/bongocat:cat";
-    };
-    media = {
-      hide_when_no_media = true;
-      title_scroll = "always";
-    };
-    network.show_label = false;
-    "nix-monitor" = {
-      show_text = false;
-      type = "avivbintangaringga/nix-monitor:nix-monitor";
-    };
-    recorder.type = "noctalia/screen_recorder:recorder";
-    sysmon.stat = "disk_used_pct";
-    todo.type = "nightwatch75/todo:todo";
-    tray = {
-      drawer = true;
-      hidden = ["network" "blueman"];
-    };
+  widget = let
+    noPadding = {capsule_padding = 0;};
+  in {
+    audio_visualizer =
+      noPadding
+      // {
+        width = 100;
+        centered = true;
+        show_when_idle = true;
+      };
+    bluetooth = noPadding;
+    bracket_left =
+      noPadding
+      // {
+        text = "[";
+        type = "text";
+      };
+    bracket_right =
+      noPadding
+      // {
+        text = "]";
+        type = "text";
+      };
+    slash =
+      noPadding
+      // {
+        text = "/";
+        type = "text";
+      };
+    cat =
+      noPadding
+      // {
+        audio_spectrum = true;
+        scale = 1.3;
+        tappy_mode = true;
+        type = "noctalia/bongocat:cat";
+      };
+    cat_2 =
+      noPadding
+      // {
+        audio_spectrum = true;
+        scale = 1.3;
+        tappy_mode = true;
+        type = "noctalia/bongocat:cat";
+      };
+    clock = noPadding;
+    cpu =
+      noPadding
+      // {
+        label_show_units = false;
+        show_value = false;
+      };
+    launcher = noPadding;
+    media =
+      noPadding
+      // {
+        hide_album_art = true;
+        max_length = 150;
+        hide_when_no_media = true;
+        title_scroll = "always";
+      };
+    network = noPadding // {show_label = false;};
+    nix-monitor =
+      noPadding
+      // {
+        show_text = false;
+        type = "avivbintangaringga/nix-monitor:nix-monitor";
+      };
+    radio = noPadding // {type = "nilsonlinux/world-radio:radio";};
+    recorder = noPadding // {type = "noctalia/screen_recorder:recorder";};
+    ram = noPadding // {show_value = false;};
+    sysmon =
+      noPadding
+      // {
+        show_value = false;
+        stat = "disk_used_pct";
+      };
+    temp =
+      noPadding
+      // {
+        label_show_units = false;
+        show_value = false;
+      };
+    tray =
+      noPadding
+      // {
+        drawer = true;
+        hidden = ["network" "blueman"];
+      };
+    workspaces =
+      noPadding
+      // {
+        font_weight = 600;
+        style = "minimal";
+      };
   };
 }
