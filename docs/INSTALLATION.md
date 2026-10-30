@@ -1,45 +1,56 @@
 # Installation
 
-This file documents the steps to install all my current NixOS, nix-darwin and Home Manager configurations
-and some miscellaneous commands for maintenance.
+This file documents the steps to install all my current NixOS, nix-darwin and
+hjem standalone configurations along with some miscellaneous commands for
+maintenance.
 
 ## Add New Host
+
+Add a new host entry under `laminaOutputs` in [flake.nix](../flake.nix)
+
+```nix
+laminaOutputs = lamina.mkLaminaOutputs {
+  modules = [./modules];
+  inherit overlays;
+  specialArgs = {
+    users = ["username"];
+    flake.homeRelativePath = "nix-config";
+  };
+  nixos.hostname.tags = ["desktop" "nvidia"];
+};
+```
 
 Create host-specific config file in [modules/hosts](../modules/hosts/)
 
 ```sh
 cd ~/nix-config
-mkdir -p modules/hosts/new-host
-vi modules/hosts/new-host/configuration.nix
+mkdir -p modules/hosts/hostname
+vi modules/hosts/hostname/configuration.nix
 ```
 
 <details>
-  <summary>Example of host configuration</summary>
+  <summary>Example of host-specific configuration</summary>
 
 ```nix
-{config, ...}: {
-  nixos.new-host = {
-    system = "x86_64-linux";
-    users = ["new-user"];
-    modules = with config.modules.nixos;
-      [./_disko.nix drivers sops system boot network users desktop]
-      ++ [
-        (_: {
-          nixos = {
-            drivers = {
-              amdcpu.enable = true;
-              nvidia.enable = true;
-              nvidia-amd-hybrid = {
-                enable = true;
-                mode = "offload";
-                nvidiaBusID = "PCI:1:0:0";
-                amdgpuBusID = "PCI:15:0:0";
-              };
-            };
-            desktop.hyprland.enable = true;
-          };
-        })
-      ];
+{
+  target = "lettuce";
+  module = {
+    self,
+    system,
+    ...
+  }: let
+    wm = self.wrapperModules.${system};
+  in {
+    environment.systemPackages = with wm; [
+      (bottom {})
+      (yazi {})
+      (nvf {})
+    ];
+
+    custom = {
+      binfmt.enable = false;
+      nix-ld.enable = false;
+    };
   };
 }
 ```
@@ -50,15 +61,20 @@ vi modules/hosts/new-host/configuration.nix
 
 ### NixOS
 
-**Create [disko](https://github.com/nix-community/disko/tree/master) configuration**
+**Create [disko](https://github.com/nix-community/disko/tree/master)
+configuration**
 
-1. Follow the [quickstart.md](https://github.com/nix-community/disko/blob/master/docs/quickstart.md) to get a disko template
-2. Replace `device` with disk name or id obtained by running `lsblk -f` and `ls -la /dev/disk/by-id`
+1. Follow the
+   [quickstart.md](https://github.com/nix-community/disko/blob/master/docs/quickstart.md)
+   to get a disko template
+2. Replace `device` with disk name or id obtained by running `lsblk -f` and
+   `ls -la /dev/disk/by-id`
 3. Edit partition values to match hardware and personal preferences
 
 **Reformat and install NixOS with disko**
 
-Boot into an external drive with [NixOS](https://nixos.org/download/) ISO or any distro with Nix installed and do the following:
+Boot into an external drive with [NixOS](https://nixos.org/download/) ISO or any
+distro with Nix installed and do the following:
 
 ```sh
 # Use nix-shell to get all required tools
@@ -104,15 +120,33 @@ systemctl reboot --firmware-setup
 
 ### Other Distros
 
-Install Nix package manager following the [official guide](https://nixos.org/download/#nix-install-linux).
+Install Nix package manager following the
+[official guide](https://nixos.org/download/#nix-install-linux)
 
 ```sh
 curl --proto '=https' --tlsv1.2 -L https://nixos.org/nix/install | sh -s -- --daemon
 ```
 
+And add `hjem` to `nix profile` (more convenient than `nix run` it all the time)
+
+```sh
+nix profile add github:feel-co/hjem#hjem
+```
+
+Also remember to add the current profile to `$PATH`
+
+```sh
+# bash/zsh
+export PATH="~/.local/state/hjem/standalone/current-profile/bin:$PATH"
+
+# fish
+fish_add_path ~/.local/state/hjem/standalone/current-profile/bin
+```
+
 ### MacOS
 
-Install [Lix](https://lix.systems/install/) instead cause the official installer from Nix didn't work for me
+Install [Lix](https://lix.systems/install/) instead cause the official installer
+from Nix didn't work for me
 
 ```sh
 curl -sSf -L https://install.lix.systems/lix | sh -s -- install
@@ -120,7 +154,8 @@ curl -sSf -L https://install.lix.systems/lix | sh -s -- install
 
 ### Raspberry Pi
 
-Use [nvmd/nixos-raspberrypi](https://github.com/nvmd/nixos-raspberrypi/tree/develop#installer-configurations)
+Use
+[nvmd/nixos-raspberrypi](https://github.com/nvmd/nixos-raspberrypi/tree/develop#installer-configurations)
 installer for sd-image to minimize cache misses
 
 ```sh
@@ -132,7 +167,8 @@ nix build github:nvmd/nixos-raspberrypi#installerImages.rpiX --accept-flake-conf
 zstdcat result/sd-image/nixos-*.img.zst | sudo dd of=/dev/sdX bs=4M status=progress conv=fsync
 ```
 
-Boot into the pi with monitor and keyboard connected to set root password for first switch
+Boot into the pi with monitor and keyboard connected to set root password for
+first switch
 
 ```sh
 sudo passwd root
@@ -142,8 +178,10 @@ sudo passwd root
 iwctl station wlan0 connect SSID
 ```
 
-Connect to the pi via ethernet/wifi and execute first switch with `nixos-rebuild`. It's also possible to do this with
-`nixos-anywhere` but not necessary since no disko was used and the image was already configured on the sd card
+Connect to the pi via ethernet/wifi and execute first switch with
+`nixos-rebuild`. It's also possible to do this with `nixos-anywhere` but not
+necessary since no disko was used and the image was already configured on the sd
+card
 
 ```sh
 # Get host ssh key for sops
@@ -164,43 +202,9 @@ nixos-rebuild switch --flake ./path/to/flake#rpi --accept-flake-config \
 --target-host root@nixos-installer.local --build-host root@nixos-installer.local
 ```
 
-## Install Home Manager
-
-> [!NOTE]
-> This step can be skipped for hosts that use both `nixos` and `homeManager`
-
-Follow the [official guide](https://nix-community.github.io/home-manager/installation/standalone.html) to install Home Manager standalone
-
-```sh
-nix-channel --add https://github.com/nix-community/home-manager/archive/master.tar.gz home-manager
-nix-channel --update
-nix-shell '<home-manager>' -A install
-```
-
-Or use `nix-shell` just to get the binary
-
-```sh
-nix-shell -p home-manager
-```
-
-## Enable Flake
-
-> [!NOTE]
-> This step can be skipped for NixOS installed via `disko`
-
-Enable flake locally before running `nixos-rebuild` and/or `home-manager switch`
-
-```sh
-mkdir -p ~/.config/nix
-echo "experimental-features = nix-command flakes" >> ~/.config/nix/nix.conf
-```
-
 ## Apply Configurations
 
 ### NixOS Switch
-
-> [!NOTE]
-> This step can be skipped for hosts that only use `homeManager`
 
 Run initial build with `nixos-rebuild`
 
@@ -217,7 +221,7 @@ sudo nixos-rebuild switch --flake .#host
 sudo nixos-rebuild boot --flake .#host
 ```
 
-If `nh` is enabled with the initial `home-manager switch`, subsequent rebuilds can be executed with
+Use `nh`
 
 ```sh
 # use flag `--dry` to preview changes without applying them
@@ -245,7 +249,7 @@ Subsequent rebuilds can be run with `darwin-rebuild`
 darwin-rebuild switch --flake .#host
 ```
 
-If `nh` is enabled with the initial `home-manager switch`, subsequent rebuilds can be executed with
+Use `nh`
 
 ```sh
 # use flag `--dry` to preview changes without applying them
@@ -255,38 +259,22 @@ nh darwin switch --dry
 nh darwin switch
 ```
 
-### Home Manager Switch
+### Hjem Switch
 
-Run initial build with `home-manager`
-
-```sh
-cd /path/to/flake
-
-# use flag `--dry-run` to preview changes without applying them
-home-manager switch --flake .#user@host --dry-run
-
-# apply changes after build
-home-manager switch --flake .#user@host
-
-# high-chance it will complain about backup files
-# overwriteBackup was not an option in standalone
-# use `-b bak` to backup files with .bak
-home-manager switch -b bak --flake .#user@host
-```
-
-If `nh` is enabled with the initial `home-manager switch`, subsequent builds can be executed with
+By default, `hjem standalone switch --flake` assumes
+`hjemConfigurations."$USER"` as the output, use `--flake-attr` to select output
+keyed as `"$USER@$HOST"`
 
 ```sh
-# use flag `--dry` to preview changes without applying them
-nh home switch --dry
+hjem standalone switch --flake-attr hjemConfigurations.\"$USER@$HOST\" --flake /path/to/flake
 
-# apply changes after build
-nh home switch
+# or use shell abbr. (see ../modules/_wrappers/shell/aliases.nix)
+hjsw
 ```
 
 ## Flake Update
 
-This flake uses [tack](https://github.com/manic-systems/tack) to lazily fetch inputs
+This flake uses [tack](https://github.com/manic-systems/tack) to fetch inputs
 
 ```sh
 # add new input
@@ -302,9 +290,15 @@ tack update [names...]
 ## Garbage Collector
 
 ```sh
+# hjem
+hjem standalone expire-generations --keep-last 1
+
+# or
+hjgc
+
 # use `nh`
 nh clean all
 
-# use shell abbr. (see ./modules/home/cli/shell.nix)
+# or
 ncg
 ```

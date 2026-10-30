@@ -1,11 +1,12 @@
 # Secrets Management
 
-Secrets are managed by `sops-nix` and encrypted by `age` keys that can be stored in a yubikey/rs-key
+Secrets are managed by [sops-nix](https://github.com/Mic92/sops-nix) and
+encrypted by `age` keys that can be stored in yubikeys
 
 ## sops-nix
 
-Basic set up for [sops-nix](https://github.com/Mic92/sops-nix/blob/master/README.md) as a secret manager.
-This section assumes no yubikey/rs-key is used (see [default.nix](./default.nix) for more details).
+This section covers basic commands for setting up `sops-nix` without a
+yubikey/rs-key
 
 ### Generate Key
 
@@ -51,7 +52,8 @@ Create and/or edit secret file
 sops secrets.yaml
 ```
 
-Update keys for a secret file (ensure at least one of the keys can still decrypt that file, if not, recreating `secrets.yaml` might be necessary)
+Update keys for a secret file (ensure at least one of the keys can still decrypt
+that file, if not, recreating `secrets.yaml` might be necessary)
 
 ```sh
 sops updatekeys secrets.yaml
@@ -62,17 +64,22 @@ sudo -E sops updatekeys secrets.yaml
 
 ## RS-Key
 
-This section documents the procedure to setup an RP2350 USB as an encryption key for sops-nix (replacing `~/.config/sops/age/keys.txt` in the previous section)
+This section documents the procedure to setup an RP2350 USB as an encryption key
+for `sops-nix` (replacing `~/.config/sops/age/keys.txt` in the previous section)
 
 ### Enable CCID reader on NixOS
 
-Follow the full [guide](https://themaxmur.github.io/RS-Key/linux.html#nixos-declarative) to add RS-Key identity to the CCID reader.
-For all intents and purposes, just import `nixos.rs-key` into `nixosConfigurations` (see [rs-key.nix](../../nixos/rs-key.nix) for more details).
+Follow the full
+[guide](https://themaxmur.github.io/RS-Key/linux.html#nixos-declarative) to add
+RS-Key identity to the CCID reader only if RS-Key is needed (default image
+option). For all intents and purposes, [yubikey.nix](../../nixos/yubikey.nix)
+already has everything necessary for yubikey to work on NixOS.
 
 ### Flash firmware
 
-Clone the [RS-Key](https://github.com/TheMaxMur/RS-Key) repo to build the firmware with `VIDPID=Yubikey5`, which allows the RP2350 board
-to act like a knockoff yubikey for `ykman` and `age-plugin-yubikey`
+Clone the [RS-Key](https://github.com/TheMaxMur/RS-Key) repo to build the
+firmware with `VIDPID=Yubikey5`, which allows the RP2350 board to act like a
+knockoff yubikey for `ykman` and `age-plugin-yubikey`
 
 ```sh
 git clone https://github.com/TheMaxMur/RS-Key.git
@@ -104,7 +111,8 @@ Change default management key to be compatible with `age-plugin-yubikey`
 ykman piv access change-management-key -a TDES --protect
 ```
 
-**(Optional)** Factory reset PIN/PUK if the default get scrambled mid-setup, then try the step above again
+**(Optional)** Factory reset PIN/PUK if the default get scrambled mid-setup,
+then try the step above again
 
 ```sh
 ykman piv reset   # PIN back to 123456, PUK 12345678
@@ -112,18 +120,37 @@ ykman piv reset   # PIN back to 123456, PUK 12345678
 
 ### Generate identity for RS-Key
 
-It's game over if the hardware is breached anyway, so don't sweat the no-prompt policy 🙃.
-Also possible to update its PIN/PUK in this step
+Updating PIN/PUK in this step is completely optional. Besides, if the hardware
+is breached, it's game over anyway, so don't sweat the no-prompt policy either
+🙃
 
 ```sh
 age-plugin-yubikey --generate --slot 1 --pin-policy never --touch-policy never --name sops-nix --force
 ```
 
-Then add its public key to `.sops.yaml` and run `sops updatekeys` for all the affected secret files
+Then add its public key to `.sops.yaml` and run `sops updatekeys` for all the
+affected secret files
 
 ### Add RS-Key to `sops.age.keyFile`
 
-Connect the keys to host that needs them and run
+> [!NOTE]
+> Not all hosts use yubikeys for `sops-nix` so only add those keys to their
+> host-specific config under `sops.age` option
+
+```nix
+sops.age = {
+  keyFile = "${config.hj.directory}/.config/sops/age/keys.txt";
+  plugins = [pkgs.age-plugin-yubikey];
+};
+```
+
+Before switching to the new config with the added yubikeys, connect them one by
+one (if there are more than one) and run
+
+> [!WARNING]
+> Having more than one yubikey entry in `keys.txt` will break interaction-less
+> remote deployment, cause it will always prompt if one of the keys is not
+> detected on the target machine
 
 ```sh
 # delete previous keys.txt (run once)

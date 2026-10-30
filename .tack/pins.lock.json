@@ -275,9 +275,9 @@
     "type": "github",
     "owner": "noctalia-dev",
     "repo": "umbriel",
-    "rev": "76477c29d864fa64069e443c350cf671f65bdc31",
-    "narHash": "sha256-XgSh+ceUnwPd7M5dzz45liHnJdLuBqjRBpEobFQfqnA=",
-    "lastModified": 1792980345
+    "rev": "38c8b75e7766ff62cbeee26a86fbc2756d1f4075",
+    "narHash": "sha256-tstlfcTrGEhfuTKPipa4n9e4zUkFG50hVctCukWZdJ0=",
+    "lastModified": 1793274968
   },
   "waydroid-script": {
     "type": "github",

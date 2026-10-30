@@ -75,6 +75,16 @@
       for _, k in ipairs({ "grn", "grr", "gra", "gri", "grt", "grx" }) do
         pcall(vim.keymap.del, { "n", "x" }, k)
       end
+
+      -- no inline diagnostics for lua
+      local vt = vim.diagnostic.handlers.virtual_text
+      vim.diagnostic.handlers.virtual_text = {
+        show = function(ns, bufnr, diagnostics, opts)
+          if vim.bo[bufnr].filetype == "lua" then return end
+          vt.show(ns, bufnr, diagnostics, opts)
+        end,
+        hide = vt.hide,
+      }
     '';
 
     lsp = {

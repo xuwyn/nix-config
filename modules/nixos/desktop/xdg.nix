@@ -47,9 +47,9 @@
 
       # Default Applications
       defaultTextEditor = "dev.zed.Zed.desktop";
-      defaultImageViewer = "org.gnome.eog.desktop";
+      defaultImageViewer = "swayimg.desktop";
       defaultVideoPlayer = "mpv.desktop";
-      defaultAudioPlayer = "rhythmbox.desktop";
+      defaultAudioPlayer = "mpv.desktop";
       defaultBrowser = "firefox.desktop";
       defaultFileManager = "thunar.desktop";
 

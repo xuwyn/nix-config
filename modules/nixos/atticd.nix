@@ -13,6 +13,11 @@
     unstableNixpkgs = inputs.nixpkgs.legacyPackages.${system};
   in {
     options.custom.atticd = {
+      enable = lib.mkOption {
+        type = lib.types.bool;
+        default = true;
+        description = "Enable attic server";
+      };
       device = lib.mkOption {
         type = lib.types.str;
         description = "Disk UUID for atticd storage";
@@ -24,7 +29,7 @@
       };
     };
 
-    config = {
+    config = lib.mkIf cfg.enable {
       # attic-server
       environment.systemPackages = [unstableNixpkgs.attic-server];
       sops.secrets.atticd_env = {};

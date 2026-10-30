@@ -39,8 +39,10 @@
     };
   }
   {
+    # sonora resizes its floating window if it was initially opened as a tiled window
+    # double stacked window rules doesn't fix this reliably either (2026-10-29)
     match.title = "^([Ss]onora)$";
-    default_floating = true; # required to resize floating window with default_maximize as a global rule
+    default_floating = true;
     default_floating_size_px = {
       width = 480;
       height = 480;
@@ -55,7 +57,7 @@
     # match.title does not work in scratchpads (2026-10-22)
     match.app_id = "^(scratchpad-terminal)$";
     default_floating_size = {
-      width = 0.8;
+      width = 0.7;
       height = 0.8;
     };
   }
@@ -71,6 +73,15 @@
   }
   {
     match.app_id = ''^([Tt]hunar|org.gnome.Nautilus|[Pp]cmanfm-qt)$'';
+    default_floating = true;
+    default_floating_size = {
+      width = 0.6;
+      height = 0.7;
+    };
+  }
+  {
+    match.app_id = ''^([Ss]wayimg)$'';
+    default_focused = true;
     default_floating = true;
   }
   {

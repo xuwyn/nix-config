@@ -102,6 +102,8 @@
         (nixGLWrap (kitty {noctaliaThemeEnabled = true;}))
         (nixGLWrap (sonora {noctaliaThemeEnabled = true;}))
         (nixGLWrap (noctalia {inherit desktop;}))
+        (nixGLWrap (mpv {}))
+        (nixGLWrap (swayimg {}))
       ]
       ++ (with inputs; [nix-index-database.packages.${system}.comma-with-db]);
   };

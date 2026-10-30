@@ -40,9 +40,8 @@
 
     environment.systemPackages = with pkgs; [
       umbriel
-      eog
-      mpv
-      rhythmbox
+      (wm.mpv {})
+      (wm.swayimg {})
       playerctl
       noctalia
       slurp # gsr region capture

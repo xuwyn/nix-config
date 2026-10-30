@@ -41,6 +41,7 @@
       (lib.mkIf config.programs.thunar.enable {
         environment.systemPackages = with pkgs; [
           ffmpegthumbnailer # Need For Video / Image Preview
+          file-roller # archive
         ];
 
         # Open chosen terminal
