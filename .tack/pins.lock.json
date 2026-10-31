@@ -14,7 +14,7 @@
     "maa-cli": "github:MaaAssistantArknights/maa-cli",
     "mac-app-util": "github:hraban/mac-app-util",
     "multiverse": "github:fzakaria/nixpkgs-multiverse",
-    "nix-cachyos-kernel": "github:xddxdd/nix-cachyos-kernel/master",
+    "nix-cachyos-kernel": "github:xddxdd/nix-cachyos-kernel/release",
     "nix-darwin": "github:nix-darwin/nix-darwin/master",
     "nix-homebrew": "github:zhaofengli/nix-homebrew",
     "nix-index-database": "github:nix-community/nix-index-database",
@@ -154,9 +154,9 @@
     "type": "github",
     "owner": "xddxdd",
     "repo": "nix-cachyos-kernel",
-    "rev": "aea3c6c98fe348e8d1b768fa4dd46a81c87d05e1",
-    "narHash": "sha256-IpUo2L9GocxrM7/B83ks5VfeWSDkyB1YH0HTQxcPfmw=",
-    "lastModified": 1793396638
+    "rev": "baa4163a89b8c008039dc115ca225507d706b769",
+    "narHash": "sha256-2Cs9aEZlLlRsm8Kcj/ZGgEmlGLOEnFkk2X+bCVg4PW0=",
+    "lastModified": 1793311259
   },
   "nix-darwin": {
     "type": "github",

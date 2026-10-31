@@ -1,4 +1,9 @@
-{types, ...} @ adios: {
+{
+  types,
+  username,
+  flakePath,
+  ...
+} @ adios: {
   inputs = {
     mkWrapper.from = {parent}: parent.mkWrapper;
     nixpkgs.from = {parent}: parent.nixpkgs;
@@ -7,11 +12,11 @@
   options = {
     username = {
       type = types.string;
-      default = "wyn";
+      default = username;
     };
     flakePath = {
       type = types.string;
-      default = "nix-config";
+      default = flakePath;
       description = "Path to the flake relative to $HOME";
     };
     package = {

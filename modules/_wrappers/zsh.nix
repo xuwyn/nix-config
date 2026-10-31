@@ -1,4 +1,8 @@
-{types, ...} @ adios: {
+{
+  types,
+  merge,
+  ...
+} @ adios: {
   options = {
     extraAliases = {
       type = types.attrs;
@@ -59,7 +63,7 @@
 
     extraZshrc = {
       mutators = ["/zsh" "/starship" "/zoxide"];
-      mergeFunc = adios.lib.merge.strings.concatLines;
+      mergeFunc = merge.strings.concatLines;
     };
   };
 

@@ -14,7 +14,6 @@ laminaOutputs = lamina.mkLaminaOutputs {
   inherit overlays;
   specialArgs = {
     users = ["username"];
-    flake.homeRelativePath = "nix-config";
   };
   nixos.hostname.tags = ["desktop" "nvidia"];
 };

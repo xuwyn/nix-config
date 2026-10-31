@@ -28,16 +28,16 @@
 in
   {
     # Applications and session
-    "Mod+Return" = "spawn:${terminal}";
-    "Mod+W" = "spawn:${browser}";
-    "Mod+D" = "spawn:discord";
-    "Mod+S" = "spawn:sonora";
-    "Mod+M" = "spawn:spotify";
-    "Mod+Z" = "spawn:zeditor";
-    "Mod+O" = "spawn:obs";
-    "Mod+T" = "spawn:thunar";
-    "Mod+Y" = "scratchpad-toggle:yazi";
-    "Ctrl+Shift+Escape" = "scratchpad-toggle:btop";
+    "Mod+Return" = "spawn ${terminal}";
+    "Mod+W" = "spawn ${browser}";
+    "Mod+D" = "spawn discord";
+    "Mod+S" = "spawn sonora";
+    "Mod+M" = "spawn spotify";
+    "Mod+Z" = "spawn zeditor";
+    "Mod+O" = "spawn obs";
+    "Mod+T" = "spawn thunar";
+    "Mod+Y" = "scratchpad-toggle yazi";
+    "Ctrl+Shift+Escape" = "scratchpad-toggle btop";
     "Mod+Q" = "window-close";
     "Mod+Delete" = "session-quit";
     "Mod+Slash" = "cheatsheet-toggle";
@@ -98,53 +98,39 @@ in
     "Mod+Alt+H" = "column-focus-tab-previous";
 
     # Workspaces
-    "Mod+Shift+Tab" = "workspace-set-layout:toggle";
+    "Mod+Shift+Tab" = "workspace-set-layout toggle";
     "Mod+WheelDown" = "workspace-next";
     "Mod+WheelUp" = "workspace-previous";
     "Mod+Ctrl+Up" = "workspace-previous";
     "Mod+Ctrl+Down" = "workspace-next";
     "Mod+Ctrl+J" = "workspace-next";
     "Mod+Ctrl+K" = "workspace-previous";
-    "Mod+1" = "workspace-switch:1";
-    "Mod+2" = "workspace-switch:2";
-    "Mod+3" = "workspace-switch:3";
-    "Mod+4" = "workspace-switch:4";
-    "Mod+5" = "workspace-switch:5";
-    "Mod+6" = "workspace-switch:6";
-    "Mod+7" = "workspace-switch:7";
-    "Mod+8" = "workspace-switch:8";
-    "Mod+9" = "workspace-switch:9";
-    "Mod+Shift+1" = "window-move-to-workspace:1";
-    "Mod+Shift+2" = "window-move-to-workspace:2";
-    "Mod+Shift+3" = "window-move-to-workspace:3";
-    "Mod+Shift+4" = "window-move-to-workspace:4";
-    "Mod+Shift+5" = "window-move-to-workspace:5";
-    "Mod+Shift+6" = "window-move-to-workspace:6";
-    "Mod+Shift+7" = "window-move-to-workspace:7";
-    "Mod+Shift+8" = "window-move-to-workspace:8";
-    "Mod+Shift+9" = "window-move-to-workspace:9";
 
     # Scratchpads
-    "Mod+Shift+Space" = "window-move-to-scratchpad:empty";
-    "Mod+Space" = "scratchpad-toggle:empty";
-    "Mod+Ctrl+Space" = "window-restore-from-scratchpad:empty";
+    "Mod+Shift+Space" = "window-move-to-scratchpad empty";
+    "Mod+Space" = "scratchpad-toggle empty";
+    "Mod+Ctrl+Space" = "window-restore-from-scratchpad empty";
 
     # Window Resize
-    "Mod+Minus" = "window-modify-width-right:-0.1";
-    "Mod+Equal" = "window-modify-width-right:0.1";
-    "Mod+Alt+Minus" = "window-modify-height-down:-0.1";
-    "Mod+Alt+Equal" = "window-modify-height-down:0.1";
+    "Mod+Minus" = "window-modify-width-right -0.1";
+    "Mod+Equal" = "window-modify-width-right 0.1";
+    "Mod+Alt+Minus" = "window-modify-height-down -0.1";
+    "Mod+Alt+Equal" = "window-modify-height-down 0.1";
 
     # Media and brightness
-    "XF86AudioRaiseVolume" = "spawn:wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+";
-    "XF86AudioLowerVolume" = "spawn:wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-";
-    "XF86AudioMute" = "spawn:wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle";
-    "XF86AudioPlay" = "spawn:playerctl play-pause";
-    "XF86AudioNext" = "spawn:playerctl next";
-    "XF86AudioPrev" = "spawn:playerctl previous";
+    "XF86AudioRaiseVolume" = "spawn wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+";
+    "XF86AudioLowerVolume" = "spawn wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-";
+    "XF86AudioMute" = "spawn wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle";
+    "XF86AudioPlay" = "spawn playerctl play-pause";
+    "XF86AudioNext" = "spawn playerctl next";
+    "XF86AudioPrev" = "spawn playerctl previous";
   }
   // lib.listToAttrs (map (b: {
       name = toUmbrielKey b.key;
-      value = "spawn:${b.command}";
+      value = "spawn ${b.command}";
     })
     noctaliaBinds)
+  // lib.mergeAttrsList (map (n: {
+    "Mod+${n}" = "workspace-switch ${n}";
+    "Mod+Shift+${n}" = "window-move-to-workspace ${n}";
+  }) (map toString (lib.range 1 9)))

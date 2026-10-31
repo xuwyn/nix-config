@@ -31,13 +31,25 @@
 
     package.default = adios.promise ({inputs}: let
       inherit (inputs.nixpkgs) pkgs;
+      btop =
+        if !pkgs.stdenv.hostPlatform.isDarwin
+        then
+          pkgs.btop.override {
+            rocmSupport = true;
+            cudaSupport = true;
+          }
+        else pkgs.btop;
     in
-      if !pkgs.stdenv.hostPlatform.isDarwin
-      then
-        pkgs.btop.override {
-          rocmSupport = true;
-          cudaSupport = true;
-        }
-      else pkgs.btop);
+      pkgs.symlinkJoin {
+        pname = "btop";
+        inherit (btop) version;
+        paths = [
+          (pkgs.writeShellScriptBin "btop" ''
+            exec ${pkgs.lib.getExe btop} --themes-dir "$HOME/.config/btop/themes" "$@"
+          '')
+          btop
+        ];
+        meta.mainProgram = "btop";
+      });
   };
 }

@@ -32,7 +32,7 @@
         border = "primary";
         border_width = 0.0;
         enabled = true;
-        fill = "surface_variant";
+        fill = "surface_container";
         foreground = "primary";
         opacity = 0.0;
         padding = 0.0;
@@ -126,7 +126,7 @@
       rotation = 0.0;
       type = "login_box";
       settings = {
-        background_color = "surface_variant";
+        background_color = "surface_container";
         background_opacity = 0.88;
         background_radius = 12.0;
         center_password_text = true;
@@ -197,9 +197,9 @@
       icon_provider = "duckduckgo";
       links = [
         "Umbriel|https://docs.noctalia.dev/umbriel/"
-        "Hyprland|https://wiki.hypr.land/"
+        "UmbrielGit|https://github.com/noctalia-dev/umbriel"
         "Noctalia|https://docs.noctalia.dev/noctalia/"
-        "DankMaterialShell|https://danklinux.com/docs/"
+        "NoctaliaGit|https://github.com/noctalia-dev/noctalia"
         "GitHub|https://github.com"
         "GitLab|https://gitlab.com"
         "YouTube|https://youtube.com"
@@ -332,7 +332,7 @@
     source = "wallpaper";
     wallpaper_scheme = "faithful";
     templates = {
-      builtin_ids = ["btop" "cava" "gtk3" "gtk4" "helix" "ghostty" "hyprland" "kitty" "umbriel" "qt"];
+      builtin_ids = ["btop" "cava" "gtk3" "gtk4" "helix" "ghostty" "kitty" "umbriel" "qt"];
       community_ids = ["yazi" "sonora" "pywalfox" "discord" "zed" "neovim" "papirus-icons"];
     };
   };

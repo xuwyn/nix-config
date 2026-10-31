@@ -1,7 +1,7 @@
 {
   platforms = ["linux"];
   module = {
-    flake,
+    flakePath,
     config,
     lib,
     inputs,
@@ -81,7 +81,7 @@
 
           users = let
             defaultUserDirectories = [
-              flake.homeRelativePath
+              flakePath
               ".config"
               ".local"
               ".ssh"

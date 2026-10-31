@@ -1,5 +1,9 @@
 # copy from: https://github.com/llakala/adios-wrappers/blob/bb2f3db20a330104392f62c8d142ea9489c2f3b7/modules/zsh.nix
-{types, ...} @ adios: {
+{
+  types,
+  merge,
+  ...
+} @ adios: {
   inputs = {
     mkWrapper.from = {parent}: parent.mkWrapper;
     nixpkgs.from = {parent}: parent.nixpkgs;
@@ -9,16 +13,16 @@
     bashrc = {
       type = types.string;
       mutators = ["/bash"];
-      mergeFunc = adios.lib.merge.strings.concatLines;
+      mergeFunc = merge.strings.concatLines;
     };
     extraBashrc = {
       type = types.string;
       mutators = ["/bash" "/zoxide"];
-      mergeFunc = adios.lib.merge.strings.concatLines;
+      mergeFunc = merge.strings.concatLines;
     };
     variables = {
       type = types.attrs;
-      mergeFunc = adios.lib.merge.attrs.recursively;
+      mergeFunc = merge.attrs.recursively;
     };
     extraAliases = {
       type = types.attrs;
@@ -26,13 +30,13 @@
     };
     aliases = {
       type = types.attrsOf types.string;
-      mergeFunc = adios.lib.merge.attrs.recursively;
+      mergeFunc = merge.attrs.recursively;
       default = adios.promise ({options}: import ./shell/aliases.nix // options.extraAliases);
     };
     extraPackages = {
       type = types.listOf types.derivation;
       mutators = ["/bash" "/eza" "/zoxide"];
-      mergeFunc = adios.lib.merge.lists.concat;
+      mergeFunc = merge.lists.concat;
     };
     package = {
       type = types.derivation;

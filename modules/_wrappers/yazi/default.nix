@@ -1,6 +1,7 @@
 {
   flakeInputs,
   types,
+  username,
   ...
 } @ adios: {
   options = {
@@ -18,7 +19,7 @@
     };
     username = {
       type = types.string;
-      default = "wyn";
+      default = username;
     };
     noctaliaThemeEnabled = {
       type = types.bool;
@@ -64,7 +65,7 @@
     });
 
     initLua.default = ''
-      require("full-border"):setup({ type = ui.Border.ROUNDED })
+      require("full-border"):setup ({ set = "rounded", })
       require("git"):setup()
       require("smart-enter"):setup { open_multi = true }
     '';

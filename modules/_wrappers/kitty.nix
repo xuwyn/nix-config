@@ -1,9 +1,13 @@
-{types, ...} @ adios: {
+{
+  types,
+  merge,
+  ...
+} @ adios: {
   options = {
     shell = {
       type = types.string;
       mutators = ["/zsh"];
-      mergeFunc = adios.lib.merge.strings.concatLines;
+      mergeFunc = merge.strings.concatLines;
     };
     fontFamily = {
       type = types.string;

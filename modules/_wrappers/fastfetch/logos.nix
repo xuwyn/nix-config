@@ -61,7 +61,13 @@ in {
   };
 
   nun = {
-    source = ./logos/nun.txt;
-    padding = {left = 0;};
+    source = ./logos/nun.png;
+    type = "kitty-icat";
+    height = 50;
+    width = 40;
+    padding = {
+      top = 2;
+      left = 0;
+    };
   };
 }

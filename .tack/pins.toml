@@ -49,7 +49,7 @@ url  = "github:BarutSRB/homebrew-tap"
 type = "fetch"
 
 [inputs.nix-cachyos-kernel]
-url            = "github:xddxdd/nix-cachyos-kernel/master"
+url            = "github:xddxdd/nix-cachyos-kernel/release"
 exclude_follow = ["nixpkgs"]
 
 [inputs.nix-index-database]

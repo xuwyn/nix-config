@@ -1,6 +1,7 @@
 {
   types,
   flakeInputs,
+  username,
   ...
 } @ adios: {
   options = {
@@ -15,7 +16,7 @@
     };
     username = {
       type = types.string;
-      default = "wyn";
+      default = username;
     };
     noctaliaThemeEnabled = {
       type = types.bool;

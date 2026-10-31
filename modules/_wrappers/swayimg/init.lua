@@ -45,22 +45,13 @@ end)
 swayimg.viewer.on_key("Up", function() end) -- nop
 swayimg.viewer.on_key("Down", function() end) -- nop
 
--- old on_mouse actions that will be deprecated in 5.7
-swayimg.viewer.on_mouse("ScrollUp", function()
-  swayimg.viewer.open("prev")
+swayimg.viewer.on_scroll(function(kmods, horizontal, vertical)
+  if vertical < 0 then
+    swayimg.viewer.open("prev")
+  elseif vertical > 0 then
+    swayimg.viewer.open("next")
+  end
 end)
-swayimg.viewer.on_mouse("ScrollDown", function()
-  swayimg.viewer.open("next")
-end)
-
--- new syntax for 5.7, currently on 5.6 (2026-10-30)
--- swayimg.viewer.on_scroll(function(kmods, horizontal, vertical)
---   if vertical < 0 then
---     swayimg.viewer.open("prev")
---   elseif vertical > 0 then
---     swayimg.viewer.open("next")
---   end
--- end)
 
 swayimg.viewer.on_key("i", function()
   swayimg.text.visible = not swayimg.text.visible
