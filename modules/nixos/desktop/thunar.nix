@@ -44,6 +44,11 @@
           file-roller # archive
         ];
 
+        services = {
+          gvfs.enable = true; # trash, mounting, network shares, MTP
+          tumbler.enable = true; # image/video preview
+        };
+
         # Open chosen terminal
         hj.xdg.config.files."Thunar/uca.xml".text = ''
           <?xml version="1.0" encoding="UTF-8"?>

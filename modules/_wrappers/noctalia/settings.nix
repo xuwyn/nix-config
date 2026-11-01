@@ -196,6 +196,7 @@
     "yocraft/web-launcher" = {
       icon_provider = "duckduckgo";
       links = [
+        "Nixsearch|https://nixsearch.thekoppe.com/nixpkgs"
         "Umbriel|https://docs.noctalia.dev/umbriel/"
         "UmbrielGit|https://github.com/noctalia-dev/umbriel"
         "Noctalia|https://docs.noctalia.dev/noctalia/"

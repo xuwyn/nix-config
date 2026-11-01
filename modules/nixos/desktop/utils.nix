@@ -26,12 +26,39 @@
       dconf.enable = lib.mkDefault true;
     };
 
+    environment.systemPackages = with pkgs; [
+      brightnessctl # laptop backlight
+      ddcutil # monitor brightness
+    ];
+
+    hardware.bluetooth.enable = lib.mkDefault true;
+
+    # Services to start
+    services = {
+      oo7.enable = lib.mkDefault true;
+      udev.packages = [pkgs.ddcutil];
+      xserver = {
+        enable = lib.mkDefault true;
+        excludePackages = [pkgs.xterm];
+      };
+      upower.enable = lib.mkDefault true; # battery
+      power-profiles-daemon.enable = lib.mkDefault true;
+      blueman.enable = lib.mkDefault true; # Bluetooth Tray
+      pipewire = {
+        enable = lib.mkDefault true;
+        alsa.enable = lib.mkDefault true;
+        alsa.support32Bit = true;
+        pulse.enable = lib.mkDefault true;
+        jack.enable = lib.mkDefault true;
+      };
+    };
+
     # security features only relevant on desktop
     security = {
       pam.services = {
-        login.enableGnomeKeyring = true; # tty
-        sddm.enableGnomeKeyring = config.services.displayManager.sddm.enable;
-        ly.enableGnomeKeyring = config.services.displayManager.ly.enable;
+        login.oo7.enable = config.services.oo7.enable; # tty
+        sddm.oo7.enable = config.services.displayManager.sddm.enable;
+        ly.oo7.enable = config.services.displayManager.ly.enable;
       };
       rtkit.enable = lib.mkDefault true;
       polkit = {
@@ -47,39 +74,6 @@
             { return polkit.Result.YES; }
           })
         '';
-      };
-    };
-
-    environment.systemPackages = with pkgs; [
-      brightnessctl # laptop backlight
-      ddcutil # monitor brightness
-    ];
-
-    hardware.bluetooth.enable = lib.mkDefault true;
-
-    # Services to start
-    services = {
-      udev.packages = [pkgs.ddcutil];
-      xserver = {
-        enable = lib.mkDefault true;
-        excludePackages = [pkgs.xterm];
-      };
-      upower.enable = lib.mkDefault true; # battery
-      power-profiles-daemon.enable = lib.mkDefault true;
-      blueman.enable = lib.mkDefault true; # Bluetooth Tray
-      gvfs.enable = lib.mkDefault true; # GUI for Mounting Drives
-      tumbler.enable = lib.mkDefault true; # Image/video preview
-      gnome.gnome-keyring.enable = lib.mkDefault true;
-      smartd = {
-        enable = lib.mkDefault true;
-        autodetect = true;
-      };
-      pipewire = {
-        enable = lib.mkDefault true;
-        alsa.enable = lib.mkDefault true;
-        alsa.support32Bit = true;
-        pulse.enable = lib.mkDefault true;
-        jack.enable = lib.mkDefault true;
       };
     };
   };

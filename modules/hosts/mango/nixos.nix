@@ -34,6 +34,11 @@
 
     boot.kernelPackages = pkgs.cachyosKernels.linuxPackages-cachyos-bore-lto-zen4;
 
+    services = {
+      upower.enable = false;
+      power-profiles-daemon.enable = false;
+    };
+
     custom = {
       ssh.hosts = {
         apricot = {};
