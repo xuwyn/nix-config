@@ -65,15 +65,6 @@
 
     hj.packages = with wm;
       [
-        (zsh {
-          hostZshrc = ''
-            export PATH="''${XDG_STATE_HOME:-$HOME/.local/state}/hjem/standalone/current-profile/bin:$PATH"
-          '';
-        })
-        (git {})
-        (tealdeer {})
-        (ff {})
-        (ns {})
         (cava {noctaliaThemeEnabled = true;})
         (btop {noctaliaThemeEnabled = true;})
         (yazi {noctaliaThemeEnabled = true;})
@@ -81,6 +72,7 @@
         (spicetify {})
         (helix {})
         (nvf {extraSettings = {config.vim.extraPackages = with pkgs; [nodejs wl-clipboard];};})
+        (nixGLWrap (zed-editor {noctaliaThemeEnabled = true;}))
         (nixGLWrap (kitty {noctaliaThemeEnabled = true;}))
         (nixGLWrap (sonora {noctaliaThemeEnabled = true;}))
         (nixGLWrap (noctalia {inherit (config.custom) desktop;}))
@@ -88,7 +80,6 @@
         (nixGLWrap (swayimg {}))
       ]
       ++ (with inputs; [
-        nix-index-database.packages.${system}.comma-with-db
         (nixGLWrap cressida.packages.${system}.default)
       ]);
   };

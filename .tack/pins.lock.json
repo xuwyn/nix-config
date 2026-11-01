@@ -19,6 +19,7 @@
     "nix-darwin": "github:nix-darwin/nix-darwin/master",
     "nix-homebrew": "github:zhaofengli/nix-homebrew",
     "nix-index-database": "github:nix-community/nix-index-database",
+    "nix-shop": "github:weegs710/nix-shop",
     "nixcord": "github:4evy/nixcord",
     "nixgl": "github:nix-community/nixGL",
     "nixos-raspberrypi": "github:nvmd/nixos-raspberrypi/main",
@@ -89,9 +90,9 @@
     "type": "github",
     "owner": "Ly-sec",
     "repo": "Cressida",
-    "rev": "b8e818f6012a1f6f68728321078e82b02f19a4e6",
-    "narHash": "sha256-OnVTTeBOyu8wQu8m7XNa4YWJzkTBkmd2Zg8bD+We6Co=",
-    "lastModified": 1793549390
+    "rev": "2b131a68d0ca8f2b18c6547142d3be8b97868d2d",
+    "narHash": "sha256-ncMG+KsRbRwNnV6reV5ks1eYr0n0RGNgw2J9CGNuSII=",
+    "lastModified": 1793555042
   },
   "deploy-rs": {
     "type": "github",
@@ -190,6 +191,14 @@
     "rev": "93696586f3463024cceb089353539be95a38ae2b",
     "narHash": "sha256-v75hPw5NJ+mRRcwUzKi2OQtVSVv1hgq6ceAlPQB2kEE=",
     "lastModified": 1792915725
+  },
+  "nix-shop": {
+    "type": "github",
+    "owner": "weegs710",
+    "repo": "nix-shop",
+    "rev": "f823f1fce0f547c249cb86ebb47df665c5f54cea",
+    "narHash": "sha256-xoAGS2G6rPLxIotb5Ufo5l0huztUOVJwXy22Vman9mI=",
+    "lastModified": 1793534011
   },
   "nixcord": {
     "type": "github",

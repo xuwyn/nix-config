@@ -147,3 +147,6 @@ url = "github:nix-community/nixGL"
 
 [inputs.cressida]
 url = "github:Ly-sec/Cressida"
+
+[inputs.nix-shop]
+url = "github:weegs710/nix-shop"
