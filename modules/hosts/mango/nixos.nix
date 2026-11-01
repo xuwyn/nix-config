@@ -24,6 +24,7 @@
       (maa-cli {})
       (helix {})
       (nvf {})
+      inputs.cressida.packages.${system}.default # cant wrap it 🥲
       inputs.umbrella-fetch.packages.${system}.default
     ];
 
@@ -38,6 +39,9 @@
       upower.enable = false;
       power-profiles-daemon.enable = false;
     };
+
+    # use cressida for now
+    programs.nixcord.enable = false;
 
     custom = {
       ssh.hosts = {
@@ -86,24 +90,14 @@
       nixcord.noctaliaThemeEnabled = true;
 
       desktop = {
-        monitors = [
-          {
-            name = "DP-1";
-            width = 1920;
-            height = 1080;
-            x = 0;
-            y = 0;
-            refresh = 164.955;
-          }
-          {
-            name = "DP-4";
-            width = 1920;
-            height = 1080;
-            x = 0;
-            y = 0;
-            refresh = 164.955;
-          }
-        ];
+        monitors = map (name: {
+          inherit name;
+          width = 1920;
+          height = 1080;
+          x = 0;
+          y = 0;
+          refresh = 164.955;
+        }) ["DP-1" "DP-4"];
         startupCommands = [
           "fcitx5 -d -r"
           "pkill openrgb; sleep 1; openrgb --startminimized --profile purple;"

@@ -72,6 +72,14 @@
     default_pinned = true;
   }
   {
+    match.app_id = ''^([Cc]ressida)$'';
+    opacity = 0.9;
+  }
+  {
+    match.app_id = ''^([Dd]iscord)$'';
+    opacity = 0.9;
+  }
+  {
     match.app_id = ''^([Tt]hunar|org.gnome.Nautilus|[Pp]cmanfm-qt)$'';
     default_floating = true;
     default_floating_size = {
@@ -87,11 +95,6 @@
   {
     match.app_id = ''^steam_app_\d+$'';
     default_floating = true;
-  }
-  {
-    match.app_id = ''^([Ss]team)$'';
-    match.title = ''^([Ss]team)$'';
-    default_floating = false;
   }
   {
     match.app_id = ''^([Ss]team)$'';

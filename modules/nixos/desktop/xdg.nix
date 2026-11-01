@@ -35,6 +35,7 @@
         # zed needs these
         "org.freedesktop.portal.FileChooser" = ["gtk"];
         "org.freedesktop.portal.OpenURI" = ["gtk"];
+        "org.freedesktop.impl.portal.Secret" = "oo7-portal";
       };
     };
 

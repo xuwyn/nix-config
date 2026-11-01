@@ -2,6 +2,7 @@
   hjemCompat = true;
   targets = ["capybara"];
   module = {
+    config,
     self,
     pkgs,
     user,
@@ -45,40 +46,21 @@
           done
         '';
       };
-
-    desktop = {
-      monitors = [
-        {
-          name = "DP-1";
-          width = 1920;
-          height = 1080;
-          x = 0;
-          y = 0;
-          refresh = 164.955;
-        }
-        {
-          name = "DP-4";
-          width = 1920;
-          height = 1080;
-          x = 0;
-          y = 0;
-          refresh = 164.955;
-        }
-      ];
-      terminal = "kitty";
-      browser = "firefox";
-      editor = "nvim";
+  in {
+    custom.desktop = {
+      monitors = map (name: {
+        inherit name;
+        width = 1920;
+        height = 1080;
+        x = 0;
+        y = 0;
+        refresh = 164.955;
+      }) ["DP-1" "DP-4"];
       startupCommands = ["pkill openrgb; sleep 1; openrgb --startminimized --profile blue;"];
     };
-  in {
+
     hj.xdg.config.files = {
-      "umbriel/config.toml".source =
-        (wm.umbriel {
-          inherit desktop;
-          extraKeybinds = {
-            "Mod+D" = "spawn:vesktop";
-          };
-        }).configFile;
+      "umbriel/config.toml".source = (wm.umbriel {inherit (config.custom) desktop;}).configFile;
     };
 
     hj.packages = with wm;
@@ -101,10 +83,13 @@
         (nvf {extraSettings = {config.vim.extraPackages = with pkgs; [nodejs wl-clipboard];};})
         (nixGLWrap (kitty {noctaliaThemeEnabled = true;}))
         (nixGLWrap (sonora {noctaliaThemeEnabled = true;}))
-        (nixGLWrap (noctalia {inherit desktop;}))
+        (nixGLWrap (noctalia {inherit (config.custom) desktop;}))
         (nixGLWrap (mpv {}))
         (nixGLWrap (swayimg {}))
       ]
-      ++ (with inputs; [nix-index-database.packages.${system}.comma-with-db]);
+      ++ (with inputs; [
+        nix-index-database.packages.${system}.comma-with-db
+        (nixGLWrap cressida.packages.${system}.default)
+      ]);
   };
 }

@@ -6,6 +6,7 @@
     "barutsrb-tap": "github:BarutSRB/homebrew-tap",
     "catppuccin-helix": "github:catppuccin/helix",
     "catppuccin-yazi": "github:yazi-rs/flavors",
+    "cressida": "github:Ly-sec/Cressida",
     "deploy-rs": "github:serokell/deploy-rs/16901271e5b30b591e56f7a84f25f186fb20f3e1",
     "disko": "github:nix-community/disko",
     "hjem": "github:feel-co/hjem",
@@ -83,6 +84,14 @@
     "rev": "1183892c904f7f0efdf4473e856ed308b7bea98d",
     "narHash": "sha256-E1OUF1+mT0V3crVxkewG2Y7hRu8fO+0oRl6NlINmw+o=",
     "lastModified": 1790697555
+  },
+  "cressida": {
+    "type": "github",
+    "owner": "Ly-sec",
+    "repo": "Cressida",
+    "rev": "b8e818f6012a1f6f68728321078e82b02f19a4e6",
+    "narHash": "sha256-OnVTTeBOyu8wQu8m7XNa4YWJzkTBkmd2Zg8bD+We6Co=",
+    "lastModified": 1793549390
   },
   "deploy-rs": {
     "type": "github",

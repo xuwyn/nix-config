@@ -144,3 +144,6 @@ url = "github:xuwyn/Umbrella-Fetch"
 
 [inputs.nixgl]
 url = "github:nix-community/nixGL"
+
+[inputs.cressida]
+url = "github:Ly-sec/Cressida"

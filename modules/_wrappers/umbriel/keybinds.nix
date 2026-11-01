@@ -30,7 +30,7 @@ in
     # Applications and session
     "Mod+Return" = "spawn ${terminal}";
     "Mod+W" = "spawn ${browser}";
-    "Mod+D" = "spawn discord";
+    "Mod+D" = "spawn cressida";
     "Mod+S" = "spawn sonora";
     "Mod+M" = "spawn spotify";
     "Mod+Z" = "spawn zeditor";
