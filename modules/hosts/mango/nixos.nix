@@ -16,7 +16,7 @@
       (cava {noctaliaThemeEnabled = true;})
       (btop {noctaliaThemeEnabled = true;})
       (kitty {noctaliaThemeEnabled = true;})
-      (zed-editor {noctaliaThemeEnabled = true;})
+      (zeditor {noctaliaThemeEnabled = true;})
       (sonora {noctaliaThemeEnabled = true;})
       (yazi {noctaliaThemeEnabled = true;})
       (firefox {})

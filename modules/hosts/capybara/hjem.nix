@@ -46,6 +46,14 @@
           done
         '';
       };
+
+    zeditor = nixGLWrap (wm.zeditor {noctaliaThemeEnabled = true;});
+    kitty = nixGLWrap (wm.kitty {noctaliaThemeEnabled = true;});
+    sonora = nixGLWrap (wm.sonora {noctaliaThemeEnabled = true;});
+    noctalia = nixGLWrap (wm.noctalia {inherit (config.custom) desktop;});
+    mpv = nixGLWrap (wm.mpv {});
+    swayimg = nixGLWrap (wm.swayimg {});
+    cressida = nixGLWrap inputs.cressida.packages.${system}.default;
   in {
     custom.desktop = {
       monitors = map (name: {
@@ -63,24 +71,30 @@
       "umbriel/config.toml".source = (wm.umbriel {inherit (config.custom) desktop;}).configFile;
     };
 
-    hj.packages = with wm;
-      [
-        (cava {noctaliaThemeEnabled = true;})
-        (btop {noctaliaThemeEnabled = true;})
-        (yazi {noctaliaThemeEnabled = true;})
-        (firefox {})
-        (spicetify {})
-        (helix {})
-        (nvf {extraSettings = {config.vim.extraPackages = with pkgs; [nodejs wl-clipboard];};})
-        (nixGLWrap (zed-editor {noctaliaThemeEnabled = true;}))
-        (nixGLWrap (kitty {noctaliaThemeEnabled = true;}))
-        (nixGLWrap (sonora {noctaliaThemeEnabled = true;}))
-        (nixGLWrap (noctalia {inherit (config.custom) desktop;}))
-        (nixGLWrap (mpv {}))
-        (nixGLWrap (swayimg {}))
-      ]
-      ++ (with inputs; [
-        (nixGLWrap cressida.packages.${system}.default)
-      ]);
+    hj.xdg.data.files = let
+      linkDesktop = pkg: name: {
+        "applications/${name}".source = "${pkg}/share/applications/${name}";
+      };
+    in
+      linkDesktop zeditor "dev.zed.Zed.desktop"
+      // linkDesktop mpv "mpv.desktop"
+      // linkDesktop swayimg "swayimg.desktop";
+
+    hj.packages = with wm; [
+      (cava {noctaliaThemeEnabled = true;})
+      (btop {noctaliaThemeEnabled = true;})
+      (yazi {noctaliaThemeEnabled = true;})
+      (firefox {})
+      (spicetify {})
+      (helix {})
+      (nvf {extraSettings = {config.vim.extraPackages = with pkgs; [nodejs wl-clipboard];};})
+      zeditor
+      kitty
+      sonora
+      noctalia
+      mpv
+      swayimg
+      cressida
+    ];
   };
 }

@@ -80,7 +80,7 @@
     settingsFile = json.generate "zed-settings.json" (lib.recursiveUpdate base options.extraSettings);
   in
     pkgs.symlinkJoin {
-      name = "zed-editor-wrapped";
+      name = "zeditor-wrapped";
       paths = [pkgs.zed-editor];
       nativeBuildInputs = [pkgs.makeWrapper];
       passthru.settingsFile = settingsFile; # expose for hjem on darwin

@@ -49,7 +49,7 @@
         "sysmon"
         "bracket_right"
       ])
-      (group "g2" ["bracket_left" "network" "bluetooth" "bracket_right"])
+      (group "g2" ["bracket_left" "network" "slash" "bluetooth" "bracket_right"])
       (group "g3" ["bracket_left" "nix-monitor" "bracket_right"])
       (group "g4" ["bracket_left" "workspaces" "bracket_right"])
       (group "g5" ["bracket_left" "radio" "media" "bracket_right"])
@@ -197,6 +197,7 @@
       icon_provider = "duckduckgo";
       links = [
         "Nixsearch|https://nixsearch.thekoppe.com/nixpkgs"
+        "Cressida|https://github.com/Ly-sec/Cressida"
         "Umbriel|https://docs.noctalia.dev/umbriel/"
         "UmbrielGit|https://github.com/noctalia-dev/umbriel"
         "Noctalia|https://docs.noctalia.dev/noctalia/"
@@ -436,6 +437,8 @@
     workspaces =
       noPadding
       // {
+        separator = "/";
+        separator_color = "primary";
         font_weight = 600;
         style = "minimal";
       };

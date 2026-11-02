@@ -21,7 +21,7 @@
     "nix-index-database": "github:nix-community/nix-index-database",
     "nix-shop": "github:weegs710/nix-shop",
     "nixcord": "github:4evy/nixcord",
-    "nixgl": "github:nix-community/nixGL",
+    "nixgl": "github:happy-dude/nixGL/pcre2grep",
     "nixos-raspberrypi": "github:nvmd/nixos-raspberrypi/main",
     "nixos-wsl": "github:nix-community/NixOS-WSL/main",
     "nixpkgs": "https://channels.nixos.org/nixos-unstable/nixexprs.tar.xz",
@@ -90,9 +90,9 @@
     "type": "github",
     "owner": "Ly-sec",
     "repo": "Cressida",
-    "rev": "2b131a68d0ca8f2b18c6547142d3be8b97868d2d",
-    "narHash": "sha256-ncMG+KsRbRwNnV6reV5ks1eYr0n0RGNgw2J9CGNuSII=",
-    "lastModified": 1793555042
+    "rev": "d0ae6c86a13c67d53e2aaac05263da835736e862",
+    "narHash": "sha256-y+COpDfi4j2c10uL4t3YiaGdw4g9dgz3J3nRzrRheyA=",
+    "lastModified": 1793633310
   },
   "deploy-rs": {
     "type": "github",
@@ -196,9 +196,9 @@
     "type": "github",
     "owner": "weegs710",
     "repo": "nix-shop",
-    "rev": "f823f1fce0f547c249cb86ebb47df665c5f54cea",
-    "narHash": "sha256-xoAGS2G6rPLxIotb5Ufo5l0huztUOVJwXy22Vman9mI=",
-    "lastModified": 1793534011
+    "rev": "75f61629e28966536c63ca34813c6a27c31d6cf1",
+    "narHash": "sha256-1nBlZTkj7vnUj85rb3YDonHhUv19y6Ab81qRU6Dx+F8=",
+    "lastModified": 1793568881
   },
   "nixcord": {
     "type": "github",
@@ -210,11 +210,11 @@
   },
   "nixgl": {
     "type": "github",
-    "owner": "nix-community",
+    "owner": "happy-dude",
     "repo": "nixGL",
-    "rev": "b6105297e6f0cd041670c3e8628394d4ee247ed5",
-    "narHash": "sha256-fbRQzIGPkjZa83MowjbD2ALaJf9y6KMDdJBQMKFeY/8=",
-    "lastModified": 1762090880
+    "rev": "320297bd99179701d63e3670e64e636d6165afe2",
+    "narHash": "sha256-c263mBFrDLv2/sguzQeKL99aJ4PkCdcUzcAuA5Cpzjo=",
+    "lastModified": 1793190821
   },
   "nixos-raspberrypi": {
     "type": "github",
@@ -243,9 +243,9 @@
     "type": "github",
     "owner": "noctalia-dev",
     "repo": "noctalia",
-    "rev": "fff26c08dc8b13ddfbf2783f8fcc4df4286848c5",
-    "narHash": "sha256-YLbiShimiMEOYx3njREmARlg+jaV7F6p8DQ7rebTsd8=",
-    "lastModified": 1793415906
+    "rev": "97cbf616088816085d0cb233af2ab51ec2959392",
+    "narHash": "sha256-aF0URs03PKDkXacSvdktJ4rU05Aez2YgKfBT9PaCQ18=",
+    "lastModified": 1793632269
   },
   "nur-expressions": {
     "type": "gitlab",
