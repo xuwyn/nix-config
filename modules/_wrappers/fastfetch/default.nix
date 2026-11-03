@@ -3,6 +3,4 @@ adios: {
     logos = import ./logos.nix inputs.nixpkgs.pkgs;
   in
     import ./profiles/mini.nix logos.nixos);
-
-  mutations."/zsh".extraPackages = adios.promise ({result}: [result]);
 }

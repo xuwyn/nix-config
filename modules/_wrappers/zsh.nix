@@ -14,7 +14,7 @@
     };
     aliases.default = adios.promise ({options, ...}: import ./shell/aliases.nix // options.extraAliases);
 
-    extraPackages.mutators = ["/eza" "/zoxide" "/starship" "/fastfetch"];
+    extraPackages.mutators = ["/eza" "/zoxide" "/starship"];
 
     plugins.default = adios.promise ({inputs, ...}: let
       inherit (inputs.nixpkgs) pkgs;
@@ -71,7 +71,7 @@
     options,
     inputs,
   }: let
-    inherit (inputs.nixpkgs) lib;
+    inherit (inputs.nixpkgs) lib pkgs;
   in ''
     ${import ./shell/env.nix}
 
@@ -81,7 +81,7 @@
 
     ${options.hostZshrc}
 
-    fastfetch
+    ${lib.getExe pkgs.microfetch}
   '');
 
   mutations."/kitty".shell = adios.promise ({

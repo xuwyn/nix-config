@@ -12,6 +12,7 @@
     wm = self.wrapperModules.${system};
   in {
     environment.systemPackages = with wm; [
+      (ff {})
       (bottom {})
       (cava {noctaliaThemeEnabled = true;})
       (btop {noctaliaThemeEnabled = true;})

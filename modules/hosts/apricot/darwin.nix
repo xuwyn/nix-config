@@ -26,6 +26,7 @@
       (maa-cli {})
       (nvf {})
       (sonora {})
+      (ff {})
     ];
 
     # necessary for gui apps launched from Spotlight to load the correct config

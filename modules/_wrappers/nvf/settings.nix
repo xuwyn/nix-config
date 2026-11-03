@@ -76,6 +76,22 @@
         pcall(vim.keymap.del, { "n", "x" }, k)
       end
 
+      -- reload with direnv when opening file
+      vim.api.nvim_create_autocmd("User", {
+        pattern = "DirenvLoaded",
+        callback = function()
+          local langs = { c = true, cpp = true, go = true, rust = true, python = true }
+          for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+            if vim.api.nvim_buf_is_loaded(buf)
+              and vim.bo[buf].buftype == ""
+              and langs[vim.bo[buf].filetype]
+            then
+              vim.api.nvim_exec_autocmds("FileType", { buffer = buf })
+            end
+          end
+        end,
+      })
+
       -- no inline diagnostics for lua
       local vt = vim.diagnostic.handlers.virtual_text
       vim.diagnostic.handlers.virtual_text = {
@@ -152,6 +168,7 @@
       arduino.enable = true;
       assembly.enable = true;
       python.enable = true;
+      go.enable = true;
 
       yaml.enable = true;
       toml.enable = true;

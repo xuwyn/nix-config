@@ -14,6 +14,7 @@
     "homebrew-core": "github:homebrew/homebrew-core",
     "maa-cli": "github:MaaAssistantArknights/maa-cli",
     "mac-app-util": "github:hraban/mac-app-util",
+    "microfetch": "github:NotAShelf/microfetch",
     "multiverse": "github:fzakaria/nixpkgs-multiverse",
     "nix-cachyos-kernel": "github:xddxdd/nix-cachyos-kernel/release",
     "nix-darwin": "github:nix-darwin/nix-darwin/master",
@@ -152,6 +153,16 @@
     "narHash": "sha256-7IteXipJZfFepi5zakxe0jQ5i3vRBQguk0+Gtte1Fu4=",
     "lastModified": 1783182903
   },
+  "microfetch": {
+    "type": "github",
+    "owner": "NotAShelf",
+    "repo": "microfetch",
+    "rev": "575210e857ebcbb999dfcb5c61736b23931de8a5",
+    "narHash": "sha256-6HinqqKWiZaM5MHVYn2ifFMfgUgWL2/7FF6bMaedLbo=",
+    "lastModified": 1793348717,
+    "tag": "v1.2.3",
+    "version": "1.2.3"
+  },
   "multiverse": {
     "type": "github",
     "owner": "fzakaria",
@@ -243,9 +254,9 @@
     "type": "github",
     "owner": "noctalia-dev",
     "repo": "noctalia",
-    "rev": "97cbf616088816085d0cb233af2ab51ec2959392",
-    "narHash": "sha256-aF0URs03PKDkXacSvdktJ4rU05Aez2YgKfBT9PaCQ18=",
-    "lastModified": 1793632269
+    "rev": "1aa92e74ac16a1424ddb2d8acaecc65b9a8974c0",
+    "narHash": "sha256-VrsvBmExWwzfPORD7cr+WnsnxWJQfCDJffjzv0iXArA=",
+    "lastModified": 1793721010
   },
   "nur-expressions": {
     "type": "gitlab",

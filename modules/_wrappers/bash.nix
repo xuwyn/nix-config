@@ -53,9 +53,13 @@
       source "${inputs.nixpkgs.pkgs.bash-completion}/etc/profile.d/bash_completion.sh"
   '');
 
-  mutations."/bash".extraBashrc = ''
+  mutations."/bash".extraBashrc = adios.promise ({inputs}: let
+    inherit (inputs.nixpkgs) lib pkgs;
+  in ''
     ${import ./shell/env.nix}
-  '';
+
+    ${lib.getExe pkgs.microfetch}
+  '');
 
   inputs.mkWrapper.options = adios.promise ({
     options,

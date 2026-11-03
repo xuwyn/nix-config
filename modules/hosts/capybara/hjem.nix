@@ -88,6 +88,7 @@
       (spicetify {})
       (helix {})
       (nvf {extraSettings = {config.vim.extraPackages = with pkgs; [nodejs wl-clipboard];};})
+      (ff {})
       zeditor
       kitty
       sonora

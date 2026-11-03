@@ -9,6 +9,13 @@
 in [
   (multiverseOverlays [])
 
+  # patching this way is not IFD 😆
+  (final: prev: {
+    microfetch = inputs.microfetch.packages.${final.stdenv.hostPlatform.system}.default.overrideAttrs (old: {
+      patches = (old.patches or []) ++ [../../patches/microfetch-logo.patch];
+    });
+  })
+
   # cachyOS kernel (pinned version for cache hit)
   inputs.nix-cachyos-kernel.overlays.pinned
 ]

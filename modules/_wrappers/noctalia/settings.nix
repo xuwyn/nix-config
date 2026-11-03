@@ -439,7 +439,6 @@
       // {
         separator = "/";
         separator_color = "primary";
-        font_weight = 600;
         style = "minimal";
       };
   };
