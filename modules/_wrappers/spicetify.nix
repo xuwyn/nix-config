@@ -33,13 +33,8 @@
   result = adios.promise ({
     options,
     inputs,
-  }: let
-    unfreePkgs = import flakeInputs.nixpkgs {
-      inherit (inputs.nixpkgs.pkgs.stdenv.hostPlatform) system;
-      config.allowUnfreePredicate = pkg: builtins.elem (inputs.nixpkgs.lib.getName pkg) ["spotify"];
-    };
-  in
-    flakeInputs.spicetify-nix.lib.mkSpicetify unfreePkgs ({
+  }:
+    flakeInputs.spicetify-nix.lib.mkSpicetify inputs.nixpkgs.pkgs ({
         inherit (options) theme colorScheme enabledExtensions;
       }
       // options.extraSettings));
