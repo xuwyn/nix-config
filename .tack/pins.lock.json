@@ -22,7 +22,7 @@
     "nix-index-database": "github:nix-community/nix-index-database",
     "nix-shop": "github:weegs710/nix-shop",
     "nixcord": "github:4evy/nixcord",
-    "nixgl": "github:happy-dude/nixGL/pcre2grep",
+    "nixgl": "github:nix-community/nixGL",
     "nixos-raspberrypi": "github:nvmd/nixos-raspberrypi/main",
     "nixos-wsl": "github:nix-community/NixOS-WSL/main",
     "nixpkgs": "https://channels.nixos.org/nixos-unstable/nixexprs.tar.xz",
@@ -221,11 +221,11 @@
   },
   "nixgl": {
     "type": "github",
-    "owner": "happy-dude",
+    "owner": "nix-community",
     "repo": "nixGL",
-    "rev": "320297bd99179701d63e3670e64e636d6165afe2",
+    "rev": "4306ae1d15adf3d386f1462b330d4f2648404711",
     "narHash": "sha256-c263mBFrDLv2/sguzQeKL99aJ4PkCdcUzcAuA5Cpzjo=",
-    "lastModified": 1793190821
+    "lastModified": 1793798159
   },
   "nixos-raspberrypi": {
     "type": "github",

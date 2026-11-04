@@ -19,7 +19,11 @@
       direnv_cmd = lib.getExe pkgs.direnv;
     };
 
-    extraPackages = with pkgs; [nodejs];
+    extraPackages = with pkgs; [
+      nodejs
+      alejandra
+      nixfmt
+    ];
 
     extraPlugins = with pkgs.vimPlugins; {
       direnv = {
@@ -122,7 +126,35 @@
       end
       number_hl()
       vim.api.nvim_create_autocmd("ColorScheme", { callback = number_hl })
+
+      -- set nix formatter: alejandra by default, override with NIX_FORMATTER or :NixFmt
+      vim.g.nix_formatter = vim.env.NIX_FORMATTER or "alejandra"
+
+      vim.api.nvim_create_user_command("NixFmt", function(opts)
+        if opts.args ~= "" then vim.g.nix_formatter = opts.args end
+        vim.notify("nix formatter: " .. vim.g.nix_formatter)
+      end, {
+        nargs = "?",
+        complete = function() return { "alejandra", "nixfmt" } end,
+      })
+
+      vim.api.nvim_create_user_command("UseNixfmt", function()
+        vim.g.nix_formatter = "nixfmt"
+        vim.notify("nix formatter: nixfmt")
+      end, {})
+
+      vim.api.nvim_create_user_command("UseAlejandra", function()
+        vim.g.nix_formatter = "alejandra"
+        vim.notify("nix formatter: alejandra")
+      end, {})
     '';
+
+    formatter.conform-nvim = {
+      enable = true;
+      setupOpts.formatters_by_ft.nix = lib.generators.mkLuaInline ''
+        function() return { vim.g.nix_formatter } end
+      '';
+    };
 
     lsp = {
       enable = true;
@@ -167,7 +199,7 @@
       vhdl.enable = true;
       arduino.enable = true;
       assembly.enable = true;
-      python.enable = true;
+      # python.enable = true;
       go.enable = true;
 
       yaml.enable = true;
@@ -181,10 +213,7 @@
 
       nix = {
         enable = true;
-        format = {
-          enable = true;
-          type = ["alejandra"];
-        };
+        format.enable = false; # choose at runtime
         lsp.servers = ["nil"];
       };
       rust = {

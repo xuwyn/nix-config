@@ -140,8 +140,7 @@ tag  = "v{version}"
 url = "github:xuwyn/Umbrella-Fetch"
 
 [inputs.nixgl]
-# url = "github:nix-community/nixGL"
-url = "github:happy-dude/nixGL/pcre2grep"
+url = "github:nix-community/nixGL"
 
 [inputs.cressida]
 url = "github:Ly-sec/Cressida"
