@@ -55,9 +55,6 @@ exclude_follow = ["nixpkgs"]
 [inputs.nix-index-database]
 url = "github:nix-community/nix-index-database"
 
-[inputs.stylix]
-url = "github:nix-community/stylix"
-
 [inputs.sops-nix]
 url = "github:Mic92/sops-nix"
 
@@ -155,3 +152,6 @@ url = "github:weegs710/nix-shop"
 [inputs.microfetch]
 url = "github:NotAShelf/microfetch"
 tag = "v{version}"
+
+[inputs.noctalia-plymouth]
+url = "github:VuiMuich/noctalia-plymouth-theme"

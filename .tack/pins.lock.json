@@ -27,6 +27,7 @@
     "nixos-wsl": "github:nix-community/NixOS-WSL/main",
     "nixpkgs": "https://channels.nixos.org/nixos-unstable/nixexprs.tar.xz",
     "noctalia": "github:noctalia-dev/noctalia/cachix",
+    "noctalia-plymouth": "github:VuiMuich/noctalia-plymouth-theme",
     "nur-expressions": "gitlab:rycee/nur-expressions",
     "nvf": "github:notashelf/nvf",
     "preservation": "github:nix-community/preservation",
@@ -34,7 +35,6 @@
     "sonora": "github:sonorahq/sonora",
     "sops-nix": "github:Mic92/sops-nix",
     "spicetify-nix": "github:Gerg-L/spicetify-nix",
-    "stylix": "github:nix-community/stylix",
     "umbrella-fetch": "github:xuwyn/Umbrella-Fetch",
     "umbriel": "github:noctalia-dev/umbriel/cachix",
     "waydroid-script": "github:casualsnek/waydroid_script"
@@ -91,9 +91,9 @@
     "type": "github",
     "owner": "Ly-sec",
     "repo": "Cressida",
-    "rev": "5ebabf317e78ffa3f18665863ea11fe07172557c",
-    "narHash": "sha256-Yyro3icAdHsPjgWZoMZ+Cf6aed7n4dIUeQaaTkS1E7s=",
-    "lastModified": 1793667148
+    "rev": "1aa3e486652be075bdc9bab84b0e4fd3cea13406",
+    "narHash": "sha256-wb9/f/PdIQMNFqxUmE/p3M+5u1/KB41R6JNpfcuZUkA=",
+    "lastModified": 1793796181
   },
   "deploy-rs": {
     "type": "github",
@@ -258,6 +258,14 @@
     "narHash": "sha256-VrsvBmExWwzfPORD7cr+WnsnxWJQfCDJffjzv0iXArA=",
     "lastModified": 1793721010
   },
+  "noctalia-plymouth": {
+    "type": "github",
+    "owner": "VuiMuich",
+    "repo": "noctalia-plymouth-theme",
+    "rev": "c449d9fc9db4278ba19649e97fd042cb08b456d5",
+    "narHash": "sha256-0wQ1CKB4ezPzCwdQRmCHs+/gf2x37ay2t43LcPh1DNk=",
+    "lastModified": 1793561410
+  },
   "nur-expressions": {
     "type": "gitlab",
     "owner": "rycee",
@@ -313,14 +321,6 @@
     "rev": "f6eb8135c060130150c8fbcc6b7cf5e22e5179d8",
     "narHash": "sha256-gJ8uPmQFhJ98X+VWPpD+o0tnQ0nJjbG+Z3QDHcSJKw0=",
     "lastModified": 1792919014
-  },
-  "stylix": {
-    "type": "github",
-    "owner": "nix-community",
-    "repo": "stylix",
-    "rev": "3e27b6c499e507df6e3bb8eca3614f5c95e28140",
-    "narHash": "sha256-2pkE97wOXAYIn2/Nhs9y+iR0qVT+g/3UtukXdkywxXc=",
-    "lastModified": 1792920263
   },
   "umbrella-fetch": {
     "type": "github",

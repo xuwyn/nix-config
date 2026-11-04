@@ -8,8 +8,6 @@
     inputs,
     ...
   }: {
-    imports = [inputs.stylix.nixosModules.stylix];
-
     options.custom.boot.enable = lib.mkOption {
       type = lib.types.bool;
       default = true;
@@ -22,16 +20,14 @@
         kernel.sysctl."vm.max_map_count" = 2147483642;
         loader.systemd-boot.enable = true;
         loader.efi.canTouchEfiVariables = true;
-        plymouth.enable = lib.mkDefault true;
-      };
-
-      # stylix just for plymouth
-      stylix = {
-        enable = config.boot.plymouth.enable;
-        autoEnable = false;
-        polarity = "dark";
-        base16Scheme = "${pkgs.base16-schemes}/share/themes/gruvbox-dark-hard.yaml";
-        targets.plymouth.enable = true;
+        plymouth = {
+          enable = lib.mkDefault true;
+          theme = "noctalia";
+          themePackages = [
+            inputs.noctalia-plymouth.packages.${pkgs.stdenv.hostPlatform.system}.default
+          ];
+          font = "${pkgs.inter}/share/fonts/truetype/InterVariable.ttf";
+        };
       };
     };
   };
