@@ -19,7 +19,7 @@
     }:
       inputs.nixpkgs.lib.recursiveUpdate
       (import ./settings.nix {
-        monitors = map (m: m.name) options.desktop.monitors;
+        inherit (options.desktop) monitors;
         inherit (inputs.nixpkgs) lib;
       })
       options.extraSettings);

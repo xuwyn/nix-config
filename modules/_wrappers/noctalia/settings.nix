@@ -121,8 +121,6 @@
       box_width = 810.0;
       cx = 960.0;
       cy = 910.0;
-      placement_height = 1080.0;
-      placement_width = 1920.0;
       rotation = 0.0;
       type = "login_box";
       settings = {
@@ -147,8 +145,6 @@
       box_width = 816.0;
       cx = 960.0;
       cy = 668.0;
-      placement_height = 1080.0;
-      placement_width = 1920.0;
       rotation = 0.0;
       type = "audio_visualizer";
       settings = {
@@ -167,17 +163,20 @@
       };
     };
     mkPerMonitorWidgets = prefix: base:
-      lib.listToAttrs (map (name: {
-          name = "${prefix}@${name}";
-          value = base // {output = name;};
-        })
-        monitors);
+      lib.listToAttrs (map (mon:
+        lib.nameValuePair "${prefix}@${mon.name}" (base
+          // {
+            output = mon.name;
+            placement_height = mon.height;
+            placement_width = mon.width;
+          }))
+      monitors);
   in {
     enabled = true;
     schema_version = 1;
     widget_order =
-      (map (name: "lockscreen-login-box@${name}") monitors)
-      ++ (map (name: "lockscreen-audio-visualizer@${name}") monitors);
+      (map (m: "lockscreen-login-box@${m.name}") monitors)
+      ++ (map (m: "lockscreen-audio-visualizer@${m.name}") monitors);
     grid = {
       cell_size = 16;
       major_interval = 4;
