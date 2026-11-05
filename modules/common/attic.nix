@@ -16,16 +16,6 @@ in {
       default = "puffin.tail9fb2b9.ts.net";
       description = "Tailnet of the cache server";
     };
-    cacheName = lib.mkOption {
-      type = lib.types.str;
-      default = "main";
-      description = "This config's cache entry";
-    };
-    publicKey = lib.mkOption {
-      type = lib.types.str;
-      default = "AOInzGo25vK/CX+//GtecGc5zoePljsTyLki/rliiS8=";
-      description = "This cache's public key from `attic cache info <cache>`";
-    };
   };
 
   config = {
@@ -34,15 +24,11 @@ in {
       owner = lib.head users;
       sopsFile = ./sops/access-tokens.yaml;
     };
+
     sops.templates.".netrc".content = ''
       machine ${cfg.tailscaleDomain}
       password ${config.sops.placeholder.attic_token}
     '';
-
-    nix.settings = {
-      extra-substituters = ["https://${cfg.tailscaleDomain}/${cfg.cacheName}"];
-      extra-trusted-public-keys = ["${cfg.cacheName}:${cfg.publicKey}"];
-    };
 
     environment.systemPackages = [inputs.nixpkgs.legacyPackages.${system}.attic-client];
 
