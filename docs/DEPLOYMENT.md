@@ -167,9 +167,9 @@ Then add it to `access-tokens.yaml` as `attic_token`
 **Attic Client**
 
 Attic client settings are automatically included in all `nixosConfigurations`
-and `darwinConfigurations`. The default server is hosted on `puffin`. If only
-one cache is used, the default `cacheName` is `main` and its `publicKey` is set
-in [attic.nix](../modules/common/attic.nix).
+and `darwinConfigurations` (see [attic.nix](../modules/common/attic.nix)). The
+default server is hosted on `puffin`, the default cache is `main` and its public
+key is set in [caches.nix](../caches.nix).
 
 Some relevant commands
 
