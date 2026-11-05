@@ -19,16 +19,18 @@
 
   nix = {
     optimise.automatic = true;
-    settings = {
-      experimental-features = [
-        "nix-command"
-        "flakes"
-        "pipe-operators"
-      ];
-      netrc-file = config.sops.templates.".netrc".path;
-      allowed-users = users;
-      trusted-users = users;
-    };
+    settings =
+      {
+        experimental-features = [
+          "nix-command"
+          "flakes"
+          "pipe-operators"
+        ];
+        netrc-file = config.sops.templates.".netrc".path;
+        allowed-users = users;
+        trusted-users = users;
+      }
+      // import ../../caches.nix;
     extraOptions = ''
       !include ${config.sops.templates."nix-access-tokens.conf".path}
     '';

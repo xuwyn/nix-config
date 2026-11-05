@@ -17,6 +17,7 @@
 ├── lib/                   # helper libraries
 ├── deploy.nix             # remote deployment via deploy-rs
 ├── ci.nix                 # cache push CI
+├── caches.nix             # list of trusted caches
 ├── patches/               # input patches
 ├── scripts/               # custom shell scripts
 └── modules/
