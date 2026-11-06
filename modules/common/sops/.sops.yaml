@@ -4,50 +4,48 @@ keys:
   - &host_puffin age14eheqzwz35yg3engqjnqdpt0wcwnu6pg6rrwekk6atugzmhew43qmzjt7l
   - &host_lettuce age1zvxl63s4lj0mwmxy7mgek322cl5ltvx6253mnn2e8qjw7l0yfg7szarn8y
   - &user_wyn >-
-      age1yubikey1qvqsnfdlr7gf4ghunz70w7f38enneyxyg3augfdhkr6ngzs7w4pvu2pl4q4,
-      age1yubikey1q28582e0885lzx7qnfytngw5fzpx4qg2ves9kvvs59cvtgtsq58xswjqxca,
-      age1yubikey1qgzvgtzfr7spjhmtfnfc4gjk08vqwf3wddsl0lufu4mx9yqu0a2vzdgdx5v
+    age1yubikey1qvqsnfdlr7gf4ghunz70w7f38enneyxyg3augfdhkr6ngzs7w4pvu2pl4q4,
+    age1yubikey1q28582e0885lzx7qnfytngw5fzpx4qg2ves9kvvs59cvtgtsq58xswjqxca,
+    age1yubikey1qgzvgtzfr7spjhmtfnfc4gjk08vqwf3wddsl0lufu4mx9yqu0a2vzdgdx5v
 
 creation_rules:
-  - path_regex: mango\.yaml$
+  - path_regex: wyn\.yaml$
     key_groups:
       - age:
-        - *host_mango
-  - path_regex: lettuce\.yaml$
-    key_groups:
-      - age:
-        - *host_lettuce
+          - *host_mango
+          - *host_lettuce
+          - *host_puffin
   - path_regex: puffin\.yaml$
     key_groups:
       - age:
-        - *host_puffin
+          - *host_puffin
   - path_regex: tailscale\.yaml$
     key_groups:
       - age:
-        - *host_apricot
-        - *host_mango
-        - *host_puffin
-        - *host_lettuce
+          - *host_apricot
+          - *host_mango
+          - *host_puffin
+          - *host_lettuce
   - path_regex: access-tokens\.yaml$
     key_groups:
       - age:
-        - *host_mango
-        - *host_apricot
-        - *host_puffin
-        - *host_lettuce
-        - *user_wyn
+          - *host_mango
+          - *host_apricot
+          - *host_puffin
+          - *host_lettuce
+          - *user_wyn
   - path_regex: ssh\.yaml$
     key_groups:
       - age:
-        - *host_lettuce
-        - *host_puffin
-        - *user_wyn
+          - *host_lettuce
+          - *host_puffin
+          - *user_wyn
   - path_regex: git\.yaml$
     key_groups:
       - age:
-        - *host_lettuce
-        - *user_wyn
+          - *host_lettuce
+          - *user_wyn
   - path_regex: deploy\.yaml$
     key_groups:
       - age:
-        - *user_wyn
+          - *user_wyn

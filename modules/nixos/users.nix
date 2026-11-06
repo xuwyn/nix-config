@@ -68,11 +68,12 @@
 
       environment.shells = lib.unique (map (u: u.shell) (lib.attrValues cfg));
 
-      sops.secrets = lib.listToAttrs (map (u: {
-          name = "${u}_password";
-          value = {neededForUsers = true;};
+      sops.secrets = lib.mapAttrs' (name: u:
+        lib.nameValuePair "${name}_password" {
+          sopsFile = ../common/sops/${name}.yaml;
+          neededForUsers = true;
         })
-        (lib.filter (u: !(cfg.${u}.isDeployer or false)) users));
+      (lib.filterAttrs (_: u: !u.isDeployer) cfg);
     };
   };
 }
