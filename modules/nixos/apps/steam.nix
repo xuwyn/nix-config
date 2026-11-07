@@ -30,13 +30,15 @@
           remotePlay.openFirewall = true;
           dedicatedServer.openFirewall = false;
           gamescopeSession.enable = true;
-          extraCompatPackages = [
-            pkgs.proton-ge-bin
-          ];
+          # extraCompatPackages = [pkgs.proton-ge-bin];
         };
       }
 
       (lib.mkIf config.programs.steam.enable {
+        environment.systemPackages = with pkgs; [
+          protonup-qt
+        ];
+
         users.users = lib.genAttrs users (name: {
           extraGroups = ["gamemode"];
         });
