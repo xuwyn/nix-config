@@ -15,7 +15,4 @@ in [
       patches = (old.patches or []) ++ [../../patches/microfetch-logo.patch];
     });
   })
-
-  # cachyOS kernel (pinned version for cache hit)
-  inputs.nix-cachyos-kernel.overlays.pinned
 ]

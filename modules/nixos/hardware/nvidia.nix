@@ -36,7 +36,7 @@
           modesetting.enable = lib.mkDefault true;
           open = lib.mkDefault true; # RTX 50xx requires the open kernel module
           nvidiaSettings = lib.mkDefault true;
-          package = config.boot.kernelPackages.nvidiaPackages.stable;
+          package = lib.mkDefault config.boot.kernelPackages.nvidiaPackages.stable;
         };
 
         hardware.graphics = {

@@ -11,6 +11,8 @@
   }: let
     wm = self.wrapperModules.${system};
   in {
+    imports = [inputs.chaotic.nixosModules.default]; # for cachyos kernel
+
     environment.systemPackages = with wm; [
       (ff {})
       (bottom {})
@@ -34,7 +36,8 @@
       plugins = [pkgs.age-plugin-yubikey];
     };
 
-    boot.kernelPackages = pkgs.cachyosKernels.linuxPackages-cachyos-bore-lto-zen4;
+    boot.kernelPackages = pkgs.linuxPackages_cachyos;
+    hardware.nvidia.package = pkgs.nvidia_cachyos;
 
     services = {
       upower.enable = false;

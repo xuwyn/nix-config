@@ -6,6 +6,7 @@
     "barutsrb-tap": "github:BarutSRB/homebrew-tap",
     "catppuccin-helix": "github:catppuccin/helix",
     "catppuccin-yazi": "github:yazi-rs/flavors",
+    "chaotic": "github:chaotic-cx/nyx/nyxpkgs-unstable",
     "cressida": "github:Ly-sec/Cressida",
     "deploy-rs": "github:serokell/deploy-rs/16901271e5b30b591e56f7a84f25f186fb20f3e1",
     "disko": "github:nix-community/disko",
@@ -16,7 +17,6 @@
     "mac-app-util": "github:hraban/mac-app-util",
     "microfetch": "github:NotAShelf/microfetch",
     "multiverse": "github:fzakaria/nixpkgs-multiverse",
-    "nix-cachyos-kernel": "github:xddxdd/nix-cachyos-kernel/release",
     "nix-darwin": "github:nix-darwin/nix-darwin/master",
     "nix-homebrew": "github:zhaofengli/nix-homebrew",
     "nix-index-database": "github:nix-community/nix-index-database",
@@ -87,13 +87,21 @@
     "narHash": "sha256-E1OUF1+mT0V3crVxkewG2Y7hRu8fO+0oRl6NlINmw+o=",
     "lastModified": 1790697555
   },
+  "chaotic": {
+    "type": "github",
+    "owner": "chaotic-cx",
+    "repo": "nyx",
+    "rev": "e47c2b41686d87d20700a70c3042bf0289e84cdb",
+    "narHash": "sha256-7rNFUW/bYS/f8VLvykvkH2I9W8HnNQti2LDYrY7O08w=",
+    "lastModified": 1793976113
+  },
   "cressida": {
     "type": "github",
     "owner": "Ly-sec",
     "repo": "Cressida",
-    "rev": "28c6ac3f6da29773c3e669f022fb4fde07bac59c",
-    "narHash": "sha256-14B1hnBJ39BTK93CA7EFMizU41jtC4YSAIIIeO4peMA=",
-    "lastModified": 1793995860
+    "rev": "3bc3c9a4f8f567ef4be9c6d5b3a3d78bd3b07de6",
+    "narHash": "sha256-sgGvnQu6+JjGEouo61QOcI/iHfo5k+i/hOcCUh1hx+A=",
+    "lastModified": 1794047399
   },
   "deploy-rs": {
     "type": "github",
@@ -170,14 +178,6 @@
     "rev": "c383d9b846ec7d11c1339269e856f27940747d85",
     "narHash": "sha256-sOFz490dEM8jXchGlzkWQl6RvszmbuiwKKLoUPlHlBg=",
     "lastModified": 1793393137
-  },
-  "nix-cachyos-kernel": {
-    "type": "github",
-    "owner": "xddxdd",
-    "repo": "nix-cachyos-kernel",
-    "rev": "baa4163a89b8c008039dc115ca225507d706b769",
-    "narHash": "sha256-2Cs9aEZlLlRsm8Kcj/ZGgEmlGLOEnFkk2X+bCVg4PW0=",
-    "lastModified": 1793311259
   },
   "nix-darwin": {
     "type": "github",

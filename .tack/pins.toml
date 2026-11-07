@@ -48,10 +48,6 @@ type = "fetch"
 url  = "github:BarutSRB/homebrew-tap"
 type = "fetch"
 
-[inputs.nix-cachyos-kernel]
-url            = "github:xddxdd/nix-cachyos-kernel/release"
-exclude_follow = ["nixpkgs"]
-
 [inputs.nix-index-database]
 url = "github:nix-community/nix-index-database"
 
@@ -154,3 +150,7 @@ tag = "v{version}"
 
 [inputs.noctalia-plymouth]
 url = "github:VuiMuich/noctalia-plymouth-theme"
+
+[inputs.chaotic]
+url            = "github:chaotic-cx/nyx/nyxpkgs-unstable"
+exclude_follow = ["nixpkgs"]
