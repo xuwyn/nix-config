@@ -19,7 +19,6 @@
       binfmt.enable = false;
       nix-ld.enable = false;
       preservation.enable = false;
-      scheduler.enable = false;
       printing.enable = false;
       yubikey.enable = false;
       zram.enable = false;

@@ -1,5 +1,6 @@
 {
   platforms = ["linux"];
+  tags = ["desktop"];
   module = {
     pkgs,
     config,

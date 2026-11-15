@@ -25,7 +25,6 @@
       (spicetify {})
       (maa-cli {})
       (nvf {})
-      (sonora {})
       (ff {})
     ];
 
