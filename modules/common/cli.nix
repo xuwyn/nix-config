@@ -3,6 +3,7 @@
   module = {
     self,
     system,
+    inputs,
     ...
   }: let
     packages = with self.wrapperModules.${system}; [
@@ -11,7 +12,7 @@
       (tealdeer {})
       (ns {})
       (nh {})
-      (shop {})
+      inputs.nix-index-database.packages.${system}.comma-with-db
     ];
   in {
     environment.systemPackages = packages;

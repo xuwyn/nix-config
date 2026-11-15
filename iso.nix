@@ -48,6 +48,7 @@
                         sh "$script"
                       '';
                     })
+                    inputs.nix-index-database.packages.${system}.comma-with-db
                   ]
                   ++ (with self.wrapperModules.${system}; [
                     (nvf {})

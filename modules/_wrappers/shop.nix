@@ -11,10 +11,10 @@
   in
     pkgs.runCommand "shop-comma" {
       nativeBuildInputs = [pkgs.makeWrapper];
-      meta.mainProgram = ",";
+      meta.mainProgram = ",,";
     } ''
       mkdir -p $out/bin
-      makeWrapper ${shop}/bin/shop "$out/bin/," \
+      makeWrapper ${shop}/bin/shop "$out/bin/,," \
         --prefix PATH : ${lib.makeBinPath [nixIndex]}
     '');
 }
