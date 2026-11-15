@@ -257,7 +257,10 @@
     };
     umbriel_overview_type_to_launch_enabled = true;
     avatar_path = "~/.face";
-    screenshot.directory = "~/Pictures/Screenshots";
+    screenshot = {
+      directory = "~/Pictures/Screenshots";
+      copy_on_close = true;
+    };
     date_format = "%A, %Y %b %d";
     font_family = "Maple Mono NF";
     password_style = "random";

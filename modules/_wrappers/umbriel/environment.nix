@@ -1,5 +1,5 @@
 {desktop, ...}: let
-  inherit (desktop) editor terminal;
+  inherit (desktop) editor terminal cursor;
 in {
   ELECTRON_OZONE_PLATFORM_HINT = "auto";
   SDL_VIDEODRIVER = "wayland";
@@ -10,8 +10,8 @@ in {
   MOZ_ENABLE_WAYLAND = "1";
   GDK_SCALE = "1";
   QT_SCALE_FACTOR = "1";
-  XCURSOR_THEME = "Bibata-Modern-Ice"; # duplicated (╯`Д´）╯︵ ┻━┻
-  XCURSOR_SIZE = "24";
+  XCURSOR_THEME = cursor.name; # duplicated (╯`Д´）╯︵ ┻━┻
+  XCURSOR_SIZE = cursor.size;
   EDITOR = editor;
   TERMINAL = terminal;
   XDG_TERMINAL_EMULATOR = terminal;

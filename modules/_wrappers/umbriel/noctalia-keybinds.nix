@@ -10,7 +10,7 @@
   }
   {
     key = "SUPER + CTRL + A";
-    command = "noctalia msg screenshot-annotate";
+    command = "noctalia msg screenshot-region --annotate";
   }
   {
     key = "SUPER + SHIFT + A";
@@ -96,10 +96,8 @@
   {
     key = "SUPER + CTRL + SHIFT + S";
     command = ''
-      noctalia msg screenshot-region \
-        --no-annotate --no-save-to-file --no-copy-to-clipboard \
-        --pipe-to-command \
-        --pipe-command 'sh -c "tesseract stdin stdout | wl-copy" && \
+      noctalia msg screenshot-region --no-annotate --no-save-to-file --no-copy-to-clipboard \
+        --pipe-to-command --pipe-command 'sh -c "tesseract stdin stdout | wl-copy" && \
         noctalia msg notification-show "Copied to clipboard"'
     '';
   }

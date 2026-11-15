@@ -39,6 +39,7 @@ in
     "Mod+Y" = "scratchpad-toggle yazi";
     "Ctrl+Shift+Escape" = "scratchpad-toggle btop";
     "Mod+Q" = "window-close";
+    "Mod+Shift+Q" = "window-kill";
     "Mod+Delete" = "session-quit";
     "Mod+Slash" = "cheatsheet-toggle";
 

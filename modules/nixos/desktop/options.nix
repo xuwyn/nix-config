@@ -2,13 +2,17 @@
   hjemCompat = true;
   tags = ["desktop"];
   platforms = ["linux"];
-  module = {lib, ...}: {
+  module = {
+    lib,
+    pkgs,
+    ...
+  }: {
     options.custom.desktop = {
       startupCommands = lib.mkOption {
         type = lib.types.listOf lib.types.str;
         default = [];
-        description = "Host-specific shell commands to run at WM startup";
       };
+
       monitors = lib.mkOption {
         type = lib.types.listOf (lib.types.submodule {
           options = {
@@ -33,22 +37,36 @@
           };
         });
         default = [];
-        description = "Monitor settings for WMs";
       };
+
+      cursor = {
+        name = lib.mkOption {
+          type = lib.types.str;
+          default = "Bibata-Modern-Ice";
+        };
+        size = lib.mkOption {
+          type = lib.types.str;
+          default = "24";
+        };
+        package = lib.mkOption {
+          type = lib.types.package;
+          default = pkgs.bibata-cursors;
+        };
+      };
+
       terminal = lib.mkOption {
         type = lib.types.enum ["kitty" "ghostty"];
         default = "kitty";
-        description = "Choose default terminal";
       };
+
       browser = lib.mkOption {
         type = lib.types.str;
         default = "firefox";
-        description = "Choose default browser";
       };
+
       editor = lib.mkOption {
         type = lib.types.str;
         default = "nvim";
-        description = "Choose default editor";
       };
     };
   };
