@@ -49,7 +49,6 @@
         alsa.enable = lib.mkDefault true;
         alsa.support32Bit = true;
         pulse.enable = lib.mkDefault true;
-        jack.enable = lib.mkDefault true;
       };
     };
 

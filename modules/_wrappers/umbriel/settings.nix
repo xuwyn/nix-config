@@ -84,7 +84,7 @@ in {
       hide_timeout_ms = 0; # Idle hide timeout, 0 disables; maximum is 3600000
     };
     focus = {
-      follows_mouse = true; # Focus on pointer motion and Dwindle/master tiles revealed on close
+      follows_mouse = "sloppy";
       follows_mouse_max_scroll = 0.3;
     };
   };

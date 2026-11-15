@@ -26,13 +26,14 @@
     "nixos-raspberrypi": "github:nvmd/nixos-raspberrypi/main",
     "nixos-wsl": "github:nix-community/NixOS-WSL/main",
     "nixpkgs": "https://channels.nixos.org/nixos-unstable/nixexprs.tar.xz",
+    "nixpkgs-stable": "https://channels.nixos.org/nixos-26.05/nixexprs.tar.zst",
     "noctalia": "github:noctalia-dev/noctalia/cachix",
     "noctalia-plymouth": "github:VuiMuich/noctalia-plymouth-theme",
     "nur-expressions": "gitlab:rycee/nur-expressions",
     "nvf": "github:notashelf/nvf",
     "preservation": "github:nix-community/preservation",
     "silentSDDM": "github:uiriansan/SilentSDDM",
-    "sonora": "github:sonorahq/sonora",
+    "sonora": "github:sonorahq/sonora/stable",
     "sops-nix": "github:Mic92/sops-nix",
     "spicetify-nix": "github:Gerg-L/spicetify-nix",
     "umbrella-fetch": "github:xuwyn/Umbrella-Fetch",
@@ -103,9 +104,9 @@
     "type": "github",
     "owner": "Ly-sec",
     "repo": "Cressida",
-    "rev": "3e789156885af43b28187983d0ae21f59089f625",
-    "narHash": "sha256-VmsXi4iDLQ61lllGLh9zM4tBfY2JMPKt7wFZY48G0VM=",
-    "lastModified": 1794404075
+    "rev": "7540dca52fb29159c87c96fe49630076fe400f2a",
+    "narHash": "sha256-Wk/ncAFckEPS+VRESV6HpKmPeutmPrFXHn2bWYUwEj8=",
+    "lastModified": 1794685517
   },
   "deploy-rs": {
     "type": "github",
@@ -266,13 +267,20 @@
     "narHash": "sha256-W60urNAgQVS8bhNWH0bQsYoiagds8m38oTDUjEOM9FE=",
     "lastModified": 1794386569
   },
+  "nixpkgs-stable": {
+    "type": "tarball",
+    "url": "https://releases.nixos.org/nixos/26.05/nixos-26.05.14234.f1e5c356f35d/nixexprs.tar.zst?rev=f1e5c356f35d07e7b71a6b5e6c9338e0b029e0c0&lastModified=1794552581",
+    "rev": "f1e5c356f35d07e7b71a6b5e6c9338e0b029e0c0",
+    "narHash": "sha256-C0bP9ShRkxihpkAiWel93+JypO7ls9usnHRtK2VLvWA=",
+    "lastModified": 1794552581
+  },
   "noctalia": {
     "type": "github",
     "owner": "noctalia-dev",
     "repo": "noctalia",
-    "rev": "4933674079ecf7545cc23cd5f1cd77c3e74f8e09",
-    "narHash": "sha256-6CcXjs7GWM9C1asbHSAmfM++ut9jM77nHIXz3FM3hHg=",
-    "lastModified": 1794626679
+    "rev": "3e17932af6c5bb36c90cf425f89935c84a8e0ec7",
+    "narHash": "sha256-vNjpDgByudEFJMRTmQmmdGtlXgiVT/bA4+W8tYDXeF0=",
+    "lastModified": 1794704722
   },
   "noctalia-plymouth": {
     "type": "github",
@@ -318,9 +326,9 @@
     "type": "github",
     "owner": "sonorahq",
     "repo": "sonora",
-    "rev": "5ee03cb01d25c9d48c398e4c89303e2632b28bde",
-    "narHash": "sha256-fZvoJKUbh0+wHHodA2cIfoxbzxYpEmLKVpFH5K2wylo=",
-    "lastModified": 1794586168
+    "rev": "1a8c69fdd7a31feca8d12aa69b70d5debf358cf9",
+    "narHash": "sha256-NBNONmF4TV4mR6dRdUueJ76XUeJUAwuX/m90Oo7v51A=",
+    "lastModified": 1794538710
   },
   "sops-nix": {
     "type": "github",

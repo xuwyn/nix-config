@@ -7,7 +7,7 @@
     shell = {
       type = types.string;
       mutators = ["/zsh"];
-      mergeFunc = merge.strings.concatLines;
+      merge = merge.strings.concatLines;
     };
     fontFamily = {
       type = types.string;

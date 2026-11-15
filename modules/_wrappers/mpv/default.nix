@@ -7,7 +7,8 @@
         autoload
         modernz
         thumbfast
+        mpris
       ]);
-    configFile.default = ./modernz.conf;
+    configFile.default = ./mpv.conf;
   };
 }

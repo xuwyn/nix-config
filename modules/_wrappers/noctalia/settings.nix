@@ -187,7 +187,15 @@
       // (mkPerMonitorWidgets "lockscreen-audio-visualizer" lockscreenAudioVisualizer);
   };
   plugin_settings = {
-    "noctalia/screen_recorder".video_encoder = "cpu"; # nvidia driver is a bit behind
+    "nilsonlinux/world-radio" = {
+      Panel_open_near_click = true;
+      Panel_placement = "attached";
+      Panel_position = "auto";
+    };
+    "noctalia/screen_recorder" = {
+      video_encoder = "cpu"; # nvidia driver is a bit behind
+      video_source = "region";
+    };
     "avivbintangaringga/nix-monitor" = {
       clean_command = "nh clean all";
     };
@@ -237,6 +245,7 @@
     ];
   };
   shell = {
+    show_location = false;
     window_switcher = {
       mru = true;
       show_caption = false;
@@ -412,7 +421,12 @@
         show_text = false;
         type = "avivbintangaringga/nix-monitor:nix-monitor";
       };
-    radio = noPadding // {type = "nilsonlinux/world-radio:radio";};
+    radio =
+      noPadding
+      // {
+        type = "nilsonlinux/world-radio:radio";
+        show_now_playing = true;
+      };
     recorder = noPadding // {type = "noctalia/screen_recorder:recorder";};
     ram = noPadding // {show_value = false;};
     sysmon =

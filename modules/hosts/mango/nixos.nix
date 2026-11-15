@@ -36,6 +36,8 @@
       plugins = [pkgs.age-plugin-yubikey];
     };
 
+    # cachyos kernel
+    chaotic.nyx.cache.enable = false; # disable this due to duplication
     boot.kernelPackages = pkgs.linuxPackages_cachyos;
     hardware.nvidia.package = pkgs.nvidia_cachyos;
 

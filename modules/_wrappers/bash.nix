@@ -13,16 +13,16 @@
     bashrc = {
       type = types.string;
       mutators = ["/bash"];
-      mergeFunc = merge.strings.concatLines;
+      merge = merge.strings.concatLines;
     };
     extraBashrc = {
       type = types.string;
       mutators = ["/bash" "/zoxide"];
-      mergeFunc = merge.strings.concatLines;
+      merge = merge.strings.concatLines;
     };
     variables = {
       type = types.attrs;
-      mergeFunc = merge.attrs.recursively;
+      merge = merge.attrs.recursively;
     };
     extraAliases = {
       type = types.attrs;
@@ -30,13 +30,13 @@
     };
     aliases = {
       type = types.attrsOf types.string;
-      mergeFunc = merge.attrs.recursively;
+      merge = merge.attrs.recursively;
       default = adios.promise ({options}: import ./shell/aliases.nix // options.extraAliases);
     };
     extraPackages = {
       type = types.listOf types.derivation;
       mutators = ["/bash" "/eza" "/zoxide"];
-      mergeFunc = merge.lists.concat;
+      merge = merge.lists.concat;
     };
     package = {
       type = types.derivation;

@@ -51,7 +51,7 @@
   }: let
     pkgs = inputs.nixpkgs.pkgs;
     lib = pkgs.lib;
-    sonora = flakeInputs.sonora.packages.${pkgs.stdenv.hostPlatform.system}.sonora-bin;
+    sonora = flakeInputs.sonora.packages.${pkgs.stdenv.hostPlatform.system}.default;
 
     generated =
       (pkgs.formats.json {}).generate "sonora-settings.json"

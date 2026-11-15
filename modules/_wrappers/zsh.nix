@@ -63,7 +63,7 @@
 
     extraZshrc = {
       mutators = ["/zsh" "/starship" "/zoxide"];
-      mergeFunc = merge.strings.concatLines;
+      merge = merge.strings.concatLines;
     };
   };
 

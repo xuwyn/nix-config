@@ -13,7 +13,7 @@
       cargoLock.lockFile = "${src}/Cargo.lock";
       cargoBuildFlags = ["--package" "maa-cli"];
       nativeBuildInputs = [pkgs.pkg-config];
-      buildInputs = [pkgs.openssl];
+      buildInputs = with pkgs; [openssl libgit2];
       doCheck = false;
       meta.mainProgram = "maa";
     };

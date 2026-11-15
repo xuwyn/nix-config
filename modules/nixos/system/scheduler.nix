@@ -18,10 +18,12 @@
 
     config = lib.mkIf cfg.enable {
       # Please read https://wiki.cachyos.org/configuration/sched-ext/
-      services.scx = {
+      services.scx-loader = {
         enable = lib.mkDefault true;
-        scheduler = lib.mkDefault "scx_lavd";
-        extraArgs = lib.mkDefault ["--autopower"];
+        config = {
+          scheduler = lib.mkDefault "scx_lavd";
+          extraArgs = lib.mkDefault ["--autopower"];
+        };
       };
 
       services.ananicy = {

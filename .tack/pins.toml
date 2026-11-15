@@ -26,6 +26,9 @@ nixpkgs = "nixpkgs"
 [inputs.nixpkgs]
 url = "https://channels.nixos.org/nixos-unstable/nixexprs.tar.xz"
 
+[inputs.nixpkgs-stable]
+url = "https://channels.nixos.org/nixos-26.05/nixexprs.tar.zst"
+
 [inputs.nixos-raspberrypi]
 url            = "github:nvmd/nixos-raspberrypi/main"
 exclude_follow = ["nixpkgs"]
@@ -125,7 +128,8 @@ url  = "github:casualsnek/waydroid_script"
 type = "fetch"
 
 [inputs.sonora]
-url = "github:sonorahq/sonora"
+url            = "github:sonorahq/sonora/stable"
+exclude_follow = ["nixpkgs"]
 
 [inputs.maa-cli]
 url  = "github:MaaAssistantArknights/maa-cli"

@@ -29,7 +29,7 @@
       };
       rpi.puffin.tags = ["rpi5" "server"];
       darwin.apricot.tags = ["desktop"];
-      hjem."wyn@capybara".tags = ["desktop"];
+      hjem."${username}@capybara".tags = ["desktop"];
     };
 
     deployOutputs = import ./deploy.nix {
@@ -62,8 +62,19 @@
       ];
     in
       (adios root {options."/nixpkgs" = {inherit pkgs;};}).modules);
+
+    isoConfigurations = lib.listToAttrs (lib.concatMap (
+      system:
+        lib.mapAttrsToList (name: iso: lib.nameValuePair "${name}-${system}" iso) (
+          import ./iso.nix {
+            inherit inputs lib system;
+            inherit (args) self;
+          }
+        )
+    ) ["x86_64-linux" "aarch64-linux"]);
   in {
-    inherit (laminaOutputs) nixosConfigurations darwinConfigurations hjemConfigurations;
+    inherit (laminaOutputs) darwinConfigurations hjemConfigurations;
+    nixosConfigurations = laminaOutputs.nixosConfigurations // isoConfigurations;
     inherit (deployOutputs) deploy checks;
     inherit (ci) ciChecks ciMatrix;
     inherit wrapperModules;
