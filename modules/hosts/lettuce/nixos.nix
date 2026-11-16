@@ -26,6 +26,8 @@
       ssh.hosts = {
         apricot = {};
         puffin = {};
+        nopal = {};
+        "nopal.local" = {};
         "apricot.local" = {};
         "puffin.local" = {};
       };

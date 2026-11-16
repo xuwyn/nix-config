@@ -50,6 +50,8 @@
         mango = {};
         capybara = {};
         lettuce = {};
+        nopal = {};
+        "nopal.local" = {};
         "puffin.local" = {};
         "mango.local" = {};
         "capybara.local" = {};

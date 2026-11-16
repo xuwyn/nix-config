@@ -25,6 +25,7 @@
       };
       nixos = {
         mango.tags = ["desktop" "nvidia" "amd"];
+        nopal.tags = ["desktop"];
         lettuce.tags = ["wsl"];
       };
       rpi.puffin.tags = ["rpi5" "server"];

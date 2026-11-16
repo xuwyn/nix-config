@@ -87,13 +87,27 @@
               ".ssh"
               ".gnupg"
               ".pki"
+              ".mozilla"
               "Documents"
               "Downloads"
               "Pictures"
               "Videos"
               "Music"
             ];
-            defaultUserFiles = [];
+            defaultUserFiles = [
+              {
+                file = ".gitconfig";
+                how = "symlink";
+              }
+              {
+                file = ".bash_history";
+                how = "symlink";
+              }
+              {
+                file = ".zsh_history";
+                how = "symlink";
+              }
+            ];
           in
             mapAttrs
             (_: u: {

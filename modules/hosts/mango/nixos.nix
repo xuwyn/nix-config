@@ -53,6 +53,8 @@
       ssh.hosts = {
         apricot = {};
         puffin = {};
+        nopal = {};
+        "nopal.local" = {};
         "apricot.local" = {};
         "puffin.local" = {};
       };
@@ -71,29 +73,13 @@
 
       preservation.users.wyn = {
         directories = [
-          "Shared"
           ".android"
-          ".mozilla"
           ".steam"
-        ];
-        files = [
-          {
-            file = ".gitconfig";
-            how = "symlink";
-          }
-          {
-            file = ".bash_history";
-            how = "symlink";
-          }
-          {
-            file = ".zsh_history";
-            how = "symlink";
-          }
         ];
       };
 
       displayManager.mode = "silent";
-      nixcord.noctaliaThemeEnabled = true;
+      # nixcord.noctaliaThemeEnabled = true;
 
       desktop = {
         monitors = map (name: {
@@ -104,6 +90,7 @@
           y = 0;
           refresh = 164.955;
         }) ["DP-1" "DP-4"];
+
         startupCommands = [
           "fcitx5 -d -r"
           "pkill openrgb; sleep 1; openrgb --startminimized --profile purple;"
