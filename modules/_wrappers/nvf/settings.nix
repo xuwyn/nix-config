@@ -118,7 +118,9 @@
 
       -- change number colours based on catppuccin to be more visible
       local function number_hl()
-        local c = require("catppuccin.palettes").get_palette()
+        local ok, palettes = pcall(require, "catppuccin.palettes")
+        if not ok or not (vim.g.colors_name or ""):match("^catppuccin") then return end
+        local c = palettes.get_palette()
         vim.api.nvim_set_hl(0, "LineNr", { fg = c.overlay2 })
         vim.api.nvim_set_hl(0, "LineNrAbove", { fg = c.overlay2 })
         vim.api.nvim_set_hl(0, "LineNrBelow", { fg = c.overlay2 })
