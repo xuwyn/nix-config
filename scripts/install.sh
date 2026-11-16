@@ -7,6 +7,7 @@ set -o pipefail
 # ---------------------------------------------------------------- settings --
 REPO_URL="${REPO_URL:-https://github.com/xuwyn/nix-config.git}"
 REPO_DIR="${REPO_DIR:-$HOME/nix-config}"
+REPO_BRANCH="${REPO_BRANCH:-}" # empty = remote default branch
 
 # Where a host's files live in the repo (relative to repo root, %s = hostname).
 HOST_DIR_FMT="${HOST_DIR_FMT:-modules/hosts/%s}"
@@ -59,11 +60,23 @@ cleanup() {
 }
 
 # ------------------------------------------------------------------- repo ----
+if [[ -z "$REPO_BRANCH" ]]; then
+  read -rp "Branch to use [repo default]: " REPO_BRANCH
+fi
+
 if [[ -d "$REPO_DIR/.git" ]]; then
   echo "Updating existing repo at $REPO_DIR"
+  git -C "$REPO_DIR" fetch origin || true
+  if [[ -n "$REPO_BRANCH" ]]; then
+    git -C "$REPO_DIR" checkout "$REPO_BRANCH"
+  fi
   git -C "$REPO_DIR" pull --ff-only || true
 else
-  git clone "$REPO_URL" "$REPO_DIR"
+  if [[ -n "$REPO_BRANCH" ]]; then
+    git clone --branch "$REPO_BRANCH" "$REPO_URL" "$REPO_DIR"
+  else
+    git clone "$REPO_URL" "$REPO_DIR"
+  fi
 fi
 
 while true; do
@@ -74,11 +87,13 @@ while true; do
   echo "Invalid hostname (letters, digits and hyphens only)."
 done
 
-read -rp "Primary username: " USERNAME
-[[ -n "$USERNAME" ]] || {
-  echo "Username required."
-  exit 1
-}
+while true; do
+  read -rp "Primary username: " USERNAME
+  if [[ "$USERNAME" =~ ^[a-z_][a-z0-9_-]{0,31}$ ]]; then
+    break
+  fi
+  echo "Invalid username (lowercase letters, digits, '_' and '-', must not start with a digit or '-', max 32 chars)."
+done
 
 HOST_DIR="$REPO_DIR/${HOST_DIR_FMT//%s/$HOST}"
 mkdir -p "$HOST_DIR"
@@ -207,7 +222,7 @@ sudo nixos-install --root /mnt --flake "$REPO_DIR#$HOST" --no-root-password \
 # ---------------------------------------------------------- post-install ----
 echo "Copying repo to /persist/home/$USERNAME/nix-config"
 sudo mkdir -p "/mnt/persist/home/$USERNAME"
-sudo cp -r "$REPO_DIR" "/mnt/persist/home/$USERNAME/nix-config"
+sudo cp -a "$REPO_DIR" "/mnt/persist/home/$USERNAME/nix-config"
 # The user doesn't exist on the ISO, so use numeric uid:gid (1000:users=100)
 sudo chown -R 1000:100 "/mnt/persist/home/$USERNAME"
 
