@@ -28,7 +28,6 @@
     "nixpkgs": "https://channels.nixos.org/nixos-unstable/nixexprs.tar.xz",
     "nixpkgs-stable": "https://channels.nixos.org/nixos-26.05/nixexprs.tar.zst",
     "noctalia": "github:noctalia-dev/noctalia/cachix",
-    "noctalia-plymouth": "github:VuiMuich/noctalia-plymouth-theme",
     "nur-expressions": "gitlab:rycee/nur-expressions",
     "nvf": "github:notashelf/nvf",
     "preservation": "github:nix-community/preservation",
@@ -262,10 +261,10 @@
   },
   "nixpkgs": {
     "type": "tarball",
-    "url": "https://releases.nixos.org/nixos/unstable/nixos-26.11pre1117658.d4f25a3e5620/nixexprs.tar.xz?rev=d4f25a3e562008648d45bcf2d70bcc7422cad84e&lastModified=1794386569",
-    "rev": "d4f25a3e562008648d45bcf2d70bcc7422cad84e",
-    "narHash": "sha256-W60urNAgQVS8bhNWH0bQsYoiagds8m38oTDUjEOM9FE=",
-    "lastModified": 1794386569
+    "url": "https://releases.nixos.org/nixos/unstable/nixos-26.11pre1119549.d5cc68339997/nixexprs.tar.xz?lastModified=1794537146&rev=d5cc6833999746cffdfe0598f7bc801a57b887a9",
+    "rev": "d5cc6833999746cffdfe0598f7bc801a57b887a9",
+    "narHash": "sha256-bTKSclXJAmo9qdxPedTBHUGr8awPr4BrbOoOutJsYIc=",
+    "lastModified": 1794537146
   },
   "nixpkgs-stable": {
     "type": "tarball",
@@ -281,14 +280,6 @@
     "rev": "3e17932af6c5bb36c90cf425f89935c84a8e0ec7",
     "narHash": "sha256-vNjpDgByudEFJMRTmQmmdGtlXgiVT/bA4+W8tYDXeF0=",
     "lastModified": 1794704722
-  },
-  "noctalia-plymouth": {
-    "type": "github",
-    "owner": "VuiMuich",
-    "repo": "noctalia-plymouth-theme",
-    "rev": "c449d9fc9db4278ba19649e97fd042cb08b456d5",
-    "narHash": "sha256-0wQ1CKB4ezPzCwdQRmCHs+/gf2x37ay2t43LcPh1DNk=",
-    "lastModified": 1793561410
   },
   "nur-expressions": {
     "type": "gitlab",

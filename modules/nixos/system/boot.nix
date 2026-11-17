@@ -20,15 +20,8 @@
         kernel.sysctl."vm.max_map_count" = 2147483642;
         loader.systemd-boot.enable = true;
         loader.efi.canTouchEfiVariables = true;
-        plymouth = {
-          enable = lib.mkDefault true;
-          theme = "noctalia";
-          themePackages = [
-            inputs.noctalia-plymouth.packages.${pkgs.stdenv.hostPlatform.system}.default
-          ];
-          font = "${pkgs.inter}/share/fonts/truetype/InterVariable.ttf";
-        };
       };
+      services.bootvine.enable = true;
     };
   };
 }
