@@ -19,6 +19,7 @@ BOOT_LABEL="NIXBOOT"       # FAT32 filesystem label
 LUKS_PARTLABEL="cryptroot" # GPT partition label (/dev/disk/by-partlabel/...)
 MAPPER_NAME="cryptroot"    # /dev/mapper/<name>
 BTRFS_LABEL="nixos"
+SWAP_PARTLABEL="swap"
 
 export NIX_CONFIG="experimental-features = nix-command flakes pipe-operators"
 
@@ -47,6 +48,18 @@ prompt_secret() { # prompt_secret "label" VARNAME
     fi
     echo "Empty or mismatched, try again."
   done
+}
+
+# Recommended swap size in GiB
+# Without hibernation: sqrt(RAM), minimum 2 GiB (used here)
+# With hibernation: at least RAM size (not possible with randomEncryption swap)
+recommended_swap_gib() {
+  local kb gib n=1
+  kb="$(awk '/^MemTotal:/ {print $2}' /proc/meminfo)"
+  gib=$(((kb + 1048575) / 1048576)) # round up, MemTotal is slightly below physical
+  while ((n * n < gib)); do n=$((n + 1)); done
+  ((n < 2)) && n=2
+  echo "$n"
 }
 
 cleanup() {
@@ -86,6 +99,8 @@ while true; do
   fi
   echo "Invalid hostname (letters, digits and hyphens only)."
 done
+
+nix eval "$REPO_DIR#nixosConfigurations.$HOST" --apply 'builtins.isAttrs' >/dev/null
 
 while true; do
   read -rp "Primary username: " USERNAME
@@ -146,46 +161,101 @@ if [[ "$DISK" =~ [0-9]$ ]]; then PART_SEP="p"; else PART_SEP=""; fi
 BOOT_PART="${DISK}${PART_SEP}1"
 ROOT_PART="${DISK}${PART_SEP}2"
 
-echo
-echo "Boot partition: $BOOT_PART"
-echo "LUKS partition: $ROOT_PART"
-echo
-echo "!! The ENTIRE disk $DISK will be wiped !!"
-read -rp "Type the disk path again to confirm: " confirm
-[[ "$confirm" == "$DISK" ]] || {
-  echo "Mismatch, aborting."
-  exit 1
-}
+REUSE=0
+USE_SWAP=0
 
-prompt_secret "LUKS passphrase" LUKS_PASS
+# Offer to reuse a layout from an earlier (failed) run on this same disk.
+existing="$(readlink -f "/dev/disk/by-partlabel/$LUKS_PARTLABEL" 2>/dev/null || true)"
+if [[ "$existing" == "$(readlink -f "$ROOT_PART")" ]] &&
+  yesno "Found an existing install layout on $DISK. Skip formatting and reuse it?"; then
+  REUSE=1
+  if [[ -e "/dev/disk/by-partlabel/$SWAP_PARTLABEL" ]] &&
+    [[ "$(readlink -f "/dev/disk/by-partlabel/$SWAP_PARTLABEL")" == "$(readlink -f "${DISK}${PART_SEP}3")" ]]; then
+    USE_SWAP=1
+    SWAP_PART="$(readlink -f "/dev/disk/by-partlabel/$SWAP_PARTLABEL")"
+  fi
+fi
+
+if ((REUSE)); then
+  echo "Reusing existing layout (nothing will be formatted)."
+  read -rsp "LUKS passphrase: " LUKS_PASS
+  echo
+else
+  echo
+  echo "Boot partition: $BOOT_PART"
+  echo "LUKS partition: $ROOT_PART"
+  echo
+  echo "!! The ENTIRE disk $DISK will be wiped !!"
+  read -rp "Type the disk path again to confirm: " confirm
+  [[ "$confirm" == "$DISK" ]] || {
+    echo "Mismatch, aborting."
+    exit 1
+  }
+
+  if yesno "Create a swap partition?"; then
+    USE_SWAP=1
+    rec="$(recommended_swap_gib)"
+    while true; do
+      read -rp "Swap size in GiB [recommended: $rec]: " SWAP_GIB
+      SWAP_GIB="${SWAP_GIB:-$rec}"
+      if [[ "$SWAP_GIB" =~ ^[1-9][0-9]*$ ]]; then
+        break
+      fi
+      echo "Enter a whole number of GiB."
+    done
+    SWAP_PART="${DISK}${PART_SEP}3"
+    echo "Swap partition: $SWAP_PART (${SWAP_GIB}G)"
+  fi
+
+  prompt_secret "LUKS passphrase" LUKS_PASS
+fi
 
 # ----------------------------------------------------------- partitioning ----
 cleanup
-echo "Partitioning $DISK"
 sudo swapoff -a || true
-sudo wipefs -af "$DISK"
-sudo sgdisk --zap-all "$DISK"
-sudo sgdisk -n1:1M:+1G -t1:EF00 -c1:"$BOOT_LABEL" "$DISK"
-sudo sgdisk -n2:0:0 -t2:8309 -c2:"$LUKS_PARTLABEL" "$DISK"
-sudo partprobe "$DISK" || true
-sudo udevadm settle
-sleep 2
 
-echo "Formatting boot"
-sudo mkfs.fat -F 32 -n "$BOOT_LABEL" "$BOOT_PART"
+if ((! REUSE)); then
+  echo "Partitioning $DISK"
+  sudo wipefs -af "$DISK"
+  sudo sgdisk --zap-all "$DISK"
+  sudo sgdisk -n1:1M:+1G -t1:EF00 -c1:"$BOOT_LABEL" "$DISK"
+  if ((USE_SWAP)); then
+    sudo sgdisk -n3:0:+"${SWAP_GIB}G" -t3:8200 -c3:"$SWAP_PARTLABEL" "$DISK"
+  fi
+  sudo sgdisk -n2:0:0 -t2:8309 -c2:"$LUKS_PARTLABEL" "$DISK"
+  sudo partprobe "$DISK" || true
+  sudo udevadm settle
+  sleep 2
 
-echo "Setting up LUKS"
-printf '%s' "$LUKS_PASS" | sudo cryptsetup luksFormat --batch-mode --type luks2 --key-file=- "$ROOT_PART"
+  echo "Formatting boot"
+  sudo mkfs.fat -F 32 -n "$BOOT_LABEL" "$BOOT_PART"
+
+  if ((USE_SWAP)); then
+    echo "Creating swap"
+    sudo mkswap -L SWAP "$SWAP_PART"
+  fi
+
+  echo "Setting up LUKS"
+  printf '%s' "$LUKS_PASS" | sudo cryptsetup luksFormat --batch-mode --type luks2 --key-file=- "$ROOT_PART"
+fi
+
+echo "Opening LUKS"
 printf '%s' "$LUKS_PASS" | sudo cryptsetup open --allow-discards --key-file=- "$ROOT_PART" "$MAPPER_NAME"
 unset LUKS_PASS
 
-echo "Creating btrfs"
-sudo mkfs.btrfs -f -L "$BTRFS_LABEL" "/dev/mapper/$MAPPER_NAME"
-sudo mount "/dev/mapper/$MAPPER_NAME" /mnt
-for sv in root nix persist; do
-  sudo btrfs subvolume create "/mnt/$sv"
-done
-sudo umount /mnt
+if ((USE_SWAP)); then
+  sudo swapon "$SWAP_PART" || true
+fi
+
+if ((! REUSE)); then
+  echo "Creating btrfs"
+  sudo mkfs.btrfs -f -L "$BTRFS_LABEL" "/dev/mapper/$MAPPER_NAME"
+  sudo mount "/dev/mapper/$MAPPER_NAME" /mnt
+  for sv in root nix persist; do
+    sudo btrfs subvolume create "/mnt/$sv"
+  done
+  sudo umount /mnt
+fi
 
 OPTS="compress=zstd,noatime"
 sudo mount -o "$OPTS,subvol=root" "/dev/mapper/$MAPPER_NAME" /mnt
@@ -198,6 +268,7 @@ sudo mount -o umask=0077 "$BOOT_PART" /mnt/boot
 echo "Generating hardware-configuration.nix"
 nixos-generate-config --no-filesystems --show-hardware-config >"$HOST_DIR/_hardware-configuration.nix"
 git -C "$REPO_DIR" add -f "$HOST_DIR/_hardware-configuration.nix"
+nix eval "$REPO_DIR#nixosConfigurations.$HOST.config.system.build.toplevel.drvPath" >/dev/null
 
 # ------------------------------------------------- generate identity files --
 echo "Installing host key and machine-id in /persist"
@@ -222,6 +293,7 @@ sudo nixos-install --root /mnt --flake "$REPO_DIR#$HOST" --no-root-password \
 # ---------------------------------------------------------- post-install ----
 echo "Copying repo to /persist/home/$USERNAME/nix-config"
 sudo mkdir -p "/mnt/persist/home/$USERNAME"
+sudo rm -rf "/mnt/persist/home/$USERNAME/nix-config"
 sudo cp -a "$REPO_DIR" "/mnt/persist/home/$USERNAME/nix-config"
 # The user doesn't exist on the ISO, so use numeric uid:gid (1000:users=100)
 sudo chown -R 1000:100 "/mnt/persist/home/$USERNAME"
@@ -236,6 +308,9 @@ Don't forget to commit $HOST_DIR/_hardware-configuration.nix.
 EOF
 
 if yesno "Unmount and reboot into firmware setup now?"; then
+  if ((USE_SWAP)); then
+    sudo swapoff "$SWAP_PART"
+  fi
   sudo umount -R /mnt
   sudo cryptsetup close "$MAPPER_NAME"
   systemctl reboot --firmware-setup

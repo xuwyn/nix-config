@@ -39,13 +39,13 @@ in
     "Mod+Y" = "scratchpad-toggle yazi";
     "Ctrl+Shift+Escape" = "scratchpad-toggle btop";
     "Mod+Q" = "window-close";
-    "Mod+Shift+Q" = "window-kill";
+    "Mod+Shift+Q" = ''spawn pkill -9 "$(umbriel focused-window --json | , jq -r .app_id)"''; # need comma
     "Mod+Delete" = "session-quit";
     "Mod+Slash" = "cheatsheet-toggle";
 
     # Focus navigation
-    "Mod+Shift+WheelUp" = "window-focus-right";
-    "Mod+Shift+WheelDown" = "window-focus-left";
+    "Mod+Alt+WheelUp" = "window-focus-right";
+    "Mod+Alt+WheelDown" = "window-focus-left";
     "Mod+Left" = "window-focus-left";
     "Mod+Down" = "window-focus-or-workspace-down";
     "Mod+Up" = "window-focus-or-workspace-up";
@@ -67,6 +67,8 @@ in
     };
 
     # Windows/columns movement
+    "Mod+Shift+WheelUp" = "window-move-or-workspace-up";
+    "Mod+Shift+WheelDown" = "window-move-or-workspace-down";
     "Mod+Shift+Left" = "window-move-left";
     "Mod+Shift+Down" = "window-move-or-workspace-down";
     "Mod+Shift+Up" = "window-move-or-workspace-up";

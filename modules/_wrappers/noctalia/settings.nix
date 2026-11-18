@@ -345,7 +345,7 @@
     source = "wallpaper";
     wallpaper_scheme = "faithful";
     templates = {
-      builtin_ids = ["btop" "cava" "gtk3" "gtk4" "helix" "ghostty" "kitty" "umbriel" "qt"];
+      builtin_ids = ["btop" "cava" "gtk3" "gtk4" "helix" "ghostty" "kitty" "umbriel" "qt" "luciole"];
       community_ids = ["yazi" "sonora" "pywalfox" "discord" "cressida" "zed" "neovim" "papirus-icons"];
     };
   };

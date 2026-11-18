@@ -107,7 +107,7 @@
   }
   {
     key = "SUPER + SHIFT + R";
-    command = "pkill noctalia; sleep 1; noctalia;";
+    command = "pkill noctalia; sleep 1; noctalia";
   }
   {
     key = "CTRL + ALT + DELETE";

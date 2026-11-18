@@ -10,9 +10,9 @@
   {
     match.app_id = "^dev.noctalia.Noctalia$";
     default_floating = true;
-    default_floating_size_px = {
-      width = 1020;
-      height = 900;
+    default_floating_size = {
+      width = 0.7;
+      height = 0.9;
     };
   }
   {

@@ -16,6 +16,13 @@
     # put these here temporarily
     boot.initrd.luks.devices."cryptroot".device = "/dev/disk/by-partlabel/cryptroot";
 
+    swapDevices = [
+      {
+        device = "/dev/disk/by-partlabel/swap";
+        randomEncryption.enable = true;
+      }
+    ];
+
     fileSystems = let
       btrfs = subvol: {
         device = "/dev/disk/by-label/nixos";
@@ -51,10 +58,19 @@
       plugins = [pkgs.age-plugin-yubikey];
     };
 
-    # use cressida for now
-    programs.nixcord.enable = false;
+    programs = {
+      nixcord.enable = false;
+      steam.enable = false;
+    };
+
+    services.openrgb.enable = false;
+    virtualisation.waydroid.enable = false;
 
     custom = {
+      binfmt.enable = false;
+      nix-ld.enable = false;
+      printing.enable = false;
+
       ssh.hosts = {
         apricot = {};
         puffin = {};
@@ -65,17 +81,16 @@
       };
 
       displayManager.mode = "tui";
-      # nixcord.noctaliaThemeEnabled = true;
 
       desktop = {
-        monitors = map (name: {
-          inherit name;
-          width = 1920;
-          height = 1080;
+        monitors = {
+          name = "eDP-1";
+          width = 1440;
+          height = 900;
           x = 0;
           y = 0;
-          refresh = 164.955;
-        }) ["DP-1" "DP-4"];
+          refresh = 60;
+        };
 
         startupCommands = [
           "fcitx5 -d -r"
