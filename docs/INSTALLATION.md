@@ -84,7 +84,7 @@ git clone https://github.com/xuwyn/nix-config.git ~/nix-config
 
 # Format disk with disko
 sudo nix --experimental-features "nix-command flakes pipe-operators" \
-run github:nix-community/disko -- --mode disko --flake ./nix-config#new-host
+run github:nix-community/disko -- --mode "destroy,format,mount" --flake ./nix-config#new-host
 
 # Generate ssh key directly on the target disk
 # (sshd-keygen won't run until first boot)

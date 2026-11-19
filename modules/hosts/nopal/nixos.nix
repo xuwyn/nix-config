@@ -13,33 +13,6 @@
   in {
     # imports = [./_hardware-configuration.nix];
 
-    # put these here temporarily
-    boot.initrd.luks.devices."cryptroot".device = "/dev/disk/by-partlabel/cryptroot";
-
-    swapDevices = [
-      {
-        device = "/dev/disk/by-partlabel/swap";
-        randomEncryption.enable = true;
-      }
-    ];
-
-    fileSystems = let
-      btrfs = subvol: {
-        device = "/dev/disk/by-label/nixos";
-        fsType = "btrfs";
-        options = ["subvol=${subvol}" "compress=zstd" "noatime"];
-      };
-    in {
-      "/" = btrfs "root";
-      "/nix" = btrfs "nix";
-      "/persist" = btrfs "persist" // {neededForBoot = true;};
-      "/boot" = {
-        device = "/dev/disk/by-label/NIXBOOT";
-        fsType = "vfat";
-        options = ["umask=0077"];
-      };
-    };
-
     environment.systemPackages = with wm; [
       (ff {})
       (bottom {})
@@ -63,7 +36,7 @@
       steam.enable = false;
     };
 
-    services.openrgb.enable = false;
+    services.hardware.openrgb.enable = false;
     virtualisation.waydroid.enable = false;
 
     custom = {
@@ -83,14 +56,16 @@
       displayManager.mode = "tui";
 
       desktop = {
-        monitors = {
-          name = "eDP-1";
-          width = 1440;
-          height = 900;
-          x = 0;
-          y = 0;
-          refresh = 60;
-        };
+        monitors = [
+          {
+            name = "eDP-1";
+            width = 1440;
+            height = 900;
+            x = 0;
+            y = 0;
+            refresh = 60;
+          }
+        ];
 
         startupCommands = [
           "fcitx5 -d -r"
