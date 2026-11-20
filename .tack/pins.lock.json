@@ -59,9 +59,14 @@
     "type": "github",
     "owner": "xuwyn",
     "repo": "assets",
-    "rev": "79f8fba39de6ef0c1fcfcd7b71e4c3eb3edca54f",
-    "narHash": "sha256-JRSd0kRgxWKTigxIfiz01NFuC0YfrYERKcFaPe0BPLI=",
-    "lastModified": 1790432228
+    "rev": "7f65572b03961be52e984439adfe4f917bbfc246",
+    "narHash": "sha256-ybXS+64UPmqW87WChVYUaYI9WG+bJ1Fa3zZk8aDXxFM=",
+    "lastModified": 1795150064,
+    "archive": {
+      "hash": "sha256-Z5th4XCvVDj+8s1WBXgsD4QjDS+BYuIjEHvOwliKMdo=",
+      "outHash": "sha256-dARxl9wX2iUd66cH1pTISCHm6gL/tOhzr6AKKWJvMj0="
+    },
+    "public": true
   },
   "barutsrb-tap": {
     "type": "github",
@@ -277,9 +282,10 @@
     "type": "github",
     "owner": "noctalia-dev",
     "repo": "noctalia",
-    "rev": "b2a278271b2bbd4267ce4d16f3c38cc09a81029e",
-    "narHash": "sha256-YsqUBxNZlZfwRtOBYZHqRFgdp9dkXOTTUNRKa6WQc2M=",
-    "lastModified": 1794878897
+    "rev": "230768446cd5073308de92f8f8e599be2ab2e629",
+    "narHash": "sha256-bjgMufwdsDaLQ/AZFUBilfy+RQkZlFKNLZIwpbJMA/c=",
+    "lastModified": 1795147210,
+    "public": true
   },
   "nur-expressions": {
     "type": "gitlab",

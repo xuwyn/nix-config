@@ -68,23 +68,25 @@
           enable = lib.mkDefault true;
           theme = "silvia";
           backgrounds = {
-            cyTus = "${inputs.assets}/sddm/cyTus.mp4";
-            frame-1 = "${inputs.assets}/sddm/frame-1.png";
+            # cyTus = "${inputs.assets}/sddm/cyTus.mp4";
+            # frame-1 = "${inputs.assets}/sddm/frame-1.png";
+            touhou = "${inputs.assets}/sddm/Touhou3.mp4";
+            frame-2 = "${inputs.assets}/sddm/frame-2.png";
           };
           profileIcons = lib.genAttrs users (name: cfg.profileIcons.${name} or "${inputs.assets}/face.jpg");
           settings = {
             "General" = {
               scale = 1.0;
               enable-animations = true;
-              animated-background-placeholder = "frame-1.png";
+              animated-background-placeholder = "frame-2.png";
               background-fill-mode = "fill";
             };
             "LockScreen" = {
-              background = "cyTus.mp4";
+              background = "Touhou3.mp4";
               saturation = 0;
             };
             "LoginScreen" = {
-              background = "cyTus.mp4";
+              background = "Touhou3.mp4";
             };
           };
         };

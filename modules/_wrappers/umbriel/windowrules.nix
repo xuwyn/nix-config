@@ -88,7 +88,7 @@
     };
   }
   {
-    match.app_id = ''^([Ss]wayimg)$'';
+    match.app_id = ''^([Ss]wayimg|mpv)$'';
     default_focused = true;
     default_floating = true;
   }
