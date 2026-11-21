@@ -72,9 +72,8 @@
               networking.networkmanager.enable = true;
 
               # old hardware compat -- comment these out on newer hardware
-              boot.kernelModules = ["wl"];
               boot.extraModulePackages = [config.boot.kernelPackages.broadcom_sta];
-              boot.blacklistedKernelModules = ["b43" "bcma"];
+              boot.blacklistedKernelModules = ["b43" "bcma" "ssb"];
               nixpkgs.config.permittedInsecurePackages = ["broadcom-sta-6.30.223.271-59-${config.boot.kernelPackages.kernel.version}"];
 
               # bye bye xterm
@@ -148,6 +147,6 @@
     };
 in {
   kde-iso = mkIso inputs.nixpkgs-stable "installation-cd-graphical-calamares-plasma6";
-  minimal-iso = mkIso inputs.nixpkgs-stable "installation-cd-minimal-combined";
+  minimal-iso = mkIso inputs.nixpkgs-stable "installation-cd-minimal"; # use `-combined` for latest kernel
   cosmic-iso = mkIso inputs.nixpkgs-stable "installation-cd-graphical-calamares-cosmic";
 }

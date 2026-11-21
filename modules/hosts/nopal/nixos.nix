@@ -13,9 +13,8 @@
   in {
     imports = [./_hardware-configuration.nix];
 
-    boot.kernelModules = ["wl"];
     boot.extraModulePackages = [config.boot.kernelPackages.broadcom_sta];
-    boot.blacklistedKernelModules = ["b43" "bcma"];
+    boot.blacklistedKernelModules = ["b43" "bcma" "ssb"];
     nixpkgs.config.permittedInsecurePackages = ["broadcom-sta-6.30.223.271-63-${config.boot.kernelPackages.kernel.version}"];
 
     environment.systemPackages = with wm; [
