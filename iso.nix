@@ -66,23 +66,16 @@
                 };
               };
 
-              # use nmtui instead of wpa_supplicant for minimal iso
-              networking.wireless.enable = lib.mkForce false;
+              # qol
+              nixpkgs.config.allowUnfree = true;
+              hardware.enableRedistributableFirmware = true;
               networking.networkmanager.enable = true;
 
-              # update greeting for iso to suggest networkmanager
-              services.getty.helpLine = lib.mkForce (
-                ''
-                  The "nixos" and "root" accounts have empty passwords, but SSH password
-                  login is disabled. SSH in as root with your key once the network is up.
-
-                  No ethernet? Connect to wifi with `nmtui`, then find your IP with `ip -br a`.
-                ''
-                + lib.optionalString config.services.xserver.enable ''
-                  Type `sudo systemctl start display-manager` to
-                  start the graphical user interface.
-                ''
-              );
+              # old hardware compat -- comment these out on newer hardware
+              boot.kernelModules = ["wl"];
+              boot.extraModulePackages = [config.boot.kernelPackages.broadcom_sta];
+              boot.blacklistedKernelModules = ["b43" "bcma"];
+              nixpkgs.config.permittedInsecurePackages = ["broadcom-sta-6.30.223.271-59-${config.boot.kernelPackages.kernel.version}"];
 
               # bye bye xterm
               services.xserver.excludePackages = [pkgs.xterm];
@@ -97,22 +90,35 @@
                 };
               };
               systemd.services.sshd.wantedBy = lib.mkForce ["multi-user.target"];
-              users.users.root.openssh.authorizedKeys.keyFiles = [
-                ./modules/common/keys/openssh_key.pub
-              ];
+              users.users = {
+                root.openssh.authorizedKeys.keyFiles = [./modules/common/keys/openssh_key.pub];
+                nixos.openssh.authorizedKeys.keyFiles = [./modules/common/keys/openssh_key.pub];
+              };
 
               # nix.conf
               nix = {
                 package = pkgs.nixVersions.latest;
-                settings =
-                  {
-                    experimental-features = [
-                      "nix-command"
-                      "flakes"
-                      "pipe-operators"
-                    ];
-                  }
-                  // import ./caches.nix;
+                settings = let
+                  caches = import ./caches.nix;
+                in {
+                  experimental-features = [
+                    "nix-command"
+                    "flakes"
+                    "pipe-operators"
+                  ];
+
+                  extra-substituters =
+                    lib.subtractLists [
+                      "https://puffin.tail9fb2b9.ts.net/main"
+                    ]
+                    caches.extra-substituters;
+
+                  extra-trusted-public-keys =
+                    lib.subtractLists [
+                      "main:AOInzGo25vK/CX+//GtecGc5zoePljsTyLki/rliiS8="
+                    ]
+                    caches.extra-trusted-public-keys;
+                };
               };
             }
           )

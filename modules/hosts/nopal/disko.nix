@@ -8,7 +8,7 @@
         main = {
           type = "disk";
           # TODO: replace with the SSD's id (run `ls -l /dev/disk/by-id` on the ISO)
-          device = "/dev/disk/by-id/REPLACE-ME";
+          device = "/dev/sda";
           content = {
             type = "gpt";
             partitions = {
