@@ -49,6 +49,8 @@
                       '';
                     })
                     inputs.nix-index-database.packages.${system}.comma-with-db
+                    pkgs.age-plugin-yubikey
+                    pkgs.yubikey-manager
                   ]
                   ++ (with self.wrapperModules.${system}; [
                     (nvf {})
@@ -93,6 +95,20 @@
                 root.openssh.authorizedKeys.keyFiles = [./modules/common/keys/openssh_key.pub];
                 nixos.openssh.authorizedKeys.keyFiles = [./modules/common/keys/openssh_key.pub];
               };
+
+              # yubikey reader
+              services.pcscd.enable = true;
+
+              # let non-root user talk to pcscd over ssh
+              security.polkit.extraConfig = ''
+                polkit.addRule(function(action, subject) {
+                  if ((action.id == "org.debian.pcsc-lite.access_pcsc" ||
+                       action.id == "org.debian.pcsc-lite.access_card") &&
+                      subject.isInGroup("wheel")) {
+                    return polkit.Result.YES;
+                  }
+                });
+              '';
 
               # nix.conf
               nix = {

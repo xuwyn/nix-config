@@ -46,6 +46,9 @@
       nix-ld.enable = false;
       printing.enable = false;
 
+      # need declaration
+      preservation.users.wyn = {};
+
       ssh.hosts = {
         apricot = {};
         puffin = {};
