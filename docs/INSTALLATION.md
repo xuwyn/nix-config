@@ -93,15 +93,19 @@ sudo ssh-keygen -t ed25519 -f /mnt/etc/ssh/ssh_host_ed25519_key -N ""
 
 # Derive age key from the host's ssh key and add it to .sops.yaml
 cat /mnt/etc/ssh/ssh_host_ed25519_key.pub | ssh-to-age
-vi nix-config/modules/common/sops/.sops.yaml
+cd nix-config/modules/common/sops && vi .sops.yaml
 
 # Create user password in hash
 mkpasswd -m yescrypt
 
-# Add the hashed password to new-host.yaml
-sops nix-config/modules/common/sops/new-host.yaml
+# Add the hashed password to new-user.yaml
+sops new-user.yaml
+
+# Or updatekeys if user password file already exists
+sudo -E sops updatekeys username.yaml
 
 # Install NixOS
+cd
 sudo nixos-install --root /mnt --flake ./nix-config#new-host
 
 # Copy host keys to /persist/etc
@@ -110,8 +114,8 @@ sudo cp -r /mnt/etc/ssh /mnt/persist/etc/
 # Copy current repo to /persist/home/new-user
 sudo cp -r nix-config /mnt/persist/home/new-user/
 
-# Fix ownership (might not work if new-user is not defined in the ISO)
-sudo chown -R new-user:users /mnt/persist/home/new-user/nix-config
+# Fix ownership (new-user is not defined in the ISO)
+sudo chown -R 1000:100 /mnt/persist/home/new-user/nix-config
 
 # Reboot into UEFI
 systemctl reboot --firmware-setup

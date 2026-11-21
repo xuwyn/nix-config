@@ -11,7 +11,7 @@
   }: let
     wm = self.wrapperModules.${system};
   in {
-    # imports = [./_hardware-configuration.nix];
+    imports = [./_hardware-configuration.nix];
 
     boot.kernelModules = ["wl"];
     boot.extraModulePackages = [config.boot.kernelPackages.broadcom_sta];
@@ -26,8 +26,6 @@
       (cava {noctaliaThemeEnabled = true;})
       (btop {noctaliaThemeEnabled = true;})
       (kitty {noctaliaThemeEnabled = true;})
-      (zeditor {noctaliaThemeEnabled = true;})
-      (sonora {noctaliaThemeEnabled = true;})
       (yazi {noctaliaThemeEnabled = true;})
     ];
 
