@@ -116,76 +116,136 @@
   location.auto_locate = true;
   lockscreen.blur_intensity = 0.0;
   lockscreen_widgets = let
-    lockscreenLoginBox = {
-      box_height = 196.0;
-      box_width = 810.0;
-      cx = 960.0;
-      cy = 910.0;
+    margin = 28.0; # fixed gap between login box bottom and screen bottom
+    loginSize = {
+      w = 810.0;
+      h = 196.0;
+    };
+    vizSize = {
+      w = 800.0;
+      h = 208.0;
+    };
+
+    # round to nearest, keep as float so TOML emits 960.0 not 960
+    round = x: builtins.floor (x + 0.5) * 1.0;
+
+    placement = mon: {
+      output = mon.name;
+      placement_width = mon.width * 1.0;
+      placement_height = mon.height * 1.0;
       rotation = 0.0;
-      type = "login_box";
-      settings = {
-        background_color = "surface_container";
-        background_opacity = 0.88;
-        background_radius = 12.0;
-        center_password_text = true;
-        input_opacity = 1.0;
-        input_radius = 6.0;
-        layout = "regular";
-        show_caps_lock = true;
-        show_keyboard_layout = true;
-        show_login_button = true;
-        show_media = true;
-        show_session_buttons = true;
-        show_unlock_hint = false;
-        show_weather = true;
+    };
+
+    geometry = mon: let
+      w = mon.width * 1.0;
+      h = mon.height * 1.0;
+      loginCy = h - margin - loginSize.h / 2;
+      vizCy = h - margin - loginSize.h - vizSize.h / 2; # sits directly on top of the login box
+    in {
+      clock = {
+        cx = round (w / 2);
+        cy = round (h / 2); # true screen centre
+        box_width = 0.0;
+        box_height = 0.0;
+      };
+      login = {
+        cx = round (w / 2);
+        cy = round loginCy;
+        box_width = loginSize.w;
+        box_height = loginSize.h;
+      };
+      viz = {
+        cx = round (w / 2);
+        cy = round vizCy;
+        box_width = vizSize.w;
+        box_height = vizSize.h;
       };
     };
-    lockscreenAudioVisualizer = {
-      box_height = 288.0;
-      box_width = 816.0;
-      cx = 960.0;
-      cy = 668.0;
-      rotation = 0.0;
-      type = "audio_visualizer";
-      settings = {
-        background = false;
-        background_color = "surface";
-        background_opacity = 0.80;
-        background_padding = 10;
-        background_radius = 12;
-        bands = 52;
-        centered = false;
-        color_1 = "primary";
-        color_2 = "primary";
-        mirrored = true;
-        reversed = false;
-        show_when_idle = false;
-      };
+
+    loginSettings = {
+      background_color = "surface_container";
+      background_opacity = 0.88;
+      background_radius = 12.0;
+      center_password_text = true;
+      input_opacity = 1.0;
+      input_radius = 6.0;
+      layout = "regular";
+      show_caps_lock = true;
+      show_keyboard_layout = true;
+      show_login_button = true;
+      show_media = true;
+      show_media_controls = true;
+      show_password_reveal = true;
+      show_session_buttons = true;
+      show_unlock_hint = false;
+      show_weather = true;
     };
-    mkPerMonitorWidgets = prefix: base:
-      lib.listToAttrs (map (mon:
-        lib.nameValuePair "${prefix}@${mon.name}" (base
-          // {
-            output = mon.name;
-            placement_height = mon.height;
-            placement_width = mon.width;
-          }))
-      monitors);
+
+    clockSettings = {
+      background = false;
+      format = "{:%H:%M:%S}";
+    };
+
+    vizSettings = {
+      background = false;
+      background_color = "surface";
+      background_opacity = 0.80;
+      background_padding = 10;
+      background_radius = 12;
+      bands = 52;
+      centered = false;
+      color_1 = "primary";
+      color_2 = "primary";
+      mirrored = true;
+      reversed = false;
+      show_wave = false;
+      show_when_idle = false;
+    };
+
+    mkWidgets = mon: let
+      geo = geometry mon;
+      place = placement mon;
+    in {
+      "lockscreen-login-box@${mon.name}" =
+        place
+        // geo.login
+        // {
+          type = "login_box";
+          settings = loginSettings;
+        };
+      "lockscreen-clock@${mon.name}" =
+        place
+        // geo.clock
+        // {
+          type = "clock";
+          settings = clockSettings;
+        };
+      "lockscreen-audio-visualizer@${mon.name}" =
+        place
+        // geo.viz
+        // {
+          type = "audio_visualizer";
+          settings = vizSettings;
+        };
+    };
   in {
     enabled = true;
     schema_version = 1;
     widget_order =
-      (map (m: "lockscreen-login-box@${m.name}") monitors)
-      ++ (map (m: "lockscreen-audio-visualizer@${m.name}") monitors);
+      lib.concatMap (m: [
+        "lockscreen-login-box@${m.name}"
+        "lockscreen-clock@${m.name}"
+        "lockscreen-audio-visualizer@${m.name}"
+      ])
+      monitors;
     grid = {
       cell_size = 16;
       major_interval = 4;
       visible = true;
     };
-    widget =
-      (mkPerMonitorWidgets "lockscreen-login-box" lockscreenLoginBox)
-      // (mkPerMonitorWidgets "lockscreen-audio-visualizer" lockscreenAudioVisualizer);
+    widget = lib.mergeAttrsList (map mkWidgets monitors);
   };
+
   plugin_settings = {
     "nilsonlinux/world-radio" = {
       Panel_open_near_click = true;
