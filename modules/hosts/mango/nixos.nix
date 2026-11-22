@@ -11,7 +11,10 @@
   }: let
     wm = self.wrapperModules.${system};
   in {
-    imports = [inputs.chaotic.nixosModules.default]; # for cachyos kernel
+    imports = [
+      ./_hardware-configuration.nix
+      inputs.chaotic.nixosModules.default # for cachyos kernel
+    ];
 
     environment.systemPackages = with wm; [
       (ff {})
@@ -61,7 +64,6 @@
 
       zram.tmpMaxSize = "4096";
 
-      amd.cpu.enable = true;
       nvidia.hybrid = {
         enable = true;
         mode = "sync";

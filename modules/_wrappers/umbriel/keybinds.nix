@@ -83,6 +83,7 @@ in
     "Mod+Ctrl+Shift+J" = "window-move-to-workspace-next";
     "Mod+Bracketright" = "window-consume-or-expel-right";
     "Mod+Bracketleft" = "window-consume-or-expel-left";
+    "Mod+Shift+O" = "window-center";
 
     # Workspace movement
     "Mod+Alt+J" = "workspace-move-down";

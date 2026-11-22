@@ -24,7 +24,7 @@
         inherit flakePath;
       };
       nixos = {
-        mango.tags = ["desktop" "nvidia" "amd"];
+        mango.tags = ["desktop" "nvidia"];
         nopal.tags = ["desktop"];
         lettuce.tags = ["wsl"];
       };
