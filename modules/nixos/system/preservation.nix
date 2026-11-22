@@ -64,6 +64,7 @@
             [
               "/etc/NetworkManager"
               "/var"
+              "/root/.cache/nix"
               {
                 directory = "/etc/ssh";
                 inInitrd = true;
@@ -88,6 +89,7 @@
               ".gnupg"
               ".pki"
               ".mozilla"
+              ".cache/nix"
               "Documents"
               "Downloads"
               "Pictures"
