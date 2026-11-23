@@ -29,6 +29,19 @@ in {
       })
       (mkKeymapWithOpts "n" "<leader>dl" "<cmd>lua vim.diagnostic.open_float()<CR>" {desc = "Show diagnostic details";})
       (mkKeymapWithOpts "n" "<leader>dt" "<cmd>Trouble diagnostics toggle<CR>" {desc = "Toggle diagnostics list";})
+      # folding (nvim-ufo)
+      (mkKeymapWithOpts "n" "zR" "function() require('ufo').openAllFolds() end" {
+        lua = true;
+        desc = "Open all folds";
+      })
+      (mkKeymapWithOpts "n" "zM" "function() require('ufo').closeAllFolds() end" {
+        lua = true;
+        desc = "Close all folds";
+      })
+      (mkKeymapWithOpts "n" "zp" "function() require('ufo').peekFoldedLinesUnderCursor() end" {
+        lua = true;
+        desc = "Peek folded lines";
+      })
       # disable accidental F1 across modes
       (mkKeymapWithOpts ["n" "i" "v" "x" "s" "o" "t" "c"] "<F1>" "<Nop>" {desc = "Disable accidental F1 help";})
       # help

@@ -114,6 +114,9 @@ sudo cp -r /mnt/etc/ssh /mnt/persist/etc/
 # Copy current repo to /persist/home/new-user
 sudo cp -r nix-config /mnt/persist/home/new-user/
 
+# Copy user keys (if available) to /persist/home/new-user/.config/
+sudo cp -r sops /mnt/persist/home/new-user/.config/
+
 # Fix ownership (new-user is not defined in the ISO)
 sudo chown -R 1000:100 /mnt/persist/home/new-user/nix-config
 

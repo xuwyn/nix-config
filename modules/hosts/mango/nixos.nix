@@ -30,6 +30,7 @@
       (maa-cli {})
       (helix {})
       (nvf {})
+      (shop {})
       inputs.cressida.packages.${system}.default # cant wrap it 🥲
       inputs.umbrella-fetch.packages.${system}.default
     ];

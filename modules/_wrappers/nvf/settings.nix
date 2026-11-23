@@ -29,6 +29,12 @@
       direnv = {
         package = direnv-vim;
       };
+      promise-async = {
+        package = promise-async;
+      };
+      nvim-ufo = {
+        package = nvim-ufo;
+      };
     };
 
     options = {
@@ -43,6 +49,10 @@
       shiftwidth = 2;
       expandtab = true;
       shiftround = true; # round indent to multiple of 'shiftwidth' for > and < command
+      foldcolumn = "0";
+      foldlevel = 99;
+      foldlevelstart = 99;
+      foldenable = true;
     };
 
     clipboard = {
@@ -149,6 +159,18 @@
         vim.g.nix_formatter = "alejandra"
         vim.notify("nix formatter: alejandra")
       end, {})
+
+      -- treesitter folds, indent as fallback
+      require("ufo").setup({
+        provider_selector = function()
+          return { "treesitter", "indent" }
+        end,
+        preview = {
+          mappings = {
+            close = "<Esc>",
+          },
+        },
+      })
     '';
 
     formatter.conform-nvim = {
