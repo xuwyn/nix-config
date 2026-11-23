@@ -1,4 +1,18 @@
 #!/usr/bin/env bash
+#
+# install.sh
+#
+# Wipe and partition the target drive with disko, then install
+# nixosConfigurations.<hostname> from the current repository.
+#
+# Prerequisites:
+#   - The host's public key (ssh_host_ed25519_key.pub) is predefined
+#     in ../modules/common/sops/.sops.yaml
+#   - The matching private key (ssh_host_ed25519_key) is present on the
+#     installer iso at runtime (default: /tmp/ssh_host_ed25519_key)
+#   - nixosConfigurations.<hostname> already imports _hardware-configuration.nix
+#
+# Usage: ./install.sh
 
 set -o errexit
 set -o nounset

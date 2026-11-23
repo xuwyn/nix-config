@@ -103,6 +103,7 @@ for enlightening me on the power of wrappers! 🥹
 | [capybara](./modules/hosts/capybara/) | `x86_64-linux`   | CachyOS     | `hjem`   | [Umbriel](https://github.com/noctalia-dev/umbriel) + [Noctalia](https://github.com/noctalia-dev/noctalia) |
 | [lettuce](./modules/hosts/lettuce/)   | `x86_64-linux`   | WSL (NixOS) | `nixos`  |                                                                                                           |
 | [mango](./modules/hosts/mango/)       | `x86_64-linux`   | NixOS       | `nixos`  | [Umbriel](https://github.com/noctalia-dev/umbriel) + [Noctalia](https://github.com/noctalia-dev/noctalia) |
+| [nopal](./modules/hosts/nopal/)       | `x86_64-linux`   | NixOS       | `nixos`  | [Umbriel](https://github.com/noctalia-dev/umbriel) + [Noctalia](https://github.com/noctalia-dev/noctalia) |
 | [puffin](./modules/hosts/puffin/)     | `aarch64-linux`  | NixOS       | `rpi`    |                                                                                                           |
 
 ## Acknowledgement

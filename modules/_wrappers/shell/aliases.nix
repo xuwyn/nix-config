@@ -5,6 +5,7 @@
   ".." = "cd ..";
 
   cow = ", fortune | , cowsay | , lolcat";
+  colour = ", colorscript -e panes";
   mvs = "nix run github:fzakaria/nixpkgs-multiverse#mvs -- ";
   ncr = "nix run github:greyxp1/ncr -- ";
   nix-graph = "nix run github:AlexAntonik/nix-graph -- ";
