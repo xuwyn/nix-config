@@ -1,6 +1,7 @@
 {
   types,
   flakeInputs,
+  username,
   ...
 } @ adios: {
   inputs = {
@@ -44,7 +45,11 @@
       }: let
         inherit (inputs.nixpkgs) lib;
       in
-        (lib.recursiveUpdate (import ./settings.nix {inherit (options) desktop;}) options.extraSettings)
+        (lib.recursiveUpdate (import ./settings.nix {
+            inherit (options) desktop;
+            inherit username;
+          })
+          options.extraSettings)
         // {
           window_rule = import ./windowrules.nix ++ options.extraWindowRules;
           animation = lib.recursiveUpdate (import ./animation.nix) options.extraAnimation;
@@ -63,11 +68,22 @@
     options,
     inputs,
   }: let
-    pkgs = inputs.nixpkgs.pkgs;
+    inherit (inputs.nixpkgs) lib pkgs;
     configFile = (pkgs.formats.toml {}).generate "umbriel-config.toml" options.settings;
     umbriel = "${options.package}/bin/umbriel";
+
+    # inject -c when run bare (the session/service case) or with -s,
+    # leave subcommands like config-replace untouched
+    wrapped-umbriel = pkgs.writeShellScript "umbriel" ''
+      if [ "$#" -eq 0 ] || [ "$1" = "-s" ]; then
+        set -- -c ${lib.escapeShellArg configFile} "$@"
+      fi
+      exec ${umbriel} "$@"
+    '';
+
+    # hot reload service
     unitExec = ''
-      ExecStart=$out/bin/umbriel -c ${configFile}
+      ExecStart=$out/bin/umbriel
       ExecReload=$out/bin/umbriel config-replace ${configFile}
       X-ReloadIfChanged=true
       X-RestartIfChanged=false
@@ -80,19 +96,14 @@
       passthru.providedSessions = ["umbriel"];
       passthru.configFile = configFile; # expose this for hjem on non-nixos
       postBuild = ''
-        # replace these so display-manager can start umbriel with the right config
-        rm $out/bin/start-umbriel
-        substitute ${options.package}/bin/start-umbriel $out/bin/start-umbriel \
-          --replace-quiet ${umbriel} "$out/bin/umbriel -c ${configFile}"
-        chmod +x $out/bin/start-umbriel
+        ${umbriel} config validate -c ${configFile}
+
+        rm $out/bin/umbriel
+        ln -s ${wrapped-umbriel} $out/bin/umbriel
 
         rm $out/share/systemd/user/umbriel.service
         substitute ${options.package}/share/systemd/user/umbriel.service $out/share/systemd/user/umbriel.service \
           --replace-fail "ExecStart=${umbriel}" "${unitExec}"
-
-        rm $out/share/wayland-sessions/umbriel.desktop
-        substitute ${options.package}/share/wayland-sessions/umbriel.desktop $out/share/wayland-sessions/umbriel.desktop \
-          --replace-fail ${options.package}/bin/start-umbriel $out/bin/start-umbriel
       '';
     });
 }

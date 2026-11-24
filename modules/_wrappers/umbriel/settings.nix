@@ -1,4 +1,8 @@
-{desktop, ...}: let
+{
+  desktop,
+  username,
+  ...
+}: let
   inherit (desktop) startupCommands monitors;
 in {
   scratchpad = [
@@ -22,7 +26,7 @@ in {
     }
   ];
 
-  include.files = ["~/.config/umbriel/noctalia.toml"];
+  include.optional.files = ["/home/${username}/.config/umbriel/noctalia.toml"];
 
   general = {
     autostart = ["noctalia &"] ++ startupCommands;
