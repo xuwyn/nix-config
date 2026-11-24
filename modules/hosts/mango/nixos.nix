@@ -31,7 +31,7 @@
       (helix {})
       (nvf {})
       (shop {})
-      inputs.cressida.packages.${system}.default # cant wrap it 🥲
+      pkgs.cressida-ccache
       inputs.umbrella-fetch.packages.${system}.default
     ];
 
@@ -54,6 +54,10 @@
     programs.nixcord.enable = false;
 
     custom = {
+      ccache.packages = {
+        cressida-ccache = _: inputs.cressida.packages.${system}.default;
+      };
+
       ssh.hosts = {
         apricot = {};
         puffin = {};

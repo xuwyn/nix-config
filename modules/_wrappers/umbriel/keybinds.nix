@@ -114,6 +114,7 @@ in
     "Mod+Shift+Space" = "window-move-to-scratchpad empty";
     "Mod+Space" = "scratchpad-toggle empty";
     "Mod+Ctrl+Space" = "window-restore-from-scratchpad empty";
+    "Mod+Alt+Space" = "scratchpad-window-show-next empty";
 
     # Window Resize
     "Mod+Minus" = "window-modify-width-right -0.1";

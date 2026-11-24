@@ -87,7 +87,16 @@
       (firefox {})
       (spicetify {})
       (helix {})
-      (nvf {extraSettings = {config.vim.extraPackages = with pkgs; [nodejs wl-clipboard];};})
+      (nvf {
+        extraSettings = {
+          config.vim.extraPackages = with pkgs; [
+            nodejs
+            wl-clipboard
+            alejandra
+            nixfmt
+          ];
+        };
+      })
       (ff {})
       zeditor
       kitty
