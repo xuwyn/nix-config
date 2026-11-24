@@ -6,7 +6,10 @@
   inherit (desktop) startupCommands monitors;
 in {
   scratchpad = [
-    {name = "empty";}
+    {
+      name = "empty";
+      layout.mode = "scrolling";
+    }
     {
       name = "btop";
       spawn_when_empty = "kitty --class scratchpad-terminal btop";

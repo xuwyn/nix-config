@@ -128,7 +128,7 @@ url  = "github:casualsnek/waydroid_script"
 type = "fetch"
 
 [inputs.sonora]
-url            = "github:sonorahq/sonora/stable"
+url            = "github:sonorahq/sonora/nightly" # stable was not cached 😭
 exclude_follow = ["nixpkgs"]
 
 [inputs.maa-cli]

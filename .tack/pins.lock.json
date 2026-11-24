@@ -32,7 +32,7 @@
     "nvf": "github:notashelf/nvf",
     "preservation": "github:nix-community/preservation",
     "silentSDDM": "github:uiriansan/SilentSDDM",
-    "sonora": "github:sonorahq/sonora/stable",
+    "sonora": "github:sonorahq/sonora/nightly",
     "sops-nix": "github:Mic92/sops-nix",
     "spicetify-nix": "github:Gerg-L/spicetify-nix",
     "umbrella-fetch": "github:xuwyn/Umbrella-Fetch",
@@ -110,9 +110,9 @@
     "type": "github",
     "owner": "Ly-sec",
     "repo": "Cressida",
-    "rev": "4f8882110fc59ddc1aa3d63e15182863ca5d68aa",
-    "narHash": "sha256-W5achGCM8VUfWCw3RUHqAJParDuoaxaenTK0MUmKAq0=",
-    "lastModified": 1794944744,
+    "rev": "7e4b0cd87241597f81190812133581e32b7e16d6",
+    "narHash": "sha256-4JawtkejM/jb2wXDtJAYnHbiIw5sasceGTrrfocbiEE=",
+    "lastModified": 1795473400,
     "public": true
   },
   "deploy-rs": {
@@ -294,9 +294,9 @@
     "type": "github",
     "owner": "noctalia-dev",
     "repo": "noctalia",
-    "rev": "a5444b9a2c2bc7c1aed5c59298a268e45de14055",
-    "narHash": "sha256-3Bt4df3TM7shQGxQbSDBjYk74oemNvRl4KT3DmLZGF4=",
-    "lastModified": 1795184512,
+    "rev": "1de9999801cb8736fb5030a997db7e8409a45701",
+    "narHash": "sha256-p79LyoT3oztI1sA9CxFwntpRCU8pRx1lSPIOZPEeKUo=",
+    "lastModified": 1795487967,
     "public": true
   },
   "nur-expressions": {
@@ -336,9 +336,9 @@
     "type": "github",
     "owner": "sonorahq",
     "repo": "sonora",
-    "rev": "1cb2c2c5044b38c9c99a04eaf91e4411801f71f9",
-    "narHash": "sha256-7ZzK6O06iLgw0FuYpw2chBlvGazKsI63C/XWsdDKQFg=",
-    "lastModified": 1795130652,
+    "rev": "d8e6f1aad3078edecafb14ee799bcebcfcb0b20f",
+    "narHash": "sha256-NsgRIfGPccXlAUEXhY4MKS67aA1BMWS0fctZGS3wmo4=",
+    "lastModified": 1795436192,
     "public": true
   },
   "sops-nix": {
@@ -371,9 +371,9 @@
     "type": "github",
     "owner": "noctalia-dev",
     "repo": "umbriel",
-    "rev": "60639b8f4dcca747296c92cfa966d88ae287dc61",
-    "narHash": "sha256-B5pggfUTXJ31GFlAcuQoABcLNMOpkyAe1ljbi1lzRyc=",
-    "lastModified": 1795213831,
+    "rev": "a909081a934a80bb7685080884ffaaa30c857e4c",
+    "narHash": "sha256-MGbhwBptD1DPIS9M48hpwRnYUOmeW0H+48yWXAdzPZY=",
+    "lastModified": 1795398579,
     "public": true
   },
   "waydroid-script": {
