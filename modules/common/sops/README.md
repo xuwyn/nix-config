@@ -77,9 +77,10 @@ already has everything necessary for yubikey to work on NixOS.
 
 ### Flash firmware
 
-Clone the [RS-Key](https://github.com/TheMaxMur/RS-Key) repo to build the
-firmware with `VIDPID=Yubikey5`, which allows the RP2350 board to act like a
-knockoff yubikey for `ykman` and `age-plugin-yubikey`
+Clone the
+[RS-Key](https://github.com/TheMaxMur/RS-Key/tree/fe475aff71a77141b03620d7f2d36c32b5105a82)
+repo to build the firmware with `VIDPID=Yubikey5`, which allows the RP2350 board
+to act like a knockoff yubikey for `ykman` and `age-plugin-yubikey`
 
 ```sh
 git clone https://github.com/TheMaxMur/RS-Key.git
@@ -87,19 +88,20 @@ cd RS-Key
 nix develop
 
 # 4MB board:
-env VIDPID=Yubikey5 cargo build --release -p firmware
-scripts/pt.sh target/thumbv8m.main-none-eabihf/release/firmware firmware-pt.elf
+nix develop -c env VIDPID=Yubikey5 bash scripts/build.sh
 
 # 2MB board:
-env VIDPID=Yubikey5 FLASH_SIZE=2M KVMAIN=896K cargo build --release -p firmware
-scripts/pt.sh target/thumbv8m.main-none-eabihf/release/firmware firmware-pt.elf
+nix develop -c env VIDPID=Yubikey5 FLASH_SIZE=2M KVMAIN=896K bash scripts/build.sh
+
+# inspect the image
+, picotool info -a target/trustzone/combined.uf2
 
 # flash the firmware (hold BOOTSEL/BOOT button while plugging in, then run):
-sudo picotool load firmware-pt.elf -t elf
+, picotool load -v target/trustzone/combined.uf2 && , picotool reboot
 
 # verify
-lsusb | grep -i 1050        # Yubico VID (1209 for RS-Key)
-pcsc_scan                   # should list a reader, not hang empty
+, lsusb | grep -i 1050        # Yubico VID (1209 for RS-Key)
+, pcsc_scan                   # should list a reader, not hang empty
 ```
 
 ### Set PIV management key
