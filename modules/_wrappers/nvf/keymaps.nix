@@ -13,6 +13,8 @@ in {
       (mkKeymapWithOpts "n" "<leader>fb" "<cmd>Telescope buffers<CR>" {desc = "Open buffers";})
       # file tree
       (mkKeymapWithOpts "n" "<leader>fe" "<cmd>Neotree toggle<CR>" {desc = "File browser toggle";})
+      (mkKeymapWithOpts "n" "-" "<cmd>Oil<CR>" {desc = "Open parent directory (oil)";})
+      (mkKeymapWithOpts "n" "<leader>fo" "<cmd>Oil --float<CR>" {desc = "Oil (float)";})
       # terminal
       (mkKeymapWithOpts "n" "<leader>t" "<cmd>ToggleTerm<CR>" {desc = "Toggle terminal";})
       # comments

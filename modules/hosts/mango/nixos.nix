@@ -25,6 +25,7 @@
       (zeditor {noctaliaThemeEnabled = true;})
       (sonora {noctaliaThemeEnabled = true;})
       (yazi {noctaliaThemeEnabled = true;})
+      (zellij {noctaliaThemeEnabled = true;})
       (firefox {})
       (spicetify {})
       (maa-cli {})

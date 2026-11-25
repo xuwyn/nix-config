@@ -83,6 +83,7 @@
     hj.packages = with wm; [
       (cava {noctaliaThemeEnabled = true;})
       (btop {noctaliaThemeEnabled = true;})
+      (zellij {noctaliaThemeEnabled = true;})
       (yazi {noctaliaThemeEnabled = true;})
       (firefox {})
       (spicetify {})

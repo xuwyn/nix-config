@@ -31,7 +31,11 @@
       mocha = builtins.fromTOML (builtins.readFile "${flakeInputs.catppuccin-helix}/themes/default/catppuccin_mocha.toml");
       transparent =
         (pkgs.formats.toml {}).generate "catppuccin_transparent.toml"
-        (mocha // {"ui.background" = {};});
+        (mocha
+          // {
+            "ui.background" = {};
+            "ui.linenr" = mocha."ui.linenr.selected";
+          });
     in
       if options.noctaliaThemeEnabled
       then "/home/${options.username}/.config/helix/themes"
@@ -49,7 +53,10 @@
           if options.noctaliaThemeEnabled
           then "noctalia"
           else "catppuccin_transparent";
-        editor.evil = true;
+        editor = {
+          evil = true;
+          line-number = "relative";
+        };
         keys = {
           insert.j.k = "normal_mode";
           normal.space."." = "toggle_comments";

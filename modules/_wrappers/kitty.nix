@@ -57,6 +57,7 @@
         initial_window_width 1024
         initial_window_height 720
         macos_titlebar_color background
+        macos_option_as_alt yes
         background_opacity 0.85
         background_blur 20
         ${optionalString (options ? shell) "shell ${options.shell}"}

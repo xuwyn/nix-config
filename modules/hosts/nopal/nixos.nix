@@ -26,6 +26,7 @@
       (btop {noctaliaThemeEnabled = true;})
       (kitty {noctaliaThemeEnabled = true;})
       (yazi {noctaliaThemeEnabled = true;})
+      (zellij {noctaliaThemeEnabled = true;})
     ];
 
     sops.age = {

@@ -1,0 +1,17 @@
+show_startup_tips false
+show_release_notes false
+show_setup_screen false
+
+keybinds preset="default" {
+    unbind "Ctrl n" // conflicted with nvim
+    shared_except "resize" "locked" {
+        bind "Alt r" { SwitchToMode "Resize"; }
+    }
+    resize {
+        bind "Alt r" { SwitchToMode "Normal"; }
+    }
+}
+
+terminal {
+    macos_option_as_alt "both"
+}

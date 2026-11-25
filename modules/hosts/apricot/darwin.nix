@@ -18,6 +18,7 @@
     environment.systemPackages = with wm; [
       kitty
       zeditor
+      (zellij {})
       (cava {})
       (bottom {})
       (btop {})

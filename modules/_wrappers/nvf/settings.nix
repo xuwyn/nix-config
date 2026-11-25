@@ -317,6 +317,7 @@
     filetree = {
       neo-tree = {
         enable = true;
+        setupOpts.filesystem.hijack_netrw_behavior = "disabled";
       };
     };
 
@@ -375,6 +376,25 @@
         img-clip.enable = true;
       };
       preview.markdownPreview.enable = true;
+      oil-nvim = {
+        enable = true;
+        setupOpts = {
+          default_file_explorer = true;
+          delete_to_trash = true;
+          skip_confirm_for_simple_edits = true;
+          watch_for_changes = true;
+          view_options.show_hidden = true;
+          keymaps = {
+            "<C-h>" = false; # conflicted with smart-splits
+            "<C-l>" = false;
+          };
+          float = {
+            padding = 2;
+            border = "rounded";
+            win_options.winblend = 0;
+          };
+        };
+      };
     };
 
     notes = {

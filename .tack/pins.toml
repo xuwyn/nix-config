@@ -115,7 +115,7 @@ type = "fetch"
 [inputs.nvf]
 url = "github:notashelf/nvf"
 
-[inputs.catppuccin-helix]
+[inputs.catppuccin-helix] # for transparent bg override
 url  = "github:catppuccin/helix"
 type = "fetch"
 

@@ -13,6 +13,7 @@
       (bottom {})
       (yazi {})
       (nvf {})
+      (zellij {})
     ];
 
     custom = {
