@@ -110,9 +110,9 @@
     "type": "github",
     "owner": "Ly-sec",
     "repo": "Cressida",
-    "rev": "7e4b0cd87241597f81190812133581e32b7e16d6",
-    "narHash": "sha256-4JawtkejM/jb2wXDtJAYnHbiIw5sasceGTrrfocbiEE=",
-    "lastModified": 1795473400,
+    "rev": "6cbbf0abb033e51793126af15febdd6179543832",
+    "narHash": "sha256-XB2LDu/Ay5BE6+Dpd9ueRIK5xCvNdfWzhw8rzDwGxEE=",
+    "lastModified": 1795599651,
     "public": true
   },
   "deploy-rs": {

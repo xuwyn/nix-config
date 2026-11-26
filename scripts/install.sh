@@ -5,18 +5,40 @@
 # Wipe and partition the target drive with disko, then install
 # nixosConfigurations.<hostname> from the current repository.
 #
-# Prerequisites:
-#   - The host's public key (ssh_host_ed25519_key.pub) is predefined
-#     in ../modules/common/sops/.sops.yaml
-#   - The matching private key (ssh_host_ed25519_key) is present on the
-#     installer iso at runtime (default: /tmp/ssh_host_ed25519_key)
-#   - nixosConfigurations.<hostname> already imports _hardware-configuration.nix
-#
 # Usage: ./install.sh
 
 set -o errexit
 set -o nounset
 set -o pipefail
+
+cat <<'Introduction'
+
+This script wipes the target drive with disko, generates
+_hardware-configuration.nix without filesystem, and installs NixOS with
+preservation enabled. A copy of the updated repository will be placed at
+/persist/$HOME/nix-config after installation.
+
+** BEFORE YOU RUN THIS **
+  - The host public key must be listed in modules/common/sops/.sops.yaml,
+    with all relevant secret files (including the user password) re-keyed
+    to it. The matching private key (ssh_host_ed25519_key) must also exist on
+    this ISO (default: /tmp/ssh_host_ed25519_key).
+  - nixosConfigurations.<hostname> must exist and define the target disk(s)
+    in its disko config.
+  - The host's config must already import _hardware-configuration.nix. The
+    script generates the file, but it does not add the import line.
+
+** NOTE **
+Only x86_64-linux is supported. A binary cache for disko is not guaranteed
+on other platforms, which can force a build from source and exhaust memory
+on low-memory systems.
+
+** WARNING **
+Disko will DESTROY ALL DATA on the target disk(s) unless you choose to
+mount an existing layout instead. You will be asked for confirmation before
+any disk is wiped.
+
+Introduction
 
 # ---------------------------------------------------------------- settings --
 REPO_URL="${REPO_URL:-https://github.com/xuwyn/nix-config.git}"
