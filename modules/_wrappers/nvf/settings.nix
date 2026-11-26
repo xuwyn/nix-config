@@ -19,11 +19,17 @@
       direnv_cmd = lib.getExe pkgs.direnv;
     };
 
-    extraPackages = with pkgs; [
-      nodejs
-      alejandra
-      nixfmt
-    ];
+    extraPackages = with pkgs;
+      [
+        nodejs
+        alejandra
+        nixfmt
+        tree-sitter
+        ripgrep
+      ]
+      ++ lib.optionals (!stdenv.hostPlatform.isDarwin) [
+        wl-clipboard
+      ];
 
     extraPlugins = with pkgs.vimPlugins; {
       direnv = {
