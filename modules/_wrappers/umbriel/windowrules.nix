@@ -95,6 +95,7 @@
   {
     match.app_id = ''^steam_app_\d+$'';
     default_floating = true;
+    confine_pointer = true;
   }
   {
     match.app_id = ''^([Ss]team)$'';

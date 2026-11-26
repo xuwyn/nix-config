@@ -36,6 +36,7 @@ in {
     mod_key = "Super"; # Force Super instead of nested-session Alt
     xwayland = true; # Requires xwayland-satellite; restart to change
     show_cheatsheet = false; # Show the keybind overlay on startup
+    focus_on_activate = true; # Let application activation requests focus
   };
 
   workspaces = {
