@@ -5,28 +5,57 @@
   module = {
     pkgs,
     lib,
+    config,
     ...
   }: let
-    userDirs = {
-      DOWNLOAD = "Downloads";
-      DOCUMENTS = "Documents";
-      PICTURES = "Pictures";
-      MUSIC = "Music";
-      VIDEOS = "Videos";
-      SCREENSHOTS = "Pictures/Screenshots";
-    };
+    userDirs = [
+      {
+        key = "DOWNLOAD";
+        path = "Downloads";
+      }
+      {
+        key = "DOCUMENTS";
+        path = "Documents";
+      }
+      {
+        key = "PICTURES";
+        path = "Pictures";
+      }
+      {
+        key = "SCREENSHOTS";
+        path = "Pictures/Screenshots";
+      }
+      {
+        key = "MUSIC";
+        path = "Music";
+      }
+      {
+        key = "VIDEOS";
+        path = "Videos";
+      }
+    ];
   in {
     environment.systemPackages = with pkgs; [
       xdg-user-dirs
       xdg-user-dirs-gtk
     ];
 
-    hj = {
-      xdg.config.files."user-dirs.dirs".text = lib.concatLines (
-        lib.mapAttrsToList (k: v: ''XDG_${k}_DIR="$HOME/${v}"'') userDirs
-      );
-      files = lib.mapAttrs' (_: v: lib.nameValuePair v {type = "directory";}) userDirs;
-    };
+    hj.xdg.config.files."user-dirs.dirs".text =
+      lib.concatMapStringsSep "\n" (
+        d: ''XDG_${d.key}_DIR="$HOME/${d.path}"''
+      )
+      userDirs;
+
+    # GTK bookmarks (xdg user-dirs is not enough)
+    hj.xdg.config.files."gtk-3.0/bookmarks".text =
+      lib.concatMapStringsSep "\n" (
+        d: "file://${config.hj.directory}/${d.path} ${baseNameOf d.path}"
+      )
+      userDirs;
+
+    hj.files = lib.listToAttrs (
+      map (d: lib.nameValuePair d.path {type = "directory";}) userDirs
+    );
 
     xdg.portal = {
       enable = true;
@@ -52,7 +81,7 @@
       defaultVideoPlayer = "mpv.desktop";
       defaultAudioPlayer = "mpv.desktop";
       defaultBrowser = "firefox.desktop";
-      defaultFileManager = "thunar.desktop";
+      defaultFileManager = "rummage.desktop";
 
       mediaDefaults = lib.mkMerge [
         (defaultsFor "image/" defaultImageViewer)

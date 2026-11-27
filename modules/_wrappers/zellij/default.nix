@@ -32,5 +32,40 @@
         ''
         + builtins.readFile ./config.kdl
     );
+
+    layoutsContents.default = {
+      custom = ''
+        layout {
+            tab hide_floating_panes=true {
+                pane
+                pane size=1 borderless=true {
+                    plugin location="compact-bar"
+                }
+                floating_panes {
+                    pane {
+                        x "5%"
+                        y "5%"
+                        width "90%"
+                        height "90%"
+                    }
+                }
+            }
+            new_tab_template hide_floating_panes=true {
+                pane
+                pane size=1 borderless=true {
+                    plugin location="compact-bar"
+                }
+                floating_panes {
+                    pane {
+                        x "5%"
+                        y "5%"
+                        width "90%"
+                        height "90%"
+                    }
+                }
+            }
+        }
+      '';
+    };
   };
 }

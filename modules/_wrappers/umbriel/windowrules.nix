@@ -72,20 +72,8 @@
     default_pinned = true;
   }
   {
-    match.app_id = ''^([Cc]ressida)$'';
+    match.app_id = ''^([Cc]ressida|[Dd]iscord|[Vv]esktop])$'';
     opacity = 0.9;
-  }
-  {
-    match.app_id = ''^([Dd]iscord)$'';
-    opacity = 0.9;
-  }
-  {
-    match.app_id = ''^([Tt]hunar|org.gnome.Nautilus|[Pp]cmanfm-qt)$'';
-    default_floating = true;
-    default_floating_size = {
-      width = 0.6;
-      height = 0.7;
-    };
   }
   {
     match.app_id = ''^([Ss]wayimg|mpv)$'';
@@ -125,25 +113,20 @@
     default_floating = true;
   }
   {
-    match.app_id = ''^(xdg-desktop-portal-gtk)$'';
+    match.app_id = ''^(xdg-desktop-portal-gtk|org.gnome.FileRoller)$'';
     default_floating = true;
-    default_floating_size_px = {
-      width = 764;
-      height = 489;
+    default_floating_size = {
+      width = 0.4;
+      height = 0.4;
     };
     opacity = 0.90;
   }
   {
-    match = {
-      app_id = ''^([Tt]hunar)$'';
-      is_focused = true;
-    };
-    opacity = 0.90;
-  }
-  {
-    match = {
-      app_id = ''^([Tt]hunar)$'';
-      is_focused = false;
+    match.app_id = ''^([Rr]ummage)$'';
+    default_floating = true;
+    default_floating_size = {
+      width = 0.7;
+      height = 0.8;
     };
     opacity = 0.80;
   }

@@ -2,6 +2,8 @@ show_startup_tips false
 show_release_notes false
 show_setup_screen false
 
+default_layout "custom"
+
 keybinds preset="default" {
     unbind "Ctrl n" // conflicted with nvim
     shared_except "resize" "locked" {

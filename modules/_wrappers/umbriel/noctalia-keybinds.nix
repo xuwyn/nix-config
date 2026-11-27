@@ -34,8 +34,7 @@
   }
   {
     key = "SUPER + SHIFT + W";
-    # command = "noctalia msg panel-toggle wallpaper";
-    command = "noctalia msg panel-toggle ashur-d/wallpaper-widget:hub";
+    command = "noctalia msg panel-toggle wallpaper";
   }
   {
     key = "SUPER + ALT + W";
@@ -62,11 +61,11 @@
     command = "noctalia msg panel-toggle noctalia/notes:panel";
   }
   {
-    key = "SUPER + E";
+    key = "SUPER + SHIFT + E";
     command = "noctalia msg panel-toggle launcher /emo";
   }
   {
-    key = "SUPER + SHIFT + E";
+    key = "SUPER + CTRL + E";
     command = "noctalia msg panel-toggle launcher /kao";
   }
   {

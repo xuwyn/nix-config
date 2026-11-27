@@ -29,6 +29,8 @@
     environment.systemPackages = with pkgs; [
       brightnessctl # laptop backlight
       ddcutil # monitor brightness
+      file-roller # file archive
+      playerctl # media control
     ];
 
     hardware.bluetooth.enable = lib.mkDefault true;
@@ -41,9 +43,10 @@
         enable = lib.mkDefault true;
         excludePackages = [pkgs.xterm];
       };
+      udisks2.enable = lib.mkDefault true; # mounting drives
       upower.enable = lib.mkDefault true; # battery
       power-profiles-daemon.enable = lib.mkDefault true;
-      blueman.enable = lib.mkDefault true; # Bluetooth Tray
+      blueman.enable = lib.mkDefault true; # bluetooth tray
       pipewire = {
         enable = lib.mkDefault true;
         alsa.enable = lib.mkDefault true;

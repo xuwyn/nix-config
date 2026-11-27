@@ -35,7 +35,7 @@ in
     "Mod+M" = "spawn spotify";
     "Mod+Z" = "spawn zeditor";
     "Mod+O" = "spawn obs";
-    "Mod+T" = "spawn thunar";
+    "Mod+E" = "spawn rummage";
     "Mod+Y" = "scratchpad-toggle yazi";
     "Ctrl+Shift+Escape" = "scratchpad-toggle btop";
     "Mod+Q" = "window-close";

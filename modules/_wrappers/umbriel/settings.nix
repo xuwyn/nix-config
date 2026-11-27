@@ -19,6 +19,7 @@ in {
       spawn_when_empty = "kitty --class scratchpad-terminal yazi";
     }
   ];
+
   layer_rule = [
     {
       match.namespace = ''^noctalia-(bar-[^"]+|notification|dock|panel|attached-panel|osd|desktop-widget-[^"]*)$'';
@@ -44,14 +45,7 @@ in {
     empty_above = false; # Keep one empty workspace above active range
   };
 
-  workspace = let
-    kanjiNumerals = ["一" "二" "三" "四" "五"];
-    mkWorkspace = n: {
-      name = builtins.elemAt kanjiNumerals (n - 1);
-    };
-  in
-    map mkWorkspace (builtins.genList (i: i + 1) 5);
-
+  # NOTE: only work for single monitor
   output = let
     kanjiNumerals = ["一" "二" "三" "四" "五"];
     mkOutput = monitor: {

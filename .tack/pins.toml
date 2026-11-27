@@ -155,3 +155,7 @@ tag = "v{version}"
 [inputs.chaotic]
 url            = "github:chaotic-cx/nyx/nyxpkgs-unstable"
 exclude_follow = ["nixpkgs"]
+
+[inputs.rummage]
+url            = "github:barrulus/rummage/development"
+exclude_follow = ["nixpkgs"]

@@ -23,6 +23,7 @@
         '';
       in {
         # so umbriel template's apply.sh can drop the annoying warning (2026-10-25)
+        # only relevant on nixos cause wrapped umbriel's config.toml live in nix store
         hooks = {
           colors_changed = writeUmbrielConfig;
           theme_mode_changed = writeUmbrielConfig;
@@ -42,7 +43,7 @@
       umbriel
       (wm.mpv {})
       (wm.swayimg {})
-      playerctl
+      (wm.rummage {})
       noctalia
       slurp # gsr region capture
       evtest # bongocat

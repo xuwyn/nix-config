@@ -290,7 +290,6 @@
       "yocraft/web-launcher"
       "noctalia/world_clock"
       "nilsonlinux/world-radio"
-      "ashur-d/wallpaper-widget"
       "rylos/tailnet"
       "srounce/systemd"
     ];
@@ -409,7 +408,7 @@
     wallpaper_scheme = "faithful";
     templates = {
       builtin_ids = ["btop" "cava" "gtk3" "gtk4" "helix" "ghostty" "kitty" "umbriel" "qt" "luciole"];
-      community_ids = ["yazi" "zellij" "sonora" "pywalfox" "discord" "cressida" "zed" "neovim" "papirus-icons"];
+      community_ids = ["rummage" "yazi" "zellij" "sonora" "pywalfox" "discord" "cressida" "zed" "neovim" "papirus-icons"];
     };
   };
   wallpaper = {

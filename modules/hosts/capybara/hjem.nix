@@ -48,12 +48,9 @@
       };
 
     zeditor = nixGLWrap (wm.zeditor {noctaliaThemeEnabled = true;});
-    kitty = nixGLWrap (wm.kitty {noctaliaThemeEnabled = true;});
-    sonora = nixGLWrap (wm.sonora {noctaliaThemeEnabled = true;});
-    noctalia = nixGLWrap (wm.noctalia {inherit (config.custom) desktop;});
     mpv = nixGLWrap (wm.mpv {});
     swayimg = nixGLWrap (wm.swayimg {});
-    cressida = nixGLWrap inputs.cressida.packages.${system}.default;
+    rummage = nixGLWrap (wm.rummage {});
   in {
     custom.desktop = {
       monitors = map (name: {
@@ -78,7 +75,8 @@
     in
       linkDesktop zeditor "dev.zed.Zed.desktop"
       // linkDesktop mpv "mpv.desktop"
-      // linkDesktop swayimg "swayimg.desktop";
+      // linkDesktop swayimg "swayimg.desktop"
+      // linkDesktop rummage "rummage.desktop";
 
     hj.packages = with wm; [
       (cava {noctaliaThemeEnabled = true;})
@@ -91,12 +89,13 @@
       (nvf {})
       (ff {})
       zeditor
-      kitty
-      sonora
-      noctalia
       mpv
       swayimg
-      cressida
+      rummage
+      (nixGLWrap (wm.kitty {noctaliaThemeEnabled = true;}))
+      (nixGLWrap (wm.sonora {noctaliaThemeEnabled = true;}))
+      (nixGLWrap (wm.noctalia {inherit (config.custom) desktop;}))
+      (nixGLWrap inputs.cressida.packages.${system}.default)
     ];
   };
 }

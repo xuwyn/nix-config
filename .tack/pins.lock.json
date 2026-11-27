@@ -31,6 +31,7 @@
     "nur-expressions": "gitlab:rycee/nur-expressions",
     "nvf": "github:notashelf/nvf",
     "preservation": "github:nix-community/preservation",
+    "rummage": "github:barrulus/rummage/development",
     "silentSDDM": "github:uiriansan/SilentSDDM",
     "sonora": "github:sonorahq/sonora/nightly",
     "sops-nix": "github:Mic92/sops-nix",
@@ -110,9 +111,9 @@
     "type": "github",
     "owner": "Ly-sec",
     "repo": "Cressida",
-    "rev": "6cbbf0abb033e51793126af15febdd6179543832",
-    "narHash": "sha256-XB2LDu/Ay5BE6+Dpd9ueRIK5xCvNdfWzhw8rzDwGxEE=",
-    "lastModified": 1795599651,
+    "rev": "06ab88e64a7a228d280a6235fd94443d109fa558",
+    "narHash": "sha256-29wgEUmCG2hYUdTb3hwFDhfe8+ccKvGyrdc9GYYbYmY=",
+    "lastModified": 1795705324,
     "public": true
   },
   "deploy-rs": {
@@ -294,9 +295,9 @@
     "type": "github",
     "owner": "noctalia-dev",
     "repo": "noctalia",
-    "rev": "1de9999801cb8736fb5030a997db7e8409a45701",
-    "narHash": "sha256-p79LyoT3oztI1sA9CxFwntpRCU8pRx1lSPIOZPEeKUo=",
-    "lastModified": 1795487967,
+    "rev": "54958562e9f8a83aaa07eba7c0ff353ba45b1167",
+    "narHash": "sha256-ib2e733yMWJdVN58/jF+K0fGAZHMTJhcGyGfvu0/4fQ=",
+    "lastModified": 1795735096,
     "public": true
   },
   "nur-expressions": {
@@ -323,6 +324,15 @@
     "rev": "00be7f7dd1a11ae0605386f2272288de7cf33abe",
     "narHash": "sha256-s/A2rSO2Ndf8Y5yiouesnI/3Zkn9pmVGF2NxFxOUvx8=",
     "lastModified": 1792953443
+  },
+  "rummage": {
+    "type": "github",
+    "owner": "barrulus",
+    "repo": "rummage",
+    "rev": "63ca25bc8ba464d42dfa315d180354892137e792",
+    "narHash": "sha256-Y++PbwSD3puUSYnIect6EJ8oLYWZwXoojoh1vyK5uMU=",
+    "lastModified": 1795640005,
+    "public": true
   },
   "silentSDDM": {
     "type": "github",
