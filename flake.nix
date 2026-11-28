@@ -11,12 +11,12 @@
     flakePath = "nix-config"; # relative to $HOME
 
     # Thanks iynaix! <3
-    lamina = import ./lib/lamina.nix {
+    remina = import ./lib/remina.nix {
       inherit inputs;
       inherit (args) self;
     };
 
-    laminaOutputs = lamina.mkLaminaOutputs {
+    reminaOutputs = remina.mkReminaOutputs {
       modules = [./modules];
       inherit overlays;
       specialArgs = {
@@ -35,12 +35,12 @@
 
     deployOutputs = import ./deploy.nix {
       inherit inputs lib;
-      inherit (laminaOutputs) nixosConfigurations darwinConfigurations;
+      inherit (reminaOutputs) nixosConfigurations darwinConfigurations;
     };
 
     ci = import ./ci.nix {
       inherit lib;
-      inherit (laminaOutputs) nixosConfigurations darwinConfigurations;
+      inherit (reminaOutputs) nixosConfigurations darwinConfigurations;
     };
 
     wrapperModules = perSystem (_: system: let
@@ -74,8 +74,8 @@
         )
     ) ["x86_64-linux" "aarch64-linux"]);
   in {
-    inherit (laminaOutputs) darwinConfigurations hjemConfigurations;
-    nixosConfigurations = laminaOutputs.nixosConfigurations // isoConfigurations;
+    inherit (reminaOutputs) darwinConfigurations hjemConfigurations;
+    nixosConfigurations = reminaOutputs.nixosConfigurations // isoConfigurations;
     inherit (deployOutputs) deploy checks;
     inherit (ci) ciChecks ciMatrix;
     inherit wrapperModules;

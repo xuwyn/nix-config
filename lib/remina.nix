@@ -30,22 +30,22 @@
     |> map (
       path: let
         imported = import path;
-        isLamina = lib.isAttrs imported && lib.any (k: imported ? ${k}) allowedKeys; # fail loudly for typo with `modules`
+        isRemina = lib.isAttrs imported && lib.any (k: imported ? ${k}) allowedKeys; # fail loudly for typo with `modules`
         unknown =
           lib.attrNames imported
           |> lib.filter (k: !lib.elem k allowedKeys);
 
-        lamina =
-          if isLamina
+        remina =
+          if isRemina
           then
             assert lib.assertMsg (imported ? module && unknown == [])
             "${toString path}: needs a `module` key, and no unknown keys (got: ${toString unknown}); allowed: ${toString allowedKeys}"; imported
           else {module = imported;};
       in
-        lamina
+        remina
         // {
           # wrap `module` so eval errors name this file instead of <unknown-file>.
-          module = lib.setDefaultModuleLocation path lamina.module;
+          module = lib.setDefaultModuleLocation path remina.module;
         }
     );
 
@@ -86,7 +86,7 @@
           m = builtins.match "([^@]+)@([^@]+)" target;
         in
           if m == null
-          then throw ''lamina: hjem target "${target}" must look like "user@host"''
+          then throw ''remina: hjem target "${target}" must look like "user@host"''
           else {
             user = lib.elemAt m 0;
             host = lib.elemAt m 1;
@@ -146,7 +146,7 @@
         }
       )
       # used by ci to read system per config without eval
-      // {lamina = {inherit system;};};
+      // {remina = {inherit system;};};
 
   # Build an attrset of hosts that share `defaults`. Per-host values win,
   # except modules / extraModules (concatenated) and specialArgs (merged).
@@ -197,7 +197,7 @@
   #   overlays    - applied to every preset that has `applyOverlays = true`
   #   nixos / rpi / darwin / hjem - attrsets of hosts:
   #     { name = { tags, system?, specialArgs?, modules? }; }
-  mkLaminaOutputs = {
+  mkReminaOutputs = {
     modules ? [],
     specialArgs ? {},
     overlays ? [],
@@ -238,5 +238,5 @@
     hjemConfigurations = mkPreset "hjem" hjem;
   };
 in {
-  inherit recursivelyImport mkHost mkHosts mkLaminaOutputs;
+  inherit recursivelyImport mkHost mkHosts mkReminaOutputs;
 }

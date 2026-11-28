@@ -33,9 +33,9 @@
 <details>
 <summary>More details on the config structure</summary>
 
-**Lamina:** A helper library developed by
-[iynaix](https://github.com/iynaix/lamina) for multi-host setups, which I forked
-and heavily adapted for my use case (see [lamina.nix](./lib/lamina.nix)).
+**Remina:** A fork of [lamina](https://github.com/iynaix/lamina), a helper
+library originally developed by [iynaix](https://github.com/iynaix) for
+multi-host setups (see [remina.nix](./lib/remina.nix)).
 
 - **File import:** Every `.nix` file under `modules/` is imported recursively.
   Files and directories prefixed with an underscore `_` are skipped.

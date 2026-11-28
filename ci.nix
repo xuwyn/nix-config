@@ -7,7 +7,7 @@
     [nixosConfigurations darwinConfigurations]
     |> lib.concatMap (lib.mapAttrsToList (name: cfg: {
       inherit name;
-      inherit (cfg.lamina) system;
+      inherit (cfg.remina) system;
       toplevel = cfg.config.system.build.toplevel;
     }));
 

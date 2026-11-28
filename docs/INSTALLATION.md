@@ -6,10 +6,10 @@ maintenance.
 
 ## Add New Host
 
-Add a new host entry under `laminaOutputs` in [flake.nix](../flake.nix)
+Add a new host entry under `reminaOutputs` in [flake.nix](../flake.nix)
 
 ```nix
-laminaOutputs = lamina.mkLaminaOutputs {
+reminaOutputs = remina.mkReminaOutputs {
   modules = [./modules];
   inherit overlays;
   specialArgs = {
