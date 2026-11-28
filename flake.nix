@@ -82,7 +82,9 @@
 
     formatter = perSystem (pkgs: _: pkgs.alejandra);
 
-    # `nix run github:xuwyn/nix-config#wrappers.<system>.<wrapped-package>`
-    wrappers = builtins.mapAttrs (_: builtins.mapAttrs (_: module: module {})) wrapperModules;
+    # `nix run github:xuwyn/nix-config#<wrapped-package>`
+    packages =
+      perSystem (_: system:
+        builtins.mapAttrs (_: module: module {}) wrapperModules.${system});
   };
 }
