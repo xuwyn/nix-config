@@ -38,7 +38,8 @@
     "spicetify-nix": "github:Gerg-L/spicetify-nix",
     "umbrella-fetch": "github:xuwyn/Umbrella-Fetch",
     "umbriel": "github:noctalia-dev/umbriel/cachix",
-    "waydroid-script": "github:casualsnek/waydroid_script"
+    "waydroid-script": "github:casualsnek/waydroid_script",
+    "weatherspect": "github:AnotherFoxGuy/weatherspect"
   },
   "adios": {
     "type": "github",
@@ -396,6 +397,19 @@
     "archive": {
       "hash": "sha256-eGqVE2uMuPeWRu106hGDWjUUjrp26PFKcTY+P2NJoRQ=",
       "outHash": "sha256-LYicGTJQjFYPEmD8Q/iolhUudeIX6dMhmwZ76/sXmDk="
+    },
+    "public": true
+  },
+  "weatherspect": {
+    "type": "github",
+    "owner": "AnotherFoxGuy",
+    "repo": "weatherspect",
+    "rev": "0f858754b48fe08a37fd175988416699ca5d3445",
+    "narHash": "sha256-xqUJvRakUNlsKpeuB1DpH2cIA3W9EAeSL8Gygki7PAA=",
+    "lastModified": 1579690825,
+    "archive": {
+      "hash": "sha256-PvsPlpEacM9Df9UpkiNbBs2Om3/t4slC8g/WC97o0yo=",
+      "outHash": "sha256-U0IWec5+t6eurQqWoIw+61sPvH+dDqazlJIGRv19c/Q="
     },
     "public": true
   }

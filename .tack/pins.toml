@@ -159,3 +159,7 @@ exclude_follow = ["nixpkgs"]
 [inputs.rummage]
 url            = "github:barrulus/rummage"
 exclude_follow = ["nixpkgs"]
+
+[inputs.weatherspect]
+url  = "github:AnotherFoxGuy/weatherspect"
+type = "fetch"
