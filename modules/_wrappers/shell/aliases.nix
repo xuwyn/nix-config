@@ -9,7 +9,7 @@
   mvs = "nix run github:fzakaria/nixpkgs-multiverse#mvs -- ";
   ncr = "nix run github:greyxp1/ncr -- ";
   nix-graph = "nix run github:AlexAntonik/nix-graph -- ";
-  tack = "nix run github:manic-systems/tack -- ";
+  tack = "nix run github:manic-systems/tack/v2.0.0#tack -- ";
 
   hjsw = ''hjem standalone switch --flake-attr=hjemConfigurations.\"$USER@$HOST\" --flake=$HOME/nix-config'';
   hjgc = "hjem standalone expire-generations --keep-last 1";
