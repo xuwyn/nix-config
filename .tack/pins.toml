@@ -157,5 +157,5 @@ url            = "github:chaotic-cx/nyx/nyxpkgs-unstable"
 exclude_follow = ["nixpkgs"]
 
 [inputs.rummage]
-url            = "github:barrulus/rummage/development"
+url            = "github:barrulus/rummage"
 exclude_follow = ["nixpkgs"]

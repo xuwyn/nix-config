@@ -43,6 +43,13 @@
           wrap = true;
           vim = true;
         };
+
+        photos.enabled = false;
+
+        previews = {
+          media = true;
+          pdf = true;
+        };
       };
     };
 
@@ -50,7 +57,7 @@
       type = types.derivation;
       default =
         promise ({inputs}:
-          flakeInputs.rummage.packages.${inputs.nixpkgs.pkgs.stdenv.hostPlatform.system}.rummage-with-previews);
+          flakeInputs.rummage.packages.${inputs.nixpkgs.pkgs.stdenv.hostPlatform.system}.rummage-with-photos);
     };
   };
 

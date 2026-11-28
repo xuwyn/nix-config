@@ -31,7 +31,7 @@
     "nur-expressions": "gitlab:rycee/nur-expressions",
     "nvf": "github:notashelf/nvf",
     "preservation": "github:nix-community/preservation",
-    "rummage": "github:barrulus/rummage/development",
+    "rummage": "github:barrulus/rummage",
     "silentSDDM": "github:uiriansan/SilentSDDM",
     "sonora": "github:sonorahq/sonora/nightly",
     "sops-nix": "github:Mic92/sops-nix",
@@ -329,9 +329,9 @@
     "type": "github",
     "owner": "barrulus",
     "repo": "rummage",
-    "rev": "92202193f6d1cd06e8f1401101e2bd57e3a7343c",
-    "narHash": "sha256-7i3g/ZPLAGYS8aFqQ2xi/I5yylxbRv0/mSvtKZudWb8=",
-    "lastModified": 1795787822,
+    "rev": "6a7d02fb904ecfeeaccb4131f9fd5b232c684532",
+    "narHash": "sha256-sZ9NhNJV32Rt44l0Z5C9MxYh6sgQf/C/I4iOotl5m9E=",
+    "lastModified": 1795828801,
     "public": true
   },
   "silentSDDM": {
